@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>ADL</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="@ViewData["Description"]" />
-    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
 </head>
+
 <body>
-    
-    <div class="wrapper">
-        <main class="container">
-            <h1>ADL titel</h1>
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Active Differentiated Learning</a>
+        <div class="pull-right">
+        </div>
+    </div>
+    <div class="row panel">
+        <div class="col-xs-8">
             @RenderBody()
-        </main>
+        </div>
     </div>
 </body>
+
 </html>

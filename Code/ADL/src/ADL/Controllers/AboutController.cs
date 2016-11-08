@@ -3,16 +3,12 @@ using System;
 
 namespace ADL.Controllers
 {
-    public class HomeController : Controller
+    public class AboutController : Controller
     {
         public ViewResult Index()
         {
             return View();
         }
-
-        public ViewResult Time()
-        {
-            return View(DateTime.Now);
-        }
+        
     }
 }

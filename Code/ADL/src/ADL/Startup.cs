@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+
 
 namespace ADL
 {
@@ -27,6 +29,9 @@ namespace ADL
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+            //services.AddDbContext<ApplicationDbContext>(options =>
+              //  options.UseSqlite("Filename=./SportsStore.db"));
+            //services.AddTransient<IProductRepository, EFProductRepository>();
         }
     }
 }
