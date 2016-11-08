@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using ADL.Models;
 
 
 namespace ADL
@@ -20,6 +21,8 @@ namespace ADL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
+            services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,9 +32,7 @@ namespace ADL
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            //services.AddDbContext<ApplicationDbContext>(options =>
-              //  options.UseSqlite("Filename=./SportsStore.db"));
-            //services.AddTransient<IProductRepository, EFProductRepository>();
+            
         }
     }
 }
