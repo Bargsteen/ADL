@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ADL.Models
+namespace ADL.Models.Assignments
 {
     public class Assignment
     {
-        public string[] assignments { get; set; } 
-        public string headline { get; set; }
-        public string description { get; set; }
+        public string Question { get; set; }
+        public string[] Answers { get; set; }
+        public string Headline { get; set; }
+        public string Description { get; set; }
+        public int RightAnswer { get; set; }
     }
 }
