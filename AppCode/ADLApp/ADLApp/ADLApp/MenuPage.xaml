@@ -17,7 +17,6 @@
     <NavigationPage>
       <x:Arguments>
         <local:HomePage></local:HomePage>
-        <local:SolvePage></local:SolvePage>
       </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>
