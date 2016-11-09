@@ -6,7 +6,8 @@ namespace ADL.Models
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
-
+        
+        //public DbSet<AnswerOption> AnswerOptions { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
     }
 }

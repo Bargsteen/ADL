@@ -1,0 +1,8 @@
+@model IEnumerable<Assignment>
+
+<ul>
+@foreach(Assignment a in Model)
+{
+    <li>@a.Headline</li>
+}
+</ul>

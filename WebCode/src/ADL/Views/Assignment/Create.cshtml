@@ -1,0 +1,33 @@
+@model Assignment
+
+<div class="panel panel-succes">
+    <div class="panel-heading text-center">
+        <h4>Create</h4>
+    </div>
+    <div class="panel-body">
+        <form class="p-a-1" asp-action="Create" method="POST">
+            <div asp-validation-summary="All"></div>
+            <div class="form-group">
+                <label asp-for="Headline">Titel:</label>
+                <input class="form-control" asp-for="Headline" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Question">Spørgsmål:</label>
+                <input class="form-control" asp-for="Question" />
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerOptions">Svarmulighed:</label>
+                <input class="form-control" asp-for="AnswerOptions" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CorrectAnswer">Korrekte svar:</label>
+                <select class="form-control" asp-for="CorrectAnswer">
+                    <option value="0">Første svarmulighed</option>
+                </select>
+            </div>      
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Opret</button>
+            </div>
+        </form>
+    </div>
+</div>

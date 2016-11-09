@@ -6,14 +6,29 @@ namespace ADL.Controllers
 {
     public class AssignmentController : Controller
     {
-        IAssignmentRepository assignments;
-        public AssignmentController (IAssignmentRepository repo)
+        IAssignmentRepository repository;
+        public AssignmentController(IAssignmentRepository repo)
         {
-            assignments = repo;
+            repository = repo;
         }
+        [HttpGet]
         public ViewResult Create()
         {
             return View();
+        }
+        [HttpPost]
+        public ViewResult Create(Assignment assignment)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.Add(assignment);
+                return View("SuccesfullyCreated");
+            }
+            return View(); // Test om den husker, hvis vi ikke sender assignment med
+        }
+        public ViewResult List()
+        {
+            return View(repository.Assignments);
         }
         public ViewResult Solve()
         {
