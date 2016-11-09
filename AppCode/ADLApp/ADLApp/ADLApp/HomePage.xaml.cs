@@ -17,9 +17,9 @@ namespace ADLApp
             var ScanQRKode = new Image { Aspect = Aspect.AspectFit };
             FindQRKode.Source = ImageSource.FromFile("scan_qr.png");
         }
-        public void OnScanButtonClicked(object sender, EventArgs e)
+        private async void OnScanButtonClicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new SolvePage());
         }
     }
 }
