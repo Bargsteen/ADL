@@ -12,8 +12,7 @@ namespace ADLApp
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new HomePage());
+            MainPage = new MenuPage();
         }
 
         protected override void OnStart()
