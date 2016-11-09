@@ -16,13 +16,22 @@
                 <input class="form-control" asp-for="Question" />
             </div>
             <div class="form-group">
-                <label asp-for="AnswerOptions">Svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptions" />
+                <label asp-for="AnswerOptionOne">Første svarmulighed:</label>
+                <input class="form-control" asp-for="AnswerOptionOne" />
+                <label asp-for="AnswerOptionTwo">Anden svarmulighed:</label>
+                <input class="form-control" asp-for="AnswerOptionTwo" />
+                <label asp-for="AnswerOptionThree">Tredje svarmulighed:</label>
+                <input class="form-control" asp-for="AnswerOptionThree" />
+                <label asp-for="AnswerOptionFour">Fjerde svarmulighed:</label>
+                <input class="form-control" asp-for="AnswerOptionFour" />
             </div>
             <div class="form-group">
                 <label asp-for="CorrectAnswer">Korrekte svar:</label>
                 <select class="form-control" asp-for="CorrectAnswer">
                     <option value="0">Første svarmulighed</option>
+                    <option value="1">Anden svarmulighed</option>
+                    <option value="2">Tredje svarmulighed</option>
+                    <option value="3">Fjerde svarmulighed</option>
                 </select>
             </div>      
             <div class="text-center">

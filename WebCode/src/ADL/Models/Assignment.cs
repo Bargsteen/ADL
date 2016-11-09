@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ADL.Models
 {
@@ -16,8 +11,15 @@ namespace ADL.Models
         [Required(ErrorMessage = "Venligst indtast et spørgsmål")]
         [MinLengthAttribute(2)]
         public string Question { get; set; }
-        [Required(ErrorMessage = "Venligst indtast en svarmulighed")]
-        public string AnswerOptions { get; set; }     
+        [Required(ErrorMessage = "Venligst skriv mindst to svarmuligheder")]
+        [MinLengthAttribute(1)]
+        public string AnswerOptionOne { get; set; }
+        [Required(ErrorMessage = "Venligst skriv mindst to svarmuligheder")]
+        [MinLengthAttribute(1)]
+        public string AnswerOptionTwo { get; set; }
+        public string AnswerOptionThree { get; set; }
+        public string AnswerOptionFour { get; set; }
+
         [Required(ErrorMessage = "Venligst vælg det korrekte svar")]   
         public int CorrectAnswer { get; set; }
     }

@@ -21,6 +21,7 @@ namespace ADL.Models {
             context.SaveChanges();
         }
 
+        
         public void Delete(int assignmentID)
         {
             Assignment assignment = context.Assignments.FirstOrDefault(a => a.AssignmentID == assignmentID);

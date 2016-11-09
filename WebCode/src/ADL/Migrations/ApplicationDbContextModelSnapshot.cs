@@ -20,7 +20,14 @@ namespace ADL.Migrations
                     b.Property<int>("AssignmentID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AnswerOptions")
+                    b.Property<string>("AnswerOptionFour");
+
+                    b.Property<string>("AnswerOptionOne")
+                        .IsRequired();
+
+                    b.Property<string>("AnswerOptionThree");
+
+                    b.Property<string>("AnswerOptionTwo")
                         .IsRequired();
 
                     b.Property<int>("CorrectAnswer");

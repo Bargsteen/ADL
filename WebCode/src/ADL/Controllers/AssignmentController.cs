@@ -24,7 +24,7 @@ namespace ADL.Controllers
                 repository.Add(assignment);
                 return View("SuccesfullyCreated");
             }
-            return View(); // Test om den husker, hvis vi ikke sender assignment med
+            return View();
         }
         public ViewResult List()
         {

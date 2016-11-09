@@ -3,6 +3,7 @@
 <ul>
 @foreach(Assignment a in Model)
 {
-    <li>@a.Headline</li>
+    <li>@a.AssignmentID - @a.Headline</li>
 }
 </ul>
+<a asp-controller="Home" asp-action="Index">Tilbage til start</a>

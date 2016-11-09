@@ -8,8 +8,8 @@ using ADL.Models;
 namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161109111957_revised assignment")]
-    partial class revisedassignment
+    [Migration("20161109123841_Intial")]
+    partial class Intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,14 @@ namespace ADL.Migrations
                     b.Property<int>("AssignmentID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AnswerOptions")
+                    b.Property<string>("AnswerOptionFour");
+
+                    b.Property<string>("AnswerOptionOne")
+                        .IsRequired();
+
+                    b.Property<string>("AnswerOptionThree");
+
+                    b.Property<string>("AnswerOptionTwo")
                         .IsRequired();
 
                     b.Property<int>("CorrectAnswer");
