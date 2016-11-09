@@ -4,12 +4,16 @@ using System;
 
 namespace ADL.Controllers
 {
-    public class SolvingAssignmentController : Controller
+    public class AssignmentController : Controller
     {
         IAssignmentRepository assignments;
-        public SolvingAssignmentController (IAssignmentRepository repo)
+        public AssignmentController (IAssignmentRepository repo)
         {
             assignments = repo;
+        }
+        public ViewResult Create()
+        {
+            return View();
         }
         public ViewResult Solve()
         {
