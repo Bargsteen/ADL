@@ -13,7 +13,7 @@ namespace ADLApp
         {
             InitializeComponent();
 
-            MainPage = new ADLApp.MainPage();
+            MainPage = new NavigationPage(new HomePage());
         }
 
         protected override void OnStart()
