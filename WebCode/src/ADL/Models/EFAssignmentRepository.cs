@@ -20,15 +20,17 @@ namespace ADL.Models {
             context.Add(assignment);
             context.SaveChanges();
         }
+        public void Edit(Assignment editedAssignment)
+        {
+            context.Update(editedAssignment);
+            context.SaveChanges();
+        }
 
         
-        public void Delete(int assignmentID)
+        public void Delete(Assignment assignment)
         {
-            Assignment assignment = context.Assignments.FirstOrDefault(a => a.AssignmentID == assignmentID);
-            if(assignment != null)
-            {
-                context.Remove<Assignment>(assignment);
-            }
+            context.Remove(assignment);
+            context.SaveChanges();
         }
     }
 }
