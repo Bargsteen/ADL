@@ -11,6 +11,13 @@
             ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
+        },
+        {
+    "taskName": "watch",
+    "args": [
+        "run"
+    ],
+    "isWatching": true
         }
     ]
 }
