@@ -2,38 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ADLApp"
-             x:Class="ADLApp.HomePage">
+             x:Class="ADLApp.HomePage"
+             Title="Hjem"
+             >
   <ScrollView>
     <StackLayout>
       <Grid ColumnSpacing="0" RowSpacing="0">
-
-        <Grid.ColumnDefinitions>
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-          <RowDefinition Height="50"></RowDefinition>
           <RowDefinition Height="280"></RowDefinition>
           <RowDefinition Height="280"></RowDefinition>
         </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Grid.ColumnSpacing="0">
-
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
-          </Grid.ColumnDefinitions>
-
-          <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-          </Grid.RowDefinitions>
-
-          <Label Grid.Row="0" BackgroundColor="Blue" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="Hakoot"></Label>
-        </Grid>
-
-        <Button x:Name="ScanButton" Grid.Row="1" Text="Scan qr kode" Clicked="OnScanButtonClicked">
+        <Button x:Name="ScanButton" Grid.Row="0" Text="Scan qr kode" Clicked="OnScanButtonClicked">
         </Button>
-        <Button Grid.Row="2" Text="Find qr kode"></Button>
+        <Button Grid.Row="1" Text="Find qr kode"></Button>
       </Grid>
-
     </StackLayout>
   </ScrollView>
 
