@@ -21,7 +21,8 @@ namespace ADL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
+            var connectionString = @"Server=tcp:activedifferentiatedlearning.database.windows.net,1433;Initial Catalog=assignments;Persist Security Info=False;User ID={adladmin};Password={wqpLMCBE+4G4};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
         }
 
@@ -31,7 +32,7 @@ namespace ADL
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
