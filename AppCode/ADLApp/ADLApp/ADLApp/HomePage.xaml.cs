@@ -23,7 +23,7 @@ namespace ADLApp
             rClient = new RestClient("localhost:5000/api/");
             var request = new RestRequest("/GetAssignment/1");
             var response = rClient.Execute<Item>(request);
-            ScanButton.Text = response.Data.headline;
+            ScanButton.Text = response.Data.question;
             //await Navigation.PushAsync(new SolvePage());
         }
     }
