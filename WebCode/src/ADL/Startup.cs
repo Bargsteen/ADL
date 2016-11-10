@@ -35,10 +35,7 @@ namespace ADL
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseDeveloperExceptionPage();
             
         }
     }
