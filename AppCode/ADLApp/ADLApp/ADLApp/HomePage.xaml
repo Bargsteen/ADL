@@ -19,16 +19,14 @@
         <Grid Grid.Row="0" Grid.ColumnSpacing="0">
 
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="0.5*"/>
           </Grid.ColumnDefinitions>
 
           <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
           </Grid.RowDefinitions>
 
-          <Label Grid.Row="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"  Grid.Column="1" BackgroundColor="Red" Text="Toolbar"></Label>
-          <Label Grid.Row="0" Grid.Column="2" BackgroundColor="Red" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="Hakoot"></Label>
+          <Label Grid.Row="0" BackgroundColor="Blue" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="Hakoot"></Label>
         </Grid>
 
         <Button x:Name="ScanButton" Grid.Row="1" Text="Scan qr kode" Clicked="OnScanButtonClicked">
