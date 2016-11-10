@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Net;
+using ADLApp.Model;
 using RestSharp;
 
 namespace ADLApp
@@ -15,15 +16,14 @@ namespace ADLApp
         {
             InitializeComponent();
         }
+        private RestClient rClient;
+        private Uri rURL;
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
-            var client = new RestClient("http://www.localhost:5000/api/GetAssignment/");
-            var request = new RestRequest("1", Method.GET);
-            client.ExecuteAsync(request, response =>
-            {
-                ScanButton.Text = response.Content;
-            });
-
+            rClient = new RestClient("localhost:5000/api/");
+            var request = new RestRequest("/GetAssignment/1");
+            var response = rClient.Execute<Item>(request);
+            ScanButton.Text = response.Data.headline;
             //await Navigation.PushAsync(new SolvePage());
         }
     }
