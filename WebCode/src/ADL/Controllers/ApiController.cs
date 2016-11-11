@@ -6,7 +6,7 @@ namespace ADL.Controllers
 {
     public class ApiController : Controller
     {
-        IAssignmentRepository repository;
+        private IAssignmentRepository repository;
         public ApiController(IAssignmentRepository repo)
         {
             repository = repo;
