@@ -32,7 +32,7 @@ namespace ADL.Controllers
             Location location = locationRepository.Location.FirstOrDefault(l => l.LocationID == id);
             if(location != null)
             {
-                Assignment randomAssignment = assignmentRepository.Assignments.ElementAt(random.Next(0, assignmentRepository.Assignments.Count());
+                Assignment randomAssignment = assignmentRepository.Assignments.ElementAt(random.Next(0, assignmentRepository.Assignments.Count()));
                 if(randomAssignment != null)
                 {
                     return JsonConvert.SerializeObject(randomAssignment);
