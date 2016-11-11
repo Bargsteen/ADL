@@ -25,6 +25,7 @@ namespace ADL
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
+            services.AddTransient<ILocationRepository, EFLocationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
