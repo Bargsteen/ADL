@@ -21,24 +21,13 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Add(location);
+                repository.Save(location);
                 return View("SuccesfullyCreated");
             }
             return View();
         }
 
         public ViewResult Delete(int? assignmentId)
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ViewResult Edit(int? assignmentId)
-        {
-            return View();
-        }
-        [HttpPost]
-        public ViewResult Edit(Assignment editedAssignment)
         {
             return View();
         }
