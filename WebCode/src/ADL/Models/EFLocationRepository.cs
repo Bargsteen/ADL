@@ -13,7 +13,7 @@ namespace ADL.Models {
             context = ctx;
         }
 
-        public IEnumerable<Location> Locations => context.Locations;
+        public IEnumerable<Location> Location => context.Locations;
 
         public void Save(Location location)
         {
@@ -36,9 +36,9 @@ namespace ADL.Models {
             context.SaveChanges();
         }
 
-        public void Delete(Assignment assignment)
+        public void Delete(Location location)
         {
-            context.Remove(assignment);
+            context.Remove(location);
             context.SaveChanges();
         }
     }
