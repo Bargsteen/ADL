@@ -5,7 +5,11 @@
              x:Class="ADLApp.SolvePage" 
              Title="Løs her">
   <StackLayout>
-    <ListView>
-    </ListView>
+    <Label x:Name="Headline" FontSize="20"></Label>
+    <Label x:Name="Question" FontSize="10"></Label>
+    <Label x:Name="AnswerOptionOne"></Label>
+    <Label x:Name="AnswerOptionTwo"></Label>
+    <Label x:Name="AnswerOptionThree"></Label>
+    <Label x:Name="AnswerOptionFour"></Label>
   </StackLayout>
 </ContentPage>

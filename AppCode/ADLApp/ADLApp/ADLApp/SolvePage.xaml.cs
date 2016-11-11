@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ADLApp.Model;
 using Xamarin.Forms;
+using ADLApp.Models;
 
 namespace ADLApp
 {
     public partial class SolvePage : ContentPage
     {
-        public SolvePage(Item a)
+        public SolvePage(Assignment a)
         {
-            currentAssignment = a;
             InitializeComponent();
+            currentAssignment = a;
+            Headline.Text = a.Headline;
+            Question.Text = a.Question;
+            AnswerOptionOne.Text = a.AnswerOptionOne;
+            AnswerOptionTwo.Text = a.AnswerOptionTwo;
+            AnswerOptionThree.Text = a.AnswerOptionThree;
         }
-        public Item currentAssignment { get; set; }
+        public Assignment currentAssignment { get; set; }
     }
 }
