@@ -16,6 +16,7 @@ namespace ADL.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ViewResult Create(Assignment assignment)
         {
@@ -36,6 +37,7 @@ namespace ADL.Controllers
             }
             return View(nameof(List), repository.Assignments);
         }
+
         [HttpGet]
         public ViewResult Edit(int? assignmentId)
         {
@@ -46,6 +48,7 @@ namespace ADL.Controllers
             }
             return View(nameof(List), repository.Assignments);
         }
+
         [HttpPost]
         public ViewResult Edit(Assignment editedAssignment)
         {

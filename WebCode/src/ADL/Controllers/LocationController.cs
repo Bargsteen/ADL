@@ -11,11 +11,13 @@ namespace ADL.Controllers
         {
             repository = repo;
         }
+
         [HttpGet]
         public ViewResult Create()
         {
             return View();
         }
+        
         [HttpPost]
         public ViewResult Create(Location location)
         {
@@ -26,7 +28,7 @@ namespace ADL.Controllers
             }
             return View();
         }
-
+        
         public ViewResult Delete(int? assignmentId)
         {
             return View();
