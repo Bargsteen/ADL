@@ -10,11 +10,11 @@ namespace ADLApp
 {
     public partial class SolvePage : ContentPage
     {
-        public SolvePage(Assignment a)
+        public SolvePage(Item a)
         {
             currentAssignment = a;
             InitializeComponent();
         }
-        public Assignment currentAssignment { get; set; }
+        public Item currentAssignment { get; set; }
     }
 }
