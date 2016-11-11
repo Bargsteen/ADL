@@ -6,14 +6,24 @@ namespace ADL.Controllers
 {
     public class LocationController : Controller
     {
+        ILocationRepository repository;
+        public LocationController(ILocationRepository repo)
+        {
+            repository = repo;
+        }
         [HttpGet]
         public ViewResult Create()
         {
             return View();
         }
         [HttpPost]
-        public ViewResult Create(Assignment assignment)
+        public ViewResult Create(Location location)
         {
+            if (ModelState.IsValid)
+            {
+                repository.Add(location);
+                return View("SuccesfullyCreated");
+            }
             return View();
         }
 
