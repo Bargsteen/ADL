@@ -1,0 +1,26 @@
+@model IEnumerable<Assignment>
+
+@if (Model.Count() > 0) {
+    <table class="table table-bordered table-striped">
+        <tr><th>Id</th><th>Titel</th><th colspan="2">Spørgsmål</th></tr>
+        @foreach (Assignment a in Model) {
+            <tr>
+                <td>@a.AssignmentID</td><td>@a.Headline</td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="assignmentId" value="@a.AssignmentID" />
+                        <a asp-action="Edit" class="btn btn-sm btn-warning"
+                       asp-route-assignmentId="@a.AssignmentID">
+                        Rediger
+                        </a>
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Slet
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </table>
+} else {
+    <div class="text-center">Ingen opgaver blev fundet.</div>
+}
