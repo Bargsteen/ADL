@@ -13,14 +13,14 @@ namespace ADL.Controllers
             repository = repo;
         }
 
-        public JsonResult GetAssignment(int? id)
+        public string GetAssignment(int? id)
         {
             Assignment assignment = repository.Assignments.FirstOrDefault(a => a.AssignmentID == id);
             if(assignment != null)
             {
-                return Json(assignment);
+                return JsonConvert.SerializeObject(assignment);
             }
-            return null;
+            return "invalid";
         }
        
     }
