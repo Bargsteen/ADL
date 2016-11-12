@@ -2,20 +2,21 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  x:Class="ADLApp.MenuPage"
-                 xmlns:local="clr-namespace:ADLApp;assembly=ADLApp">
-                 
+                 xmlns:local="clr-namespace:ADLApp;assembly=ADLApp"
+                  x:Name="MDP">
+
   <MasterDetailPage.Master>
-    <ContentPage Title="Menu" >
-        <StackLayout Margin="50" Orientation="Vertical">
-          <Button Text="Ret Profil" BackgroundColor="#8DBDD8"></Button>
-          <Button Text="Indstillinger" BackgroundColor="#8DBDD8"></Button>
-          <Button Text="Hjælp" BackgroundColor="#8DBDD8"></Button>
-          <Button Text="Log ud" BackgroundColor="#8DBDD8"></Button>
-        </StackLayout>
+    <ContentPage Title="Menu">
+      <StackLayout Margin="50" Orientation="Vertical">
+        <Button Text="Ret Profil" BackgroundColor="#8DBDD8"></Button>
+        <Button Text="Indstillinger" BackgroundColor="#8DBDD8"></Button>
+        <Button Text="Hjælp" BackgroundColor="#8DBDD8"></Button>
+        <Button Text="Log ud" BackgroundColor="#8DBDD8"></Button>
+      </StackLayout>
     </ContentPage>
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
-    <NavigationPage BarBackgroundColor="#8DBDD8">
+    <NavigationPage NavigationPage.HasBackButton="False" BarBackgroundColor="#8DBDD8">
       <x:Arguments>
         <local:HomePage></local:HomePage>
       </x:Arguments>

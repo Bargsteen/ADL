@@ -8,7 +8,7 @@ using System.Net;
 using RestSharp;
 using System.Threading;
 using Newtonsoft;
-using ADLApp.Models;
+using ADLApp.ViewModel;
 
 namespace ADLApp
 {
@@ -21,11 +21,15 @@ namespace ADLApp
         private RestClient rClient;
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
+            ScanButton.IsEnabled = false;
             rClient = new RestClient("http://activedifferentiatedlearning.azurewebsites.net/api");
-            var request = new RestRequest("/GetAssignment/5", Method.GET);
+            var request = new RestRequest("/GetAssignment/6", Method.GET);
             request.RequestFormat = DataFormat.Json;
             IRestResponse<Assignment> b = await rClient.ExecuteGetTaskAsync<Assignment>(request);
-            await Navigation.PushAsync(new SolvePage(b.Data));
+            SolvePage nextPage = new SolvePage(b.Data);
+            nextPage.Title = b.Data.Headline;
+            await Navigation.PushAsync(nextPage);
+            ScanButton.IsEnabled = true;
         }
     }
-}
+} 

@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ADLApp"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ADLApp.HomePage"
-             Title="Hjem"
-             >
+             Title="ADL">
   <ScrollView>
     <StackLayout>
-      <Button x:Name="ScanButton" Grid.Row="0" Text="Scan qr kode" Clicked="OnScanButtonClicked"></Button>
-      <Button Grid.Row="1" Text="Find qr kode"></Button>
+      <Button x:Name="ScanButton" Button.Image="scan_qr.png" Text="Scan qr kode" Clicked="OnScanButtonClicked"></Button>
+      <Button Button.Image="find_qr.png" Text="Find qr kode"></Button>
     </StackLayout>
   </ScrollView>
 

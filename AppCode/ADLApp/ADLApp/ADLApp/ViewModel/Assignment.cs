@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADLApp.Models
+namespace ADLApp.ViewModel
 {
     public class Assignment
     {

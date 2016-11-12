@@ -4,21 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using ADLApp.Models;
+using ADLApp.ViewModel;
+using System.Collections.ObjectModel;
+using Xamarin.Forms.Pages;
 
 namespace ADLApp
 {
     public partial class SolvePage : ContentPage
     {
-        public SolvePage(Assignment a)
+        public string[] answerOptions { get; set; }
+        public SolvePage(Assignment currentAssignment)
         {
             InitializeComponent();
-            currentAssignment = a;
-            Headline.Text = a.Headline;
-            Question.Text = a.Question;
-            AnswerOptionOne.Text = a.AnswerOptionOne;
-            AnswerOptionTwo.Text = a.AnswerOptionTwo;
-            AnswerOptionThree.Text = a.AnswerOptionThree;
+            Title = currentAssignment.Headline;
+            this.currentAssignment = currentAssignment;
+            Question.Text = this.currentAssignment.Question;
+            answerOptions = new string[] { currentAssignment.AnswerOptionOne,
+                                           currentAssignment.AnswerOptionTwo,
+                                           currentAssignment.AnswerOptionThree,
+                                           currentAssignment.AnswerOptionFour};
+            answerOptionView.ItemsSource = answerOptions;
+        }
+
+        private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
+        {
+            if (Array.IndexOf(answerOptions, answerOptionView.SelectedItem) == currentAssignment.CorrectAnswer)
+            {
+                this.BackgroundColor = Color.Green;
+            }
+            else
+            {
+                this.BackgroundColor = Color.Red;
+            }
         }
         public Assignment currentAssignment { get; set; }
     }
