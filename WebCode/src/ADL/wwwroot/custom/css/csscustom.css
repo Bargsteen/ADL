@@ -1,0 +1,18 @@
+﻿body {
+    font-family: Raleway;
+}
+.glyphicon-large {
+    font-size: 70px;
+}
+
+.call-to-action {
+    text-align: center;
+}
+
+.jumbotron {
+    background: url(pics/jumbbg.jpg) center center;
+}
+
+.jumbotron h1, .jumbotron p {
+    color: #ffffff;
+}
