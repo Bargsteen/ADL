@@ -1,5 +1,7 @@
 ﻿body {
+
 }
+
 .glyphicon-large {
     font-size: 70px;
 }
@@ -8,10 +10,16 @@
     text-align: center;
 }
 
-.jumbotron {
-    background: url(../images/jumbbg.jpg) center center;
+.jumbotron-fix {
+    background: url(../images/jumbbg.jpg);
+    min-height: 400px;
 }
 
-.jumbotron h1, .jumbotron p {
+.jumbotron-fix h1, .jumbotron p {
     color: #ffffff;
 }
+
+.jumbotron-create {
+    background-color: palegreen;
+}
+
