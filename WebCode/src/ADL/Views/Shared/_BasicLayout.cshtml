@@ -1,8 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html lang="da" xml:lang="da">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta http-equiv="Content-Type" content="text/html">
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width" />
@@ -10,11 +10,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/csscustom.css">
+    <link rel="stylesheet" type="text/css" href="custom/css/csscustom.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -29,7 +29,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Assignment" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a></li>
                     <li><a asp-controller="Assignment" asp-action="List"><span class="glyphicon glyphicon-paperclip"></span> Opgavebibliotek</a></li>
-                    <li><a href="#contact"><span class="glyphicon glyphicon-stats"></span> Statestik</a></li>
+                    <li><a href="#contact"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Dropdown <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -52,7 +52,6 @@
     </nav>
 
     <div class="container body-content">
-        <br><br>
         @RenderBody()
         <hr />
         <footer>

@@ -1,5 +1,4 @@
 ﻿body {
-    font-family: Raleway;
 }
 .glyphicon-large {
     font-size: 70px;
@@ -10,7 +9,7 @@
 }
 
 .jumbotron {
-    background: url(pics/jumbbg.jpg) center center;
+    background: url(../images/jumbbg.jpg) center center;
 }
 
 .jumbotron h1, .jumbotron p {
