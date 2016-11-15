@@ -12,33 +12,34 @@ namespace ADL.Controllers
             repository = repo;
         }
 
-        [HttpGet]
-        public ViewResult Create()
-        {
-            return View();
-        }
-        
+        public ViewResult Edit(int locationId) =>
+            View(repository.Locations.FirstOrDefault(l => l.LocationID == locationId));
+
         [HttpPost]
-        public ViewResult Create(Location location)
+        public IActionResult Edit(Location location)
         {
-            if (ModelState.IsValid)
-            {
-                repository.Save(location);
-                return View("SuccesfullyCreated");
+            if (ModelState.IsValid) {
+                repository.SaveLocation(location);
+                TempData["message"] = $"{location.Title} has been saved";
+                return RedirectToAction("Index");
+            } else {
+                // there is something wrong with the data values
+                return View(location);
             }
-            return View();
         }
-        
-        public ViewResult Delete(int? assignmentId)
-        {
-            return View();
+
+        public ViewResult Create() => View(nameof(Edit), new Location());
+
+        [HttpPost]
+        public IActionResult Delete(int locationId) {
+            Location deletedLocation = repository.DeleteLocation(locationId);
+            if (deletedLocation != null) {
+                TempData["message"] = $"{deletedLocation.Title} was deleted";
+            }
+            return RedirectToAction("Index");
         }
 
         public ViewResult List()
-        {
-            return View();
-        }
-        public ViewResult Solve()
         {
             return View();
         }

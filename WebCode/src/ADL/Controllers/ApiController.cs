@@ -3,6 +3,7 @@ using ADL.Models;
 using System.Linq;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace ADL.Controllers
 {
@@ -29,7 +30,7 @@ namespace ADL.Controllers
 
         public string Location(int? id)
         {
-            Location location = locationRepository.Location.FirstOrDefault(l => l.LocationID == id);
+            Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationID == id);
             if(location != null)
             {
                 Assignment randomAssignment = assignmentRepository.Assignments.ElementAt(random.Next(0, assignmentRepository.Assignments.Count()));
@@ -39,6 +40,12 @@ namespace ADL.Controllers
                 }
             }
             return "Location does not exist";
+        }
+
+        public string LocationList()
+        {
+            List<int> allLocationIds = locationRepository.Locations.Select(l => l.LocationID).ToList();
+            return JsonConvert.SerializeObject(allLocationIds);
         }
     }
 }

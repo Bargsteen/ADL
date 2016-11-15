@@ -15,19 +15,21 @@ namespace ADL.Models {
 
         public IEnumerable<Assignment> Assignments => context.Assignments;
 
-        public void Add(Assignment assignment)
+        public void SaveAssignment(Assignment assignment)
         {
-            context.Add(assignment);
+            if(assignment.AssignmentID == 0)
+            {
+                // New assignment
+                context.Add(assignment);
+            }
+            else
+            {
+                context.Update(assignment);
+            }
             context.SaveChanges();
         }
-        public void Edit(Assignment editedAssignment)
-        {
-            context.Update(editedAssignment);
-            context.SaveChanges();
-        }
-
         
-        public void Delete(Assignment assignment)
+        public void DeleteAssignment(Assignment assignment)
         {
             context.Remove(assignment);
             context.SaveChanges();

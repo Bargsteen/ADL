@@ -3,8 +3,8 @@ using System.Collections.Generic;
 namespace ADL.Models {
 
     public interface ILocationRepository {
-        IEnumerable<Location> Location { get; }
-        void Save(Location location);
-        void Delete(Location location);
+        IEnumerable<Location> Locations { get; }
+        void SaveLocation(Location location);
+        Location DeleteLocation(int locationId);
     }
 }
