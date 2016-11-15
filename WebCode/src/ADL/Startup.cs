@@ -18,7 +18,8 @@ namespace ADL
     {
         IConfigurationRoot Configuration;
 
-        public Startup(IHostingEnvironment env) {
+        public Startup(IHostingEnvironment env)
+        {
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
@@ -37,6 +38,8 @@ namespace ADL
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
+            //services.AddMemoryCache();
+            //services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +49,7 @@ namespace ADL
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.UseDeveloperExceptionPage();
-            
+            //app.UseSession();
         }
     }
 }
