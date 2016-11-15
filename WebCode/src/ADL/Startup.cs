@@ -16,6 +16,14 @@ namespace ADL
 {
     public class Startup
     {
+        IConfigurationRoot Configuration;
+
+        public Startup(IHostingEnvironment env) {
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json")
+                .Build();
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -23,7 +31,10 @@ namespace ADL
             services.AddMvc();
             //var connectionString = @"Server=tcp:adlearning.database.windows.net,1433;Initial Catalog=assignments;Persist Security Info=False;User ID={adladmin};Password={wqpLMCBE+4G4};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration["Data:ADL:ConnectionString"]));
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
         }
@@ -31,11 +42,9 @@ namespace ADL
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext db)
         {
-            db.Database.Migrate();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-
             app.UseDeveloperExceptionPage();
             
         }
