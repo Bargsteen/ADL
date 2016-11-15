@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -8,7 +8,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="custom/css/csscustom.css">
+    <<link rel="stylesheet" type="text/css" href="../custom/css/csscustom.css">
+
 </head>
 
 <body>
@@ -29,10 +30,10 @@
                     <li><a asp-controller="Assignment" asp-action="List"><span class="glyphicon glyphicon-paperclip"></span> Opgavebibliotek</a></li>
                     <li><a href="#contact"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Dropdown <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Menu <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
+                            <li><a asp-controller="Location" asp-action="Save">Opret Lokation</a></li>
+                            <li><a asp-controller="Location" asp-action="List">Se lokationer</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Nav header</li>
