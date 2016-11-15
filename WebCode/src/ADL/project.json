@@ -1,11 +1,10 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
       "type": "platform"
     },
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
-    
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
@@ -24,9 +23,9 @@
     "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0",
     "Microsoft.EntityFrameworkCore.Design": {
       "version": "1.0.0-preview2-final",
-      "type": "build" 
-    }
-
+      "type": "build"
+    },
+    "QRCoder": "1.2.2"
   },
 
   "tools": {
