@@ -2315,6 +2315,9 @@ namespace ADLApp.Droid
 			// aapt resource value: 0x7f07001f
 			public const int collapseActionView = 2131165215;
 			
+			// aapt resource value: 0x7f07009a
+			public const int contentFrame = 2131165338;
+			
 			// aapt resource value: 0x7f07004a
 			public const int contentPanel = 2131165258;
 			
@@ -2932,6 +2935,12 @@ namespace ADLApp.Droid
 			
 			// aapt resource value: 0x7f030038
 			public const int Toolbar = 2130903096;
+			
+			// aapt resource value: 0x7f030039
+			public const int zxingscanneractivitylayout = 2130903097;
+			
+			// aapt resource value: 0x7f03003a
+			public const int zxingscannerfragmentlayout = 2130903098;
 			
 			static Layout()
 			{

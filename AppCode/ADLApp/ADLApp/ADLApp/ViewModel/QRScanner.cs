@@ -13,20 +13,12 @@ namespace ADLApp.ViewModel
         public async Task<string> ScanAndGetOutputString()
         {
             Result res = await GetResult();
-            return await HandleResult(res);
+            return res.Text;
         }
         public async Task<Result> GetResult()
         {
             MobileBarcodeScanner scanner = new MobileBarcodeScanner();
             return await scanner.Scan();
-        }
-        private async Task<string> HandleResult(ZXing.Result res)
-        {
-            if (res != null)
-            {
-                return res.Text.ToString();
-            }
-            else return ".....";
         }
     }
 }
