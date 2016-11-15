@@ -13,30 +13,39 @@ namespace ADLApp
     public partial class SolvePage : ContentPage
     {
         public string[] answerOptions { get; set; }
+        public Assignment currentAssignment { get; set; }
         public SolvePage(Assignment currentAssignment)
         {
             InitializeComponent();
             Title = currentAssignment.Headline;
             this.currentAssignment = currentAssignment;
             Question.Text = this.currentAssignment.Question;
-            answerOptions = new string[] { currentAssignment.AnswerOptionOne,
-                                           currentAssignment.AnswerOptionTwo,
-                                           currentAssignment.AnswerOptionThree,
-                                           currentAssignment.AnswerOptionFour};
-            answerOptionView.ItemsSource = answerOptions;
+            if (currentAssignment is MultipleChoiceAssignment)
+            {
+                MultipleChoiceAssignment MPCAssignment = currentAssignment as MultipleChoiceAssignment;
+                answerOptions = new string[] { MPCAssignment.AnswerOptionOne,
+                                           MPCAssignment.AnswerOptionTwo,
+                                           MPCAssignment.AnswerOptionThree,
+                                           MPCAssignment.AnswerOptionFour
+            };
+                answerOptionView.ItemsSource = answerOptions;
+            }
         }
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            if (Array.IndexOf(answerOptions, answerOptionView.SelectedItem) == currentAssignment.CorrectAnswer)
+            if (currentAssignment is MultipleChoiceAssignment)
             {
-                this.BackgroundColor = Color.Green;
-            }
-            else
-            {
-                this.BackgroundColor = Color.Red;
+                if (Array.IndexOf(answerOptions, answerOptionView.SelectedItem) == ((MultipleChoiceAssignment)currentAssignment).CorrectAnswer)
+                {
+                    this.BackgroundColor = Color.Green;
+                }
+                else
+                {
+                    this.BackgroundColor = Color.Red;
+
+                }
             }
         }
-        public Assignment currentAssignment { get; set; }
     }
 }

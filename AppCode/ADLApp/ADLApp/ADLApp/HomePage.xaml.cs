@@ -9,27 +9,40 @@ using RestSharp;
 using System.Threading;
 using Newtonsoft;
 using ADLApp.ViewModel;
+using ZXing.Mobile;
+using ZXing;
 
 namespace ADLApp
 {
     public partial class HomePage : ContentPage
     {
+        private IScanner qrScanner = new QRScanner();
+        private IAssignmentLoader assignmentLoader = new AssignmentLoader("http://activedifferentiatedlearning.azurewebsites.net/api");
         public HomePage()
         {
             InitializeComponent();
         }
-        private RestClient rClient;
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
             ScanButton.IsEnabled = false;
-            rClient = new RestClient("http://activedifferentiatedlearning.azurewebsites.net/api");
-            var request = new RestRequest("/GetAssignment/6", Method.GET);
-            request.RequestFormat = DataFormat.Json;
-            IRestResponse<Assignment> b = await rClient.ExecuteGetTaskAsync<Assignment>(request);
-            SolvePage nextPage = new SolvePage(b.Data);
-            nextPage.Title = b.Data.Headline;
+            //Assignment currentAssignment = new MultipleChoiceAssignment(); 
+            Assignment currentassignment = await assignmentLoader.GetAssignment("/GetAssignment/6");
+            SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
             await Navigation.PushAsync(nextPage);
             ScanButton.IsEnabled = true;
         }
+        private async void OnClicked(object sender, EventArgs e)
+        {
+            MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
+            //mpAssignment.Headline = await qrScanner.ScanAndGetOutputString();
+            string s = await qrScanner.ScanAndGetOutputString();
+            Assignment currentassignment = await assignmentLoader.GetAssignment("/GetAssignment/" + s);
+            SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
+            await Navigation.PushAsync(nextPage);
+            ScanButton.IsEnabled = true;
+            //ScanButton.Text = mpAssignment.Headline;
+            //SolvePage nextPage = new SolvePage(mpAssignment);
+            //await Navigation.PushAsync(nextPage);
+        }
     }
-} 
+}
