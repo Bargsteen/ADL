@@ -22,7 +22,7 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid) {
                 repository.SaveLocation(location);
-                TempData["message"] = $"{location.Title} has been saved";
+                //TempData["message"] = $"{location.Title} has been saved";
                 return RedirectToAction("Index");
             } else {
                 // there is something wrong with the data values
@@ -35,9 +35,9 @@ namespace ADL.Controllers
         [HttpPost]
         public IActionResult Delete(int locationId) {
             Location deletedLocation = repository.DeleteLocation(locationId);
-            if (deletedLocation != null) {
+           /* if (deletedLocation != null) {
                 TempData["message"] = $"{deletedLocation.Title} was deleted";
-            }
+            }*/
             return RedirectToAction("Index");
         }
 
@@ -66,7 +66,7 @@ namespace ADL.Controllers
 
         public ViewResult List()
         {
-            return View();
+            return View(repository.Locations);
         }
     }
 }
