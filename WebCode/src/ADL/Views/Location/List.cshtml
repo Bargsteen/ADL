@@ -5,13 +5,12 @@
         <tr><th>Id</th><th>Titel</th><th colspan="2">Beskrivelse</th></tr>
         @foreach (Location l in Model) {
             <tr>
-                <td>@l.LocationID</td><td>@l.Headline</td>
+                <td>@l.LocationID</td><td>@l.Title</td>
                 <td>
                     <form asp-action="Delete" method="post">
                         <input type="hidden" name="locationid" value="@l.LocationID" />
-                        <a asp-action="Edit" class="btn btn-sm btn-warning"
-                       asp-route-assignmentId="@l.LocationID">
-                        Rediger
+                        <a asp-action="Generate_QR" class="btn btn-sm btn-warning" asp-route-locationID="@l.LocationID">
+                            Generer QR Kode
                         </a>
                         <button type="submit" class="btn btn-sm btn-danger">
                             Slet
@@ -20,7 +19,10 @@
                 </td>
             </tr>
         }
-        </table>
-} else {
+    </table>
+
+}
+else
+{
     <div class="text-center">Ingen opgaver blev fundet.</div>
 }
