@@ -13,33 +13,51 @@ namespace ADL.Models {
             context = ctx;
         }
 
-        public IEnumerable<Location> Location => context.Locations;
+        public IEnumerable<Location> Locations => context.Locations;
 
-        public void Save(Location location)
-        {
-            bool exists = false;
-            foreach (Location DBLocation in context.Locations)
-            {
-                if (DBLocation.LocationID == location.LocationID)
-                {
-                    exists = true;
+
+        /*public void SaveProduct(Product product) {
+            if (product.ProductID == 0) {
+                context.Products.Add(product);
+            } else {
+                Product dbEntry = context.Products
+                    .FirstOrDefault(p => p.ProductID == product.ProductID);
+                if (dbEntry != null) {
+                    dbEntry.Name = product.Name;
+                    dbEntry.Description = product.Description;
+                    dbEntry.Price = product.Price;
+                    dbEntry.Category = product.Category;
                 }
             }
-            if (exists == false)
+            context.SaveChanges();
+        }*/
+        public void SaveLocation(Location location)
+        {
+            if(location.LocationID == 0) 
             {
-                context.Add(location);
+                // This is a new location
+                context.Locations.Add(location);
             }
             else
             {
-                context.Update(location);
+                Location dbEntry = context.Locations.FirstOrDefault(l => l.LocationID == location.LocationID);
+                if(dbEntry != null)
+                {
+                    dbEntry = location;
+                    context.Update(location);
+                }
             }
             context.SaveChanges();
         }
 
-        public void Delete(Location location)
-        {
-            context.Remove(location);
-            context.SaveChanges();
+        public Location DeleteLocation(int locationId) {
+            Location dbEntry = context.Locations
+                .FirstOrDefault(l => l.LocationID == locationId);
+            if (dbEntry != null) {
+                context.Locations.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
         }
     }
 }

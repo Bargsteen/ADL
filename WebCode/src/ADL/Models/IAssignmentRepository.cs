@@ -4,8 +4,8 @@ namespace ADL.Models {
 
     public interface IAssignmentRepository {
         IEnumerable<Assignment> Assignments { get; }
-        void Add(Assignment assignment);
-        void Delete(Assignment assignment);
-        void Edit(Assignment EditedAssignment);
+        void SaveAssignment(Assignment EditedAssignment);
+        void DeleteAssignment(Assignment assignment);
+
     }
 }

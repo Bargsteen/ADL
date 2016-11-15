@@ -22,7 +22,7 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Add(assignment);
+                repository.SaveAssignment(assignment);
                 return View("SuccesfullyCreated");
             }
             return View();
@@ -33,7 +33,7 @@ namespace ADL.Controllers
             Assignment assignment = repository.Assignments.FirstOrDefault(a => a.AssignmentID == assignmentId);
             if(assignment != null)
             {
-                repository.Delete(assignment);
+                repository.DeleteAssignment(assignment);
             }
             return View(nameof(List), repository.Assignments);
         }
@@ -52,7 +52,7 @@ namespace ADL.Controllers
         [HttpPost]
         public ViewResult Edit(Assignment editedAssignment)
         {
-            repository.Edit(editedAssignment);
+            repository.SaveAssignment(editedAssignment);
             return View("SuccesfullyEdited");
         }
 
