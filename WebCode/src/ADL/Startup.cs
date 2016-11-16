@@ -48,18 +48,19 @@ namespace ADL
             
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
-            //services.AddMemoryCache();
-            //services.AddSession();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext db)
         {
+            app.UseSession();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.UseDeveloperExceptionPage();
-            //app.UseSession();
+            
         }
     }
 }
