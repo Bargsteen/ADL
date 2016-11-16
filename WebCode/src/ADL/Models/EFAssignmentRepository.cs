@@ -17,14 +17,18 @@ namespace ADL.Models {
 
         public void SaveAssignment(Assignment assignment)
         {
-            if(assignment.AssignmentID == 0)
+            if(assignment.AssignmentId == 0)
             {
                 // New assignment
                 context.Add(assignment);
             }
             else
             {
-                context.Update(assignment);
+                Assignment dbEntry = context.Assignments.FirstOrDefault(a => a.AssignmentId == assignment.AssignmentId);
+                if(dbEntry != null)
+                {
+                    dbEntry.Headline = assignment.Headline;    
+                }
             }
             context.SaveChanges();
         }

@@ -33,18 +33,18 @@ namespace ADL.Models {
         }*/
         public void SaveLocation(Location location)
         {
-            if(location.LocationID == 0) 
+            if(location.LocationId == 0) 
             {
                 // This is a new location
                 context.Locations.Add(location);
             }
             else
             {
-                Location dbEntry = context.Locations.FirstOrDefault(l => l.LocationID == location.LocationID);
+                Location dbEntry = context.Locations.FirstOrDefault(l => l.LocationId == location.LocationId);
                 if(dbEntry != null)
                 {
                     dbEntry = location;
-                    context.Update(location);
+                    context.Update(dbEntry);
                 }
             }
             context.SaveChanges();
@@ -52,7 +52,7 @@ namespace ADL.Models {
 
         public Location DeleteLocation(int locationId) {
             Location dbEntry = context.Locations
-                .FirstOrDefault(l => l.LocationID == locationId);
+                .FirstOrDefault(l => l.LocationId == locationId);
             if (dbEntry != null) {
                 context.Locations.Remove(dbEntry);
                 context.SaveChanges();

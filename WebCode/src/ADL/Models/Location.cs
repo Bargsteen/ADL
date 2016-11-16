@@ -4,7 +4,7 @@ namespace ADL.Models
 {
     public class Location
     {
-        public int LocationID { get; set; }
+        public int LocationId { get; set; }
 
         [Required(ErrorMessage = "Venligst indtast en titel")]
         [MinLengthAttribute(2)]
