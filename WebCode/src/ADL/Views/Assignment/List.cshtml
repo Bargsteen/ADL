@@ -5,12 +5,12 @@
         <tr><th>Id</th><th>Titel</th><th colspan="2">Spørgsmål</th></tr>
         @foreach (Assignment a in Model) {
             <tr>
-                <td>@a.AssignmentID</td><td>@a.Headline</td>
+                <td>@a.AssignmentId</td><td>@a.Headline</td>
                 <td>
                     <form asp-action="Delete" method="post">
-                        <input type="hidden" name="assignmentId" value="@a.AssignmentID" />
+                        <input type="hidden" name="assignmentId" value="@a.AssignmentId" />
                         <a asp-action="Edit" class="btn btn-sm btn-warning"
-                       asp-route-assignmentId="@a.AssignmentID">
+                       asp-route-assignmentId="@a.AssignmentId">
                         Rediger
                         </a>
                         <button type="submit" class="btn btn-sm btn-danger">

@@ -25,7 +25,7 @@ namespace ADL.Controllers
             {
                 return JsonConvert.SerializeObject(assignment);
             }
-            return "Invalid AssignmentID given.";
+            return "Invalid AssignmentId given.";
         }
 
         public string Location(int? id)

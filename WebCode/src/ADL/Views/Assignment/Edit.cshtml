@@ -7,7 +7,7 @@
     <div class="panel-body">
         <form class="p-a-1" asp-action="Edit" method="POST">
             <div asp-validation-summary="All"></div>
-            <input type="hidden" value="@Model.AssignmentID" asp-for="AssignmentID" />
+            <input type="hidden" value="@Model.AssignmentId" asp-for="AssignmentId" />
             <div class="form-group">
                 <label asp-for="Headline">Titel:</label>
                 <input class="form-control" asp-for="Headline" />

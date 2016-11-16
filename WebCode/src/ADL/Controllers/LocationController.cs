@@ -14,8 +14,11 @@ namespace ADL.Controllers
             repository = repo;
         }
 
+        public ViewResult List() => View(repository.Locations);
+
         public ViewResult Edit(int locationId) =>
-            View(repository.Locations.FirstOrDefault(l => l.LocationId == locationId));
+            View(repository.Locations
+                .FirstOrDefault(l => l.LocationId == locationId));
 
         [HttpPost]
         public IActionResult Edit(Location location)
@@ -23,31 +26,32 @@ namespace ADL.Controllers
             if (ModelState.IsValid) {
                 repository.SaveLocation(location);
                 //TempData["message"] = $"{location.Title} has been saved";
-                return RedirectToAction("SuccesfullyCreated", location);
+                return RedirectToAction(nameof(List));
             } else {
                 // there is something wrong with the data values
                 return View(location);
             }
         }
 
+        // Uses edit view, but gives it a new location as input
         public ViewResult Create() => View(nameof(Edit), new Location());
 
         [HttpPost]
         public IActionResult Delete(int locationId) {
             Location deletedLocation = repository.DeleteLocation(locationId);
-           /* if (deletedLocation != null) {
-                TempData["message"] = $"{deletedLocation.Title} was deleted";
-            }*/
-            return RedirectToAction("Index");
+            if (deletedLocation != null) {
+                //TempData["message"] = $"{deletedLocation.Title} was deleted";
+            }
+            return RedirectToAction(nameof(List));
         }
 
         public ViewResult GenerateQR(int locationID)
         {
-            QRByteArraytoImageDataURL(PathtoQRByteArray(LocationIDtoPath(locationID)));
+            QRByteArraytoImageDataURL(PathtoQRByteArray(LocationIdtoPath(locationID)));
             return View();
         }
 
-        private string LocationIDtoPath(int locationID)
+        private string LocationIdtoPath(int locationID)
         {
             /*Combine the locationID and the path into a single string*/
             string path = $"~/images/{locationID}";
@@ -71,11 +75,12 @@ namespace ADL.Controllers
 
             return qrByteArray;
         }
-<<<<<<< HEAD
 
         public string ByteArraytoURL(Byte[] qrCodeByteArray)
-=======
->>>>>>> 9bdd600f757df5ea1e2186c92d5da17bfc7dec05
+        {
+            return "";
+        }
+
 
         private string QRByteArraytoImageDataURL(Byte[] inputByteArray)
         {
@@ -88,9 +93,6 @@ namespace ADL.Controllers
             return imageDataURL;
         }
 
-        public ViewResult List()
-        {
-            return View(repository.Locations);
-        }
+        
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ADL.Migrations
 {
-    public partial class Intial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace ADL.Migrations
                 name: "Assignments",
                 columns: table => new
                 {
-                    AssignmentID = table.Column<int>(nullable: false)
+                    AssignmentId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
                     AnswerOptionFour = table.Column<string>(nullable: true),
                     AnswerOptionOne = table.Column<string>(nullable: false),
@@ -24,7 +24,21 @@ namespace ADL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Assignments", x => x.AssignmentID);
+                    table.PrimaryKey("PK_Assignments", x => x.AssignmentId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    LocationId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Description = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.LocationId);
                 });
         }
 
@@ -32,6 +46,9 @@ namespace ADL.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Assignments");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
         }
     }
 }

@@ -2,21 +2,22 @@
 
 <div class="panel panel-succes">
     <div class="panel-heading text-center">
-        <h4>Opret en Location</h4>
+        <h4>Lokation!!</h4>
     </div>
     <div class="panel-body">
-        <form class="p-a-1" asp-action="Create" method="POST">
+        <form class="p-a-1" asp-action="Edit" method="POST">
             <div asp-validation-summary="All"></div>
+            <input type="hidden" value="@Model.LocationId" asp-for="LocationId" />
             <div class="form-group">
                 <label asp-for="Title">Titel:</label>
                 <input class="form-control" asp-for="Title" />
             </div>
             <div class="form-group">
-                <label asp-for="Description">Description:</label>
+                <label asp-for="Description">Beskrivelse:</label>
                 <input class="form-control" asp-for="Description" />
-            </div>
+            </div>    
             <div class="text-center">
-                <button class="btn btn-primary" type="submit">Opret</button>
+                <button class="btn btn-primary" type="submit">Gem</button>
             </div>
         </form>
     </div>

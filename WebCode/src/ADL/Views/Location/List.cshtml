@@ -5,12 +5,12 @@
         <tr><th>Id</th><th>Titel</th><th colspan="2">Beskrivelse</th></tr>
         @foreach (Location l in Model) {
             <tr>
-                <td>@l.LocationID</td><td>@l.Title</td>
+                <td>@l.LocationId</td><td>@l.Title</td>
                 <td>
                     <form asp-action="Delete" method="post">
-                        <input type="hidden" name="locationId" value="@l.LocationID" />
+                        <input type="hidden" name="locationId" value="@l.LocationId" />
                         <a asp-action="Edit" class="btn btn-sm btn-warning"
-                       asp-route-locationId="@l.LocationID">
+                       asp-route-locationId="@l.LocationId">
                         Rediger
                         </a>
                         <button type="submit" class="btn btn-sm btn-danger">
