@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace ADLApp.ViewModel
 {
-    public class Assignment
+    public abstract class Assignment
     {
         public int AssignmentID { get; set; }
         public string Headline { get; set; }
         public string Question { get; set; }
-        public string AnswerOptionOne { get; set; }
-        public string AnswerOptionTwo { get; set; }
-        public string AnswerOptionThree { get; set; }
-        public string AnswerOptionFour { get; set; }
-        public int CorrectAnswer { get; set; }
     }
 }

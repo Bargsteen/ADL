@@ -20,7 +20,7 @@ namespace ADL.Controllers
 
         public string GetAssignment(int? id)
         {
-            Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentID == id);
+            Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == id);
             if(assignment != null)
             {
                 return JsonConvert.SerializeObject(assignment);
@@ -30,7 +30,7 @@ namespace ADL.Controllers
 
         public string Location(int? id)
         {
-            Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationID == id);
+            Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
             if(location != null)
             {
                 Assignment randomAssignment = assignmentRepository.Assignments.ElementAt(random.Next(0, assignmentRepository.Assignments.Count()));
@@ -44,7 +44,7 @@ namespace ADL.Controllers
 
         public string LocationList()
         {
-            List<int> allLocationIds = locationRepository.Locations.Select(l => l.LocationID).ToList();
+            List<int> allLocationIds = locationRepository.Locations.Select(l => l.LocationId).ToList();
             return JsonConvert.SerializeObject(allLocationIds);
         }
     }
