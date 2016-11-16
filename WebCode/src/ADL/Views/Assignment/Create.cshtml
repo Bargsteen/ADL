@@ -3,6 +3,7 @@
     <div class="panel-heading">
         Opret en opgave
     </div>
+    
     <div class="panel-body">
         <form class="p-a-1" asp-action="Create" method="POST">
             <div asp-validation-summary="All"></div>
@@ -12,6 +13,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Question">Spørgsmål:</label>
+
                 <input class="form-control" asp-for="Question"/>
             </div>
             <div class="form-group">
@@ -38,7 +40,4 @@
             </div>
         </form>
     </div>
-
-
-
 </div>
