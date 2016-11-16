@@ -25,7 +25,7 @@ namespace ADL.Controllers
             if(ModelState.IsValid)
             {
                 repository.SaveAssignment(assignment);
-                //TempData["message"] = $"{assignment.Headline} blev gemt.";
+                TempData["message"] = $"{assignment.Headline} blev gemt.";
                 return RedirectToAction(nameof(List));
             }
             // Something was wrong with the entered data
@@ -41,7 +41,7 @@ namespace ADL.Controllers
             Assignment deletedAssignment = repository.DeleteAssignment(assignmentId);
             if(deletedAssignment != null)
             {
-                //TempData["message"] = $"{deletedAssignment.Headline} blev slettet";
+                TempData["message"] = $"{deletedAssignment.Headline} blev slettet.";
             }
             return RedirectToAction(nameof(List));
         }
