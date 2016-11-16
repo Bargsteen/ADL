@@ -15,7 +15,7 @@ namespace ADL.Controllers
         }
 
         public ViewResult Edit(int locationId) =>
-            View(repository.Locations.FirstOrDefault(l => l.LocationID == locationId));
+            View(repository.Locations.FirstOrDefault(l => l.LocationId == locationId));
 
         [HttpPost]
         public IActionResult Edit(Location location)
@@ -23,7 +23,7 @@ namespace ADL.Controllers
             if (ModelState.IsValid) {
                 repository.SaveLocation(location);
                 //TempData["message"] = $"{location.Title} has been saved";
-                return RedirectToAction("Index");
+                return RedirectToAction("SuccesfullyCreated", location);
             } else {
                 // there is something wrong with the data values
                 return View(location);
@@ -71,6 +71,11 @@ namespace ADL.Controllers
 
             return qrByteArray;
         }
+<<<<<<< HEAD
+
+        public string ByteArraytoURL(Byte[] qrCodeByteArray)
+=======
+>>>>>>> 9bdd600f757df5ea1e2186c92d5da17bfc7dec05
 
         private string QRByteArraytoImageDataURL(Byte[] inputByteArray)
         {

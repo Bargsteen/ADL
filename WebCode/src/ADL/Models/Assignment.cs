@@ -4,7 +4,7 @@ namespace ADL.Models
 {
     public class Assignment
     {
-        public int AssignmentID { get; set; }
+        public int AssignmentId { get; set; }
         [Required(ErrorMessage = "Venligst indtast en titel")]
         [MinLengthAttribute(2)]
         public string Headline { get; set; }

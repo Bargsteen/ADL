@@ -14,7 +14,7 @@ namespace ADL.Controllers
         [HttpGet]
         public ViewResult Create()
         {
-            return View();
+            return View(new Assignment());
         }
 
         [HttpPost]
@@ -30,7 +30,7 @@ namespace ADL.Controllers
 
         public ViewResult Delete(int? assignmentId)
         {
-            Assignment assignment = repository.Assignments.FirstOrDefault(a => a.AssignmentID == assignmentId);
+            Assignment assignment = repository.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentId);
             if(assignment != null)
             {
                 repository.DeleteAssignment(assignment);
@@ -41,7 +41,7 @@ namespace ADL.Controllers
         [HttpGet]
         public ViewResult Edit(int? assignmentId)
         {
-            Assignment assignment = repository.Assignments.FirstOrDefault(a => a.AssignmentID == assignmentId);
+            Assignment assignment = repository.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentId);
             if(assignment != null)
             {
                 return View(assignment);
