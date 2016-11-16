@@ -41,28 +41,51 @@ namespace ADL.Controllers
             return RedirectToAction("Index");
         }
 
-        public ViewResult Generate_QR(int locationID)
-
+        public ViewResult GenerateQR(int locationID)
         {
-
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(locationID.ToString(), QRCodeGenerator.ECCLevel.Q);
-
-            BitmapByteQRCode qrCode = new BitmapByteQRCode(qrCodeData); ViewData["QRCode"] = ByteArraytoURL(qrCode.GetGraphic(20)); ;
-
-            return View("ViewQR");
-
+            QRByteArraytoImageDataURL(PathtoQRByteArray(LocationIDtoPath(locationID)));
+            return View();
         }
 
-        public string ByteArraytoURL(Byte[] qrCodeByteArray)
-
+        private string LocationIDtoPath(int locationID)
         {
+            /*Combine the locationID and the path into a single string*/
+            string path = $"~/images/{locationID}";
 
-            string imageBase64Data = Convert.ToBase64String(qrCodeByteArray);
+            return path;
+        }
 
-            string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data); return imageDataURL;
+        private Byte[] PathtoQRByteArray(string inputURL)
+        {
+            /*Create a QR CODE GENERATOR*/
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
+            /*Create an instance of the QRCodeData with the actual inputdata*/
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(inputURL, QRCodeGenerator.ECCLevel.Q);
+
+            /*Combine the QRCode Generator and the data*/
+            BitmapByteQRCode qrCode = new BitmapByteQRCode(qrCodeData);
+
+            /*Get the actual image as a ByteArray*/
+            byte[] qrByteArray = qrCode.GetGraphic(20);    
+
+            return qrByteArray;
+        }
+<<<<<<< HEAD
+
+        public string ByteArraytoURL(Byte[] qrCodeByteArray)
+=======
+>>>>>>> 9bdd600f757df5ea1e2186c92d5da17bfc7dec05
+
+        private string QRByteArraytoImageDataURL(Byte[] inputByteArray)
+        {
+            /*Convert the input array into into a string with the base of 64*/
+            string imageBase64Data = Convert.ToBase64String(inputByteArray);
+
+            /*creates a readable URL to the previou string through a url*/
+            string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+            return imageDataURL;
         }
 
         public ViewResult List()
