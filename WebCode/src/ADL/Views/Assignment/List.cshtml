@@ -12,6 +12,10 @@
                            asp-route-assignmentId="@a.AssignmentId">
                             Rediger
                         </a>
+                        <a asp-action="AttachAssignmentToLocation" class="btn btn-sm btn-primary"
+                            asp-route-chosenAssignmentId="@a.AssignmentId">
+                            Tildel
+                        </a>
                         <button type="submit" class="btn btn-sm btn-danger">
                             Slet
                         </button>

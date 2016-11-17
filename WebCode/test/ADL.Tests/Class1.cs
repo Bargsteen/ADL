@@ -1,5 +1,4 @@
 using Xunit;
-
 namespace ADL.Tests
 {
     // see example explanation on xUnit.net website:
