@@ -18,17 +18,20 @@ namespace ADL.Tests
         {
             // Arrange
             Mock<IAssignmentRepository> mock = new Mock<IAssignmentRepository>();
-            mock.Assignments.Returns(new Assignment[] =
+            mock.Assignments.Returns(Assignment[3] = new Assignment { Headline = "A1", Headline = "A2", Headline = "A3" });
 
 
 
-            {
-                new Assignment = { Headline = "A1"};
-                new Assignment = { Headline = "A2"};
-                new Assignment = { Headline = "A3"};
-            }
+
+            /* { 
+                 new Assignment() = { Headline = "A1"};
+                 new Assignment() = { Headline = "A2"};
+                 new Assignment() = { Headline = "A3"};
+             }
+             */
 
             AssignmentController controller = new AssignmentController(mock.Object());
+        
 
             // Act
             Assignment[] result = (controller.List() as ViewModel).ToArray();
