@@ -15,22 +15,6 @@ namespace ADL.Models {
 
         public IEnumerable<Location> Locations => context.Locations;
 
-
-        /*public void SaveProduct(Product product) {
-            if (product.ProductID == 0) {
-                context.Products.Add(product);
-            } else {
-                Product dbEntry = context.Products
-                    .FirstOrDefault(p => p.ProductID == product.ProductID);
-                if (dbEntry != null) {
-                    dbEntry.Name = product.Name;
-                    dbEntry.Description = product.Description;
-                    dbEntry.Price = product.Price;
-                    dbEntry.Category = product.Category;
-                }
-            }
-            context.SaveChanges();
-        }*/
         public void SaveLocation(Location location)
         {
             if(location.LocationId == 0) 
@@ -40,11 +24,12 @@ namespace ADL.Models {
             }
             else
             {
+                // Editing an existing location
                 Location dbEntry = context.Locations.FirstOrDefault(l => l.LocationId == location.LocationId);
                 if(dbEntry != null)
                 {
-                    dbEntry = location;
-                    context.Update(dbEntry);
+                    dbEntry.Title = location.Title;
+                    dbEntry.Description = location.Description;
                 }
             }
             context.SaveChanges();

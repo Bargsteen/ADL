@@ -1,43 +1,44 @@
 @model Assignment
+    <div class="panel panel-succes">
+        <div class="panel-heading text-center">
+            <h4>Rediger en opgave</h4>
+        </div>
+        <div class="panel-body">
+            <form class="p-a-1" asp-action="Edit" method="POST">
+                <div asp-validation-summary="All"></div>
+                <input type="hidden" value="@Model.AssignmentId" asp-for="AssignmentId" />
+                <div class="form-group">
+                    <label asp-for="Headline">Titel:</label>
+                    <input class="form-control" asp-for="Headline" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Question">Spørgsmål:</label>
+                    <input class="form-control" asp-for="Question" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="AnswerOptionOne">Første svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptionOne" />
+                    <label asp-for="AnswerOptionTwo">Anden svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptionTwo" />
+                    <label asp-for="AnswerOptionThree">Tredje svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptionThree" />
+                    <label asp-for="AnswerOptionFour">Fjerde svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptionFour" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="CorrectAnswer">Korrekte svar:</label>
+                    <select class="form-control" asp-for="CorrectAnswer">
+                        <option value="0">Første svarmulighed</option>
+                        <option value="1">Anden svarmulighed</option>
+                        <option value="2">Tredje svarmulighed</option>
+                        <option value="3">Fjerde svarmulighed</option>
+                    </select>
+                </div>      
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">Gem</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-<div class="panel panel-succes">
-    <div class="panel-heading text-center">
-        <h4>Rediger en opgave</h4>
-    </div>
-    <div class="panel-body">
-        <form class="p-a-1" asp-action="Edit" method="POST">
-            <div asp-validation-summary="All"></div>
-            <input type="hidden" value="@Model.AssignmentID" asp-for="AssignmentID" />
-            <div class="form-group">
-                <label asp-for="Headline">Titel:</label>
-                <input class="form-control" asp-for="Headline" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Question">Spørgsmål:</label>
-                <input class="form-control" asp-for="Question" />
-            </div>
-            <div class="form-group">
-                <label asp-for="AnswerOptionOne">Første svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptionOne" />
-                <label asp-for="AnswerOptionTwo">Anden svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptionTwo" />
-                <label asp-for="AnswerOptionThree">Tredje svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptionThree" />
-                <label asp-for="AnswerOptionFour">Fjerde svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptionFour" />
-            </div>
-            <div class="form-group">
-                <label asp-for="CorrectAnswer">Korrekte svar:</label>
-                <select class="form-control" asp-for="CorrectAnswer">
-                    <option value="0">Første svarmulighed</option>
-                    <option value="1">Anden svarmulighed</option>
-                    <option value="2">Tredje svarmulighed</option>
-                    <option value="3">Fjerde svarmulighed</option>
-                </select>
-            </div>      
-            <div class="text-center">
-                <button class="btn btn-primary" type="submit">Gem</button>
-            </div>
-        </form>
-    </div>
-</div>
+

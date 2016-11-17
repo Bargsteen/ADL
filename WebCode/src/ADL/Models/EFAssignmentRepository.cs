@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ADL.Models {
 
@@ -24,19 +25,31 @@ namespace ADL.Models {
             }
             else
             {
+                // Update already existing assignment
                 Assignment dbEntry = context.Assignments.FirstOrDefault(a => a.AssignmentId == assignment.AssignmentId);
                 if(dbEntry != null)
                 {
-                    dbEntry.Headline = assignment.Headline;    
+                    dbEntry.Headline = assignment.Headline;
+                    dbEntry.Question = assignment.Question;
+                    dbEntry.AnswerOptionOne = assignment.AnswerOptionOne;
+                    dbEntry.AnswerOptionTwo = assignment.AnswerOptionTwo;
+                    dbEntry.AnswerOptionThree = assignment.AnswerOptionThree;
+                    dbEntry.AnswerOptionFour = assignment.AnswerOptionFour;
+                    dbEntry.CorrectAnswer = assignment.CorrectAnswer;
                 }
             }
             context.SaveChanges();
         }
         
-        public void DeleteAssignment(Assignment assignment)
+        public Assignment DeleteAssignment(int assignmentId)
         {
-            context.Remove(assignment);
-            context.SaveChanges();
+            Assignment dbEntry = context.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentId);
+            if(dbEntry != null)
+            {
+                context.Assignments.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
         }
     }
 }

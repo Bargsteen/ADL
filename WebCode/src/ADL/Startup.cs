@@ -17,12 +17,17 @@ namespace ADL
     public class Startup
     {
         IConfigurationRoot Configuration;
+        //environment is used for choosing db based on the environment (development/production)
+        IHostingEnvironment environment;
 
         public Startup(IHostingEnvironment env)
         {
+            environment = env;
+
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .Build();
         }
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -30,26 +35,32 @@ namespace ADL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            //var connectionString = @"Server=tcp:adlearning.database.windows.net,1433;Initial Catalog=assignments;Persist Security Info=False;User ID={adladmin};Password={wqpLMCBE+4G4};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-            services.AddDbContext<ApplicationDbContext>(options =>
+            if(environment.IsProduction())
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration["Data:ADL:ConnectionString"]));
-            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
+            }      
+            
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
-            //services.AddMemoryCache();
-            //services.AddSession();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext db)
         {
+            app.UseSession();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.UseDeveloperExceptionPage();
-            //app.UseSession();
+            
         }
     }
 }

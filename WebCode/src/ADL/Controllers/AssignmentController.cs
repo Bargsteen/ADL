@@ -11,58 +11,45 @@ namespace ADL.Controllers
         {
             repository = repo;
         }
-        [HttpGet]
-        public ViewResult Create()
+
+        public ViewResult List() => View(repository.Assignments);
+
+        public ViewResult Edit(int assignmentId)
         {
-            return View(new Assignment());
+            return View(repository.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentId));
         }
 
         [HttpPost]
-        public ViewResult Create(Assignment assignment)
+        public IActionResult Edit(Assignment assignment)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 repository.SaveAssignment(assignment);
-                return View("SuccesfullyCreated");
+                TempData["message"] = $"{assignment.Headline} blev gemt.";
+                return RedirectToAction(nameof(List));
             }
-            return View();
+            // Something was wrong with the entered data
+            return View(assignment);
         }
 
-        public ViewResult Delete(int? assignmentId)
-        {
-            Assignment assignment = repository.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentId);
-            if(assignment != null)
-            {
-                repository.DeleteAssignment(assignment);
-            }
-            return View(nameof(List), repository.Assignments);
-        }
-
-        [HttpGet]
-        public ViewResult Edit(int? assignmentId)
-        {
-            Assignment assignment = repository.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentId);
-            if(assignment != null)
-            {
-                return View(assignment);
-            }
-            return View(nameof(List), repository.Assignments);
-        }
+        // Uses the edit view, but gives it a new assignment.
+        public ViewResult Create() => View(nameof(Edit), new Assignment());
 
         [HttpPost]
-        public ViewResult Edit(Assignment editedAssignment)
+        public IActionResult Delete(int assignmentId)
         {
-            repository.SaveAssignment(editedAssignment);
-            return View("SuccesfullyEdited");
+            Assignment deletedAssignment = repository.DeleteAssignment(assignmentId);
+            if(deletedAssignment != null)
+            {
+                TempData["message"] = $"{deletedAssignment.Headline} blev slettet.";
+            }
+            return RedirectToAction(nameof(List));
         }
 
-        public ViewResult List()
-        {
-            return View(repository.Assignments);
-        }
-        public ViewResult Solve()
-        {
-            return View();
-        }
+        
+
+
+        
+    
     }
 }

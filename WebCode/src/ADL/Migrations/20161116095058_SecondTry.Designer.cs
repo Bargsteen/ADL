@@ -8,8 +8,8 @@ using ADL.Models;
 namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161111133913_Added locations")]
-    partial class Addedlocations
+    [Migration("20161116095058_SecondTry")]
+    partial class SecondTry
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace ADL.Migrations
 
             modelBuilder.Entity("ADL.Models.Assignment", b =>
                 {
-                    b.Property<int>("AssignmentID")
+                    b.Property<int>("AssignmentId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AnswerOptionFour");
@@ -39,23 +39,23 @@ namespace ADL.Migrations
                     b.Property<string>("Question")
                         .IsRequired();
 
-                    b.HasKey("AssignmentID");
+                    b.HasKey("AssignmentId");
 
                     b.ToTable("Assignments");
                 });
 
             modelBuilder.Entity("ADL.Models.Location", b =>
                 {
-                    b.Property<int>("LocationID")
+                    b.Property<int>("LocationId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<string>("Titel")
+                    b.Property<string>("Title")
                         .IsRequired();
 
-                    b.HasKey("LocationID");
+                    b.HasKey("LocationId");
 
                     b.ToTable("Locations");
                 });
