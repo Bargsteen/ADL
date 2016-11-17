@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 
 namespace ADL.Controllers
@@ -11,7 +10,6 @@ namespace ADL.Controllers
     {
         private IAssignmentRepository assignmentRepository;
         private ILocationRepository locationRepository;
-        private Random random = new Random();
         public ApiController(IAssignmentRepository assignmentRepo, ILocationRepository locationRepo)
         {
             assignmentRepository = assignmentRepo;
@@ -33,13 +31,14 @@ namespace ADL.Controllers
             Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
             if(location != null)
             {
-                Assignment randomAssignment = assignmentRepository.Assignments.ElementAt(random.Next(0, assignmentRepository.Assignments.Count()));
-                if(randomAssignment != null)
+                Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == location.AttachedAssignmentId);
+                if(assignment != null)
                 {
-                    return JsonConvert.SerializeObject(randomAssignment);
+                    return JsonConvert.SerializeObject(assignment);
                 }
+                return "Lokationen har ikke nogen opgave";
             }
-            return "Location does not exist";
+            return "Lokationen eksisterer ikke";
         }
 
         public string LocationList()
