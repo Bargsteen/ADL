@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
-using QRCoder;
 using System;
 
 namespace ADL.Controllers
@@ -45,11 +44,6 @@ namespace ADL.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        public ViewResult GenerateQR(int locationID)
-        {
-            QRByteArraytoImageDataURL(PathtoQRByteArray(LocationIdtoPath(locationID)));
-            return View();
-        }
 
         private string LocationIdtoPath(int locationID)
         {
@@ -57,23 +51,6 @@ namespace ADL.Controllers
             string path = $"~/images/{locationID}";
 
             return path;
-        }
-
-        private Byte[] PathtoQRByteArray(string inputURL)
-        {
-            /*Create a QR CODE GENERATOR*/
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-
-            /*Create an instance of the QRCodeData with the actual inputdata*/
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(inputURL, QRCodeGenerator.ECCLevel.Q);
-
-            /*Combine the QRCode Generator and the data*/
-            BitmapByteQRCode qrCode = new BitmapByteQRCode(qrCodeData);
-
-            /*Get the actual image as a ByteArray*/
-            byte[] qrByteArray = qrCode.GetGraphic(20);    
-
-            return qrByteArray;
         }
 
         public string ByteArraytoURL(Byte[] qrCodeByteArray)

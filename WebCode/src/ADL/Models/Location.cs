@@ -13,5 +13,7 @@ namespace ADL.Models
         [Required(ErrorMessage = "Venligst vælg HVOR lokationen er!")]
         [MinLengthAttribute(2)]
         public string Description { get; set; }
+
+        public int AttachedAssignmentId { get; set; }
     }
 }
