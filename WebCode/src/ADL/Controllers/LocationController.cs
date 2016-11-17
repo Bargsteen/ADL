@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
-using QRCoder;
 using System;
 
 namespace ADL.Controllers
