@@ -25,7 +25,6 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "QRCoder": "1.2.2",
     "Microsoft.AspNetCore.Session": "1.0.0",
     "Microsoft.Extensions.Caching.Memory": "1.0.0",
     "zxing-core": "0.14.0.2",
