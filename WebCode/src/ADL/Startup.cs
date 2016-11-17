@@ -35,7 +35,7 @@ namespace ADL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            if(environment.IsProduction())
+            /*if(environment.IsProduction())
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -44,8 +44,8 @@ namespace ADL
             else
             {
                 services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
-            }      
-            
+            }*/
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));        
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
             services.AddMemoryCache();

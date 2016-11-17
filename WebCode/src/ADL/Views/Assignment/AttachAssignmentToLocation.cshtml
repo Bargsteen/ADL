@@ -1,16 +1,17 @@
-@model IEnumerable<Location>
+@model AssignmentToLocationAttachment
 
-@if (Model.Count() > 0) {
+@if (Model.Locations.Count() > 0) {
     <table class="table table-bordered table-striped">
         <tr><th>Id</th><th>Titel</th><th colspan="2">Beskrivelse</th></tr>
-        @foreach (Location l in Model) {
+        @foreach (Location l in Model.Locations) {
             <tr>
                 <td>@l.LocationId</td><td>@l.Title - @l.AttachedAssignmentId</td>
                 <td>
                     <form asp-action="AttachAssignmentToLocation" method="POST">
-                        <input type="hidden" name="assignmentId" value="@ViewBag.AssignmentId" />
-                        <input type="hidden" name="locationId" value="@l.LocationId" />
-                        <button type="submit" class="btn btn-sm btn-danger">
+                       <input type="hidden" asp-for="ChosenLocationId" value="@l.LocationId" />
+                        <input type="hidden" asp-for="ChosenAssignmentId" />
+                        <input type="hidden" asp-for="Locations" />
+                        <button type="submit" class="btn btn-sm @l.AttachedAssignmentId == 0 ? btn-success : btn-warning">
                             Kobl
                         </button>
                     </form>
