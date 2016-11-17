@@ -44,32 +44,15 @@ namespace ADL.Controllers
             return RedirectToAction(nameof(List));
         }
 
-
-        private string LocationIdtoPath(int locationID)
+        public ViewResult GenerateQR(int locationID)
         {
-            /*Combine the locationID and the path into a single string*/
-            string path = $"~/images/{locationID}";
-
-            return path;
+            GenerateQR(locationID);
+            return View(nameof(ViewQR));
         }
 
-        public string ByteArraytoURL(Byte[] qrCodeByteArray)
+        private ViewResult ViewQR()
         {
-            return "";
+            return View();
         }
-
-
-        private string QRByteArraytoImageDataURL(Byte[] inputByteArray)
-        {
-            /*Convert the input array into into a string with the base of 64*/
-            string imageBase64Data = Convert.ToBase64String(inputByteArray);
-
-            /*creates a readable URL to the previou string through a url*/
-            string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
-
-            return imageDataURL;
-        }
-
-        
     }
 }
