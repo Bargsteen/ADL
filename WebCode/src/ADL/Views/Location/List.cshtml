@@ -10,7 +10,7 @@
                     <form asp-action="Delete" method="post">
                         <input type="hidden" name="locationId" value="@l.LocationId" />
                         <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-locationId="@l.LocationId">
-                        Rediger
+                            Rediger
                         </a>
                         <button type="submit" class="btn btn-sm btn-danger">
                             Slet
@@ -22,7 +22,14 @@
                 </td>
             </tr>
         }
-        </table>
-} else {
-    <div class="text-center">Ingen opgaver blev fundet.</div>
+    </table>
+    <div class="text-right">
+        <a asp-controller="Location" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret lokation</a>
+    </div>
+}
+else
+{
+    <div class="text-center">Ingen opgaver blev fundet.<br/><br/>
+        <a asp-controller="Location" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret lokation</a>
+    </div>
 }
