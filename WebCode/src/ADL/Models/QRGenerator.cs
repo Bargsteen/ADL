@@ -37,8 +37,7 @@ namespace ADL.Models
             int height = matrix.Height;
             int width = matrix.Width;
 
-            /*Creates a new bitmap with the ssame dimensions as the matrix*/
-            Bitmap bmp = new Bitmap(width, height);
+            /*Creates a new bitmap with the ssame dimensions as the matrix*/            Bitmap bmp = new Bitmap(width, height);
 
             /*Fill out the new BMP with the details of the matrix*/
             for (int x = 0; x < width; x++)
