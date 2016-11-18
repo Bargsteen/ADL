@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZXing;
 using RestSharp;
+using ADLApp.Models;
 using Newtonsoft.Json;
 
 namespace ADLApp.ViewModel

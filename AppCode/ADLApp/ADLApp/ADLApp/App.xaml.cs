@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using ADLApp.Views;
 using Xamarin.Forms;
 
 namespace ADLApp
