@@ -1,5 +1,5 @@
-
 @model Assignment
+
 <div class="panel panel-succes">
         <div class="panel-heading text-center">
             <h4>Rediger en opgave</h4>
@@ -17,14 +17,8 @@
                     <input class="form-control" asp-for="Question" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="AnswerOptionOne">Første svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptionOne" />
-                    <label asp-for="AnswerOptionTwo">Anden svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptionTwo" />
-                    <label asp-for="AnswerOptionThree">Tredje svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptionThree" />
-                    <label asp-for="AnswerOptionFour">Fjerde svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptionFour" />
+                    <label asp-for="AnswerOptions">Første svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptions[0].Text" />
                 </div>
                 <div class="form-group">
                     <label asp-for="CorrectAnswer">Korrekte svar:</label>

@@ -14,10 +14,11 @@ namespace ADL.Models {
             context = ctx;
         }
 
-        public IEnumerable<Assignment> Assignments => context.Assignments;
+        public IEnumerable<Assignment> Assignments => context.Assignments.Include(a => a.AnswerOptions);
 
         public void SaveAssignment(Assignment assignment)
         {
+            context.AttachRange(assignment.AnswerOptions);
             if(assignment.AssignmentId == 0)
             {
                 // New assignment
@@ -31,11 +32,6 @@ namespace ADL.Models {
                 {
                     dbEntry.Headline = assignment.Headline;
                     dbEntry.Question = assignment.Question;
-                    dbEntry.AnswerOptionOne = assignment.AnswerOptionOne;
-                    dbEntry.AnswerOptionTwo = assignment.AnswerOptionTwo;
-                    dbEntry.AnswerOptionThree = assignment.AnswerOptionThree;
-                    dbEntry.AnswerOptionFour = assignment.AnswerOptionFour;
-                    dbEntry.CorrectAnswer = assignment.CorrectAnswer;
                 }
             }
             context.SaveChanges();
