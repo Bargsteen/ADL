@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace ADL.Models {
+namespace ADL.Models
+{
 
-    public class EFAssignmentRepository : IAssignmentRepository 
+    public class EFAssignmentRepository : IAssignmentRepository
     {
         private ApplicationDbContext context;
 
-        public EFAssignmentRepository(ApplicationDbContext ctx) 
+        public EFAssignmentRepository(ApplicationDbContext ctx)
         {
             context = ctx;
         }
@@ -18,8 +19,7 @@ namespace ADL.Models {
 
         public void SaveAssignment(Assignment assignment)
         {
-            context.AttachRange(assignment.AnswerOptions);
-            if(assignment.AssignmentId == 0)
+            if (assignment.AssignmentId == 0)
             {
                 // New assignment
                 context.Add(assignment);
@@ -27,20 +27,30 @@ namespace ADL.Models {
             else
             {
                 // Update already existing assignment
-                Assignment dbEntry = context.Assignments.FirstOrDefault(a => a.AssignmentId == assignment.AssignmentId);
-                if(dbEntry != null)
+                Assignment dbEntry = context.Assignments
+                    .Include(a => a.AnswerOptions)
+                    .FirstOrDefault(a => a.AssignmentId == assignment.AssignmentId);
+
+                if (dbEntry != null)
                 {
                     dbEntry.Headline = assignment.Headline;
                     dbEntry.Question = assignment.Question;
+                    int amountOfAnswerOptionsInDb = dbEntry.AnswerOptions.Count();
+                    
+                    dbEntry.AnswerOptions = new List<AnswerOption>();
+                    foreach (AnswerOption ao in assignment.AnswerOptions)
+                    {
+                        dbEntry.AnswerOptions.Add(ao);
+                    }
                 }
             }
             context.SaveChanges();
         }
-        
+
         public Assignment DeleteAssignment(int assignmentId)
         {
             Assignment dbEntry = context.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentId);
-            if(dbEntry != null)
+            if (dbEntry != null)
             {
                 context.Assignments.Remove(dbEntry);
                 context.SaveChanges();

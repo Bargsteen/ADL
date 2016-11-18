@@ -27,7 +27,7 @@ namespace ADL
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
+                //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .Build();
         }
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -55,6 +55,7 @@ namespace ADL
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext db)
         {
+            db.Database.Migrate();
             app.UseSession();
             app.UseStatusCodePages();
             app.UseStaticFiles();

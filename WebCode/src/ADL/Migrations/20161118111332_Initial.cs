@@ -39,7 +39,7 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AnswerOption",
+                name: "AnswerOptions",
                 columns: table => new
                 {
                     AnswerOptionID = table.Column<int>(nullable: false)
@@ -49,9 +49,9 @@ namespace ADL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AnswerOption", x => x.AnswerOptionID);
+                    table.PrimaryKey("PK_AnswerOptions", x => x.AnswerOptionID);
                     table.ForeignKey(
-                        name: "FK_AnswerOption_Assignments_AssignmentId",
+                        name: "FK_AnswerOptions_Assignments_AssignmentId",
                         column: x => x.AssignmentId,
                         principalTable: "Assignments",
                         principalColumn: "AssignmentId",
@@ -59,15 +59,15 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AnswerOption_AssignmentId",
-                table: "AnswerOption",
+                name: "IX_AnswerOptions_AssignmentId",
+                table: "AnswerOptions",
                 column: "AssignmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AnswerOption");
+                name: "AnswerOptions");
 
             migrationBuilder.DropTable(
                 name: "Locations");
