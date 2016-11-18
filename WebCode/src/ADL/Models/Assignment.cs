@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace ADL.Models
 {
@@ -11,15 +12,7 @@ namespace ADL.Models
         [Required(ErrorMessage = "Venligst indtast et spørgsmål")]
         [MinLengthAttribute(2)]
         public string Question { get; set; }
-        [Required(ErrorMessage = "Venligst skriv mindst to svarmuligheder")]
-        [MinLengthAttribute(1)]
-        public string AnswerOptionOne { get; set; }
-        [Required(ErrorMessage = "Venligst skriv mindst to svarmuligheder")]
-        [MinLengthAttribute(1)]
-        public string AnswerOptionTwo { get; set; }
-        public string AnswerOptionThree { get; set; }
-        public string AnswerOptionFour { get; set; }
-
+        public List<AnswerOption> AnswerOptions { get; set; }
         [Required(ErrorMessage = "Venligst vælg det korrekte svar")]   
         public int CorrectAnswer { get; set; }
     }

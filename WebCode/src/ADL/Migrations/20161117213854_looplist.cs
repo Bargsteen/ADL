@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ADL.Migrations
 {
-    public partial class SecondTry : Migration
+    public partial class looplist : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -14,10 +14,6 @@ namespace ADL.Migrations
                 {
                     AssignmentId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
-                    AnswerOptionFour = table.Column<string>(nullable: true),
-                    AnswerOptionOne = table.Column<string>(nullable: false),
-                    AnswerOptionThree = table.Column<string>(nullable: true),
-                    AnswerOptionTwo = table.Column<string>(nullable: false),
                     CorrectAnswer = table.Column<int>(nullable: false),
                     Headline = table.Column<string>(nullable: false),
                     Question = table.Column<string>(nullable: false)
@@ -33,6 +29,7 @@ namespace ADL.Migrations
                 {
                     LocationId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
+                    AttachedAssignmentId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Title = table.Column<string>(nullable: false)
                 },
@@ -40,15 +37,43 @@ namespace ADL.Migrations
                 {
                     table.PrimaryKey("PK_Locations", x => x.LocationId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "AnswerOption",
+                columns: table => new
+                {
+                    AnswerOptionID = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    AssignmentId = table.Column<int>(nullable: true),
+                    Text = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnswerOption", x => x.AnswerOptionID);
+                    table.ForeignKey(
+                        name: "FK_AnswerOption_Assignments_AssignmentId",
+                        column: x => x.AssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "AssignmentId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnswerOption_AssignmentId",
+                table: "AnswerOption",
+                column: "AssignmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Assignments");
+                name: "AnswerOption");
 
             migrationBuilder.DropTable(
                 name: "Locations");
+
+            migrationBuilder.DropTable(
+                name: "Assignments");
         }
     }
 }
