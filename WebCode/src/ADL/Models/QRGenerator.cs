@@ -4,9 +4,9 @@ using System.Drawing;
 
 namespace ADL.Models
 {
-    public class QrGenerator
+    public static class QrGenerator
     {
-        public void GenerateQR(int locationID)
+        public static void GenerateQR(int locationID)
         {
             /*Call the two QR Generation methods and save the result in a Bitmap*/
             Bitmap bmp = PathtoBitmap(LocationIDtoPath(1));
@@ -17,7 +17,7 @@ namespace ADL.Models
             return;
         }
 
-        private string LocationIDtoPath(int locationID)
+        private static string LocationIDtoPath(int locationID)
         {
             /*Combine the locationID and the path into a single string*/
             string path = $"{locationID}";
@@ -25,9 +25,8 @@ namespace ADL.Models
             return path;
         }
 
-        private Bitmap PathtoBitmap(string inputURL)
+        private static Bitmap PathtoBitmap(string inputURL)
         {
-
             /*Create a codewriter instance*/
             QRCodeWriter qr = new QRCodeWriter();
 
@@ -51,9 +50,7 @@ namespace ADL.Models
                     bmp.SetPixel(x, y, matrix[x, y] ? Color.Black : Color.White);
 
                 }
-
             }
-
             return bmp;
         }
     }
