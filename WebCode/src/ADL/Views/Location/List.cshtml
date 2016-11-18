@@ -9,17 +9,16 @@
                 <td>
                     <form asp-action="Delete" method="post">
                         <input type="hidden" name="locationId" value="@l.LocationId" />
-                        <a asp-action="Edit" class="btn btn-sm btn-warning"
-                       asp-route-locationId="@l.LocationId">
+                        <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-locationId="@l.LocationId">
                         Rediger
                         </a>
                         <button type="submit" class="btn btn-sm btn-danger">
                             Slet
                         </button>
+                        <a asp-action="CreateQR" class="btn btn-sm btn-warning" asp-route-locationId="@l.LocationId">
+                            Generer QR Kode!
+                        </a>
                     </form>
-                    <button type ="submit" class="btn btn-sm btn-danger" asp-action="CreateQR" value="@l.LocationId">
-                        Generer QR kode!
-                    </button>
                 </td>
             </tr>
         }
