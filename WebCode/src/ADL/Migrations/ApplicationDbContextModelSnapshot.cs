@@ -28,7 +28,7 @@ namespace ADL.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("AnswerOption");
+                    b.ToTable("AnswerOptions");
                 });
 
             modelBuilder.Entity("ADL.Models.Assignment", b =>

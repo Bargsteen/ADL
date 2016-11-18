@@ -8,7 +8,8 @@ namespace ADL.Models
             : base(options) { }
         
         public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<Location> Locations {get;set;}
-        
+        public DbSet<AnswerOption> AnswerOptions { get; set; }
+        public DbSet<Location> Locations {get;set;}      
+
     }
 }
