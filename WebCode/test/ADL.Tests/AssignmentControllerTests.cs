@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using ADL.controllers;
+using ADL.Models;
+using ADL.Controllers;
+using ADL.Models.ViewModels;
 using Moq;
 
 
 namespace ADL.Tests
 {
     class AssignmentControllerTests
-
     {
         [Fact]
         public void Can_List_Assignments()
         {
             // Arrange
-            Mock<IAssignmentRepository> mock = new Mock<IAssignmentRepository>();
-            mock.Assignments.Returns(Assignment[3] = new Assignment { Headline = "A1", Headline = "A2", Headline = "A3" });
-
-
+            Mock<IAssignmentRepository> mockAssigntment = new Mock<IAssignmentRepository>();
+            Mock<ILocationRepository> mockLocation = new Mock<ILocationRepository>();
+            mockAssigntment.Assignments.Returns(Assignment[3] = new Assignment { Headline = "A1", Headline = "A2", Headline = "A3" });
 
 
             /* { 
@@ -30,7 +30,7 @@ namespace ADL.Tests
              }
              */
 
-            AssignmentController controller = new AssignmentController(mock.Object());
+            AssignmentController controller = new AssignmentController(mockAssigntment.Object(), mockLocation.Object());
         
 
             // Act
