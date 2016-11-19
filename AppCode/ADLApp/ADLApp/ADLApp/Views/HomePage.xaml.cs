@@ -22,12 +22,14 @@ namespace ADLApp.Views
         public HomePage()
         {
             InitializeComponent();
-            ScanButton.BackgroundColor = this.BackgroundColor;
-            ScanButton.BorderColor = this.BackgroundColor;
+            ScanButton.BackgroundColor = BackgroundColor;
+            ScanButton.BorderColor = BackgroundColor;
         }
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
+            ScanButton.IsEnabled = false;
             MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
+            await Navigation.PushAsync(new SolvePage(mpAssignment));
             string s = await qrScanner.ScanAndGetOutputString();
             if (s != "")
             {
@@ -35,6 +37,7 @@ namespace ADLApp.Views
                 SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
                 await Navigation.PushAsync(nextPage);
             }
+            ScanButton.IsEnabled = true;
         }
         private async void OnClicked(object sender, EventArgs e)
         {

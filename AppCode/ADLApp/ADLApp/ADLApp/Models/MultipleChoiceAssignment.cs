@@ -16,14 +16,14 @@ namespace ADLApp.Models
         public int CorrectAnswer { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public string[] AnswerOptions = new string[4];
 
-        public Dictionary<string, string> AnswerOptions = new Dictionary<string, string>();
         public void LoadData()
         {
-            AnswerOptions.Add("A: ", AnswerOptionOne);
-            AnswerOptions.Add("B: ", AnswerOptionTwo);
-            AnswerOptions.Add("C: ", AnswerOptionThree);
-            AnswerOptions.Add("D: ", AnswerOptionFour);
+            AnswerOptions[0] = AnswerOptionOne;
+            AnswerOptions[1] = AnswerOptionTwo;
+            AnswerOptions[2] = AnswerOptionThree;
+            AnswerOptions[3] = AnswerOptionFour;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace ADLApp.ViewModel
     {
         private RestClient rClient;
         /// <summary>
-        /// Needs a client aka url of the API controller
+        /// Needs a client aka url of the API
         /// </summary>
         /// <param name="baseURL"></param>
         public AssignmentLoader(string baseURL)

@@ -24,21 +24,17 @@ namespace ADLApp.Views
             Title = lolAssignment.Headline;
             lolAssignment.LoadData();
             Question.Text = this.lolAssignment.Question;
-            answerOptionView.ItemsSource = lolAssignment.AnswerOptions.Values;
+            answerOptionView.ItemsSource = lolAssignment.AnswerOptions;
         }
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
             if (lolAssignment is MultipleChoiceAssignment)
             {
-                if (Array.IndexOf(lolAssignment.AnswerOptions.Values.ToArray(), answerOptionView.SelectedItem) == ((MultipleChoiceAssignment)lolAssignment).CorrectAnswer)
-                {
-                    this.BackgroundColor = Color.Green;
-                }
-                else
-                {
-                    this.BackgroundColor = Color.Red;
-                }
+                int selectedAnswerIndex = Array.IndexOf(lolAssignment.AnswerOptions, answerOptionView.SelectedItem);
+                //Sends answer to backend here
+                await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, lolAssignment));
+                await Navigation.PopAsync();
             }
         }
     }
