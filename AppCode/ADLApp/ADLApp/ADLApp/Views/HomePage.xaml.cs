@@ -29,7 +29,6 @@ namespace ADLApp.Views
         {
             ScanButton.IsEnabled = false;
             MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
-            await Navigation.PushAsync(new SolvePage(mpAssignment));
             string s = await qrScanner.ScanAndGetOutputString();
             if (s != "")
             {
