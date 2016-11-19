@@ -4,17 +4,17 @@
         <tr><th>Id</th><th>Titel</th><th>Spørgsmål</th><th>Rediger</th></tr>
         @foreach (Assignment a in Model) {
             <tr>
-                <td width="5%">@a.AssignmentId</td><td width="15%">@a.Headline</td><td width="68%">@a.Question</td>
-                <td width="12%"> 
+                <td width="5%">@a.AssignmentId</td><td width="15%">@a.Headline</td><td width="64%">@a.Question</td>
+                <td width="16%"> 
                     <form asp-action="Delete" method="post">
                         <input type="hidden" name="assignmentId" value="@a.AssignmentId" />
-                        <a asp-action="Edit" class="btn btn-sm btn-warning"
-                           asp-route-assignmentId="@a.AssignmentId">
-                            Rediger
-                        </a>
                         <a asp-action="AttachAssignmentToLocation" class="btn btn-sm btn-primary"
                             asp-route-chosenAssignmentId="@a.AssignmentId">
                             Tildel
+                        </a>
+                        <a asp-action="Edit" class="btn btn-sm btn-warning"
+                           asp-route-assignmentId="@a.AssignmentId">
+                            Rediger
                         </a>
                         <button type="submit" class="btn btn-sm btn-danger">
                             Slet
