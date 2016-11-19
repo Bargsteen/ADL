@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+/*using System.ComponentModel.DataAnnotations;
 
 namespace ADL.Models.ViewModels
 {
@@ -11,4 +11,4 @@ namespace ADL.Models.ViewModels
         public string Password { get; set; }
         public string ReturnUrl { get; set; } = "/";
     }
-}
+}*/

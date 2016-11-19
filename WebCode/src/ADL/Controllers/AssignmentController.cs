@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
 using ADL.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AssignmentController : Controller
     {
         IAssignmentRepository assignmentRepository;

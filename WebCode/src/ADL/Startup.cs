@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ADL.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace ADL
@@ -48,30 +48,30 @@ namespace ADL
             }*/
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:ADL:ConnectionString"]));
 
-            services.AddDbContext<AppIdentityDbContext>(options =>
+            /*services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlite(
-                    Configuration["Data:ADLIdentity:ConnectionString"]));
+                    Configuration["Data:ADLIdentity:ConnectionString"]));*/
                     
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
             services.AddMemoryCache();
             services.AddSession();
 
-             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppIdentityDbContext>();
+             //services.AddIdentity<IdentityUser, IdentityRole>()
+               // .AddEntityFrameworkStores<AppIdentityDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext db)
         {
-            //db.Database.Migrate();
+            db.Database.Migrate();
             app.UseSession();
-            app.UseIdentity();
+            //app.UseIdentity();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.UseDeveloperExceptionPage();
-            IdentitySeedData.EnsurePopulated(app);
+           // IdentitySeedData.EnsurePopulated(app);
             
         }
     }
