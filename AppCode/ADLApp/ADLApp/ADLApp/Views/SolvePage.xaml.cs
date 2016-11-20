@@ -29,7 +29,7 @@ namespace ADLApp.Views
         {
             if (AssignmentToSolve is MultipleChoiceAssignment)
             {
-                int selectedAnswerIndex = (answerOptionView.SelectedItem as AnswerOption).AnswerOptionID;
+                int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
                 //Sends answer to backend
                 await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, AssignmentToSolve));
             }

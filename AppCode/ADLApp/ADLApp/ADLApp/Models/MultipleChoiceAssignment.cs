@@ -9,7 +9,6 @@ namespace ADLApp.Models
 {
     public class MultipleChoiceAssignment : Assignment, INotifyPropertyChanged
     {
-        public int AssignmentId { get; set; }
         public List<AnswerOption> AnswerOptions { get; set; }
         public int CorrectAnswer { get; set; }
 

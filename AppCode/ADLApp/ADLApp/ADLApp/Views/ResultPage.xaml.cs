@@ -15,9 +15,8 @@ namespace ADLApp.Views
         {
             InitializeComponent();
             QuestionLabel.Text += answeredAssignment.Question;
-            AnswerLabel.Text = answeredAssignment.AnswerOptions
-                .First(a => a.AnswerOptionID == answer).Text;
-            if (answer == answeredAssignment.CorrectAnswer+1)
+            AnswerLabel.Text = answeredAssignment.AnswerOptions[answer].Text;
+            if (answer == answeredAssignment.CorrectAnswer)
             {
                 FeedBackLabel.TextColor = Color.Green;
                 FeedBackLabel.Text = "Godt gået, det er korrekt!";
