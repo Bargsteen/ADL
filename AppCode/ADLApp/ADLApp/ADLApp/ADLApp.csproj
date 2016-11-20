@@ -38,6 +38,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnswerInformation.cs" />
+    <Compile Include="ViewModel\IAnswerSender.cs" />
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -52,7 +54,7 @@
     <Compile Include="Views\SolvePage.xaml.cs">
       <DependentUpon>SolvePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\AssignmentLoader.cs" />
+    <Compile Include="ViewModel\RequestManager.cs" />
     <Compile Include="ViewModel\IAssignmentLoader.cs" />
     <Compile Include="ViewModel\IScanner.cs" />
     <Compile Include="Models\MultipleChoiceAssignment.cs" />

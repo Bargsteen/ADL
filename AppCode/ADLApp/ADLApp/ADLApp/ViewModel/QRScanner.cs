@@ -15,7 +15,7 @@ namespace ADLApp.ViewModel
             MobileBarcodeScanner scanner = new MobileBarcodeScanner();
             string lol = "";
             Result res = await scanner?.Scan();
-            if (res != null) return res?.Text;
+            if (res != null) return res.Text;
             else return "";
         }
     }

@@ -10,14 +10,14 @@ using Newtonsoft.Json;
 
 namespace ADLApp.ViewModel
 {
-    class AssignmentLoader : IAssignmentLoader
+    class RequestManager : IAssignmentLoader, IAnswerSender
     {
         private RestClient rClient;
         /// <summary>
         /// Needs a client aka url of the API
         /// </summary>
         /// <param name="baseURL"></param>
-        public AssignmentLoader(string baseURL)
+        public RequestManager(string baseURL)
         {
             rClient = new RestClient(baseURL);
         }
@@ -43,6 +43,15 @@ namespace ADLApp.ViewModel
             request.RequestFormat = DataFormat.Json;
             IRestResponse response = await rClient.ExecuteGetTaskAsync(request);
             return response;
+        }
+        public async Task<bool> SendAnswer(AnswerInformation answerInformation)
+        {
+            MultipleChoiceAssignment ass = new MultipleChoiceAssignment();
+            RestRequest request = new RestRequest($"SendAnswer/", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(answerInformation);
+            var resp = await rClient.ExecutePostTaskAsync(request);
+            return true;
         }
     }
 }

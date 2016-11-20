@@ -22,8 +22,8 @@ namespace ADLApp.Views
             BindingContext = lolAssignment;
             lolAssignment = currentAssignment as MultipleChoiceAssignment;
             Title = lolAssignment.Headline;
+            Question.Text = lolAssignment.Question;
             lolAssignment.LoadData();
-            Question.Text = this.lolAssignment.Question;
             answerOptionView.ItemsSource = lolAssignment.AnswerOptions;
         }
 
@@ -32,10 +32,10 @@ namespace ADLApp.Views
             if (lolAssignment is MultipleChoiceAssignment)
             {
                 int selectedAnswerIndex = Array.IndexOf(lolAssignment.AnswerOptions, answerOptionView.SelectedItem);
-                //Sends answer to backend here
+                //Sends answer to backend
                 await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, lolAssignment));
-                await Navigation.PopAsync();
             }
+            await Navigation.PopAsync();
         }
     }
 }
