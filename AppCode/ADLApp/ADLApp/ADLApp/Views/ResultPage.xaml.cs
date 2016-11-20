@@ -15,7 +15,8 @@ namespace ADLApp.Views
         {
             InitializeComponent();
             QuestionLabel.Text += answeredAssignment.Question;
-            AnswerLabel.Text = answeredAssignment.AnswerOptions[answer];
+            AnswerLabel.Text = answeredAssignment.AnswerOptions
+                .First(a => a.AnswerOptionID == answer).Text;
             if (answer == answeredAssignment.CorrectAnswer)
             {
                 FeedBackLabel.TextColor = Color.Green;
@@ -24,7 +25,7 @@ namespace ADLApp.Views
             else
             {
                 FeedBackLabel.TextColor = Color.Red;
-                FeedBackLabel.Text = $"Desværre, det rigtige svar var \"{answeredAssignment.AnswerOptions[answeredAssignment.CorrectAnswer]}\"";
+                FeedBackLabel.Text = $"Desværre, det rigtige svar var \"{answeredAssignment.AnswerOptions[answeredAssignment.CorrectAnswer].Text}\"";
             }
         }
     }

@@ -18,7 +18,7 @@ namespace ADLApp.Views
     public partial class HomePage : ContentPage
     {
         private IScanner qrScanner = new QRScanner();
-        private IAssignmentLoader assignmentLoader = new RequestManager("http://activedifferentiatedlearning.azurewebsites.net/api");
+        private IAssignmentLoader assignmentLoader = new RequestManager("http://adlearning.azurewebsites.net/api");
         public HomePage()
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace ADLApp.Views
             string s = await qrScanner.ScanAndGetOutputString();
             if (s != "")
             {
-                Assignment currentassignment = await assignmentLoader.GetAssignment("/GetAssignment/" + s);
+                Assignment currentassignment = await assignmentLoader.GetAssignment("/location/" + s);
                 if (currentassignment is MultipleChoiceAssignment)
                 {
                     SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);

@@ -23,7 +23,6 @@ namespace ADLApp.Views
             lolAssignment = currentAssignment as MultipleChoiceAssignment;
             Title = lolAssignment.Headline;
             Question.Text = lolAssignment.Question;
-            lolAssignment.LoadData();
             answerOptionView.ItemsSource = lolAssignment.AnswerOptions;
         }
 
@@ -31,7 +30,7 @@ namespace ADLApp.Views
         {
             if (lolAssignment is MultipleChoiceAssignment)
             {
-                int selectedAnswerIndex = Array.IndexOf(lolAssignment.AnswerOptions, answerOptionView.SelectedItem);
+                int selectedAnswerIndex = Array.IndexOf(lolAssignment.AnswerOptions.ToArray(), answerOptionView.SelectedItem);
                 //Sends answer to backend
                 await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, lolAssignment));
             }

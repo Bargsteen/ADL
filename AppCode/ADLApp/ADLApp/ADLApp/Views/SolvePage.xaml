@@ -12,7 +12,8 @@
         <DataTemplate>
           <ViewCell>
             <StackLayout>
-              <Label FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text= "{Binding}"></Label>
+              <Label FontSize="25" HorizontalTextAlignment="Center"
+                     VerticalTextAlignment="Center" Text= "{Binding Text}"></Label>
             </StackLayout>
           </ViewCell>
         </DataTemplate>

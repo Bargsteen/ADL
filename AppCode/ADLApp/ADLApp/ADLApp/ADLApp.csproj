@@ -39,6 +39,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AnswerInformation.cs" />
+    <Compile Include="Models\AnswerOption.cs" />
     <Compile Include="ViewModel\IAnswerSender.cs" />
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
