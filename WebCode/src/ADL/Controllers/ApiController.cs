@@ -10,10 +10,12 @@ namespace ADL.Controllers
     {
         private IAssignmentRepository assignmentRepository;
         private ILocationRepository locationRepository;
-        public ApiController(IAssignmentRepository assignmentRepo, ILocationRepository locationRepo)
+        private IAnswerRepository answerRepository;
+        public ApiController(IAssignmentRepository assignmentRepo, ILocationRepository locationRepo, IAnswerRepository answerRepo)
         {
             assignmentRepository = assignmentRepo;
             locationRepository = locationRepo;
+            answerRepository = answerRepo;
         }
 
         public string GetAssignment(int? id)
@@ -45,6 +47,12 @@ namespace ADL.Controllers
         {
             List<int> allLocationIds = locationRepository.Locations.Select(l => l.LocationId).ToList();
             return JsonConvert.SerializeObject(allLocationIds);
+        }
+
+        [HttpPost]
+        public void ReceiveAnswer(Answer answer)
+        {
+            answerRepository.SaveAnswer(answer);
         }
     }
 }

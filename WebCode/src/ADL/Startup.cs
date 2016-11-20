@@ -48,6 +48,7 @@ namespace ADL
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:ADL:ConnectionString"]));                    
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
+            services.AddTransient<IAnswerRepository, EFAnswerRepository>();
             services.AddMemoryCache();
             services.AddSession();
         }
