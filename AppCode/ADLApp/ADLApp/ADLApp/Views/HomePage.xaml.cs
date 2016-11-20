@@ -17,20 +17,28 @@ namespace ADLApp.Views
         }
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
+            ScanButton.Text = "Scan qr kode";
             ScanButton.IsEnabled = false;
             string s = await qrScanner.ScanAndGetOutputString();
             if (s != "")
             {
                 Assignment currentassignment = await assignmentLoader.GetAssignment("/location/" + s);
-                if (currentassignment is MultipleChoiceAssignment)
+                if (currentassignment != null)
                 {
-                    SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
-                    await Navigation.PushAsync(nextPage);
+                    if (currentassignment is MultipleChoiceAssignment)
+                    {
+                        SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
+                        await Navigation.PushAsync(nextPage);
+                    }
+                    else
+                    {
+                        SolvePage nextPage = new SolvePage(currentassignment);
+                        await Navigation.PushAsync(nextPage);
+                    }
                 }
                 else
                 {
-                    SolvePage nextPage = new SolvePage(currentassignment);
-                    await Navigation.PushAsync(nextPage);
+                    ScanButton.Text += ".. Er det en ADL qr kode?";
                 }
             }
             ScanButton.IsEnabled = true;

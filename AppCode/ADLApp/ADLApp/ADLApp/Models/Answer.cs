@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ADLApp.Models
 {
-    class AnswerInformation
+    class Answer
     {
-        public string AnswerChosen { get; set; }
+        public int AnswerId { get; set; }
+        public AnswerOption ChosenAnswerOption { get; set; }
         public DateTime TimeAnswered { get; set; }
         public Assignment AnsweredAssignment { get; set; }
     }
