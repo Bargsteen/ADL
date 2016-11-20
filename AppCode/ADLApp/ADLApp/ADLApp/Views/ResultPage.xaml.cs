@@ -15,7 +15,6 @@ namespace ADLApp.Views
         {
             InitializeComponent();
             QuestionLabel.Text += answeredAssignment.Question;
-            preTextLabel.Text = "Du svarede:";
             AnswerLabel.Text = answeredAssignment.AnswerOptions[answer];
             if (answer == answeredAssignment.CorrectAnswer)
             {

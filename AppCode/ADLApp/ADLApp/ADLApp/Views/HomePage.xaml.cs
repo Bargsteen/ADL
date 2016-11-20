@@ -18,7 +18,7 @@ namespace ADLApp.Views
     public partial class HomePage : ContentPage
     {
         private IScanner qrScanner = new QRScanner();
-        private IAssignmentLoader assignmentLoader = new AssignmentLoader("http://activedifferentiatedlearning.azurewebsites.net/api");
+        private IAssignmentLoader assignmentLoader = new RequestManager("http://activedifferentiatedlearning.azurewebsites.net/api");
         public HomePage()
         {
             InitializeComponent();
@@ -28,13 +28,20 @@ namespace ADLApp.Views
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
             ScanButton.IsEnabled = false;
-            MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
             string s = await qrScanner.ScanAndGetOutputString();
             if (s != "")
             {
                 Assignment currentassignment = await assignmentLoader.GetAssignment("/GetAssignment/" + s);
-                SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
-                await Navigation.PushAsync(nextPage);
+                if (currentassignment is MultipleChoiceAssignment)
+                {
+                    SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
+                    await Navigation.PushAsync(nextPage);
+                }
+                else
+                {
+                    SolvePage nextPage = new SolvePage(currentassignment);
+                    await Navigation.PushAsync(nextPage);
+                }
             }
             ScanButton.IsEnabled = true;
         }
