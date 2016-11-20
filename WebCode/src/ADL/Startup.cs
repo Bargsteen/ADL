@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ADL.Models;
-//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace ADL
@@ -46,19 +45,11 @@ namespace ADL
             {
                 services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
             }*/
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:ADL:ConnectionString"]));
-
-            /*services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseSqlite(
-                    Configuration["Data:ADLIdentity:ConnectionString"]));*/
-                    
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:ADL:ConnectionString"]));                    
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
             services.AddMemoryCache();
             services.AddSession();
-
-             //services.AddIdentity<IdentityUser, IdentityRole>()
-               // .AddEntityFrameworkStores<AppIdentityDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,12 +57,10 @@ namespace ADL
         {
             db.Database.Migrate();
             app.UseSession();
-            //app.UseIdentity();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.UseDeveloperExceptionPage();
-           // IdentitySeedData.EnsurePopulated(app);
             
         }
     }

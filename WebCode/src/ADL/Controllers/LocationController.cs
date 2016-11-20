@@ -2,11 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
 using System;
-//using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
-    //[Authorize]
     public class LocationController : Controller
     {
         ILocationRepository repository;

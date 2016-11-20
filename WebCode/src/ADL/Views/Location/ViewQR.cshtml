@@ -1,14 +1,15 @@
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+@model int
+@{
+    ViewBag.Title = Model;
+}
 <script type="text/javascript">
 function printImg() {
   pwin = window.open(document.getElementById("mainImg").src,"_blank");
   pwin.onload = function () {window.print();}
 }
 </script>
-@{
-    <center><IMG SRC="~/custom/images/locationQR.bmp" id="mainImg" ALT="QR Code not found!" WIDTH=500 HEIGHT=500></center>
-    <input type="button" value="Print Image"  onclick="printImg()" />
-}
+<h1>Lokation @Model</h1>
+<center><img src="~/custom/images/locationQR.bmp" id="mainImg" alt="QR Code not found!" width=500 height=500></center>
+<input class="btn btn-primary btn-lg pull-right" type="button" value="Print"  onclick="printImg()" />
+
 
