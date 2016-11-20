@@ -2,11 +2,11 @@
 
 @if (Model.Locations.Count() > 0) {
     <table class="table table-bordered table-striped">
-        <tr><th>Id</th><th>Titel</th><th colspan="2">Beskrivelse</th></tr>
+        <tr><th>Id</th><th>Titel</th><th>Beskrivelse</th><th>Koblet opgave</th><th>Handlinger</th></tr>
         @foreach (Location l in Model.Locations) {
             <tr>
-                <td>@l.LocationId</td><td>@l.Title - @l.AttachedAssignmentId</td>
-                <td>
+                <td width="5%">@l.LocationId</td><td width="10%">@l.Title</td><td width="50%">@l.Description</td><td width=20%>@l.AttachedAssignmentId</td>
+                <td width="15%">
                     <form asp-action="AttachAssignmentToLocation" method="POST">
                        <input type="hidden" asp-for="ChosenLocationId" value="@l.LocationId" />
                         <input type="hidden" asp-for="ChosenAssignmentId" />

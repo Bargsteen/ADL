@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ADLApp.Views"
+             x:Class="ADLApp.Views.ResultPage">
+  <StackLayout Spacing="30">
+    <Label x:Name="QuestionLabel" VerticalTextAlignment="Start" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="35"></Label>
+    <StackLayout Orientation="Horizontal">
+      <Label x:Name="preTextLabel" VerticalOptions="Center" HorizontalOptions="Start" FontSize="25"/>
+      <Label x:Name="AnswerLabel" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontAttributes="Bold"/>
+    </StackLayout>
+    <Label x:Name="FeedBackLabel" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
+  </StackLayout>
+</ContentPage>

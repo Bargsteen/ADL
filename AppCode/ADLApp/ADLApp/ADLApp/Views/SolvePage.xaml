@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:ADLApp"
+             xmlns:local="clr-namespace:ADLApp.Views"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-             x:Class="ADLApp.SolvePage"
-             Title="Løs her">
+             x:Class="ADLApp.Views.SolvePage">
   <StackLayout Spacing="10">
     <Label x:Name="Question" FontSize="20" HorizontalTextAlignment="Center" ></Label>
-    <ListView x:Name="answerOptionView" RowHeight="30" Header="Svarmuligheder:">
-      <ListView.ItemTemplate>
+    <Label Text="Svarmuligheder:"></Label>
+    <ListView x:Name="answerOptionView" HasUnevenRows="True"  >
+      <ListView.ItemTemplate >
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout>
+              <Label FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text= "{Binding}"></Label>
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
     <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked"></Button>

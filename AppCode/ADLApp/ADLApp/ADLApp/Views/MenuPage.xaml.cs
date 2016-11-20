@@ -7,7 +7,7 @@ using RestSharp;
 
 using Xamarin.Forms;
 
-namespace ADLApp
+namespace ADLApp.Views
 {
     public partial class MenuPage : MasterDetailPage
     {

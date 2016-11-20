@@ -11,8 +11,9 @@ using Newtonsoft;
 using ADLApp.ViewModel;
 using ZXing.Mobile;
 using ZXing;
+using ADLApp.Models;
 
-namespace ADLApp
+namespace ADLApp.Views
 {
     public partial class HomePage : ContentPage
     {
@@ -21,24 +22,24 @@ namespace ADLApp
         public HomePage()
         {
             InitializeComponent();
-            ScanButton.BackgroundColor = this.BackgroundColor;
-            ScanButton.BorderColor = this.BackgroundColor;
+            ScanButton.BackgroundColor = BackgroundColor;
+            ScanButton.BorderColor = BackgroundColor;
         }
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
             ScanButton.IsEnabled = false;
-            Assignment currentassignment = await assignmentLoader.GetAssignment("/GetAssignment/6");
-            SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
-            await Navigation.PushAsync(nextPage);
+            MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
+            string s = await qrScanner.ScanAndGetOutputString();
+            if (s != "")
+            {
+                Assignment currentassignment = await assignmentLoader.GetAssignment("/GetAssignment/" + s);
+                SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
+                await Navigation.PushAsync(nextPage);
+            }
             ScanButton.IsEnabled = true;
         }
         private async void OnClicked(object sender, EventArgs e)
         {
-            MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
-            string s = await qrScanner.ScanAndGetOutputString();
-            Assignment currentassignment = await assignmentLoader.GetAssignment("/GetAssignment/" + s);
-            SolvePage nextPage = new SolvePage(currentassignment as MultipleChoiceAssignment);
-            await Navigation.PushAsync(nextPage);
         }
     }
 }

@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
 using System;
+//using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
+    //[Authorize]
     public class LocationController : Controller
     {
         ILocationRepository repository;
@@ -44,15 +46,10 @@ namespace ADL.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        public ViewResult CreateQR(int locationID)
+        public ViewResult CreateQR(int locationId)
         {
-            QrGenerator.GenerateQR(locationID);
-            return View(nameof(ViewQR));
-        }
-
-        private ViewResult ViewQR()
-        {
-            return View();
+            QrGenerator.GenerateQR(locationId);
+            return View("ViewQR", locationId);
         }
     }
 }

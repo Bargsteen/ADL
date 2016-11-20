@@ -15,10 +15,5 @@ namespace ADL.Controllers
         {
             return View();
         }
-
-        public ViewResult Time()
-        {
-            return View(DateTime.Now);
-        }
     }
 }

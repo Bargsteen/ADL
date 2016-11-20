@@ -49,10 +49,10 @@ namespace ADL.Models
 
         public Assignment DeleteAssignment(int assignmentId)
         {
-            Assignment dbEntry = context.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentId);
+            Assignment dbEntry = context.Assignments.Include(a => a.AnswerOptions).FirstOrDefault(a => a.AssignmentId == assignmentId);
             if (dbEntry != null)
             {
-                context.Assignments.Remove(dbEntry);
+                context.Remove(dbEntry);
                 context.SaveChanges();
             }
             return dbEntry;
