@@ -6,11 +6,6 @@ namespace ADL.Controllers
 {
     public class HomeController : Controller
     {
-        IAssignmentRepository assignments;
-        public HomeController (IAssignmentRepository repo)
-        {
-            assignments = repo;
-        }
         public ViewResult Index() => View();
         public ViewResult Download() => View();
     }
