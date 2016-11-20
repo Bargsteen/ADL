@@ -1,4 +1,7 @@
 @model IEnumerable<Assignment>
+@{
+    ViewBag.Title = "Opgaveliste";
+}
 @if (Model.Count() > 0) {
     <table class="table table-bordered table-striped">
         <tr><th>Id</th><th>Titel</th><th>Spørgsmål</th><th>Rediger</th></tr>

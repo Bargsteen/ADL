@@ -1,9 +1,9 @@
 @{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "Forside";
 }
 <div class="container">
     <div class="jumbotron jumbotron-fix call-to-action">
-        <h1>LEARN AND EXERCISE</h1>
+        <h1>LÆR OG MOTIONER!</h1>
         <p>En sjov og anderledes måde at lære på. Brug ADL til at fremme aktiv og differentieret læring på jeres skole og oplev en ny verden udfolde sig!</p>
     </div>
 </div>
@@ -11,19 +11,19 @@
 <div class="container">
     <div class="row call-to-action">
         <div class="col-md-4">
-            <a asp-controller="Assignment" asp-action="Create"><span class="glyphicon glyphicon-plus glyphicon-large" aria-hidden="true"></span></a>
+            <a asp-controller="Assignment" asp-action="Create" class="glyph-black-link"><span class="glyphicon glyphicon-plus glyphicon-large" aria-hidden="true"></span></a>
             <h3>Opret opgave</h3>
             <p>Hvis opgaverne i biblioteket ikke kan bruges, kan du oprette dine egne opgaver og dele dem med dine kollegaer.</p>
         </div>
         <div class="col-md-4">
-            <a asp-controller="Assignment" asp-action="List"><span class="glyphicon glyphicon-paperclip glyphicon-large" aria-hidden="true"></span></a>
+            <a asp-controller="Assignment" asp-action="List" class="glyph-black-link"><span class="glyphicon glyphicon-paperclip glyphicon-large" aria-hidden="true"></span></a>
             <h3>Opgavebibliotek</h3>
             <p>Gennemse opgavebiblioteket og administrer dine tidligere opgaver. Del også dine opgaver med dine kollegaer.</p>
         </div>
         <div class="col-md-4">
-            <a href="#"><span class="glyphicon glyphicon-stats glyphicon-large" aria-hidden="true"></span></a>
-            <h3>Statistik</h3>
-            <p>Gennemse statistik for dine elever og vurder, hvor godt de klarer sig. Brug informationerne til at differentiere din undervisning.</p>
+            <a asp-action="Download" class="glyph-black-link"><span class="glyphicon glyphicon-download-alt glyphicon-large" aria-hidden="true"></span></a>
+            <h3>Download app</h3>
+            <p>Download vores app til opgaveløsning på enten Android eller iOS. Hvis du får din lærer med på idéen kan du løse opgaver allerede i dag.</p>
         </div>
     </div>
 </div>

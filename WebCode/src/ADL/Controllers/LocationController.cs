@@ -24,7 +24,7 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid) {
                 repository.SaveLocation(location);
-                TempData["message"] = $"{location.Title} blev gemt.";
+                TempData["message"] = $"Lokationen '{location.Title}' blev gemt.";
                 return RedirectToAction(nameof(List));
             } else {
                 // there is something wrong with the data values
@@ -39,7 +39,7 @@ namespace ADL.Controllers
         public IActionResult Delete(int locationId) {
             Location deletedLocation = repository.DeleteLocation(locationId);
             if (deletedLocation != null) {
-                TempData["message"] = $"{deletedLocation.Title} blev slettet.";
+                TempData["message"] = $"Lokationen '{deletedLocation.Title}' blev slettet.";
             }
             return RedirectToAction(nameof(List));
         }

@@ -11,9 +11,7 @@ namespace ADL.Controllers
         {
             assignments = repo;
         }
-        public ViewResult Index()
-        {
-            return View();
-        }
+        public ViewResult Index() => View();
+        public ViewResult Download() => View();
     }
 }

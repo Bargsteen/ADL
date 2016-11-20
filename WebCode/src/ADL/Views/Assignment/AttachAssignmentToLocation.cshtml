@@ -1,5 +1,9 @@
 @model AssignmentToLocationAttachment
 
+@{
+    ViewBag.Title = "Kobling";
+}
+
 @if (Model.Locations.Count() > 0) {
     <table class="table table-bordered table-striped">
         <tr><th>Id</th><th>Titel</th><th>Beskrivelse</th><th>Koblet opgave</th><th>Handlinger</th></tr>

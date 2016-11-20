@@ -8,6 +8,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.css" />
     <link rel="stylesheet" type="text/css" href="~/custom/css/csscustom.css">
 
     <script asp-src-include="lib/jquery/**/jquery.min.js"></script>
@@ -35,7 +36,7 @@
                 <li><a asp-controller="Assignment" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a></li>
                 <li><a asp-controller="Assignment" asp-action="List"><span class="glyphicon glyphicon-paperclip"></span> Opgavebibliotek</a></li>
                 <li><a asp-controller="Location" asp-action="List"><span class="glyphicon glyphicon-map-marker"></span> Lokationer</a></li>
-                <li><a href="#contact"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
                 <!--<li class="dropdown">   
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -66,7 +67,7 @@
     @RenderBody()
     <hr/>
     <footer>
-        <p>&copy; 2016 - e309, Aalborg Universitet</p>
+        <p class="text-center">&copy; 2016 - e309, Aalborg Universitet</p>
     </footer>
 </div>
 

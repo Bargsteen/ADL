@@ -26,3 +26,14 @@
     border-color: red;
     background-color: #fee;
 }
+
+a.glyph-black-link
+{
+    color: #222;
+}
+
+a.glyph-green-link
+{
+    color:#A4C639;
+}
+
