@@ -9,7 +9,7 @@ namespace ADL.Models
         public static void GenerateQR(int locationID)
         {
             /*Call the two QR Generation methods and save the result in a Bitmap*/
-            Bitmap bmp = PathtoBitmap(LocationIDtoPath(1));
+            Bitmap bmp = PathtoBitmap(LocationIDtoPath(locationID));
 
             /*Save the resulting Bitmap in the project; ready for display*/
             bmp.Save("wwwroot/custom/images/locationQR.bmp");

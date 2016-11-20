@@ -7,6 +7,7 @@ using ZXing;
 using RestSharp;
 using ADLApp.Models;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace ADLApp.ViewModel
 {
@@ -36,7 +37,9 @@ namespace ADLApp.ViewModel
             RestRequest request = new RestRequest(resource, Method.GET);
             IRestResponse response = await GetDataAsString(request);
             //Check object it has to create. Switch on a data in the json format("assignmentType":"MultipleChoice" for example
-            return JsonConvert.DeserializeObject<MultipleChoiceAssignment>(response.Content);
+            if (response.Content != "Lokationen eksisterer ikke") 
+                return JsonConvert.DeserializeObject<MultipleChoiceAssignment>(response.Content);
+            else return null;
         }
         private async Task<IRestResponse> GetDataAsString(RestRequest request)
         {
@@ -44,14 +47,13 @@ namespace ADLApp.ViewModel
             IRestResponse response = await rClient.ExecuteGetTaskAsync(request);
             return response;
         }
-        public async Task<bool> SendAnswer(AnswerInformation answerInformation)
+        public async Task<HttpStatusCode> SendAnswer(Answer answer)
         {
-            MultipleChoiceAssignment ass = new MultipleChoiceAssignment();
-            RestRequest request = new RestRequest($"SendAnswer/", Method.POST);
+            RestRequest request = new RestRequest($"/ReceiveAnswer/", Method.POST);
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(answerInformation);
+            request.AddBody(answer);
             var resp = await rClient.ExecutePostTaskAsync(request);
-            return true;
+            return resp.StatusCode;
         }
     }
 }
