@@ -13,7 +13,6 @@ namespace ADLApp.ViewModel
         public async Task<string> ScanAndGetOutputString()
         {
             MobileBarcodeScanner scanner = new MobileBarcodeScanner();
-            string lol = "";
             Result res = await scanner?.Scan();
             if (res != null) return res.Text;
             else return "";
