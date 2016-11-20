@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using ADLApp.ViewModel;
-using System.Collections.ObjectModel;
-using XLabs.Forms.Controls;
-using Xamarin.Forms.Pages;
 using ADLApp.Models;
 
 namespace ADLApp.Views

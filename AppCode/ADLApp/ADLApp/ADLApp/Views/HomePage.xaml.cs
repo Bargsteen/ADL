@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Net;
-using RestSharp;
-using System.Threading;
-using Newtonsoft;
 using ADLApp.ViewModel;
-using ZXing.Mobile;
-using ZXing;
 using ADLApp.Models;
 
 namespace ADLApp.Views
