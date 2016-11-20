@@ -14,25 +14,24 @@ namespace ADLApp.Views
 {
     public partial class SolvePage : ContentPage
     {
-        public string[] answerOptions { get; set; }
-        public MultipleChoiceAssignment lolAssignment { get; set; }
+        public MultipleChoiceAssignment AssignmentToSolve { get; set; }
         public SolvePage(Assignment currentAssignment)
         {
             InitializeComponent();
-            BindingContext = lolAssignment;
-            lolAssignment = currentAssignment as MultipleChoiceAssignment;
-            Title = lolAssignment.Headline;
-            Question.Text = lolAssignment.Question;
-            answerOptionView.ItemsSource = lolAssignment.AnswerOptions;
+            BindingContext = AssignmentToSolve;
+            AssignmentToSolve = currentAssignment as MultipleChoiceAssignment;
+            Title = AssignmentToSolve.Headline;
+            Question.Text = AssignmentToSolve.Question;
+            answerOptionView.ItemsSource = AssignmentToSolve.AnswerOptions;
         }
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            if (lolAssignment is MultipleChoiceAssignment)
+            if (AssignmentToSolve is MultipleChoiceAssignment)
             {
-                int selectedAnswerIndex = Array.IndexOf(lolAssignment.AnswerOptions.ToArray(), answerOptionView.SelectedItem);
+                int selectedAnswerIndex = (answerOptionView.SelectedItem as AnswerOption).AnswerOptionID;
                 //Sends answer to backend
-                await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, lolAssignment));
+                await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, AssignmentToSolve));
             }
             await Navigation.PopAsync();
         }
