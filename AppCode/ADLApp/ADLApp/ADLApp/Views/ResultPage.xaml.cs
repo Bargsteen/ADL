@@ -1,4 +1,5 @@
-﻿using ADLApp.Models;
+﻿using System;
+using ADLApp.Models;
 
 using Xamarin.Forms;
 
@@ -21,6 +22,11 @@ namespace ADLApp.Views
                 FeedBackLabel.TextColor = Color.Red;
                 FeedBackLabel.Text = $"Desværre, det rigtige svar var \"{answeredAssignment.AnswerOptions[answeredAssignment.CorrectAnswer].Text}\"";
             }
+        }
+
+        private async void Button_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync();
         }
     }
 }
