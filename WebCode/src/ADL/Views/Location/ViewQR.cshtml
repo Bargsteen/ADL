@@ -1,21 +1,23 @@
 @model Location
 @{
-    ViewBag.Title = "QR-kode";
+    ViewBag.Title = "ADL lokation";
 }
 <script type="text/javascript">
-function printImg() {
-  pwin = window.open(document.getElementById("mainImg").src,"_blank");
-  pwin.onload = function () {window.print();}
+function printContent(el) {
+    var restorepage = document.body.innerHTML;
+    var printcontent = document.getElementById(el).innerHTML;
+    document.body.innerHTML = printcontent;
+    window.print();
+    document.body.innerHTML = restorepage;
 }
 </script>
-<div class="text-center">
-  <h1>ADL</h1>
-  <h2>Lokation @Model.Title</h2>
-</div>
 
 <div class="text-center">
-    <img src="~/custom/images/locationQR.bmp" id="mainImg" alt="QR Code not found!" width=500 height=500>
+    <h2>Lokation</h2>
 </div>
 <div class="text-center">
-    <input class="btn btn-primary" type="button" value="Print" onclick="printImg()" />
+    <button class="btn btn-primary" type="button" onclick="printContent('print-area')">Print QR-kode</button>
+</div>
+<div id="print-area" class="text-center">
+    <center><img src="~/custom/images/locationQR.bmp" id="mainImg" alt="QR Code not found!" width="500" height="500"></center>
 </div>
