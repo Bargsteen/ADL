@@ -11,5 +11,4 @@
       <Button Button.Image="find_qr.png" Text="" Clicked="OnClicked"></Button>
     </StackLayout>
   </ScrollView>
-
 </ContentPage>

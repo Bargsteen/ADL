@@ -38,7 +38,7 @@ namespace ADLApp.Views
                 }
                 else
                 {	
-					DisplayAlert("Fejl ved indlæsning af opgave", "Er det en ADL qr kode=", "OK");
+					DisplayAlert("Fejl ved indlæsning af opgave", "Er det en ADL qr kode?", "Prøv igen");
                   //  ScanButton.Text += ".. Er det en ADL qr kode?";
                 }
             }
