@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ADL.Controllers
 {
@@ -21,7 +21,7 @@ namespace ADL.Controllers
         public string GetAssignment(int? id)
         {
             Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == id);
-            if(assignment != null)
+            if (assignment != null)
             {
                 return JsonConvert.SerializeObject(assignment);
             }
@@ -31,10 +31,10 @@ namespace ADL.Controllers
         public string Location(int? id)
         {
             Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
-            if(location != null)
+            if (location != null)
             {
                 Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == location.AttachedAssignmentId);
-                if(assignment != null)
+                if (assignment != null)
                 {
                     return JsonConvert.SerializeObject(assignment);
                 }
@@ -48,11 +48,29 @@ namespace ADL.Controllers
             List<int> allLocationIds = locationRepository.Locations.Select(l => l.LocationId).ToList();
             return JsonConvert.SerializeObject(allLocationIds);
         }
+        /*public ViewResult ReceiveAnswer(int id)
+        {
+            Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
+            Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == location.AttachedAssignmentId);
+            if (location != null && assignment != null)
+            {
+                Answer answer = new Answer() { AnsweredAssignment = assignment };
+                return View(answer);
+            }
+            return View(id);
+        }
+*/
 
         [HttpPost]
-        public void ReceiveAnswer(Answer answer)
+        public void ReceiveAnswer([FromBody]string a)
         {
-            answerRepository.SaveAnswer(answer);
+            
+            if (a != null)
+            {
+                Assignment assignment = new Assignment() { Headline = a, Question = "qq", CorrectAnswer = 0 };
+                assignmentRepository.SaveAssignment(assignment);
+            }
         }
+
     }
 }
