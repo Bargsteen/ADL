@@ -7,8 +7,8 @@
              Title="ADL">
   <ScrollView>
     <StackLayout>
-      <Button x:Name="ScanButton" Button.Image="scan_qr.png" Text="Scan qr kode" Clicked="OnScanButtonClicked"></Button>
-      <Button Button.Image="find_qr.png" Text="Find qr kode" Clicked="OnClicked"></Button>
+      <Button x:Name="ScanButton" Button.Image="scan_qr.png" Text="" Clicked="OnScanButtonClicked"></Button>
+      <Button Button.Image="find_qr.png" Text="" Clicked="OnClicked"></Button>
     </StackLayout>
   </ScrollView>
 

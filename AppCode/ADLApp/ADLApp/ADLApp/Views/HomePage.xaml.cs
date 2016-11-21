@@ -17,7 +17,7 @@ namespace ADLApp.Views
         }
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
-            ScanButton.Text = "Scan qr kode";
+           // ScanButton.Text = "Scan qr kode";
             ScanButton.IsEnabled = false;
             string s = await qrScanner.ScanAndGetOutputString();
             if (s != "")
@@ -37,8 +37,9 @@ namespace ADLApp.Views
                     }
                 }
                 else
-                {
-                    ScanButton.Text += ".. Er det en ADL qr kode?";
+                {	
+					DisplayAlert("Fejl ved indlæsning af opgave", "Er det en ADL qr kode=", "OK");
+                  //  ScanButton.Text += ".. Er det en ADL qr kode?";
                 }
             }
             ScanButton.IsEnabled = true;

@@ -10,5 +10,6 @@
       <Label x:Name="AnswerLabel" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontAttributes="Bold"/>
     </StackLayout>
     <Label x:Name="FeedBackLabel" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
+    <Button Text="Gå tilbage" Clicked="Button_OnClicked" BackgroundColor="#8DBDD8"></Button>
   </StackLayout>
 </ContentPage>
