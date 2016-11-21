@@ -46,8 +46,5 @@ namespace ADLApp.Views
             }
             ScanButton.IsEnabled = true;
         }
-        private async void OnClicked(object sender, EventArgs e)
-        {
-        }
     }
 }

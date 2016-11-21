@@ -6,8 +6,10 @@
   <StackLayout Spacing="30">
     <Label x:Name="QuestionLabel" VerticalTextAlignment="Start" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="35"></Label>
     <StackLayout Orientation="Horizontal">
-      <Label x:Name="preTextLabel" Text="Du svarede:" VerticalOptions="Center" HorizontalOptions="Start" FontSize="25"/>
-      <Label x:Name="AnswerLabel" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontAttributes="Bold"/>
+      <Label x:Name="preTextLabel" Text="Du svarede:"
+             VerticalOptions="Center" HorizontalOptions="Start" FontSize="25"/>
+      <Label x:Name="AnswerLabel" VerticalOptions="Center"
+             HorizontalOptions="Center" FontSize="25" FontAttributes="Bold"/>
     </StackLayout>
     <Label x:Name="FeedBackLabel" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
     <Button Text="Gå tilbage" Clicked="Button_OnClicked" BackgroundColor="#8DBDD8"></Button>

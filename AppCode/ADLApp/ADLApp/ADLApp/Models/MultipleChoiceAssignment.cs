@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace ADLApp.Models
 {
-    public class MultipleChoiceAssignment : Assignment, INotifyPropertyChanged
+    public class MultipleChoiceAssignment : Assignment
     {
         public List<AnswerOption> AnswerOptions { get; set; }
         public int CorrectAnswer { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
