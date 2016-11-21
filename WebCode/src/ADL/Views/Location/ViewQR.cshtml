@@ -13,7 +13,9 @@ function printImg() {
   <h2>Lokation: @Model.Title</h2>
 </div>
 
-<center><img src="~/custom/images/locationQR.bmp" id="mainImg" alt="QR Code not found!" width=500 height=500></center>
-<input class="btn btn-primary btn-lg pull-right" type="button" value="Print"  onclick="printImg()" />
-
-
+<div class="text-center">
+    <img src="~/custom/images/locationQR.bmp" id="mainImg" alt="QR Code not found!" width=500 height=500>
+</div>
+<div class="text-center">
+    <input class="btn btn-primary" type="button" value="Print" onclick="printImg()" />
+</div>
