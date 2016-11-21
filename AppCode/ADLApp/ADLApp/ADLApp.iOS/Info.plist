@@ -19,19 +19,17 @@
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>6.0</string>
-	<key>CFBundleDisplayName</key>
-	<string>ADLApp</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.adl.adlapp</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>CFBundleName</key>
-	<string>ADLApp</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>CFBundleName</key>
+	<string>adlapp</string>
 </dict>
 </plist>

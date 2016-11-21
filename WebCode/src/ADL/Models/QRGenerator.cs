@@ -31,7 +31,7 @@ namespace ADL.Models
             QRCodeWriter qr = new QRCodeWriter();
 
             /*Encodes the given string into a bitmatrix with the format defined by Zxing: "QR_CODE"*/
-            var matrix = qr.encode(inputURL, ZXing.BarcodeFormat.QR_CODE, 200, 200);
+            var matrix = qr.encode(inputURL, ZXing.BarcodeFormat.QR_CODE, 500, 500);
 
             /*Gets the dimensions of the matrix*/
             int height = matrix.Height;

@@ -11,7 +11,7 @@
                 <td width="22%">
                     <form asp-action="Delete" method="post">
                         <input type="hidden" name="locationId" value="@l.LocationId" />
-                        <a asp-action="CreateQR" class="btn btn-sm btn-primary" asp-route-location="@l">
+                        <a asp-action="CreateQR" class="btn btn-sm btn-primary" asp-route-locationId="@l.LocationId" asp-route-title="@l.Title">
                             Generer QR Kode
                         </a>
                         <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-locationId="@l.LocationId">
