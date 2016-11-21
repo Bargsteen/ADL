@@ -3,28 +3,26 @@
     ViewBag.Title = "ADL lokation";
 }
 <script type="text/javascript">
-function printContent(el) {
-    var restorepage = document.body.innerHTML;
-    var printcontent = document.getElementById(el).innerHTML;
-    document.body.innerHTML = printcontent;
-    window.print();
-    document.body.innerHTML = restorepage;
-}
+    function printContent(el) {
+        var restorepage = document.body.innerHTML;
+        var printcontent = document.getElementById(el).innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+    }
 </script>
-<<<<<<< HEAD
-=======
-<div class="text-center">
-  <h1>ADL</h1>
-  <h2>Lokation: @Model</h2>
-</div>
->>>>>>> 43c168dcb44b9882f3c06ffa52f1722a2b209a62
 
-<div class="text-center">
-    <h2>Lokation</h2>
-</div>
+
 <div class="text-center">
     <button class="btn btn-primary" type="button" onclick="printContent('print-area')">Print QR-kode</button>
 </div>
 <div id="print-area" class="text-center">
-    <center><img src="~/custom/images/locationQR.bmp" id="mainImg" alt="QR Code not found!" width="500" height="500"></center>
+    <center>
+        <h1>ADL</h1>
+        <h2>Lokation: @Model</h2>
+    </center>
+
+    <center>
+        <img src="~/custom/images/locationQR.bmp" id="mainImg" alt="QR Code not found!" width="500" height="500">
+    </center>
 </div>
