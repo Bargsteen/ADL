@@ -46,7 +46,6 @@ namespace ADL.Controllers
 
         public ViewResult CreateQR(Location location)
         {
-
             QrGenerator.GenerateQR(location.LocationId);
             return View("ViewQR", location);
         }
