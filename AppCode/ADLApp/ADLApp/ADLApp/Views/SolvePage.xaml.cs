@@ -37,7 +37,7 @@ namespace ADLApp.Views
                     AnsweredAssignment = AssignmentToSolve,
                     TimeAnswered = DateTime.Now,
                 });
-                await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, AssignmentToSolve));
+                await Navigation.PushModalAsync(new ResultPage(new ResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
             }
             SendAnswerButton.IsEnabled = true;
             await Navigation.PopAsync();
