@@ -189,8 +189,15 @@ Global
 		{B7AA970D-F495-4E3B-B7E4-C5EB442B84EC}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{B7AA970D-F495-4E3B-B7E4-C5EB442B84EC}.Release|x64.ActiveCfg = Release|iPhone
 		{B7AA970D-F495-4E3B-B7E4-C5EB442B84EC}.Release|x86.ActiveCfg = Release|iPhone
+		{B7AA970D-F495-4E3B-B7E4-C5EB442B84EC}.Ad-Hoc|Any CPU.Build.0 = Ad-Hoc|iPhone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
 	EndGlobalSection
 EndGlobal
