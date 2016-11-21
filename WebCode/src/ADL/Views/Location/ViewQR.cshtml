@@ -1,4 +1,4 @@
-@model int
+@model Location
 @{
     ViewBag.Title = "QR-kode";
 }
@@ -8,7 +8,11 @@ function printImg() {
   pwin.onload = function () {window.print();}
 }
 </script>
-<h1>Lokation @Model</h1>
+<div class="text-center">
+  <h1>ADL</h1>
+  <h2>Lokation @Model.Title</h2>
+</div>
+
 <center><img src="~/custom/images/locationQR.bmp" id="mainImg" alt="QR Code not found!" width=500 height=500></center>
 <input class="btn btn-primary btn-lg pull-right" type="button" value="Print"  onclick="printImg()" />
 

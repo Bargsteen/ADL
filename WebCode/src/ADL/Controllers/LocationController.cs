@@ -44,10 +44,11 @@ namespace ADL.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        public ViewResult CreateQR(int locationId)
+        public ViewResult CreateQR(Location location)
         {
-            QrGenerator.GenerateQR(locationId);
-            return View("ViewQR", locationId);
+
+            QrGenerator.GenerateQR(location.LocationId);
+            return View("ViewQR", location);
         }
     }
 }
