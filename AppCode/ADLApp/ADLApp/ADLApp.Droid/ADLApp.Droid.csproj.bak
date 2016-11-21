@@ -145,7 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ADLApp\ADLApp.csproj">
-      <Project>{ff536cb0-8515-4cc9-b6df-d8559a6f0aee}</Project>
+      <Project>{88C128BB-B770-457D-A91C-CB5A8EA14A5C}</Project>
       <Name>ADLApp</Name>
     </ProjectReference>
   </ItemGroup>

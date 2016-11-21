@@ -22,10 +22,16 @@ namespace ADLApp.Views
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
+            if(answerOptionView?.SelectedItem == null)
+            {
+                await DisplayAlert("Fejl i besvaring", "Vælg venligst et svar", "OK");
+                return;
+            }
+            SendAnswerButton.IsEnabled = false;
             if (AssignmentToSolve is MultipleChoiceAssignment)
             {
                 int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
-                HttpStatusCode status = await answerSender.SendAnswer(new Answer()
+                var status = await answerSender.SendAnswer(new Answer()
                 {
                     ChosenAnswerOption = answerOptionView.SelectedItem as AnswerOption,
                     AnsweredAssignment = AssignmentToSolve,
@@ -33,6 +39,7 @@ namespace ADLApp.Views
                 });
                 await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, AssignmentToSolve));
             }
+            SendAnswerButton.IsEnabled = true;
             await Navigation.PopAsync();
         }
     }

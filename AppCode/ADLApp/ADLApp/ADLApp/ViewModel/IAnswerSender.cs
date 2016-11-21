@@ -10,6 +10,6 @@ namespace ADLApp.ViewModel
 {
     interface IAnswerSender
     {
-        Task<HttpStatusCode> SendAnswer(Answer answer);
+        Task<string> SendAnswer(Answer answer);
     }
 }
