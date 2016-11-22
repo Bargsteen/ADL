@@ -8,7 +8,7 @@ namespace ADLApp.Views
 {
     public partial class SolvePage : ContentPage
     {
-        private IAnswerSender answerSender = new RequestManager("http://adlearning.azurewebsites.net/api");
+        private IAnswerSender answerSender = new RequestManager();
         public MultipleChoiceAssignment AssignmentToSolve { get; set; }
         public SolvePage(Assignment currentAssignment)
         {
@@ -28,7 +28,7 @@ namespace ADLApp.Views
             if (AssignmentToSolve is MultipleChoiceAssignment)
             {
                 int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
-                var status = await 
+                string status = await 
                     answerSender.SendAnswer(new Answer(selectedAnswerIndex, AssignmentToSolve.AssignmentId));
                 await Navigation.PushModalAsync(new ResultPage(new ResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
             }
