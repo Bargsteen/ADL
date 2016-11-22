@@ -62,15 +62,24 @@ namespace ADL.Controllers
 */
 
         [HttpPost]
-        public void ReceiveAnswer([FromBody]string a)
+        public string SendAnswer([FromBody]Answer answer)
         {
-            
-            if (a != null)
+            string reply = "Svaret havde ikke korrekt format.";
+            if(answer != null)
             {
-                Assignment assignment = new Assignment() { Headline = a, Question = "qq", CorrectAnswer = 0 };
-                assignmentRepository.SaveAssignment(assignment);
+                Assignment answeredAssignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == answer.AnsweredAssignmentId);
+                if(answeredAssignment != null)
+                {
+                    answerRepository.SaveAnswer(answer);
+                    reply = JsonConvert.SerializeObject(answer);
+                }
+                else
+                {
+                    reply = "Opgaven blev ikke fundet.";
+                }
+                
             }
+            return reply;
         }
-
     }
 }

@@ -14,7 +14,7 @@ namespace ADL.Controllers
             answerRepository = answerRepo;
             assignmentRepository = assignmentRepo;
         }
-        public ViewResult Solve(int? Id)
+       /* public ViewResult Solve(int? Id)
         {
             Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == Id);
             if (assignment != null)
@@ -42,6 +42,6 @@ namespace ADL.Controllers
         public ViewResult AnswerResponse(bool isCorrect)
         {
             return View(isCorrect);
-        }
+        }*/
     }
 }

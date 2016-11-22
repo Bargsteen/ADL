@@ -4,10 +4,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ADL.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Answers",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    AnsweredAssignmentId = table.Column<int>(nullable: false),
+                    ChosenAnswerOption = table.Column<int>(nullable: false),
+                    TimeAnswered = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answers", x => x.AnswerId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Assignments",
                 columns: table => new
@@ -66,6 +81,9 @@ namespace ADL.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Answers");
+
             migrationBuilder.DropTable(
                 name: "AnswerOptions");
 
