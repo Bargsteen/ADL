@@ -33,5 +33,9 @@
 	<string>com.adl.adlapp</string>
 	<key>NSCameraUsageDescription</key>
 	<string></string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
 </dict>
 </plist>
