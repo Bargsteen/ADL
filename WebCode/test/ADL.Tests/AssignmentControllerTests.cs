@@ -23,12 +23,6 @@ namespace ADL.Tests
             mockAssigntment.Assignments.Returns(Assignment[3] = new Assignment { Headline = "A1", Headline = "A2", Headline = "A3" });
 
 
-            /* { 
-                 new Assignment() = { Headline = "A1"};
-                 new Assignment() = { Headline = "A2"};
-                 new Assignment() = { Headline = "A3"};
-             }
-             */
 
             AssignmentController controller = new AssignmentController(mockAssigntment.Object(), mockLocation.Object());
         

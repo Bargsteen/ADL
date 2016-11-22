@@ -18,9 +18,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>6.0</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.adl.adlapp</string>
+	<string>6.1</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
@@ -31,5 +29,9 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleName</key>
 	<string>adlapp</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.adl.adlapp</string>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
 </dict>
 </plist>

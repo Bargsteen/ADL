@@ -37,7 +37,7 @@ namespace ADLApp.ViewModel
             RestRequest request = new RestRequest(resource, Method.GET);
             IRestResponse response = await GetDataAsString(request);
             //Check object it has to create. Switch on a data in the json format("assignmentType":"MultipleChoice" for example
-            if (response.Content != "Lokationen eksisterer ikke")
+            if (response.Content != "Lokationen eksisterer ikke" || response.Content != "Lokationen har ikke nogen opgave")
                 return JsonConvert.DeserializeObject<MultipleChoiceAssignment>(response.Content);
             else return null;
         }

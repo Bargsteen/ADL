@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
 using ADL.Models.ViewModels;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ADL.Controllers
 {
@@ -9,13 +10,22 @@ namespace ADL.Controllers
     {
         IAssignmentRepository assignmentRepository;
         ILocationRepository locationRepository;
+
         public AssignmentController(IAssignmentRepository assignmentRepo, ILocationRepository locationRepo)
         {
             assignmentRepository = assignmentRepo;
             locationRepository = locationRepo;
         }
 
-        public ViewResult List() => View(assignmentRepository.Assignments);
+        public ViewResult List()
+        {
+            AssignmentAndLocationListViewModel assignmentList = new AssignmentAndLocationListViewModel()
+            {
+                Assignments = assignmentRepository.Assignments,
+                Locations = locationRepository.Locations
+            };
+            return View(assignmentList);
+        }
 
         public ViewResult Edit(int assignmentId)
         {
