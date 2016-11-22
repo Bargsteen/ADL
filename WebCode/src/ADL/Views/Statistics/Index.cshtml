@@ -1,21 +1,40 @@
-@model IEnumerable<Answer>
+@model StatisticsViewModel 
 @{ 
     ViewBag.Title = "Statistik"; 
-    }
+} 
+<table class="table table-bordered table-striped table-hover" id="accordion">
+    <thead>
+        <th>Id</th>
+        <th>Opgavetitel</th>
+        <th>Spørgsmål</th>
+        <th>Tidspunkt</th>
+    </thead>
+    <tbody>
+    @foreach (Assignment assignment in Model.Assignments) {
+        <tr data-toggle="collapse" data-parent="#accordion" href="#assignment-@assignment.AssignmentId">
+            <td>@assignment.AssignmentId</td>
+            <td>@assignment.Headline</td>
+            <td>@assignment.Question</td>
+            <td>@Model.Stats[assignment.AssignmentId].Item1 / @Model.Stats[assignment.AssignmentId].Item2</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+        <table id="assignment-@assignment.AssignmentId" class="collapse table table-bordered table-striped table-hover">
+        @foreach(Answer answer in Model.Answers)
+        {
+            @if(answer.AnsweredAssignmentId == assignment.AssignmentId)
+            {
+            <tr>
+                <td>@answer.TimeAnswered</td>
+                <td>@answer.ChosenAnswerOption</td>
+            
+            </tr>
+            }
+        }      
+        </table>
+        </td>
+        </tr>
 
-    <table class="table table-bordered table-striped">
-        <tr>
-            <th>Id</th>
-            <th>Opgavetitel</th>
-            <th>Besvarelse</th>
-            <th>Tidspunkt</th>
-        </tr>
-        @foreach (Answer a in Model) {
-        <tr>
-            <td width="5%">@a.AnswerId</td>
-            <td width="15%">@a.AnsweredAssignmentId</td>
-            <td width="50%">@a.ChosenAnswerOption</td>
-            <td width="30%">@a.TimeAnswered.ToString()</td>
-        </tr>
-        }
-    </table>
+    }
+    </tbody>
+</table>
