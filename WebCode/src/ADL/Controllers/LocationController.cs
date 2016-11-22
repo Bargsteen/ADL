@@ -7,23 +7,24 @@ namespace ADL.Controllers
 {
     public class LocationController : Controller
     {
-        ILocationRepository repository;
+        ILocationRepository locationRepository;
+
         public LocationController(ILocationRepository repo)
         {
-            repository = repo;
+            locationRepository = repo;
         }
 
-        public ViewResult List() => View(repository.Locations);
+        public ViewResult List() => View(locationRepository.Locations);
 
         public ViewResult Edit(int locationId) =>
-            View(repository.Locations
+            View(locationRepository.Locations
                 .FirstOrDefault(l => l.LocationId == locationId));
 
         [HttpPost]
         public IActionResult Edit(Location location)
         {
             if (ModelState.IsValid) {
-                repository.SaveLocation(location);
+                locationRepository.SaveLocation(location);
                 TempData["message"] = $"Lokationen '{location.Title}' blev gemt.";
                 return RedirectToAction(nameof(List));
             } else {
@@ -37,7 +38,7 @@ namespace ADL.Controllers
 
         [HttpPost]
         public IActionResult Delete(int locationId) {
-            Location deletedLocation = repository.DeleteLocation(locationId);
+            Location deletedLocation = locationRepository.DeleteLocation(locationId);
             if (deletedLocation != null) {
                 TempData["message"] = $"Lokationen '{deletedLocation.Title}' blev slettet.";
             }
