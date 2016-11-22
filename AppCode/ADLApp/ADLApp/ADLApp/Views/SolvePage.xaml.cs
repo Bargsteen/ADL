@@ -19,7 +19,7 @@ namespace ADLApp.Views
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            if(answerOptionView?.SelectedItem == null)
+            if (answerOptionView?.SelectedItem == null)
             {
                 await DisplayAlert("Fejl i besvaring", "Vælg venligst et svar", "OK");
                 return;
@@ -28,12 +28,8 @@ namespace ADLApp.Views
             if (AssignmentToSolve is MultipleChoiceAssignment)
             {
                 int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
-                var status = await answerSender.SendAnswer(new Answer()
-                {
-                    ChosenAnswerOption = selectedAnswerIndex,
-                    AnsweredAssignmentId = AssignmentToSolve.AssignmentId,
-                    TimeAnswered = DateTime.Now,
-                });
+                var status = await 
+                    answerSender.SendAnswer(new Answer(selectedAnswerIndex, AssignmentToSolve.AssignmentId));
                 await Navigation.PushModalAsync(new ResultPage(new ResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
             }
             SendAnswerButton.IsEnabled = true;
