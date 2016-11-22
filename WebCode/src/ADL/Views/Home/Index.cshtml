@@ -10,20 +10,27 @@
 
 <div class="container">
     <div class="row call-to-action">
-        <div class="col-md-4">
-            <a asp-controller="Assignment" asp-action="Create" class="glyph-black-link"><span class="glyphicon glyphicon-plus glyphicon-large" aria-hidden="true"></span></a>
-            <h3>Opret opgave</h3>
-            <p>Hvis opgaverne i biblioteket ikke kan bruges, kan du oprette dine egne opgaver og dele dem med dine kollegaer.</p>
-        </div>
-        <div class="col-md-4">
-            <a asp-controller="Assignment" asp-action="List" class="glyph-black-link"><span class="glyphicon glyphicon-paperclip glyphicon-large" aria-hidden="true"></span></a>
-            <h3>Opgavebibliotek</h3>
-            <p>Gennemse opgavebiblioteket og administrer dine tidligere opgaver. Del også dine opgaver med dine kollegaer.</p>
-        </div>
-        <div class="col-md-4">
-            <a asp-action="Download" class="glyph-black-link"><span class="glyphicon glyphicon-download-alt glyphicon-large" aria-hidden="true"></span></a>
-            <h3>Download app</h3>
-            <p>Download vores app til opgaveløsning på enten Android eller iOS. Hvis du får din lærer med på idéen kan du løse opgaver allerede i dag.</p>
-        </div>
-    </div>
+        <a asp-controller="Assignment" asp-action="Create" class="glyph-black-link">
+            <div class="col-md-4">
+                <span class="glyphicon glyphicon-plus glyphicon-large" aria-hidden="true"></span>
+                <h3>Opret opgave</h3>
+                <p>Hvis opgaverne i biblioteket ikke kan bruges, kan du oprette dine egne opgaver og dele dem med dine kollegaer.</p>
+            </div>
+        </a>
+        <a asp-controller="Assignment" asp-action="List" class="glyph-black-link">
+            <div class="col-md-4">
+                <span class="glyphicon glyphicon-paperclip glyphicon-large" aria-hidden="true"></span>
+                <h3>Opgavebibliotek</h3>
+                <p>Gennemse opgavebiblioteket og administrer dine tidligere opgaver. Del også dine opgaver med dine kollegaer.</p>
+            </div>
+        </a>
+        <a asp-action="Download" class="glyph-black-link">
+            <div class="col-md-4">
+                <span class="glyphicon glyphicon-download-alt glyphicon-large" aria-hidden="true"></span>
+        
+                <h3>Download app</h3>
+                <p>Download vores app til opgaveløsning på enten Android eller iOS. Hvis du får din lærer med på idéen kan du løse opgaver allerede i dag.</p>
+            </div>
+        </a>
+</div>
 </div>

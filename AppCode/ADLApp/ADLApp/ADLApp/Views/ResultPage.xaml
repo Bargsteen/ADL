@@ -4,12 +4,26 @@
              xmlns:local="clr-namespace:ADLApp.Views"
              x:Class="ADLApp.Views.ResultPage">
   <StackLayout Spacing="30">
-    <Label x:Name="QuestionLabel" VerticalTextAlignment="Start" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="35"></Label>
+    <Label x:Name="QuestionLabel"
+           Text="{Binding Path=Assignment.Question}"
+           VerticalTextAlignment="Start" HorizontalTextAlignment="Center"
+           FontAttributes="Bold" FontSize="35"></Label>
     <StackLayout Orientation="Horizontal">
-      <Label x:Name="preTextLabel" Text="Du svarede:" VerticalOptions="Center" HorizontalOptions="Start" FontSize="25"/>
-      <Label x:Name="AnswerLabel" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontAttributes="Bold"/>
+      <Label x:Name="preTextLabel" Text="Du svarede:"
+             VerticalOptions="Center" HorizontalOptions="Start" FontSize="25">
+      </Label>
+      <Label
+             x:Name="AnswerLabel"
+             Text="{Binding AnswerChosen}"
+             VerticalOptions="Center"
+             HorizontalOptions="Center" FontSize="25" FontAttributes="Bold">
+      </Label>
     </StackLayout>
-    <Label x:Name="FeedBackLabel" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
-    <Button Text="Gå tilbage" Clicked="Button_OnClicked" BackgroundColor="#8DBDD8"></Button>
+    <Label
+           x:Name="FeedBackLabel"
+           Text="{Binding Feedback.Item1}"
+           TextColor="{Binding Feedback.Item2}"
+           VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
+    <Button Text="Fortsæt" Clicked="Button_OnClicked" BackgroundColor="#8DBDD8"></Button>
   </StackLayout>
 </ContentPage>

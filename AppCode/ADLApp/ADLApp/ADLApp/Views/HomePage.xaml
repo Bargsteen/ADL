@@ -8,8 +8,7 @@
   <ScrollView>
     <StackLayout>
       <Button x:Name="ScanButton" Button.Image="scan_qr.png" Text="" Clicked="OnScanButtonClicked"></Button>
-      <Button Button.Image="find_qr.png" Text="" Clicked="OnClicked"></Button>
+      <Button Button.Image="find_qr.png" Text="" ></Button>
     </StackLayout>
   </ScrollView>
-
 </ContentPage>

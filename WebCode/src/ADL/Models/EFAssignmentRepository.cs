@@ -22,6 +22,7 @@ namespace ADL.Models
             if (assignment.AssignmentId == 0)
             {
                 // New assignment
+                assignment.AnswerOptions = assignment.AnswerOptions.Where(ao => ao.Text != null).ToList();
                 context.Add(assignment);
             }
             else
@@ -40,7 +41,10 @@ namespace ADL.Models
                     dbEntry.AnswerOptions = new List<AnswerOption>();
                     foreach (AnswerOption ao in assignment.AnswerOptions)
                     {
-                        dbEntry.AnswerOptions.Add(ao);
+                        if(ao.Text != null)
+                        {
+                            dbEntry.AnswerOptions.Add(ao);
+                        }
                     }
                 }
             }

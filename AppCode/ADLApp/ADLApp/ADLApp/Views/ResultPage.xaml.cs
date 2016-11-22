@@ -1,5 +1,6 @@
 ﻿using System;
 using ADLApp.Models;
+using ADLApp.ViewModel;
 
 using Xamarin.Forms;
 
@@ -7,23 +8,11 @@ namespace ADLApp.Views
 {
     public partial class ResultPage : ContentPage
     {
-        public ResultPage(int answer, MultipleChoiceAssignment answeredAssignment)
+        public ResultPage(ResultViewModel RVM)
         {
             InitializeComponent();
-            QuestionLabel.Text += answeredAssignment.Question;
-            AnswerLabel.Text = answeredAssignment.AnswerOptions[answer].Text;
-            if (answer == answeredAssignment.CorrectAnswer)
-            {
-                FeedBackLabel.TextColor = Color.Green;
-                FeedBackLabel.Text = "Godt gået, det er korrekt!";
-            }
-            else
-            {
-                FeedBackLabel.TextColor = Color.Red;
-                FeedBackLabel.Text = $"Desværre, det rigtige svar var \"{answeredAssignment.AnswerOptions[answeredAssignment.CorrectAnswer].Text}\"";
-            }
+            BindingContext = RVM;
         }
-
         private async void Button_OnClicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();

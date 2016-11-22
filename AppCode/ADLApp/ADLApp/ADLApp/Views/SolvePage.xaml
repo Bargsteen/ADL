@@ -1,20 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ADLApp.Views"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-             x:Class="ADLApp.Views.SolvePage">
-  <StackLayout Spacing="10">
-    <Label x:Name="Question" FontSize="20" HorizontalTextAlignment="Center" ></Label>
+             x:Class="ADLApp.Views.SolvePage"
+			 BackgroundColor="White"
+             Title="{Binding Headline}">
+	
+  <StackLayout Spacing="10" >
+  <!--
+		<StackLayout.BackgroundColor>
+      <Color>
+        <OnPlatform x:TypeArguments="Color" iOS="White"></OnPlatform>
+      </Color>
+		
+		</StackLayout.BackgroundColor>
+		-->
+    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" ></Label>
     <Label Text="Svarmuligheder:"></Label>
-    <ListView x:Name="answerOptionView" HasUnevenRows="True"  >
+    <ListView x:Name="answerOptionView" HasUnevenRows="True"  ItemsSource="{Binding AnswerOptions}" >
       <ListView.ItemTemplate >
         <DataTemplate>
           <ViewCell>
-            <StackLayout>
+          <!--  <StackLayout> -->
               <Label FontSize="25" HorizontalTextAlignment="Center"
                      VerticalTextAlignment="Center" Text= "{Binding Text}"></Label>
-            </StackLayout>
+       <!--     </StackLayout> -->
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>

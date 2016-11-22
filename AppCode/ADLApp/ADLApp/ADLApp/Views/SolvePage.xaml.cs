@@ -13,26 +13,30 @@ namespace ADLApp.Views
         public SolvePage(Assignment currentAssignment)
         {
             InitializeComponent();
-            BindingContext = AssignmentToSolve;
             AssignmentToSolve = currentAssignment as MultipleChoiceAssignment;
-            Title = AssignmentToSolve.Headline;
-            Question.Text = AssignmentToSolve.Question;
-            answerOptionView.ItemsSource = AssignmentToSolve.AnswerOptions;
+            BindingContext = AssignmentToSolve;
         }
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
+            if(answerOptionView?.SelectedItem == null)
+            {
+                await DisplayAlert("Fejl i besvaring", "Vælg venligst et svar", "OK");
+                return;
+            }
+            SendAnswerButton.IsEnabled = false;
             if (AssignmentToSolve is MultipleChoiceAssignment)
             {
                 int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
-                HttpStatusCode status = await answerSender.SendAnswer(new Answer()
+                var status = await answerSender.SendAnswer(new Answer()
                 {
-                    ChosenAnswerOption = answerOptionView.SelectedItem as AnswerOption,
-                    AnsweredAssignment = AssignmentToSolve,
+                    ChosenAnswerOption = selectedAnswerIndex,
+                    AnsweredAssignmentId = AssignmentToSolve.AssignmentId,
                     TimeAnswered = DateTime.Now,
                 });
-                await Navigation.PushModalAsync(new ResultPage(selectedAnswerIndex, AssignmentToSolve));
+                await Navigation.PushModalAsync(new ResultPage(new ResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
             }
+            SendAnswerButton.IsEnabled = true;
             await Navigation.PopAsync();
         }
     }
