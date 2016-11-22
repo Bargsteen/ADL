@@ -20,7 +20,7 @@ namespace ADL.Models
         private static string LocationIDtoPath(int locationID)
         {
             /*Combine the locationID and the path into a single string*/
-            string path = $"{locationID}";
+            string path = $"ADLearning;{locationID}";
 
             return path;
         }
