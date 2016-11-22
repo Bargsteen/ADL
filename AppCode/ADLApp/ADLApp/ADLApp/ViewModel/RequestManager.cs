@@ -49,11 +49,11 @@ namespace ADLApp.ViewModel
         }
         public async Task<string> SendAnswer(Answer answer)
         {
-            RestRequest request = new RestRequest($"/ReceiveAnswer", Method.POST);
+            RestRequest request = new RestRequest($"/SendAnswer", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(answer);
             var resp = await rClient.ExecutePostTaskAsync(request);
-            return resp.StatusCode.ToString();
+            return resp.Content;
         }
     }
 }

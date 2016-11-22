@@ -14,7 +14,13 @@ namespace ADLApp.ViewModel
         {
             MobileBarcodeScanner scanner = new MobileBarcodeScanner();
             Result res = await scanner?.Scan();
-            if (res != null) return res.Text;
+            if (res != null)
+            {
+                if (res.Text.Contains("ADLearning"))
+                    return res.Text;
+                else
+                    return "error";
+            }
             else return "";
         }
     }

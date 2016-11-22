@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:ADLApp.Views"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ADLApp.Views.SolvePage"
-			 BackgroundColor="White">
+			 BackgroundColor="White"
+             Title="{Binding Headline}">
 	
   <StackLayout Spacing="10" >
   <!--
@@ -15,9 +16,9 @@
 		
 		</StackLayout.BackgroundColor>
 		-->
-    <Label x:Name="Question" FontSize="20" HorizontalTextAlignment="Center" ></Label>
+    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" ></Label>
     <Label Text="Svarmuligheder:"></Label>
-    <ListView x:Name="answerOptionView" HasUnevenRows="True"  >
+    <ListView x:Name="answerOptionView" HasUnevenRows="True"  ItemsSource="{Binding AnswerOptions}" >
       <ListView.ItemTemplate >
         <DataTemplate>
           <ViewCell>

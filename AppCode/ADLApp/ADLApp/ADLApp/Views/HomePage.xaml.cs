@@ -17,12 +17,14 @@ namespace ADLApp.Views
         }
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
-           // ScanButton.Text = "Scan qr kode";
+            // ScanButton.Text = "Scan qr kode";
             ScanButton.IsEnabled = false;
-            string s = await qrScanner.ScanAndGetOutputString();
-            if (s != "")
+            string scanString = await qrScanner.ScanAndGetOutputString();
+            if (scanString != "")
             {
-                Assignment currentassignment = await assignmentLoader.GetAssignment("/location/" + s);
+                string[] strings = scanString.Split(';');
+                Assignment currentassignment = await assignmentLoader
+                    .GetAssignment("/location/" + strings[1]);
                 if (currentassignment != null)
                 {
                     if (currentassignment is MultipleChoiceAssignment)
@@ -37,12 +39,13 @@ namespace ADLApp.Views
                     }
                 }
                 else
-
                 {
-                    await DisplayAlert("Fejl ved indlæsning af opgave", "Er det en ADL qr kode?", "Prøv igen");
-
-                  //  ScanButton.Text += ".. Er det en ADL qr kode?";
+                    await DisplayAlert("Fejl ved indlæsning af opgave", "Er det en adl qr kode?", "Prøv igen");
                 }
+            }
+            else if (scanString == "error")
+            {
+                await DisplayAlert("Fejl ved scanning af opgaver", "Det er ikke en adl qr kode", "Prøv med en anden");
             }
             ScanButton.IsEnabled = true;
         }
