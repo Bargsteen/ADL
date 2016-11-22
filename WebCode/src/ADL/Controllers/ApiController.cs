@@ -76,8 +76,7 @@ namespace ADL.Controllers
                 else
                 {
                     reply = "Opgaven blev ikke fundet.";
-                }
-                
+                }          
             }
             return reply;
         }

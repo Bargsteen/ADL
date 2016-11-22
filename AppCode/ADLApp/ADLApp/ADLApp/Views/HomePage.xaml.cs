@@ -17,7 +17,6 @@ namespace ADLApp.Views
         }
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
-            // ScanButton.Text = "Scan qr kode";
             ScanButton.IsEnabled = false;
             string scanString = await qrScanner.ScanAndGetOutputString();
             if (scanString != "" && scanString != "error")
@@ -40,7 +39,7 @@ namespace ADLApp.Views
                 }
                 else
                 {
-                    await DisplayAlert("Fejl ved indlæsning af opgave", "Er det en adl qr kode?", "Prøv igen");
+                    await DisplayAlert("Kode er ikke koblet på opgave", "Koden har ikke en opgave", "Prøv igen");
                 }
             }
             else if (scanString == "error")
