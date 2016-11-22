@@ -21,14 +21,28 @@
                 <input class="form-control" asp-for="Question" />
             </div>
             <div class="form-group">
-                <label asp-for="AnswerOptions">Første svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptions[0].Text" />
-                <label asp-for="AnswerOptions">Anden svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptions[1].Text" />
-                <label asp-for="AnswerOptions">Tredje svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptions[2].Text" />
-                <label asp-for="AnswerOptions">Fjerde svarmulighed:</label>
-                <input class="form-control" asp-for="AnswerOptions[3].Text" />
+                @if(Model.AssignmentId == 0)
+                {
+                    <label asp-for="AnswerOptions">Første svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptions[0].Text" />
+                    <label asp-for="AnswerOptions">Anden svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptions[1].Text" />
+                    <label asp-for="AnswerOptions">Tredje svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptions[2].Text" />
+                    <label asp-for="AnswerOptions">Fjerde svarmulighed:</label>
+                    <input class="form-control" asp-for="AnswerOptions[3].Text" />
+                }
+                else
+                {
+                    @for(int i=1; i <= Model.AnswerOptions.Count(); i++)
+                    {
+                        <label asp-for="AnswerOptions">Svarmulighed nr @i:</label>                 
+                        <input class="form-control" asp-for="AnswerOptions[i-1].Text" /> 
+                    }
+                      
+                }
+                
+             </div>
             <div class="form-group">
                 <label asp-for="CorrectAnswer">Korrekte svar:</label>
                 <select class="form-control" asp-for="CorrectAnswer">

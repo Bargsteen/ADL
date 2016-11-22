@@ -13,8 +13,8 @@
         @foreach (Answer a in Model) {
         <tr>
             <td width="5%">@a.AnswerId</td>
-            <td width="15%">@a.AnsweredAssignment?.Headline</td>
-            <td width="50%">@a.ChosenAnswerOption?.Text</td>
+            <td width="15%">@a.AnsweredAssignmentId</td>
+            <td width="50%">@a.ChosenAnswerOption</td>
             <td width="30%">@a.TimeAnswered.ToString()</td>
         </tr>
         }

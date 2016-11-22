@@ -41,6 +41,7 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerOption.cs" />
     <Compile Include="ViewModel\IAnswerSender.cs" />
+    <Compile Include="ViewModel\ResultViewModel.cs" />
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>

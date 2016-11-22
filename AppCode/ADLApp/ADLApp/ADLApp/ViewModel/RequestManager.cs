@@ -37,7 +37,7 @@ namespace ADLApp.ViewModel
             RestRequest request = new RestRequest(resource, Method.GET);
             IRestResponse response = await GetDataAsString(request);
             //Check object it has to create. Switch on a data in the json format("assignmentType":"MultipleChoice" for example
-            if (response.Content != "Lokationen eksisterer ikke")
+            if (response.Content != "Lokationen eksisterer ikke" || response.Content != "Lokationen har ikke nogen opgave")
                 return JsonConvert.DeserializeObject<MultipleChoiceAssignment>(response.Content);
             else return null;
         }
@@ -49,11 +49,11 @@ namespace ADLApp.ViewModel
         }
         public async Task<string> SendAnswer(Answer answer)
         {
-            RestRequest request = new RestRequest($"/ReceiveAnswer", Method.POST);
+            RestRequest request = new RestRequest($"/SendAnswer", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(answer);
             var resp = await rClient.ExecutePostTaskAsync(request);
-            return resp.StatusCode.ToString();
+            return resp.Content;
         }
     }
 }

@@ -8,8 +8,8 @@ using ADL.Models;
 namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161120183051_Answers2")]
-    partial class Answers2
+    [Migration("20161122080350_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,17 +21,13 @@ namespace ADL.Migrations
                     b.Property<int>("AnswerId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AnsweredAssignmentAssignmentId");
+                    b.Property<int>("AnsweredAssignmentId");
 
-                    b.Property<int?>("ChosenAnswerOptionAnswerOptionID");
+                    b.Property<int>("ChosenAnswerOption");
 
                     b.Property<DateTime>("TimeAnswered");
 
                     b.HasKey("AnswerId");
-
-                    b.HasIndex("AnsweredAssignmentAssignmentId");
-
-                    b.HasIndex("ChosenAnswerOptionAnswerOptionID");
 
                     b.ToTable("Answers");
                 });
@@ -86,17 +82,6 @@ namespace ADL.Migrations
                     b.HasKey("LocationId");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("ADL.Models.Answer", b =>
-                {
-                    b.HasOne("ADL.Models.Assignment", "AnsweredAssignment")
-                        .WithMany()
-                        .HasForeignKey("AnsweredAssignmentAssignmentId");
-
-                    b.HasOne("ADL.Models.AnswerOption", "ChosenAnswerOption")
-                        .WithMany()
-                        .HasForeignKey("ChosenAnswerOptionAnswerOptionID");
                 });
 
             modelBuilder.Entity("ADL.Models.AnswerOption", b =>
