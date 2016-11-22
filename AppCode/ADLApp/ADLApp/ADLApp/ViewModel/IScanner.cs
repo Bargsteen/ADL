@@ -8,6 +8,6 @@ namespace ADLApp.ViewModel
 {
     interface IScanner
     {
-        Task<string> ScanAndGetOutputString();
+        Task<string> ScanAndGetString();
     }
 }

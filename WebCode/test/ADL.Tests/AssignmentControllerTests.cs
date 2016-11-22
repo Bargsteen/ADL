@@ -20,23 +20,28 @@ namespace ADL.Tests
             // Arrange
             Mock<IAssignmentRepository> mockAssigntment = new Mock<IAssignmentRepository>();
             Mock<ILocationRepository> mockLocation = new Mock<ILocationRepository>();
-            mockAssigntment.Assignments.Returns(Assignment[3] = new Assignment { Headline = "A1", Headline = "A2", Headline = "A3" });
+//            mockAssigntment.Assignments.Returns(Assignment[3] = new Assignment { Headline = "A1", Headline = "A2", Headline = "A3" });
+            mockAssigntment.Setup(m => m.Assignments).Returns(new Assignment[]
+            {
+                new Assignment {Headline = "h1", Question = "Hej"},
+                new Assignment {Headline = "h2", Question = "hej2"},
+                new Assignment {Headline = "h3", Question = "hej3"}
+            });
+
+            AssignmentController controller = new AssignmentController(mockAssigntment.Object, mockLocation.Object);
 
 
 
-            AssignmentController controller = new AssignmentController(mockAssigntment.Object(), mockLocation.Object());
-        
 
             // Act
-            Assignment[] result = (controller.List() as ViewModel).ToArray();
+            IEnumerable<Assignment> result =
+                   controller.List().ViewData.Model as IEnumerable<Assignment>;
 
             // Assert
-            Assert.Equal(result.Length, 3);
-            Assert.True(result[0].Headline == "A1");
-            Assert.True(result[1].Headline == "A2");
-            Assert.True(result[2].Headline == "A3");
-
-
+         
+            Assignment[] assignArray = result.ToArray();
+            Assert.Equal("h1", assignArray[0].Headline);
+            Assert.Equal("h3", assignArray[1].Headline);
 
         }
 

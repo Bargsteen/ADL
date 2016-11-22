@@ -10,7 +10,7 @@ namespace ADLApp.ViewModel
 {
     class QRScanner : IScanner
     {
-        public async Task<string> ScanAndGetOutputString()
+        public async Task<string> ScanAndGetString()
         {
             MobileBarcodeScanner scanner = new MobileBarcodeScanner();
             Result res = await scanner?.Scan();

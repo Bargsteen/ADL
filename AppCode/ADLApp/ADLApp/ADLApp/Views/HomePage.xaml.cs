@@ -8,18 +8,15 @@ namespace ADLApp.Views
     public partial class HomePage : ContentPage
     {
         private IScanner qrScanner = new QRScanner();
-        private IAssignmentLoader assignmentLoader = new RequestManager("http://adlearning.azurewebsites.net/api");
+        private IAssignmentLoader assignmentLoader = new RequestManager();
         public HomePage()
         {
             InitializeComponent();
-            ScanButton.BackgroundColor = BackgroundColor;
-            ScanButton.BorderColor = BackgroundColor;
         }
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
-            // ScanButton.Text = "Scan qr kode";
             ScanButton.IsEnabled = false;
-            string scanString = await qrScanner.ScanAndGetOutputString();
+            string scanString = await qrScanner.ScanAndGetString();
             if (scanString != "" && scanString != "error")
             {
                 string[] strings = scanString.Split(';');
@@ -40,7 +37,7 @@ namespace ADLApp.Views
                 }
                 else
                 {
-                    await DisplayAlert("Fejl ved indlæsning af opgave", "Er det en adl qr kode?", "Prøv igen");
+                    await DisplayAlert("Kode er ikke koblet på opgave", "Koden har ikke en opgave", "Prøv igen");
                 }
             }
             else if (scanString == "error")

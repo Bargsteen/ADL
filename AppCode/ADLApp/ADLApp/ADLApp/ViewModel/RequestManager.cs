@@ -13,15 +13,8 @@ namespace ADLApp.ViewModel
 {
     class RequestManager : IAssignmentLoader, IAnswerSender
     {
-        private RestClient rClient;
-        /// <summary>
-        /// Needs a client aka url of the API
-        /// </summary>
-        /// <param name="baseURL"></param>
-        public RequestManager(string baseURL)
-        {
-            rClient = new RestClient(baseURL);
-        }
+        private RestClient rClient = new RestClient("http://adlearning.azurewebsites.net/api");
+
         /// <summary>
         /// Gets assignment based from AssigmentLoader, with the initialized client.
         /// Needs a Method from the controller with right input.
@@ -37,7 +30,7 @@ namespace ADLApp.ViewModel
             RestRequest request = new RestRequest(resource, Method.GET);
             IRestResponse response = await GetDataAsString(request);
             //Check object it has to create. Switch on a data in the json format("assignmentType":"MultipleChoice" for example
-            if (response.Content != "Lokationen eksisterer ikke")
+            if (response.Content != "Lokationen eksisterer ikke" || response.Content != "Lokationen har ikke nogen opgave")
                 return JsonConvert.DeserializeObject<MultipleChoiceAssignment>(response.Content);
             else return null;
         }
