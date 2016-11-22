@@ -20,7 +20,7 @@ namespace ADLApp.Views
             // ScanButton.Text = "Scan qr kode";
             ScanButton.IsEnabled = false;
             string scanString = await qrScanner.ScanAndGetOutputString();
-            if (scanString != "")
+            if (scanString != "" && scanString != "error")
             {
                 string[] strings = scanString.Split(';');
                 Assignment currentassignment = await assignmentLoader
