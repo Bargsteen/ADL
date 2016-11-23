@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +19,7 @@ namespace ADL.Tests
         public void Can_List_Assignments()
         {
 
-        // Arrange
+            // Arrange
             Mock<IAssignmentRepository> mockAssigntment = new Mock<IAssignmentRepository>();
             Mock<ILocationRepository> mockLocation = new Mock<ILocationRepository>();
 
@@ -32,11 +32,13 @@ namespace ADL.Tests
 
             AssignmentController controller = new AssignmentController(mockAssigntment.Object, mockLocation.Object);
             // Act
-            IEnumerable<Assignment> result =
-                   controller.List().ViewData.Model as IEnumerable<Assignment>;
+   
+
+            var result =
+                   controller.List().ViewData.Model as IEnumerable<Assignment>
 
             // Assert
-         
+
             Assignment[] assignArray = result.ToArray();
             Assert.Equal("h1", assignArray[0].Headline);
             Assert.Equal("h3", assignArray[1].Headline);
