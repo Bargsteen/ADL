@@ -28,7 +28,7 @@ namespace ADL.Tests
                 new Assignment {Headline = "h1", Question = "Hej"},
                 new Assignment {Headline = "h2", Question = "hej2"},
                 new Assignment {Headline = "h3", Question = "hej3"}
-            })
+            });
 
             AssignmentController controller = new AssignmentController(mockAssigntment.Object, mockLocation.Object);
             // Act
