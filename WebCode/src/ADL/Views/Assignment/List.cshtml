@@ -1,3 +1,4 @@
+    
 @model AssignmentAndLocationListViewModel
 @{
     ViewBag.Title = "Opgaveliste";
@@ -29,21 +30,28 @@
                         </a>
                     </form>
                 </td>
-                <td width="15%">
-                    @foreach (Location l in Model.Locations)
-                    {
-                        if (l.AttachedAssignmentId == a.AssignmentId)
-                        {
-                            <p>Opgaven er koblet til:<br /><b>@l.Title</b></p>
-                        }
-                        else
-                        {
-                            <p>Opgaven er ikke koblet til en lokation</p>
-                        }
-                    }
 
-                </td>
+                @foreach (Location l in Model.Locations)
+                {
+                    if (l.AttachedAssignmentId == a.AssignmentId)
+                    {
+                        <td style="background-color: #dff0d8" width="15%">
+                            <p> Opgaven er koblet til:<br /><b>@l.Title</b></p>
+                        </td>
+
+                    }
+                    else
+                    {
+                        <td width="15%">
+                            <p>Opgaven er ikke koblet til en lokation</p>
+                        </td>
+
+                    }
+                }
+
+                           
             </tr>
+
         }
     </table>
     <div class="text-right">
