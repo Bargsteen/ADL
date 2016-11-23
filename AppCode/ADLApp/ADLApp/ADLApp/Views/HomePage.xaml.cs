@@ -8,17 +8,15 @@ namespace ADLApp.Views
     public partial class HomePage : ContentPage
     {
         private IScanner qrScanner = new QRScanner();
-        private IAssignmentLoader assignmentLoader = new RequestManager("http://adlearning.azurewebsites.net/api");
+        private IAssignmentLoader assignmentLoader = new RequestManager();
         public HomePage()
         {
             InitializeComponent();
-            ScanButton.BackgroundColor = BackgroundColor;
-            ScanButton.BorderColor = BackgroundColor;
         }
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
             ScanButton.IsEnabled = false;
-            string scanString = await qrScanner.ScanAndGetOutputString();
+            string scanString = await qrScanner.ScanAndGetString();
             if (scanString != "" && scanString != "error")
             {
                 string[] strings = scanString.Split(';');

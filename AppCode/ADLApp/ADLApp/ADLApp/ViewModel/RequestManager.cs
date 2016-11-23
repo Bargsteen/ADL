@@ -13,15 +13,8 @@ namespace ADLApp.ViewModel
 {
     class RequestManager : IAssignmentLoader, IAnswerSender
     {
-        private RestClient rClient;
-        /// <summary>
-        /// Needs a client aka url of the API
-        /// </summary>
-        /// <param name="baseURL"></param>
-        public RequestManager(string baseURL)
-        {
-            rClient = new RestClient(baseURL);
-        }
+        private RestClient rClient = new RestClient("http://adlearning.azurewebsites.net/api");
+
         /// <summary>
         /// Gets assignment based from AssigmentLoader, with the initialized client.
         /// Needs a Method from the controller with right input.
