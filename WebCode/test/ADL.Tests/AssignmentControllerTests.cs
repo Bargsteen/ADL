@@ -14,25 +14,23 @@ namespace ADL.Tests
 {
     class AssignmentControllerTests
     {
+
         [Fact]
         public void Can_List_Assignments()
         {
-            // Arrange
+
+        // Arrange
             Mock<IAssignmentRepository> mockAssigntment = new Mock<IAssignmentRepository>();
             Mock<ILocationRepository> mockLocation = new Mock<ILocationRepository>();
-//            mockAssigntment.Assignments.Returns(Assignment[3] = new Assignment { Headline = "A1", Headline = "A2", Headline = "A3" });
+
             mockAssigntment.Setup(m => m.Assignments).Returns(new Assignment[]
             {
                 new Assignment {Headline = "h1", Question = "Hej"},
                 new Assignment {Headline = "h2", Question = "hej2"},
                 new Assignment {Headline = "h3", Question = "hej3"}
-            });
+            })
 
             AssignmentController controller = new AssignmentController(mockAssigntment.Object, mockLocation.Object);
-
-
-
-
             // Act
             IEnumerable<Assignment> result =
                    controller.List().ViewData.Model as IEnumerable<Assignment>;
