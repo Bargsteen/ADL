@@ -54,15 +54,64 @@ namespace ADL
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext db)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            //db.Database.Migrate();
+            // Logging
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+            MigrateDatabase(app);
+
+            if (env.IsDevelopment())
+            {
+                InitilizeDatabase(app);
+            }
+
             app.UseSession();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.UseDeveloperExceptionPage();
             
+        }
+
+        // Magi!!!
+        private void MigrateDatabase(IApplicationBuilder app)
+        {
+            // Initilize datbase
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                // Automatic migrate of datbase
+                scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+
+                // Get context
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                // Automatic migrate of datbase
+                context.Database.Migrate();
+            }
+        }
+
+        private void InitilizeDatabase(IApplicationBuilder app)
+        {
+            // Initilize datbase
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                // Automatic migrate of datbase
+                scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+
+                // Get context
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                // Add test data
+                if (!context.Locations.Any())
+                {
+                    context.Locations.AddRange(new Location { Title = "Location1", Description = "Location1" }, new Location { Title = "Location2", Description = "Location2" });
+                }
+
+                // Save changes
+                context.SaveChanges();
+            }
         }
     }
 }
