@@ -13,7 +13,7 @@ namespace ADLApp.ViewModel
 {
     class RequestManager : IAssignmentLoader, IAnswerSender
     {
-        private RestClient rClient = new RestClient("http://adlearning.azurewebsites.net/api");
+        private IRestClient rClient = new RestClient("http://adlearning.azurewebsites.net/api");
 
         /// <summary>
         /// Gets assignment based from AssigmentLoader, with the initialized client.
@@ -23,15 +23,13 @@ namespace ADLApp.ViewModel
         /// <returns></returns>
         public async Task<Assignment> GetAssignment(string resource)
         {
-            return await GetAssignmentString(resource);
-        }
-        public async Task<Assignment> GetAssignmentString(string resource)
-        {
+            TaskFactory tf = new TaskFactory();
             RestRequest request = new RestRequest(resource, Method.GET);
             IRestResponse response = await GetDataAsString(request);
+            
             //Check object it has to create. Switch on a data in the json format("assignmentType":"MultipleChoice" for example
             if (response.Content != "Lokationen eksisterer ikke" || response.Content != "Lokationen har ikke nogen opgave")
-                return JsonConvert.DeserializeObject<MultipleChoiceAssignment>(response.Content);
+                return await tf.StartNew(() => JsonConvert.DeserializeObject<MultipleChoiceAssignment>(response.Content));
             else return null;
         }
         private async Task<IRestResponse> GetDataAsString(RestRequest request)
