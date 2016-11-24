@@ -21,7 +21,7 @@ namespace ADLApp.Views
             {
                 string[] strings = scanString.Split(';');
                 Assignment currentassignment = await assignmentLoader
-                    .GetAssignment("/location/" + strings[1]);
+                    .GetAssignment(strings[1]);
                 if (currentassignment != null)
                 {
                     if (currentassignment is MultipleChoiceAssignment)

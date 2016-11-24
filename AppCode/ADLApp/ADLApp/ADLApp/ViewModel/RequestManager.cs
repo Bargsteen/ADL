@@ -24,9 +24,9 @@ namespace ADLApp.ViewModel
         public async Task<Assignment> GetAssignment(string resource)
         {
             TaskFactory tf = new TaskFactory();
-            RestRequest request = new RestRequest(resource, Method.GET);
+            RestRequest request = new RestRequest("/location/" + resource, Method.GET);
             IRestResponse response = await GetDataAsString(request);
-            
+   
             //Check object it has to create. Switch on a data in the json format("assignmentType":"MultipleChoice" for example
             if (response.Content != "Lokationen eksisterer ikke" || response.Content != "Lokationen har ikke nogen opgave")
                 return await tf.StartNew(() => JsonConvert.DeserializeObject<MultipleChoiceAssignment>(response.Content));
