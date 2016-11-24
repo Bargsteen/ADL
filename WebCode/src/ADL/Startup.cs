@@ -75,7 +75,7 @@ namespace ADL
             
         }
 
-        // Magi!!!
+        // 
         private void MigrateDatabase(IApplicationBuilder app)
         {
             // Initilize datbase
