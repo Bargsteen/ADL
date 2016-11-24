@@ -14,12 +14,12 @@ namespace ADL.Controllers
             answerRepository = answerRepo;
             assignmentRepository = assignmentRepo;
         }
-       /* public ViewResult Solve(int? Id)
+        /*public ViewResult Solve(int? Id)
         {
             Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == Id);
             if (assignment != null)
             {
-                Answer answer = new Answer() { AnsweredAssignment = assignment };
+                Answer answer = new Answer() { AnsweredAssignmentId = Id };
                 return View(answer);
             }
             return View();

@@ -10,7 +10,7 @@ using ADL.Models.ViewModels;
 using Moq;
 
 
-namespace ADL.Tests2
+namespace ADL.Tests
 {
     class AssignmentControllerTests
     {
@@ -20,26 +20,56 @@ namespace ADL.Tests2
         {
 
             // Arrange
-            Mock<IAssignmentRepository> mockAssigntment = new Mock<IAssignmentRepository>();
-            Mock<ILocationRepository> mockLocation = new Mock<ILocationRepository>();
+            Mock<IAssignmentRepository> assignmentMock = new Mock<IAssignmentRepository>();
+            Mock<ILocationRepository> locationMock = new Mock<ILocationRepository>();
 
-            mockAssigntment.Setup(m => m.Assignments).Returns(new Assignment[]
+            assignmentMock.Setup(m => m.Assignments).Returns(new Assignment[]
             {
-                new Assignment {Headline = "h1", Question = "Hej"},
-                new Assignment {Headline = "h2", Question = "hej2"},
-                new Assignment {Headline = "h3", Question = "hej3"}
+                new Assignment {Headline = "h1", Question = "q1"},
+                new Assignment {Headline = "h2", Question = "q2"},
+                new Assignment {Headline = "h3", Question = "q3"}
             });
 
-            AssignmentController controller = new AssignmentController(mockAssigntment.Object, mockLocation.Object);
+            AssignmentController controller = new AssignmentController(assignmentMock.Object, locationMock.Object);
             // Act
             IEnumerable<Assignment> result =
                    controller.List().ViewData.Model as IEnumerable<Assignment>;
 
             // Assert
+            Assignment[] resultArray = result.ToArray();
+            Assert.Equal(resultArray.Length, 3);
+            Assert.Equal("h1", resultArray[0].Headline);
+            Assert.Equal("h2", resultArray[1].Headline);
+            Assert.Equal("h3", resultArray[2].Headline);
+            Assert.Equal("hej", resultArray[2].Question);
 
-            Assignment[] assignArray = result.ToArray();
-            Assert.Equal("h1", assignArray[0].Headline);
-            Assert.Equal("h3", assignArray[1].Headline);
         }
+
+        [Fact]
+        public void Can_Get_Edit()
+        {
+            // Arrange
+            Mock<IAssignmentRepository> assignmentMock = new Mock<IAssignmentRepository>();
+            Mock<ILocationRepository> locationMock = new Mock<ILocationRepository>();
+
+            assignmentMock.Setup(m => m.Assignments).Returns(new Assignment[]
+            {
+                new Assignment {AssignmentId = 1, Headline = "h1", Question = "q1"},
+                new Assignment {AssignmentId = 2, Headline = "h2", Question = "q2"},
+                new Assignment {AssignmentId = 3, Headline = "h3", Question = "q3"}
+            });
+
+            AssignmentController assignmentController = new AssignmentController(assignmentMock.Object, locationMock.Object);
+            // Act
+            Assignment a1 = assignmentController.Edit(1).ViewData.Model as Assignment;
+            Assignment a2 = assignmentController.Edit(2).ViewData.Model as Assignment;
+            Assignment a3 = assignmentController.Edit(3).ViewData.Model as Assignment;
+
+            // Assert
+            Assert.Equal(a1.AssignmentId, 1);
+            Assert.Equal(a2.Headline, "h2");
+            Assert.Equal(a3.Question, "q3");
+        }
+
     }
 }

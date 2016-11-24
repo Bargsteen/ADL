@@ -37,7 +37,10 @@ namespace ADL.Models
                     dbEntry.Headline = assignment.Headline;
                     dbEntry.Question = assignment.Question;
                     int amountOfAnswerOptionsInDb = dbEntry.AnswerOptions.Count();
-                    
+                    foreach(AnswerOption ao in dbEntry.AnswerOptions)
+                    {
+                        context.Remove(ao);
+                    }
                     dbEntry.AnswerOptions = new List<AnswerOption>();
                     foreach (AnswerOption ao in assignment.AnswerOptions)
                     {
