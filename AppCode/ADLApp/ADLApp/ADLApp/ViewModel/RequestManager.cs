@@ -19,12 +19,12 @@ namespace ADLApp.ViewModel
         /// Gets assignment based from AssigmentLoader, with the initialized client.
         /// Needs a Method from the controller with right input.
         /// </summary>
-        /// <param name="resource"></param>
+        /// <param name="resourceLocation"></param>
         /// <returns></returns>
-        public async Task<Assignment> GetAssignment(string resource)
+        public async Task<Assignment> GetAssignment(string resourceLocation)
         {
             TaskFactory tf = new TaskFactory();
-            RestRequest request = new RestRequest("/location/" + resource, Method.GET);
+            RestRequest request = new RestRequest("/location/" + resourceLocation, Method.GET);
             IRestResponse response = await GetDataAsString(request);
    
             //Check object it has to create. Switch on a data in the json format("assignmentType":"MultipleChoice" for example
