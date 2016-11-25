@@ -9,6 +9,8 @@ namespace ADL.Tests
     {
         public static void Main(string[] args)
         {
+            AssignmentControllerTests act = new AssignmentControllerTests();
+            act.Can_List_Assignments();
         }
     }
 }

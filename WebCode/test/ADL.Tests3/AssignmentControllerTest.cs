@@ -12,7 +12,7 @@ using Moq;
 
 namespace ADL.Tests
 {
-    class AssignmentControllerTests
+    public class AssignmentControllerTests
     {
 
         [Fact]
@@ -41,7 +41,7 @@ namespace ADL.Tests
             Assert.Equal("h1", resultArray[0].Headline);
             Assert.Equal("h2", resultArray[1].Headline);
             Assert.Equal("h3", resultArray[2].Headline);
-            Assert.Equal("hej", resultArray[2].Question);
+            Assert.Equal("q1", resultArray[0].Question);
 
         }
 

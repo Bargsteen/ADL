@@ -8,7 +8,7 @@
 {
     <table class="table table-bordered table-striped">
         <tr><th>Id</th><th>Titel</th><th>Spørgsmål</th><th>Handlinger</th><th>Tilkoblet til lokation?</th></tr>
-        @foreach (Assignment a in Model.Assignments)
+        @foreach (Assignment a in Model.Assignments.Reverse())
         {
             <tr>
                 <td width="5%">@a.AssignmentId</td>
