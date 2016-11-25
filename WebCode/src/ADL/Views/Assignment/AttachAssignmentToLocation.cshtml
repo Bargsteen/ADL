@@ -23,6 +23,14 @@
             </tr>
         }
         </table>
+
+        <div class="text-right">
+            <a asp-controller="Location" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret lokation</a>
+        </div>
+
 } else {
-    <div class="text-center">Ingen lokationer blev fundet.</div>
+    <div class="text-center">
+        <p>Ingen lokationer blev fundet.<br /></p>
+        <a asp-controller="Assignment" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a>
+    </div>
 }
