@@ -3,58 +3,60 @@
 @{
     ViewBag.Title = "Opgaveliste";
 }
+<div class="text-right">
+    <a asp-controller="Assignment" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a>
+</div>
+<br/>
+<div style="height: 500px; width: 100%; overflow: auto;">
+    @if (Model.Assignments.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <tr><th>Id</th><th>Titel</th><th>Spørgsmål</th><th>Handlinger</th><th>Tilkoblet til lokation?</th></tr>
+            @foreach (Assignment a in Model.Assignments.Reverse())
+            {
+                <tr>
+                    <td width="5%">@a.AssignmentId</td>
+                    <td width="15%">@a.Headline</td>
+                    <td width="40%">@a.Question</td>
+                    <td width="25%">
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="assignmentId" value="@a.AssignmentId" />
+                            <a asp-action="Edit" class="btn btn-sm btn-warning"
+                               asp-route-assignmentId="@a.AssignmentId">
+                                Rediger
+                            </a>
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Slet
+                            </button>
+                            <a asp-action="AttachAssignmentToLocation" class="btn btn-sm btn-primary"
+                               asp-route-chosenAssignmentId="@a.AssignmentId">
+                                Tildel
+                            </a>
+                        </form>
+                    </td>
 
-@if (Model.Assignments.Any())
-{
-    <table class="table table-bordered table-striped">
-        <tr><th>Id</th><th>Titel</th><th>Spørgsmål</th><th>Handlinger</th><th>Tilkoblet til lokation?</th></tr>
-        @foreach (Assignment a in Model.Assignments.Reverse())
-        {
-            <tr>
-                <td width="5%">@a.AssignmentId</td>
-                <td width="15%">@a.Headline</td>
-                <td width="40%">@a.Question</td>
-                <td width="25%">
-                    <form asp-action="Delete" method="post">
-                        <input type="hidden" name="assignmentId" value="@a.AssignmentId" />
-                        <a asp-action="Edit" class="btn btn-sm btn-warning"
-                           asp-route-assignmentId="@a.AssignmentId">
-                            Rediger
-                        </a>
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            Slet
-                        </button>
-                        <a asp-action="AttachAssignmentToLocation" class="btn btn-sm btn-primary"
-                           asp-route-chosenAssignmentId="@a.AssignmentId">
-                            Tildel
-                        </a>
-                    </form>
-                </td>
-
-                @foreach (Location l in Model.Locations)
-                {
-                    if (l.AttachedAssignmentId == a.AssignmentId)
+                    @foreach (Location l in Model.Locations)
                     {
-                        <td style="background-color: #dff0d8" width="15%">
-                            <p> Opgaven er koblet til:<br /><b>@l.Title</b></p>
-                        </td>
+                        if (l.AttachedAssignmentId == a.AssignmentId)
+                        {
+                            <td style="background-color: #dff0d8" width="15%">
+                                <p> Opgaven er koblet til:<br /><b>@l.Title</b></p>
+                            </td>
 
+                        }
                     }
-                }
 
                            
-            </tr>
+                </tr>
 
-        }
-    </table>
-    <div class="text-right">
-        <a asp-controller="Assignment" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a>
-    </div>
-}
-else
-{
-    <div class="text-center">
-        Ingen opgaver blev fundet.<br /><br />
-        <a asp-controller="Assignment" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a>
-    </div>
-}
+            }
+        </table>
+    }
+    else
+    {
+        <div class="text-center">
+            Ingen opgaver blev fundet.<br /><br />
+        </div>
+    }
+</div>
+
