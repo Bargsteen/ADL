@@ -40,8 +40,13 @@
     </Compile>
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerOption.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="ViewModel\IAnswerSender.cs" />
+    <Compile Include="ViewModel\ILocationLoader.cs" />
     <Compile Include="ViewModel\ResultViewModel.cs" />
+    <Compile Include="Views\FindQrPage.xaml.cs">
+      <DependentUpon>FindQrPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -156,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ResultPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\FindQrPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
