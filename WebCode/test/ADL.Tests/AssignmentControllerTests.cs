@@ -94,7 +94,7 @@ namespace ADL.Tests
             // Act
             AssignmentToLocationAttachment requestedAttachment = assignmentController.AttachAssignmentToLocation(ChosenAssignmentId).ViewData.Model as AssignmentToLocationAttachment;
             requestedAttachment.ChosenAssignmentId = ChosenAssignmentId;
-            requestedAttachment.Locations = locationRepositoryMock.Locations;
+            requestedAttachment.Locations = locationRepositoryMock.Object.Locations;
             // Assert
             Assert.Equal(requestedAttachment.ChosenAssignmentId, ChosenAssignmentId);
             Assert.Null(requestedAttachment.ChosenLocationId);
