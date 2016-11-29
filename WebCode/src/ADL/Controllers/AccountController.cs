@@ -12,14 +12,21 @@ namespace ADL.Controllers
     {
         private UserManager<Person> userManager;
         private SignInManager<Person> signInManager;
+        private IUserValidator<Person> userValidator;
+        private IPasswordValidator<Person> passwordValidator; private IPasswordHasher<Person> passwordHasher;
         private ISchoolRepository schoolRepository;
         public AccountController(UserManager<Person> userMgr,
                 SignInManager<Person> signinMgr,
-                ISchoolRepository schoolRepo)
+                ISchoolRepository schoolRepo, IUserValidator<Person> userValid,
+                IPasswordValidator<Person> passValid,
+                IPasswordHasher<Person> passwordHash)
         {
             schoolRepository = schoolRepo;
             userManager = userMgr;
             signInManager = signinMgr;
+            userValidator = userValid;
+            passwordValidator = passValid;
+            passwordHasher = passwordHash;
         }
 
         [AllowAnonymous]
@@ -68,8 +75,8 @@ namespace ADL.Controllers
         }
 
         [AllowAnonymous]
-        public ViewResult Create() => View(new CreateModel() 
-        { 
+        public ViewResult Create() => View(new CreateModel()
+        {
             AvailableSchools = schoolRepository.Schools
         });
 
@@ -106,5 +113,76 @@ namespace ADL.Controllers
             }
             return View(model);
         }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            Person user = await userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditModel model)
+        {
+            Person user = await userManager.FindByIdAsync(model.Id);
+            if (user != null)
+            {
+                user.Email = model.Email;
+                IdentityResult validEmail
+                    = await userValidator.ValidateAsync(userManager, user);
+                if (!validEmail.Succeeded)
+                {
+                    AddErrorsFromResult(validEmail);
+                }
+                IdentityResult validPass = null;
+                if (!string.IsNullOrEmpty(model.Password))
+                {
+                    validPass = await passwordValidator.ValidateAsync(userManager,
+                    user, model.Password);
+                    if (validPass.Succeeded)
+                    {
+                        user.PasswordHash = passwordHasher.HashPassword(user,
+                        model.Password);
+                    }
+                    else
+                    {
+                        AddErrorsFromResult(validPass);
+                    }
+                }
+                if ((validEmail.Succeeded && validPass == null)
+                        || (validEmail.Succeeded
+                        && model.Password != string.Empty && validPass.Succeeded))
+                {
+                    IdentityResult result = await userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        AddErrorsFromResult(result);
+                    }
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "User Not Found");
+            }
+            return View(user);
+        }
+        private void AddErrorsFromResult(IdentityResult result)
+        {
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+        }
+
     }
 }
