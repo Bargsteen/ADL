@@ -2,8 +2,9 @@
 <div class="bg-primary panel-body">
     <h4>Create User</h4>
 </div>
-<div asp-validation-summary=" All" class="text-danger"></div>
+<div asp-validation-summary="All" class="text-danger"></div>
 <form asp-action="Create" method="post">
+    <input type="hidden" asp-for="AvailableSchools" value="@Model.AvailableSchools" />
     <div class="form-group">
         <label asp-for="Firstname"></label>
         <input asp-for="Firstname" class="form-control" />
