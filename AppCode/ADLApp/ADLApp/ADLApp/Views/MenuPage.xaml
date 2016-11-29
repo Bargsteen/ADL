@@ -6,17 +6,17 @@
                   x:Name="MDP">
 
   <MasterDetailPage.Master>
-    <ContentPage Title="Menu">
+    <ContentPage Title="Menu" BackgroundColor="#C3E9C6">
       <StackLayout Margin="50" Orientation="Vertical">
-        <Button Text="Ret Profil" BackgroundColor="#a5d6a7"></Button>
-        <Button Text="Indstillinger" BackgroundColor="#81c784"></Button>
+        <Button Text="Ret Profil" BackgroundColor="#66bb6a"></Button>
+        <Button Text="Indstillinger" BackgroundColor="#66bb6a"></Button>
         <Button Text="Hjælp" BackgroundColor="#66bb6a"></Button>
-        <Button Text="Log ud" BackgroundColor="#4caf50"></Button>
+        <Button Text="Log ud" BackgroundColor="#66bb6a"></Button>
       </StackLayout>
     </ContentPage>
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
-    <NavigationPage NavigationPage.HasBackButton="False" BarBackgroundColor="#8DBDD8">
+    <NavigationPage NavigationPage.HasBackButton="False" BarBackgroundColor="#66bb6a">
       <x:Arguments>
         <local:HomePage></local:HomePage>
       </x:Arguments>

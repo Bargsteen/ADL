@@ -16,11 +16,13 @@ namespace ADLApp.Views
         public HomePage()
         {
             InitializeComponent();
+            
             LoadLocations();
         }
 
         private async void LoadLocations()
         {
+            await Navigation.PushModalAsync(new LoginPage());
             _locations = await _locationLoader.GetLocations("Locationlist");
         }
 
