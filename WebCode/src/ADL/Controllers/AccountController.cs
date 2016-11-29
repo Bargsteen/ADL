@@ -105,10 +105,12 @@ namespace ADL.Controllers
                 }
                 else
                 {
-                    AddErrorsFromResult(result);
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
                 }
             }
-            model.AvailableSchools = schoolRepository.Schools;
             return View(model);
         }
 
