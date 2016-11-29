@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 namespace ADL.Models {
     public class CreateModel {
         [Required]
@@ -27,5 +29,20 @@ namespace ADL.Models {
         [Required]
         [UIHint("password")]
         public string Password { get; set; }
+    }
+
+    public class RoleEditModel
+    {
+        public IdentityRole Role { get; set; }
+        public IEnumerable<Person> Members { get; set; }
+        public IEnumerable<Person> NonMembers { get; set; }
+    }
+    public class RoleModificationModel
+    {
+        [Required]
+        public string RoleName { get; set; }
+        public string RoleId { get; set; }
+        public string[] IdsToAdd { get; set; }
+        public string[] IdsToDelete { get; set; }
     }
 }

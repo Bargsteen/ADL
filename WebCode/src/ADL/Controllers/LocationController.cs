@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
+    [Authorize(Roles = "Lærer")]
     public class LocationController : Controller
     {
         ILocationRepository locationRepository;

@@ -81,13 +81,20 @@ namespace ADL.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        private async Task<ClaimsIdentity> GetIdentity(string username, string password)
+        public async Task<Task<ClaimsIdentity>> GetIdentity([FromBody]LoginModel model)
         {
-            Person user = await userManager.FindByNameAsync(username);
-            if (username == "TEST" && password == "TEST123")
+            Person user = await userManager.FindByNameAsync(model.Username);
+            if (user != null)
             {
-                return Task.FromResult(new ClaimsIdentity(new System.Security.Principal.GenericIdentity(username, "Token"), new Claim[] { }));
+                await signInManager.SignOutAsync();
+                Microsoft.AspNetCore.Identity.SignInResult result =
+                    await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                if(result.Succeeded)
+                {
+                    return Task.FromResult(new ClaimsIdentity(new System.Security.Principal.GenericIdentity(model.Username, "ADL"), 
+                    new Claim[] { }));
+                }
+                
             }
 
             // Credentials are invalid, or account doesn't exist

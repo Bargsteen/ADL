@@ -16,7 +16,7 @@ namespace ADL
 {
     public class Startup
     {
-        IConfigurationRoot Configuration;
+        IConfigurationRoot configuration;
         //environment is used for choosing db based on the environment (development/production)
         IHostingEnvironment environment;
 
@@ -24,7 +24,7 @@ namespace ADL
         {
             environment = env;
 
-            Configuration = new ConfigurationBuilder()
+            configuration = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
@@ -38,7 +38,7 @@ namespace ADL
 
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlite(
-                    Configuration["Data:ADL:ConnectionString"]));       
+                    configuration["Data:ADL:ConnectionString"]));       
 
             services.AddIdentity<Person, IdentityRole>(opts =>
             {
@@ -58,7 +58,7 @@ namespace ADL
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             // Logging
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddConsole(configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             //MigrateDatabase(app);
@@ -68,7 +68,9 @@ namespace ADL
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvcWithDefaultRoute();
-            app.UseDeveloperExceptionPage();            
+            app.UseDeveloperExceptionPage();    
+
+            ApplicationDbContext.CreateAdminAccount(app.ApplicationServices, configuration).Wait();      
         }
     }
 }

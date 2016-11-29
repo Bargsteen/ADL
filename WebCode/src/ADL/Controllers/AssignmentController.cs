@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
+    [Authorize(Roles = "Lærer")]
     public class AssignmentController : Controller
     {
         IAssignmentRepository assignmentRepository;
