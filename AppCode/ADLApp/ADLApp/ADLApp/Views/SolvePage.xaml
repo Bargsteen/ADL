@@ -30,6 +30,6 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
-    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#8DBDD8"></Button>
+    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a"></Button>
   </StackLayout>
 </ContentPage>

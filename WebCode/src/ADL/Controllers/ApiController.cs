@@ -3,19 +3,29 @@ using ADL.Models;
 using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
+    [Authorize]
     public class ApiController : Controller
-    {
+    { 
         private IAssignmentRepository assignmentRepository;
         private ILocationRepository locationRepository;
         private IAnswerRepository answerRepository;
-        public ApiController(IAssignmentRepository assignmentRepo, ILocationRepository locationRepo, IAnswerRepository answerRepo)
+        private UserManager<Person> userManager;
+        private SignInManager<Person> signInManager;
+        public ApiController(IAssignmentRepository assignmentRepo, ILocationRepository locationRepo, IAnswerRepository answerRepo, UserManager<Person> userMgr,
+                SignInManager<Person> signinMgr)
         {
             assignmentRepository = assignmentRepo;
             locationRepository = locationRepo;
             answerRepository = answerRepo;
+            userManager = userMgr;
+            signInManager = signinMgr;
         }
 
         public string GetAssignment(int? id)
@@ -45,30 +55,18 @@ namespace ADL.Controllers
 
         public string LocationList()
         {
-            List<int> allLocationIds = locationRepository.Locations.Select(l => l.LocationId).ToList();
-            return JsonConvert.SerializeObject(allLocationIds);
+            List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.AttachedAssignmentId != 0).ToList();
+            return JsonConvert.SerializeObject(allLocationsWithAssignments);
         }
-        /*public ViewResult ReceiveAnswer(int id)
-        {
-            Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
-            Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == location.AttachedAssignmentId);
-            if (location != null && assignment != null)
-            {
-                Answer answer = new Answer() { AnsweredAssignment = assignment };
-                return View(answer);
-            }
-            return View(id);
-        }
-*/
 
         [HttpPost]
         public string SendAnswer([FromBody]Answer answer)
         {
             string reply = "Svaret havde ikke korrekt format.";
-            if(answer != null)
+            if (answer != null)
             {
                 Assignment answeredAssignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == answer.AnsweredAssignmentId);
-                if(answeredAssignment != null)
+                if (answeredAssignment != null)
                 {
                     answerRepository.SaveAnswer(answer);
                     reply = JsonConvert.SerializeObject(answer);
@@ -76,9 +74,32 @@ namespace ADL.Controllers
                 else
                 {
                     reply = "Opgaven blev ikke fundet.";
-                }          
+                }
             }
             return reply;
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<Task<ClaimsIdentity>> GetIdentity([FromBody]LoginModel model)
+        {
+            Person user = await userManager.FindByNameAsync(model.Username);
+            if (user != null)
+            {
+                await signInManager.SignOutAsync();
+                Microsoft.AspNetCore.Identity.SignInResult result =
+                    await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                if(result.Succeeded)
+                {
+                    return Task.FromResult(new ClaimsIdentity(new System.Security.Principal.GenericIdentity(model.Username, "ADL"), 
+                    new Claim[] { }));
+                }
+                
+            }
+
+            // Credentials are invalid, or account doesn't exist
+            return Task.FromResult<ClaimsIdentity>(null);
+        }
+        
     }
 }

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ADL.Models
 {
-    interface ISchoolRepository
+    public interface ISchoolRepository
     {
+        IEnumerable<School> Schools { get; }
+        void SaveSchool(School school);
+        School DeleteSchool(int schoolId);
+
     }
 }

@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
+    [Authorize(Roles = "Elev")]
     public class SolvingController : Controller
     {
         private IAnswerRepository answerRepository;
