@@ -12,7 +12,7 @@ using RestSharp.Deserializers;
 
 namespace ADLApp.ViewModel
 {
-    class RequestManager : IAssignmentLoader, IAnswerSender, ILocationLoader
+    class RequestManager : IAssignmentLoader, IAnswerSender, ILocationLoader, ILogin
     {
         private readonly IRestClient _rClient = new RestClient("http://adlearning.azurewebsites.net/api");
 
@@ -44,7 +44,7 @@ namespace ADLApp.ViewModel
             RestRequest request = new RestRequest($"/SendAnswer", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(answer);
-            var resp = await _rClient.ExecutePostTaskAsync(request);
+            IRestResponse resp = await _rClient.ExecutePostTaskAsync(request);
             return resp.Content;
         }
 
@@ -54,6 +54,15 @@ namespace ADLApp.ViewModel
             request.RequestFormat = DataFormat.Json;
             IRestResponse<List<Location>> response = await _rClient.ExecuteGetTaskAsync<List<Location>>(request);
             return response.Data;
+        }
+
+        public async Task<IRestResponse> Login(LoginModel userinfo)
+        {
+            RestRequest request = new RestRequest("GetIdentity", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(userinfo);
+            IRestResponse resp = await _rClient.ExecutePostTaskAsync(request);
+            return resp;
         }
     }
 }
