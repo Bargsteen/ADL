@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ADL.Models;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ADL
 {
@@ -35,17 +35,18 @@ namespace ADL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            /*if(environment.IsProduction())
+
+            services.AddDbContext<ApplicationDbContext>(options => 
+                options.UseSqlite(
+                    Configuration["Data:ADL:ConnectionString"]));       
+
+            services.AddIdentity<Person, IdentityRole>(opts =>
             {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration["Data:ADL:ConnectionString"]));
-            }
-            else
-            {
-                services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./ADL.db"));
-            }*/
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:ADL:ConnectionString"]));                    
+                opts.User.RequireUniqueEmail = true;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<ISchoolRepository, EFSchoolRepository>();
             services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
             services.AddTransient<IAnswerRepository, EFAnswerRepository>();
@@ -60,58 +61,14 @@ namespace ADL
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            MigrateDatabase(app);
-
-            if (env.IsDevelopment())
-            {
-                InitilizeDatabase(app);
-            }
+            //MigrateDatabase(app);
 
             app.UseSession();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseIdentity();
             app.UseMvcWithDefaultRoute();
-            app.UseDeveloperExceptionPage();
-            
-        }
-
-        // 
-        private void MigrateDatabase(IApplicationBuilder app)
-        {
-            // Initilize datbase
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                // Automatic migrate of datbase
-                scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
-
-                // Get context
-                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-                // Automatic migrate of datbase
-                context.Database.Migrate();
-            }
-        }
-
-        private void InitilizeDatabase(IApplicationBuilder app)
-        {
-            // Initilize datbase
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                // Automatic migrate of datbase
-                scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
-
-                // Get context
-                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-                // Add test data
-                if (!context.Locations.Any())
-                {
-                    context.Locations.AddRange(new Location { Title = "Location1", Description = "Location1" }, new Location { Title = "Location2", Description = "Location2" });
-                }
-
-                // Save changes
-                context.SaveChanges();
-            }
+            app.UseDeveloperExceptionPage();            
         }
     }
 }

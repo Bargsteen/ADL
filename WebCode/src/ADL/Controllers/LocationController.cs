@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {

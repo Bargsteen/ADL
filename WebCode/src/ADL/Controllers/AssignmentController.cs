@@ -3,6 +3,7 @@ using ADL.Models;
 using System.Linq;
 using ADL.Models.ViewModels;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
