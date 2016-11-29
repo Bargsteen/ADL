@@ -81,7 +81,7 @@ namespace ADL.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<string> GetIdentity([FromBody]LoginModel model)
+        public async Task<Task<ClaimsIdentity>> GetIdentity([FromBody]LoginModel model)
         {
             Person user = await userManager.FindByNameAsync(model.Username);
             if (user != null)
@@ -91,13 +91,13 @@ namespace ADL.Controllers
                     await signInManager.PasswordSignInAsync(user, model.Password, false, false);
                 if(result.Succeeded)
                 {
-                    return JsonConvert.SerializeObject(new IdentificationResult(true, model.Username));
+                    return Task.FromResult(new ClaimsIdentity(new System.Security.Principal.GenericIdentity(model.Username, "ADL"), new Claim[] { }));
                 }
                 
             }
 
             // Credentials are invalid, or account doesn't exist
-            return JsonConvert.SerializeObject(new IdentificationResult(false, null));
+            return Task.FromResult<ClaimsIdentity>(null);
         }
         
     }

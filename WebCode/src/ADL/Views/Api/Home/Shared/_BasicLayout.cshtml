@@ -1,8 +1,4 @@
-﻿@using System.Threading.Tasks
-@using ADL.Models
-@model ADL.Models.LoginModel
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -58,7 +54,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <div class="btn-group" role="group">
-                    <a class="btn btn-success navbar-btn" role="button" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Log ind</a>
+                    <a class="btn btn-success navbar-btn" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Log ind</a>
                     <a asp-controller="Account" asp-action="Logout" class="btn btn-danger navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Log ud</a>
                 </div>
             </ul>
@@ -94,16 +90,14 @@
             <div id="div-forms">
 
                 <!-- Begin # Login Form -->
-                <div class="text-danger" asp-validation-summary="All"></div>
-                <form asp-action="Login" asp-controller="Account" method="post" id="login-form">
-                    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                <form id="login-form">
                     <div class="modal-body">
                         <div id="div-login-msg">
                             <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
                             <span id="text-login-msg">Type your username and password.</span>
                         </div>
-                        <input asp-for="Username" id="login_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
-                        <input asp-for="Password" id="login_password" class="form-control" type="password" placeholder="Password" required>
+                        <input id="login_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
+                        <input id="login_password" class="form-control" type="password" placeholder="Password" required>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> Remember me

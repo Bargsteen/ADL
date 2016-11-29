@@ -1,8 +1,4 @@
-﻿@using System.Threading.Tasks
-@using ADL.Models
-@model ADL.Models.LoginModel
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -80,6 +76,8 @@
 </body>
 </html>
 
+
+<!-- BEGIN # MODAL LOGIN -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -94,16 +92,14 @@
             <div id="div-forms">
 
                 <!-- Begin # Login Form -->
-                <div class="text-danger" asp-validation-summary="All"></div>
-                <form asp-action="Login" asp-controller="Account" method="post" id="login-form">
-                    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                <form id="login-form">
                     <div class="modal-body">
                         <div id="div-login-msg">
                             <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
                             <span id="text-login-msg">Type your username and password.</span>
                         </div>
-                        <input asp-for="Username" id="login_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
-                        <input asp-for="Password" id="login_password" class="form-control" type="password" placeholder="Password" required>
+                        <input id="login_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
+                        <input id="login_password" class="form-control" type="password" placeholder="Password" required>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> Remember me
