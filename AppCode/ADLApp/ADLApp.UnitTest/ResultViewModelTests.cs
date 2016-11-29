@@ -34,7 +34,6 @@ namespace ADLApp.UnitTest
         {
             MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
             mpAssignment.CorrectAnswer = 2;
-
         }
     }
 }

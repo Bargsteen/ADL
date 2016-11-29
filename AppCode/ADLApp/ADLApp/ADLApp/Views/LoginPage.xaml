@@ -5,8 +5,8 @@
 
   <StackLayout>
     <Label Text="Login"></Label>
-    <Entry Placeholder="Brugernavn"></Entry>
-    <Entry Placeholder="Adgangskode"></Entry>
+    <Entry x:Name="UsernameEntry"   Placeholder="Brugernavn"></Entry>
+    <Entry x:Name="PasswordEntry" Placeholder="Adgangskode"></Entry>
     <Button Text="Login" Clicked="LoginButton_OnClicked"></Button>
   </StackLayout>
   
