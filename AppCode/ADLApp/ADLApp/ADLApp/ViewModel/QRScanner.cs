@@ -17,11 +17,14 @@ namespace ADLApp.ViewModel
             if (res != null)
             {
                 if (res.Text.Contains("ADLearning"))
-                    return res.Text;
-                else
-                    return "error";
+                {
+                    //removes "ADLearning" from "ADLearning;300" for example
+                    string[] subStrings = res.Text.Split(';');
+                    return subStrings[1];
+                }
+                return "error";
             }
-            else return "";
+            return null;
         }
     }
 }

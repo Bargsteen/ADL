@@ -34,11 +34,10 @@ namespace ADLApp.Views
         {
             ScanButton.IsEnabled = false;
             string scanString = await _qrScanner.ScanAndGetString();
-            if (scanString != "" && scanString != "error")
+            if (scanString != null)
             {
-                string[] strings = scanString.Split(';');
                 Assignment currentassignment = await _assignmentLoader
-                    .GetAssignment(strings[1]);
+                    .GetAssignment(scanString);
                 if (currentassignment != null)
                 {
                     if (currentassignment is ExclusiveChoiceAssignment)
@@ -57,7 +56,7 @@ namespace ADLApp.Views
                     await DisplayAlert("Kode er ikke koblet på opgave", "Koden har ikke en opgave", "Prøv igen");
                 }
             }
-            else if (scanString == "error")
+            else
             {
                 await DisplayAlert("Fejl ved scanning af opgaver", "Det er ikke en adl qr kode", "Prøv med en anden");
             }
