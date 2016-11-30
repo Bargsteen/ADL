@@ -5,14 +5,11 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
-    [Authorize]
     public class ApiController : Controller
-    { 
+    {
         private IAssignmentRepository assignmentRepository;
         private ILocationRepository locationRepository;
         private IAnswerRepository answerRepository;
@@ -28,17 +25,25 @@ namespace ADL.Controllers
             signInManager = signinMgr;
         }
 
-        public string GetAssignment(int? id)
+        public async Task<string> GetAssignment(int? id, string userId)
         {
             Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == id);
             if (assignment != null)
             {
-                return JsonConvert.SerializeObject(assignment);
+                if(await IsValidUser(userId))
+                {
+                    return JsonConvert.SerializeObject(assignment);
+                }
+                else
+                {
+                    return "Brugeren blev ikke genkendt.";
+                }
+                
             }
             return "Invalid AssignmentId given.";
         }
 
-        public string Location(int? id)
+        public async Task<string> Location(int? id, string userId)
         {
             Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
             if (location != null)
@@ -46,59 +51,94 @@ namespace ADL.Controllers
                 Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == location.AttachedAssignmentId);
                 if (assignment != null)
                 {
-                    return JsonConvert.SerializeObject(assignment);
+                    if(await IsValidUser(userId))
+                    {
+                        return JsonConvert.SerializeObject(assignment);
+                    }
+                    else
+                    {
+                        return "Brugeren blev ikke genkendt.";
+                    }
+                    
                 }
                 return "Lokationen har ikke nogen opgave";
             }
             return "Lokationen eksisterer ikke";
         }
 
-        public string LocationList()
+        public async Task<string> LocationList(string userId)
         {
-            List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.AttachedAssignmentId != 0).ToList();
-            return JsonConvert.SerializeObject(allLocationsWithAssignments);
+            if(await IsValidUser(userId))
+            {
+                List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.AttachedAssignmentId != 0).ToList();
+                return JsonConvert.SerializeObject(allLocationsWithAssignments);     
+            }
+            else
+            {  
+                return "Brugeren blev ikke genkendt.";
+            }
+            
         }
 
         [HttpPost]
-        public string SendAnswer([FromBody]Answer answer)
+        public async Task<string> SendAnswer([FromBody]Answer answer)
         {
-            string reply = "Svaret havde ikke korrekt format.";
+            string reply;
             if (answer != null)
             {
-                Assignment answeredAssignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == answer.AnsweredAssignmentId);
-                if (answeredAssignment != null)
+                if (await IsValidUser(answer.UserId))
                 {
-                    answerRepository.SaveAnswer(answer);
-                    reply = JsonConvert.SerializeObject(answer);
+                    Assignment answeredAssignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == answer.AnsweredAssignmentId);
+                    if (answeredAssignment != null)
+                    {
+                        answerRepository.SaveAnswer(answer);
+                        reply = JsonConvert.SerializeObject(answer);
+                    }
+                    else
+                    {
+                        reply = "Opgaven blev ikke fundet.";
+                    }
                 }
                 else
                 {
-                    reply = "Opgaven blev ikke fundet.";
+                    reply = "Brugeren blev ikke genkendt.";
                 }
+            }
+            else
+            {
+                reply = "Svaret havde ikke korrekt format.";
             }
             return reply;
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<string> GetIdentity([FromBody]LoginModel model)
         {
             Person user = await userManager.FindByNameAsync(model.Username);
+            IdentificationResult identificationResult = new IdentificationResult();
             if (user != null)
             {
                 await signInManager.SignOutAsync();
                 Microsoft.AspNetCore.Identity.SignInResult result =
                     await signInManager.PasswordSignInAsync(user, model.Password, false, false);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
-                    return JsonConvert.SerializeObject(new IdentificationResult(true, model.Username));
+                    identificationResult.IsAuthenticated = true;
+                    identificationResult.UserId = user.Id;
+                    return JsonConvert.SerializeObject(identificationResult);
                 }
-                
+
             }
 
             // Credentials are invalid, or account doesn't exist
-            return JsonConvert.SerializeObject(new IdentificationResult(false, null));
+            identificationResult.IsAuthenticated = false;
+            return JsonConvert.SerializeObject(identificationResult);
         }
-        
+
+        public async Task<bool> IsValidUser(string userId)
+        {
+            return await userManager.FindByIdAsync(userId) != null;
+        }
+
     }
 }

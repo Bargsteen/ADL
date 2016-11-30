@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-inverse navbar-static-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -52,7 +52,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <div class="btn-group" role="group">
-                    <a asp-controller="Account" asp-action="Login" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-log-in"></span> Log ind</a>
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-log-in"></span>@this.User.Identity.Name</a>
                     <a asp-controller="Account" asp-action="Logout" class="btn btn-danger navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Log ud</a>
                 </div>
             </ul>
@@ -61,6 +61,10 @@
 </nav>
 
 <div class="container body-content">
+    <br />
+    <br />
+    <br />
+    <br />
     @if (TempData["message"] != null) {
             <div class="alert alert-success">@TempData["message"]</div>
         }
