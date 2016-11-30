@@ -2,7 +2,6 @@ using Xunit;
 using ADL.Controllers;
 using ADL.Models;
 using Moq;
-using System.Collections.Generic;
 using System.Linq;
 using ADL.Models.ViewModels;
 
@@ -76,7 +75,29 @@ namespace ADL.Tests
             // Assert
             Assert.Equal(requestedAssignment, null);
         }
-
-        
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void Can_Delete_Existing_Assignment(int id)
+        {
+            // Arrange is done in ctor 
+            // Act
+            assignmentController.Delete(id);
+            // Assert
+            assignmentRepositoryMock.Verify(m => m.DeleteAssignment(id));
+        }
+        public void Can_AttachAssignment_To_ExistingLocation_HTTPGet(int ChosenAssignmentId)
+        {
+            // Arrange is done in ctor
+            // Act
+            AssignmentToLocationAttachment requestedAttachment = assignmentController.AttachAssignmentToLocation(ChosenAssignmentId).ViewData.Model as AssignmentToLocationAttachment;
+            requestedAttachment.ChosenAssignmentId = ChosenAssignmentId;
+            requestedAttachment.Locations = locationRepositoryMock.Object.Locations;
+            // Assert
+            Assert.Equal(requestedAttachment.ChosenAssignmentId, ChosenAssignmentId);
+            Assert.Null(requestedAttachment.ChosenLocationId);
+            
+        }
     }
 }

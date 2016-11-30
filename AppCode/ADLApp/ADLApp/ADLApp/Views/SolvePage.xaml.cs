@@ -9,11 +9,11 @@ namespace ADLApp.Views
     public partial class SolvePage : ContentPage
     {
         private IAnswerSender answerSender = new RequestManager();
-        public MultipleChoiceAssignment AssignmentToSolve { get; set; }
+        public ExclusiveChoiceAssignment AssignmentToSolve { get; set; }
         public SolvePage(Assignment currentAssignment)
         {
             InitializeComponent();
-            AssignmentToSolve = currentAssignment as MultipleChoiceAssignment;
+            AssignmentToSolve = currentAssignment as ExclusiveChoiceAssignment;
             BindingContext = AssignmentToSolve;
         }
 
@@ -25,7 +25,7 @@ namespace ADLApp.Views
                 return;
             }
             SendAnswerButton.IsEnabled = false;
-            if (AssignmentToSolve is MultipleChoiceAssignment)
+            if (AssignmentToSolve is ExclusiveChoiceAssignment)
             {
                 int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
                 string status = await 

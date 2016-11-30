@@ -4,9 +4,11 @@ using ADL.Models;
 using ADL.Models.ViewModels;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
+    [Authorize(Roles = "Lærer")]
     public class StatisticsController : Controller
     {
         private IAnswerRepository answerRepository;

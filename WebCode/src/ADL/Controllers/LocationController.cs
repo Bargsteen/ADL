@@ -2,13 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
+    [Authorize(Roles = "Lærer")]
     public class LocationController : Controller
     {
         ILocationRepository locationRepository;
-
         public LocationController(ILocationRepository repo)
         {
             locationRepository = repo;

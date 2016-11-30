@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ADLApp.Views;
 using ADLApp.Models;
 using ADLApp.ViewModel;
-using System.Security;
 using Xamarin.Forms;
 using System.Net;
 
@@ -18,23 +17,35 @@ namespace ADLApp.Views
         {
             InitializeComponent();
         }
+        public static event EventHandler OnLogin;
+    
         private async void LoginButton_OnClicked(object sender, EventArgs e)
         {
+            LoginButton.IsEnabled = false;
             ILogin loginService = new RequestManager();
-            var response = await loginService.Login(new LoginModel()
+            var response = await loginService.Login(new UserLoginModel()
             {
                 Username = UsernameEntry.Text,
                 Password = PasswordEntry.Text
             });
-            if (response.StatusCode == HttpStatusCode.OK)
+            if(response.StatusCode == HttpStatusCode.OK)
             {
-
+                if (response.Data != null && response.Data.IsAuthenticated)
+                {
+                    App.LoginResult = response.Data;
+                    OnLogin?.Invoke(this, e);
+                    await Navigation.PopModalAsync();
+                }
+                else
+                {
+                    await DisplayAlert("Fejl ved login", "Ingen brugere svarer til indtastede information", "Prøv igen");
+                }
             }
             else
             {
-                await DisplayAlert("Fejl ved login", "Der er ikke nogle brugere med denne information", "Prøv igen");
+                await DisplayAlert("Fejl ved login", "Der er ikke forbindelse, har du internet?", "Prøv igen");
             }
-            //await Navigation.PopModalAsync();
+            LoginButton.IsEnabled = true;
         }
     }
 }
