@@ -89,12 +89,11 @@ namespace ADL.Tests
         }
         public void Can_AttachAssignment_To_ExistingLocation_HTTPGet(int ChosenAssignmentId)
         {
-            // Arrange
-
+            // Arrange is done in ctor
             // Act
             AssignmentToLocationAttachment requestedAttachment = assignmentController.AttachAssignmentToLocation(ChosenAssignmentId).ViewData.Model as AssignmentToLocationAttachment;
             requestedAttachment.ChosenAssignmentId = ChosenAssignmentId;
-            requestedAttachment.Locations = locationRepositoryMock.Locations;
+            requestedAttachment.Locations = locationRepositoryMock.Object.Locations;
             // Assert
             Assert.Equal(requestedAttachment.ChosenAssignmentId, ChosenAssignmentId);
             Assert.Null(requestedAttachment.ChosenLocationId);

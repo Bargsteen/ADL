@@ -10,8 +10,7 @@ namespace ADL.Controllers
     public class LocationController : Controller
     {
         ILocationRepository locationRepository;
-
-        public LocationController(ILocationRepository repo)
+t        public LocationController(ILocationRepository repo)
         {
             locationRepository = repo;
         }
