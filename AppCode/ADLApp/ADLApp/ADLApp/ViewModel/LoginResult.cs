@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ADLApp.ViewModel
 {
-    class LoginModel
+    public class LoginResult
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public bool IsAuthenticated { get; set; }
+        public string UserId { get; set; }
     }
 }

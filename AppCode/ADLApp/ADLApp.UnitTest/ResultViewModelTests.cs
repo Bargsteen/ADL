@@ -14,7 +14,7 @@ namespace ADLApp.UnitTest
         [TestMethod]
         public void TestMultipleChoiceResullt()
         {
-            MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
+            ExclusiveChoiceAssignment mpAssignment = new ExclusiveChoiceAssignment();
             mpAssignment.CorrectAnswer = 0;
             mpAssignment.Headline = "Test Headline";
             mpAssignment.Question = "Test Question";
@@ -32,7 +32,7 @@ namespace ADLApp.UnitTest
         [TestMethod]
         public void TestFeedback()
         {
-            MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
+            ExclusiveChoiceAssignment mpAssignment = new ExclusiveChoiceAssignment();
             mpAssignment.CorrectAnswer = 2;
         }
     }

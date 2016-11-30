@@ -6,9 +6,9 @@
              x:Class="ADLApp.Views.SolvePage"
 			 BackgroundColor="White"
              Title="{Binding Headline}">
-	
-  <StackLayout Spacing="10" >
-  <!--
+
+  <StackLayout Spacing="10" x:Name="SolveSL" >
+    <!--
 		<StackLayout.BackgroundColor>
       <Color>
         <OnPlatform x:TypeArguments="Color" iOS="White"></OnPlatform>
@@ -22,10 +22,10 @@
       <ListView.ItemTemplate >
         <DataTemplate>
           <ViewCell>
-          <!--  <StackLayout> -->
-              <Label FontSize="25" HorizontalTextAlignment="Center"
-                     VerticalTextAlignment="Center" Text= "{Binding Text}"></Label>
-       <!--     </StackLayout> -->
+            <!--  <StackLayout> -->
+            <Label FontSize="25" HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center" Text= "{Binding Text}"></Label>
+            <!--     </StackLayout> -->
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>

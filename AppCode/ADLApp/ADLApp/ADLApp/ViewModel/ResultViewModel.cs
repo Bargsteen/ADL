@@ -14,9 +14,9 @@ namespace ADLApp.ViewModel
         public ResultViewModel(Assignment assignment, int answer)
         {
             Assignment = assignment;
-            if (assignment is MultipleChoiceAssignment)
+            if (assignment is ExclusiveChoiceAssignment)
             {
-                MultipleChoiceAssignment mp = assignment as MultipleChoiceAssignment;
+                ExclusiveChoiceAssignment mp = assignment as ExclusiveChoiceAssignment;
                 CorrectAnswer = mp.AnswerOptions[mp.CorrectAnswer].Text;
                 AnswerChosen = mp.AnswerOptions[answer].Text;
                 if (CorrectAnswer == AnswerChosen)
