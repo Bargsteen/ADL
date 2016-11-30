@@ -12,9 +12,9 @@ namespace ADLApp.UnitTest
     [TestClass]
     public class ResultViewModelTests
     {
-        private ResultViewModel rvm = new ResultViewModel(mpAssignment, 1);
+        private ResultViewModel rvm = new ResultViewModel(exAssignment, 1);
 
-        private static MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment()
+        private static ExclusiveChoiceAssignment exAssignment = new ExclusiveChoiceAssignment()
         {
             CorrectAnswer = 0,
             Headline = "Test Headline",
@@ -29,7 +29,7 @@ namespace ADLApp.UnitTest
         public void TestIfRVMCorrectAnswerIsCorrect()
         {
 
-            Assert.AreEqual(rvm.CorrectAnswer, mpAssignment.AnswerOptions[mpAssignment.CorrectAnswer].Text);
+            Assert.AreEqual(rvm.CorrectAnswer, exAssignment.AnswerOptions[exAssignment.CorrectAnswer].Text);
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace ADLApp.UnitTest
         [TestMethod]
         public void TestFeedbackisCorrect()
         {
-            ResultViewModel rvm = new ResultViewModel(mpAssignment, 0);
+            ResultViewModel rvm = new ResultViewModel(exAssignment, 0);
             Assert.AreEqual("Godt gået, det er korrekt!", rvm.Feedback.Item1);
             Assert.AreEqual(Color.Green, rvm.Feedback.Item2);   
         }
