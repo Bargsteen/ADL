@@ -40,16 +40,14 @@
     </Compile>
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\MultipleChoiceAssignment.cs" />
+    <Compile Include="Models\TextualAnswer.cs" />
     <Compile Include="ViewModel\ILogin.cs" />
     <Compile Include="ViewModel\LoginResult.cs" />
     <Compile Include="ViewModel\UserLoginModel.cs" />
-    <Compile Include="Views\ExclusiveChoiceView.xaml.cs">
-      <DependentUpon>ExclusiveChoiceView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\ExclusiveAnswer.cs" />
     <Compile Include="Models\AnswerOption.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="ViewModel\IAnswerSender.cs" />
@@ -69,14 +67,17 @@
     <Compile Include="Views\ResultPage.xaml.cs">
       <DependentUpon>ResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SolvePage.xaml.cs">
-      <DependentUpon>SolvePage.xaml</DependentUpon>
+    <Compile Include="Views\ExclusiveSolvePage.xaml.cs">
+      <DependentUpon>ExclusiveSolvePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\RequestManager.cs" />
     <Compile Include="ViewModel\IAssignmentLoader.cs" />
     <Compile Include="ViewModel\IScanner.cs" />
     <Compile Include="Models\ExclusiveChoiceAssignment.cs" />
     <Compile Include="ViewModel\QRScanner.cs" />
+    <Compile Include="Views\TextualSolvePage.xaml.cs">
+      <DependentUpon>TextualSolvePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\HomePage.xaml">
@@ -94,7 +95,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\SolvePage.xaml">
+    <EmbeddedResource Include="Views\ExclusiveSolvePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -197,7 +198,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\ExclusiveChoiceView.xaml">
+    <EmbeddedResource Include="Views\TextualSolvePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -12,13 +12,13 @@ namespace ADLApp.Views
         private readonly IScanner _qrScanner = new QRScanner();
         private readonly IAssignmentLoader _assignmentLoader = new RequestManager();
         private readonly ILocationLoader _locationLoader = new RequestManager();
-        
+
         private List<Location> _locations;
         public HomePage()
         {
             InitializeComponent();
             PromptForLogin();
-            LoginPage.OnLogin += OnLoginLoadLocations;          
+            LoginPage.OnLogin += OnLoginLoadLocations;
         }
 
         private async void OnLoginLoadLocations(object sender, EventArgs e)
@@ -34,20 +34,25 @@ namespace ADLApp.Views
         {
             ScanButton.IsEnabled = false;
             string scanString = await _qrScanner.ScanAndGetString();
-            if (scanString != null)
+            if (scanString != "error")
             {
                 Assignment currentassignment = await _assignmentLoader
                     .GetAssignment(scanString);
+                currentassignment = new Assignment() { Question = "Hvad hedder Teitur?", Headline = "Om teitur" };
                 if (currentassignment != null)
                 {
                     if (currentassignment is ExclusiveChoiceAssignment)
                     {
-                        SolvePage nextPage = new SolvePage(currentassignment as ExclusiveChoiceAssignment);
+                        ExclusiveSolvePage nextPage = new ExclusiveSolvePage(currentassignment as ExclusiveChoiceAssignment);
                         await Navigation.PushAsync(nextPage);
+                    }
+                    else if(currentassignment is MultipleChoiceAssignment)
+                    {
+
                     }
                     else
                     {
-                        SolvePage nextPage = new SolvePage(currentassignment);
+                        TextualSolvePage nextPage = new TextualSolvePage(currentassignment);
                         await Navigation.PushAsync(nextPage);
                     }
                 }

@@ -27,7 +27,7 @@ namespace ADLApp.ViewModel
             TaskFactory tf = new TaskFactory();
             RestRequest request = new RestRequest("/location/" + resourceLocationId + "?UserId=" + App.LoginResult.UserId, Method.GET);
             IRestResponse response = await GetDataAsString(request);
-            if (response.Content != "Lokationen eksisterer ikke" || response.Content != "Lokationen har ikke nogen opgave")
+            if (response.Content != "Lokationen har ikke nogen opgave")
             {
                 switch ("asd")
                 {
@@ -44,7 +44,7 @@ namespace ADLApp.ViewModel
             IRestResponse response = await _rClient.ExecuteGetTaskAsync(request);
             return response;
         }
-        public async Task<string> SendAnswer(Answer answer)
+        public async Task<string> SendAnswer(ExclusiveAnswer answer)
         {
             answer.UserId = App.LoginResult.UserId;
             RestRequest request = new RestRequest($"/SendAnswer", Method.POST);
