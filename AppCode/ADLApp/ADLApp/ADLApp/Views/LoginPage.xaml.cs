@@ -8,7 +8,6 @@ using ADLApp.Models;
 using ADLApp.ViewModel;
 using Xamarin.Forms;
 using System.Net;
-using Xamarin.Auth;
 
 namespace ADLApp.Views
 {
