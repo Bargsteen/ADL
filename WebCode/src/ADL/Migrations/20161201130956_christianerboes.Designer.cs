@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using ADL.Models;
 
-namespace ADL.Migrations
+namespace adl.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161201093507_Initial")]
-    partial class Initial
+    [Migration("20161201130956_christianerboes")]
+    partial class christianerboes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,8 +76,6 @@ namespace ADL.Migrations
 
                     b.HasKey("AssignmentSetId");
 
-                    b.HasIndex("CreatorId");
-
                     b.HasIndex("SchoolId");
 
                     b.ToTable("AssignmentSets");
@@ -105,10 +103,6 @@ namespace ADL.Migrations
                 {
                     b.Property<int>("LocationId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AttachedAssignmentId");
-
-                    b.Property<int>("AttachedAssignmentSetId");
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -314,10 +308,6 @@ namespace ADL.Migrations
 
             modelBuilder.Entity("ADL.Models.AssignmentSet", b =>
                 {
-                    b.HasOne("ADL.Models.Person", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId");
-
                     b.HasOne("ADL.Models.School", "School")
                         .WithMany()
                         .HasForeignKey("SchoolId");

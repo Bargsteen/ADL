@@ -25,18 +25,29 @@ namespace ADL.Controllers
             signInManager = signinMgr;
         }
 
-        public async Task<string> Location(int? id, string userId)
+        /*tager en location og personId som input, skider en assignment ud der er serializaed*/
+        public async Task<string> Location(int? id, string personId)
         {
             Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
             if (location != null)
             {
-                Assignment assignment = assignmentSetRepository.AssignmentSets
-                    .FirstOrDefault(aS => aS.AssignmentSetId == location.AttachedAssignmentSetId)
-                    .Assignments.FirstOrDefault(a => a.AssignmentId == location.AttachedAssignmentId);
+
+                Assignment assignment = null;
+
+                foreach (AssignmentSet _assignmentSet in assignmentSetRepository.AssignmentSets)
+                {
+                    foreach (Assignment _assignment in _assignmentSet.Assignments)
+                    {
+                        if (_assignment.AssignmentId == location.GetAssignmentIdFromPersonId(personId))
+                        {
+                            assignment = _assignment;
+                        }
+                    }
+                }
 
                 if (assignment != null)
                 {
-                    if (await IsValidUser(userId))
+                    if (await IsValidUser(personId))
                     {
                         return JsonConvert.SerializeObject(assignment);
                     }
@@ -51,11 +62,12 @@ namespace ADL.Controllers
             return "Lokationen eksisterer ikke";
         }
 
-        public async Task<string> LocationList(string userId)
+        /*skal have alle de locations som en person er connected til*/
+        public async Task<string> LocationList(string personId)
         {
-            if (await IsValidUser(userId))
+            if (await IsValidUser(personId))
             {
-                List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.AttachedAssignmentId != 0).ToList();
+                List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.GetPersonConnectedToLocation(personId) == true).ToList();
                 return JsonConvert.SerializeObject(allLocationsWithAssignments);
             }
             else

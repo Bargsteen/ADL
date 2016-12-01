@@ -58,7 +58,7 @@
                             @if (this.User.Identity.Name != null)
                             {
                                 <p style="color: white">
-                                    Velkommen @this.User.Identity.Name <span class="glyphicon glyphicon-user"></span>
+                                    Hej @this.User.Identity.Name! <span class="glyphicon glyphicon-user"></span>
                                 </p>
                             }
                         </a>
@@ -89,18 +89,7 @@
             <p class="text-center">&copy; 2016 - e309, Aalborg Universitet</p>
         </footer>
     </div>
-    <script>
-        var a = 0;
-        function addAnswerOption(){
-        var container = document.getElementById("answer-option-group");
-        var input = document.createElement("input");
-        input.type = "text";
-        input.id = "AnswerOptions_" + a + "__Text";
-        input.name = "AnswerOptions["+ a +"].Text";
-        container.appendChild(input);
-        a++;
-        }
-</script>
+    <script src="/js/addAssignment.js"></script>
 
 </body>
 </html>

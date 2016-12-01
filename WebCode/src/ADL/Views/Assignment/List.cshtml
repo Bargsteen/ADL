@@ -3,9 +3,19 @@
 @{
     ViewBag.Title = "Opgaveliste";
 }
-<div class="text-right">
-    <a asp-controller="Assignment" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a>
-</div>
+@if (Model.Assignments.Count() == 0)
+{
+    <div class="text-center">
+        <a asp-controller="Assignment" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a>
+    </div>
+}
+else
+{
+    <div class="text-right">
+        <a asp-controller="Assignment" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a>
+    </div>
+}
+
 <br/>
 <div style="height: 500px; width: 100%; overflow: auto;">
     @if (Model.Assignments.Any())

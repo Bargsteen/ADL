@@ -24,6 +24,6 @@
            Text="{Binding Feedback.Item1}"
            TextColor="{Binding Feedback.Item2}"
            VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
-    <Button Text="Fortsæt" Clicked="Button_OnClicked" BackgroundColor="#66bb6a"></Button>
+    <Button Text="Fortsæt" Clicked="Button_OnClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
   </StackLayout>
 </ContentPage>
