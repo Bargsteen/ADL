@@ -19,7 +19,7 @@
     <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" ></Label>
     <Label Text="Svarmuligheder:"></Label>
     <ListView x:Name="answerOptionView" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}" >
-      <ListView.ItemTemplate >
+      <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
             <Label FontSize="25" HorizontalTextAlignment="Center"

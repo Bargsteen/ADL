@@ -14,6 +14,7 @@ namespace ADLApp
         public static LoginResult LoginResult;
         public App()
         {
+            ADLApp.Views.CustomControls.CustomControls.Init();
             InitializeComponent();
             MainPage = new MenuPage();
         }

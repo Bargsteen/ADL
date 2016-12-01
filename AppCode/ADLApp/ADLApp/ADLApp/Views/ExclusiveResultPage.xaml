@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ADLApp.Views"
-             x:Class="ADLApp.Views.ResultPage">
+             x:Class="ADLApp.Views.ExclusiveResultPage">
   <StackLayout Spacing="30">
     <Label x:Name="QuestionLabel"
            Text="{Binding Path=Assignment.Question}"
