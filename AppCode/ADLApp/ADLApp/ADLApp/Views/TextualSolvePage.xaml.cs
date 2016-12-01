@@ -20,10 +20,10 @@ namespace ADLApp.Views
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            if(AnswerEditor.Text != null)
+            if (AnswerEditor.Text != null)
             {
                 string status = await
-                answerSender.SendAnswer(new Answer(AnswerEditor.Text, (BindingContext as Assignment).AssignmentId));
+                answerSender.SendAnswer(new Answer((BindingContext as Assignment).AssignmentId, AnswerEditor.Text));
                 await Navigation.PushModalAsync(new TextualResultPage());
                 await Navigation.PopAsync();
             }

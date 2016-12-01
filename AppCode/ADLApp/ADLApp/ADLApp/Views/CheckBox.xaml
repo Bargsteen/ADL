@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ADLApp.Views.CheckBox">
   <StackLayout Orientation="Horizontal">
-    <Label x:Name="boxLabel" Text="&#x2610;" />
-    <Label x:Name="textLabel" />
   </StackLayout>
   <ContentView.GestureRecognizers>
     <TapGestureRecognizer Tapped="OnCheckBoxTapped" />
