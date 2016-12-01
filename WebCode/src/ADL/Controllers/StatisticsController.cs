@@ -12,18 +12,18 @@ namespace ADL.Controllers
     public class StatisticsController : Controller
     {
         private IAnswerRepository answerRepository;
-        private IAssignmentRepository assignmentRepository;
-        public StatisticsController(IAssignmentRepository assignmentRepo, IAnswerRepository answerRepo)
+        private IAssignmentSetRepository assignmentSetRepository;
+        public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo)
         {
             answerRepository = answerRepo;
-            assignmentRepository = assignmentRepo;
+            assignmentSetRepository = assignmentSetRepo;
         }
-        public ViewResult Index()
+        /*public ViewResult Index()
         {
             StatisticsViewModel statisticsViewModel = new StatisticsViewModel() 
             { 
                 Answers = answerRepository.Answers, 
-                Assignments = assignmentRepository.Assignments 
+                Assignments = assignmentSetRepository.Assignments 
             };
             
             Dictionary<int, Tuple<int, int>> statsList = new Dictionary<int, Tuple<int, int>>();
@@ -48,6 +48,6 @@ namespace ADL.Controllers
             statisticsViewModel.Stats = statsList;
 
             return View(statisticsViewModel);
-        }
+        }*/
     }
 }

@@ -8,6 +8,7 @@ namespace ADL.Models
         public int ChosenAnswerOption { get; set; }
         public DateTime TimeAnswered { get; set; }
         public int AnsweredAssignmentId { get; set; }
+        public int AnsweredAssignmentSetId { get; set; }
         public string UserId { get; set; }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace ADL.Models
 {

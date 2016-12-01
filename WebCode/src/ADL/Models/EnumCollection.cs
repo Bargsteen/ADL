@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ADL.Models
+﻿namespace ADL.Models
 {
-    public class EnumCollection
+    public static class EnumCollection
     {
-        enum AssignmentTypes { MultipleChoice, ExclusiveChoice, Textual};
+        public enum AssignmentType { MultipleChoice, ExclusiveChoice, Textual };
+        public enum PublicityLevel { Private, Internal, Public };
     }
 }

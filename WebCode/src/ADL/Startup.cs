@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +42,7 @@ namespace ADL
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<ISchoolRepository, EFSchoolRepository>();
-            services.AddTransient<IAssignmentRepository, EFAssignmentRepository>();
+            services.AddTransient<IAssignmentSetRepository, EFAssignmentSetRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
             services.AddTransient<IAnswerRepository, EFAnswerRepository>();
             services.AddMemoryCache();

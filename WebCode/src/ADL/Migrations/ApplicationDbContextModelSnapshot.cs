@@ -22,6 +22,8 @@ namespace ADL.Migrations
 
                     b.Property<int>("AnsweredAssignmentId");
 
+                    b.Property<int>("AnsweredAssignmentSetId");
+
                     b.Property<int>("ChosenAnswerOption");
 
                     b.Property<DateTime>("TimeAnswered");
@@ -33,38 +35,51 @@ namespace ADL.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("ADL.Models.AnswerOption", b =>
-                {
-                    b.Property<int>("AnswerOptionID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AssignmentId");
-
-                    b.Property<string>("Text");
-
-                    b.HasKey("AnswerOptionID");
-
-                    b.HasIndex("AssignmentId");
-
-                    b.ToTable("AnswerOption");
-                });
-
             modelBuilder.Entity("ADL.Models.Assignment", b =>
                 {
                     b.Property<int>("AssignmentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CorrectAnswer");
+                    b.Property<int?>("AssignmentSetId");
 
-                    b.Property<string>("Headline")
+                    b.Property<string>("AssignmentText")
                         .IsRequired();
 
-                    b.Property<string>("Question")
-                        .IsRequired();
+                    b.Property<string>("Title");
+
+                    b.Property<int>("Type");
 
                     b.HasKey("AssignmentId");
 
-                    b.ToTable("Assignments");
+                    b.HasIndex("AssignmentSetId");
+
+                    b.ToTable("Assignment");
+                });
+
+            modelBuilder.Entity("ADL.Models.AssignmentSet", b =>
+                {
+                    b.Property<int>("AssignmentSetId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatorId");
+
+                    b.Property<DateTime>("DateOfCreation");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("PublicityLevel");
+
+                    b.Property<int?>("SchoolId");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("AssignmentSetId");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("AssignmentSets");
                 });
 
             modelBuilder.Entity("ADL.Models.Class", b =>
@@ -91,6 +106,8 @@ namespace ADL.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AttachedAssignmentId");
+
+                    b.Property<int>("AttachedAssignmentSetId");
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -287,11 +304,22 @@ namespace ADL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ADL.Models.AnswerOption", b =>
+            modelBuilder.Entity("ADL.Models.Assignment", b =>
                 {
-                    b.HasOne("ADL.Models.Assignment")
-                        .WithMany("AnswerOptions")
-                        .HasForeignKey("AssignmentId");
+                    b.HasOne("ADL.Models.AssignmentSet")
+                        .WithMany("Assignments")
+                        .HasForeignKey("AssignmentSetId");
+                });
+
+            modelBuilder.Entity("ADL.Models.AssignmentSet", b =>
+                {
+                    b.HasOne("ADL.Models.Person", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
+
+                    b.HasOne("ADL.Models.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId");
                 });
 
             modelBuilder.Entity("ADL.Models.Class", b =>

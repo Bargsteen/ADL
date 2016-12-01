@@ -10,37 +10,19 @@ namespace ADL.Controllers
 {
     public class ApiController : Controller
     {
-        private IAssignmentRepository assignmentRepository;
+        private IAssignmentSetRepository assignmentSetRepository;
         private ILocationRepository locationRepository;
         private IAnswerRepository answerRepository;
         private UserManager<Person> userManager;
         private SignInManager<Person> signInManager;
-        public ApiController(IAssignmentRepository assignmentRepo, ILocationRepository locationRepo, IAnswerRepository answerRepo, UserManager<Person> userMgr,
+        public ApiController(IAssignmentSetRepository assignmentRepo, ILocationRepository locationRepo, IAnswerRepository answerRepo, UserManager<Person> userMgr,
                 SignInManager<Person> signinMgr)
         {
-            assignmentRepository = assignmentRepo;
+            assignmentSetRepository = assignmentRepo;
             locationRepository = locationRepo;
             answerRepository = answerRepo;
             userManager = userMgr;
             signInManager = signinMgr;
-        }
-
-        public async Task<string> GetAssignment(int? id, string userId)
-        {
-            Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == id);
-            if (assignment != null)
-            {
-                if(await IsValidUser(userId))
-                {
-                    return JsonConvert.SerializeObject(assignment);
-                }
-                else
-                {
-                    return "Brugeren blev ikke genkendt.";
-                }
-                
-            }
-            return "Invalid AssignmentId given.";
         }
 
         public async Task<string> Location(int? id, string userId)
@@ -48,10 +30,13 @@ namespace ADL.Controllers
             Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
             if (location != null)
             {
-                Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == location.AttachedAssignmentId);
+                Assignment assignment = assignmentSetRepository.AssignmentSets
+                    .FirstOrDefault(aS => aS.AssignmentSetId == location.AttachedAssignmentSetId)
+                    .Assignments.FirstOrDefault(a => a.AssignmentId == location.AttachedAssignmentId);
+
                 if (assignment != null)
                 {
-                    if(await IsValidUser(userId))
+                    if (await IsValidUser(userId))
                     {
                         return JsonConvert.SerializeObject(assignment);
                     }
@@ -59,7 +44,7 @@ namespace ADL.Controllers
                     {
                         return "Brugeren blev ikke genkendt.";
                     }
-                    
+
                 }
                 return "Lokationen har ikke nogen opgave";
             }
@@ -68,16 +53,16 @@ namespace ADL.Controllers
 
         public async Task<string> LocationList(string userId)
         {
-            if(await IsValidUser(userId))
+            if (await IsValidUser(userId))
             {
                 List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.AttachedAssignmentId != 0).ToList();
-                return JsonConvert.SerializeObject(allLocationsWithAssignments);     
+                return JsonConvert.SerializeObject(allLocationsWithAssignments);
             }
             else
-            {  
+            {
                 return "Brugeren blev ikke genkendt.";
             }
-            
+
         }
 
         [HttpPost]
@@ -88,7 +73,10 @@ namespace ADL.Controllers
             {
                 if (await IsValidUser(answer.UserId))
                 {
-                    Assignment answeredAssignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == answer.AnsweredAssignmentId);
+                    Assignment answeredAssignment = assignmentSetRepository.AssignmentSets
+                    .FirstOrDefault(a => a.AssignmentSetId == answer.AnsweredAssignmentSetId)
+                    .Assignments.FirstOrDefault(a => a.AssignmentId == answer.AnsweredAssignmentId);
+                    
                     if (answeredAssignment != null)
                     {
                         answerRepository.SaveAnswer(answer);
