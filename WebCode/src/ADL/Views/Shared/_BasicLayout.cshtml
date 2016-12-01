@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -38,6 +37,7 @@
                     <li><a asp-controller="Assignment" asp-action="List"><span class="glyphicon glyphicon-paperclip"></span> Opgavebibliotek</a></li>
                     <li><a asp-controller="Location" asp-action="List"><span class="glyphicon glyphicon-map-marker"></span> Lokationer</a></li>
                     <li><a asp-controller="Statistics" asp-action="Index"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
+
                     <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Dropdown <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -53,10 +53,26 @@
                     <!--DROPDOWN MENU-->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <div class="btn-group" role="group">
+                    <li>
+                        <a asp-controller="Home" asp-action="Index" style="padding-bottom: 0">
+                            @if (this.User.Identity.Name != null)
+                            {
+                                <p style="color: white">
+                                    Velkommen @this.User.Identity.Name <span class="glyphicon glyphicon-user"></span>
+                                </p>
+                            }
+                        </a>
+                    </li>
+                    @if (this.User.Identity.Name == null)
+                    {
                         <a asp-controller="Account" asp-action="Login" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-log-in"></span> Log ind</a>
+                    }
+                    else
+                    {
                         <a asp-controller="Account" asp-action="Logout" class="btn btn-danger navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Log ud</a>
-                    </div>
+                    }
+
+
                 </ul>
             </div>
         </div>
