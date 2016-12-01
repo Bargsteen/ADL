@@ -6,6 +6,6 @@ namespace ADL.Models {
         IEnumerable<Location> Locations { get; }
         void SaveLocation(Location location);
         Location DeleteLocation(int locationId);
-        bool SaveAttachedAssignmentId(int locationId, int personId, int assignmentId);
+        bool SaveAttachedAssignmentId(int locationId, string personId, int assignmentId);
     }
 }

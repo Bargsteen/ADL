@@ -17,14 +17,14 @@ namespace ADL.Models
 
         //public int AttachedAssignmentId { get; set; }
 
-        private Dictionary<int, int> Attachments { get; set; }
+        private Dictionary<string, int> Attachments { get; set; }
 
         /*returns true if the attachment was valid, and false if not*/
-        public bool AddAttachmentToLocation(int personId, int AssignmentId)
+        public bool AddAttachmentToLocation(string personId, int AssignmentId)
         {
             if (Attachments[personId] != 0)
             {
-                Attachments.Add(personId, attachedAssignmentId);
+                Attachments.Add(personId, AssignmentId);
                 return true;
             }
             else
@@ -33,17 +33,27 @@ namespace ADL.Models
             }
         }
 
-        public void RemoveAttachmentFromLocation(int personId)
+        public void RemoveAttachmentFromLocation(string personId)
         {
             Attachments.Remove(personId);
         }
 
-        public int GetAssignmentIdFromPersonId(int personId)
+        public int GetAssignmentIdFromPersonId(string personId)
         {
             return Attachments[personId];
         }
 
-        
+        public bool GetPersonConnectedToLocation(string personId)
+        {
+            if (Attachments.ContainsKey(personId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 }
