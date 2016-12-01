@@ -20,17 +20,19 @@
                 <label asp-for="Question">Spørgsmål:</label>
                 <input class="form-control" asp-for="Question" />
             </div>
-            <div class="form-group">
+            <input type="button" id="addAnswer()" onclick="addAnswer()" value="+"/>
+            <div class="form-group" id="answer-option-group">
                 @if(Model.AssignmentId == 0)
                 {
-                    <label asp-for="AnswerOptions">Første svarmulighed:</label>
+                    <div>
+                    <label asp-for="AnswerOptions">Svarmulighed 1:</label>
                     <input class="form-control" asp-for="AnswerOptions[0].Text" />
-                    <label asp-for="AnswerOptions">Anden svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptions[1].Text" />
-                    <label asp-for="AnswerOptions">Tredje svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptions[2].Text" />
-                    <label asp-for="AnswerOptions">Fjerde svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptions[3].Text" />
+                    <label asp-for="AnswerOptions">Svarmulighed 2:</label>
+                    <input class="form-control" asp-for="AnswerOptions[1].Text">
+                    
+                    </div>
+                   <!-- <input type="button" onclick="removeAnswer(this)" value = "-"> -->
+                    
                 }
                 else
                 {
