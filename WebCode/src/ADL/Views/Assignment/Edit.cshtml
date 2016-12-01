@@ -8,6 +8,7 @@
     <div class="panel-heading text-center">
         <h4>Opret en opgave</h4>
     </div>
+    <button onclick="addAnswerOption()">Add</button>
     <div class="panel-body">
         <form class="p-a-1" asp-action="Edit" method="POST">
             <div asp-validation-summary="All"></div>
@@ -20,17 +21,18 @@
                 <label asp-for="Question">Spørgsmål:</label>
                 <input class="form-control" asp-for="Question" />
             </div>
-            <div class="form-group">
+            
+            <div class="form-group" id="answer-option-group">
                 @if(Model.AssignmentId == 0)
                 {
-                    <label asp-for="AnswerOptions">Første svarmulighed:</label>
+                    <!--<label asp-for="AnswerOptions">Første svarmulighed:</label>
                     <input class="form-control" asp-for="AnswerOptions[0].Text" />
                     <label asp-for="AnswerOptions">Anden svarmulighed:</label>
                     <input class="form-control" asp-for="AnswerOptions[1].Text" />
                     <label asp-for="AnswerOptions">Tredje svarmulighed:</label>
                     <input class="form-control" asp-for="AnswerOptions[2].Text" />
                     <label asp-for="AnswerOptions">Fjerde svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptions[3].Text" />
+                    <input class="form-control" asp-for="AnswerOptions[3].Text" />-->
                 }
                 else
                 {

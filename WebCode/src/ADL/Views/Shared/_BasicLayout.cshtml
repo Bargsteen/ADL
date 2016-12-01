@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -62,7 +62,7 @@
         </div>
     </nav>
 
-    <div class="container body-content">
+    <div class="container body-content" style="padding-top:70px">
         @if (TempData["message"] != null)
         {
             <div class="alert alert-success">@TempData["message"]</div>
@@ -73,6 +73,18 @@
             <p class="text-center">&copy; 2016 - e309, Aalborg Universitet</p>
         </footer>
     </div>
+    <script>
+        var a = 0;
+        function addAnswerOption(){
+        var container = document.getElementById("answer-option-group");
+        var input = document.createElement("input");
+        input.type = "text";
+        input.id = "AnswerOptions_" + a + "__Text";
+        input.name = "AnswerOptions["+ a +"].Text";
+        container.appendChild(input);
+        a++;
+        }
+</script>
 
 </body>
 </html>
