@@ -6,7 +6,7 @@
     <Label Text="Login" FontSize="50" HorizontalTextAlignment="Center"></Label>
     <Entry x:Name="UsernameEntry"   Placeholder="Brugernavn"></Entry>
     <Entry x:Name="PasswordEntry" Placeholder="Adgangskode" IsPassword="True"></Entry>
-    <Button x:Name="LoginButton" Text="Login" Clicked="LoginButton_OnClicked"></Button>
+    <Button x:Name="LoginButton" Text="Login" Clicked="OnLoginButtonClicked"></Button>
     <Label x:Name="a"></Label>
   </StackLayout>
 

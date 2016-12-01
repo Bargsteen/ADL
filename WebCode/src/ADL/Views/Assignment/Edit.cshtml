@@ -1,60 +1,44 @@
-@model Assignment
+@model AssignmentSet
 
 @{
-    ViewBag.Title = "Opgave";
+    ViewBag.Title = "Opgave Sæt";
 }
 
 <div class="panel panel-succes">
     <div class="panel-heading text-center">
-        <h4>Opret en opgave</h4>
-    </div>
-    <div class="panel-body">
+        <h4>Opret et opgavesæt</h4>
         <form class="p-a-1" asp-action="Edit" method="POST">
-            <div asp-validation-summary="All"></div>
-            <input type="hidden" value="@Model.AssignmentId" asp-for="AssignmentId" />
-            <div class="form-group">
-                <label asp-for="Headline">Titel:</label>
-                <input class="form-control" asp-for="Headline" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Question">Spørgsmål:</label>
-                <input class="form-control" asp-for="Question" />
-            </div>
-            <div class="form-group">
-                @if(Model.AssignmentId == 0)
-                {
-                    <label asp-for="AnswerOptions">Første svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptions[0].Text" />
-                    <label asp-for="AnswerOptions">Anden svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptions[1].Text" />
-                    <label asp-for="AnswerOptions">Tredje svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptions[2].Text" />
-                    <label asp-for="AnswerOptions">Fjerde svarmulighed:</label>
-                    <input class="form-control" asp-for="AnswerOptions[3].Text" />
-                }
-                else
-                {
-                    @for(int i=1; i <= Model.AnswerOptions.Count(); i++)
-                    {
-                        <label asp-for="AnswerOptions">Svarmulighed nr @i:</label>                 
-                        <input class="form-control" asp-for="AnswerOptions[i-1].Text" /> 
-                    }
-                      
-                }
+            <div class="panel">
+                <input type="hidden" asp-for="AssignmentSetId" />
+                <input type="hidden" asp-for="CreatorId" value="@Model.CreatorId" />
+                <input type="hidden" asp-for="DateOfCreation" value="DateTime.Now"/>
                 
-             </div>
-            <div class="form-group">
-                <label asp-for="CorrectAnswer">Korrekte svar:</label>
-                <select class="form-control" asp-for="CorrectAnswer">
-                        <option value="0">Første svarmulighed</option>
-                        <option value="1">Anden svarmulighed</option>
-                        <option value="2">Tredje svarmulighed</option>
-                        <option value="3">Fjerde svarmulighed</option>
+                <label asp-for="Title">Titel</label>
+                <input class="form-control" asp-for="Title" />
+                <label asp-for="Description">Beskrivelse</label>
+                <input class="form-control" asp-for ="Description" />
+                <label asp-for="PublicityLevel"asp.for>Dele egenskaber</label>
+                <select class="form-control" asp-for="PublicityLevel">
+                        <option value="0">Privat</option>
+                        <option value="1">Skolen</option>
+                        <option value="2">Verden</option>
                     </select>
+                
             </div>
-            <div class="text-center">
-                <button class="btn btn-primary" type="submit">Gem</button>
+            <div class="panel">
+                <h5>Indsæt ny opgave</h5>
+                
+            </div>
+            <div class="panel" id="assignments-box">
+            </div>
+                
+            <div class="panel pull-right">
+                <button class="btn btn-md btn-success" type="submit">Opret Opgavesæt</button>
             </div>
         </form>
+
+        <button class="btn btn-md btn-primary" onclick="addAssignment(0)">Text</button>
+        <button class="btn btn-md btn-primary" onclick="addAssignment(1)">Multiple Choice</button>
+        <button class="btn btn-md btn-primary" onclick="addAssignment(2)">Exclusive Choice</button>
     </div>
 </div>

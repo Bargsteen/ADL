@@ -19,9 +19,11 @@ namespace ADLApp.Views
         }
         public static event EventHandler OnLogin;
     
-        private async void LoginButton_OnClicked(object sender, EventArgs e)
+        private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             LoginButton.IsEnabled = false;
+            UsernameEntry.Text = "swagger";
+            PasswordEntry.Text = "Abekat123$";
             ILogin loginService = new RequestManager();
             var response = await loginService.Login(new UserLoginModel()
             {

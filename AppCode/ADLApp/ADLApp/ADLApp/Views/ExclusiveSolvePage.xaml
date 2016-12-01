@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ADLApp.Views"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-             x:Class="ADLApp.Views.SolvePage"
-			 BackgroundColor="White"
+             x:Class="ADLApp.Views.ExclusiveSolvePage"
+			       BackgroundColor="White"
              Title="{Binding Headline}">
 
   <StackLayout Spacing="10" x:Name="SolveSL" >
@@ -22,14 +22,12 @@
       <ListView.ItemTemplate >
         <DataTemplate>
           <ViewCell>
-            <!--  <StackLayout> -->
             <Label FontSize="25" HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center" Text= "{Binding Text}"></Label>
-            <!--     </StackLayout> -->
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
-    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a"></Button>
+    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked"  BackgroundColor="#66bb6a"></Button>
   </StackLayout>
 </ContentPage>

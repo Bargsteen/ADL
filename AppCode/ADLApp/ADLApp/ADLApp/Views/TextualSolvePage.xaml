@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ADLApp.Views.TextualSolvePage"
+             Title="{Binding Headline}">
+  <StackLayout Spacing="30" x:Name="SolveSL" Padding="5,10" >
+    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" ></Label>
+      <Editor x:Name="AnswerEditor" HeightRequest="200">
+      </Editor>
+      <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a"></Button>
+  </StackLayout>
+</ContentPage>

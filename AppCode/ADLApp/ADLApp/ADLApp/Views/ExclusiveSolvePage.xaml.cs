@@ -6,17 +6,16 @@ using System.Net;
 
 namespace ADLApp.Views
 {
-    public partial class SolvePage : ContentPage
+    public partial class ExclusiveSolvePage : ContentPage
     {
         private IAnswerSender answerSender = new RequestManager();
         public ExclusiveChoiceAssignment AssignmentToSolve { get; set; }
-        public SolvePage(Assignment currentAssignment)
+        public ExclusiveSolvePage(ExclusiveChoiceAssignment currentAssignment)
         {
             InitializeComponent();
-            AssignmentToSolve = currentAssignment as ExclusiveChoiceAssignment;
-            BindingContext = AssignmentToSolve;
+            BindingContext = currentAssignment;
+            AssignmentToSolve = currentAssignment;
         }
-
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
             if (answerOptionView?.SelectedItem == null)
@@ -25,13 +24,10 @@ namespace ADLApp.Views
                 return;
             }
             SendAnswerButton.IsEnabled = false;
-            if (AssignmentToSolve is ExclusiveChoiceAssignment)
-            {
-                int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
-                string status = await 
-                    answerSender.SendAnswer(new Answer(selectedAnswerIndex, AssignmentToSolve.AssignmentId));
-                await Navigation.PushModalAsync(new ResultPage(new ResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
-            }
+            int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
+            string status = await
+                answerSender.SendAnswer(new ExclusiveAnswer(selectedAnswerIndex, AssignmentToSolve.AssignmentId));
+            await Navigation.PushModalAsync(new ResultPage(new ResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
             SendAnswerButton.IsEnabled = true;
             await Navigation.PopAsync();
         }

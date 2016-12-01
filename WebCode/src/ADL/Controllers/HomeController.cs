@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using ADL.Models;
-using System;
 
 namespace ADL.Controllers
 {

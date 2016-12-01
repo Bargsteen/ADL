@@ -8,13 +8,13 @@ namespace ADL.Controllers
     [Authorize(Roles = "Elev")]
     public class SolvingController : Controller
     {
-        private IAnswerRepository answerRepository;
+        /*private IAnswerRepository answerRepository;
         private IAssignmentRepository assignmentRepository;
         public SolvingController(IAnswerRepository answerRepo, IAssignmentRepository assignmentRepo)
         {
             answerRepository = answerRepo;
             assignmentRepository = assignmentRepo;
-        }
+        }*/
         /*public ViewResult Solve(int? Id)
         {
             Assignment assignment = assignmentRepository.Assignments.FirstOrDefault(a => a.AssignmentId == Id);
