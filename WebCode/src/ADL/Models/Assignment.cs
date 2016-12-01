@@ -12,6 +12,6 @@ namespace ADL.Models
 
         [Required(ErrorMessage = "Venligst indtast en titel")]
         [MinLengthAttribute(2)]
-        public string AssignmentText { get; set; }
+        public string Text { get; set; }
     }
 }

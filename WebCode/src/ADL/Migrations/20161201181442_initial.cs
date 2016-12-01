@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace adl.Migrations
+namespace ADL.Migrations
 {
-    public partial class christianerboes : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,24 @@ namespace adl.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Answers", x => x.AnswerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AssignmentSets",
+                columns: table => new
+                {
+                    AssignmentSetId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    CreatorId = table.Column<string>(nullable: true),
+                    DateOfCreation = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    PublicityLevel = table.Column<int>(nullable: false),
+                    SchoolId = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignmentSets", x => x.AssignmentSetId);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,26 +100,24 @@ namespace adl.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssignmentSets",
+                name: "Assignment",
                 columns: table => new
                 {
-                    AssignmentSetId = table.Column<int>(nullable: false)
+                    AssignmentId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
-                    CreatorId = table.Column<string>(nullable: true),
-                    DateOfCreation = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    PublicityLevel = table.Column<int>(nullable: false),
-                    SchoolId = table.Column<int>(nullable: true),
-                    Title = table.Column<string>(nullable: true)
+                    AssignmentSetId = table.Column<int>(nullable: true),
+                    Text = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AssignmentSets", x => x.AssignmentSetId);
+                    table.PrimaryKey("PK_Assignment", x => x.AssignmentId);
                     table.ForeignKey(
-                        name: "FK_AssignmentSets_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "SchoolId",
+                        name: "FK_Assignment_AssignmentSets_AssignmentSetId",
+                        column: x => x.AssignmentSetId,
+                        principalTable: "AssignmentSets",
+                        principalColumn: "AssignmentSetId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -145,28 +161,6 @@ namespace adl.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Assignment",
-                columns: table => new
-                {
-                    AssignmentId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    AssignmentSetId = table.Column<int>(nullable: true),
-                    AssignmentText = table.Column<string>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Assignment", x => x.AssignmentId);
-                    table.ForeignKey(
-                        name: "FK_Assignment_AssignmentSets_AssignmentSetId",
-                        column: x => x.AssignmentSetId,
-                        principalTable: "AssignmentSets",
-                        principalColumn: "AssignmentSetId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -280,11 +274,6 @@ namespace adl.Migrations
                 name: "IX_Assignment_AssignmentSetId",
                 table: "Assignment",
                 column: "AssignmentSetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AssignmentSets_SchoolId",
-                table: "AssignmentSets",
-                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Classes_SchoolId",
