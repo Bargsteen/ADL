@@ -12,7 +12,7 @@ namespace ADLApp.UnitTest
     [TestClass]
     public class ResultViewModelTests
     {
-        private ResultViewModel rvm = new ResultViewModel(exAssignment, 1);
+        private ExclusiveResultViewModel rvm = new ExclusiveResultViewModel(exAssignment, 1);
 
         private static ExclusiveChoiceAssignment exAssignment = new ExclusiveChoiceAssignment()
         {
@@ -43,7 +43,7 @@ namespace ADLApp.UnitTest
         [TestMethod]
         public void TestFeedbackisCorrect()
         {
-            ResultViewModel rvm = new ResultViewModel(exAssignment, 0);
+            ExclusiveResultViewModel rvm = new ExclusiveResultViewModel(exAssignment, 0);
             Assert.AreEqual("Godt gået, det er korrekt!", rvm.Feedback.Item1);
             Assert.AreEqual(Color.Green, rvm.Feedback.Item2);   
         }

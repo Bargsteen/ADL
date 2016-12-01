@@ -44,7 +44,7 @@ namespace ADLApp.ViewModel
             IRestResponse response = await _rClient.ExecuteGetTaskAsync(request);
             return response;
         }
-        public async Task<string> SendAnswer(ExclusiveAnswer answer)
+        public async Task<string> SendAnswer(Answer answer)
         {
             answer.UserId = App.LoginResult.UserId;
             RestRequest request = new RestRequest($"/SendAnswer", Method.POST);

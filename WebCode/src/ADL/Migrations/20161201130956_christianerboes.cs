@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ADL.Migrations
+namespace adl.Migrations
 {
-    public partial class Initial : Migration
+    public partial class christianerboes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,8 +31,6 @@ namespace ADL.Migrations
                 {
                     LocationId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
-                    AttachedAssignmentId = table.Column<int>(nullable: false),
-                    AttachedAssignmentSetId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Title = table.Column<string>(nullable: false)
                 },

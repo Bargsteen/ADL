@@ -1,13 +1,15 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using ADL.Models;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace ADL.Infrastructure
 {
-    [HtmlTargetElement("td", Attributes = "identity-role")]
+    [HtmlTargetElement("ul", Attributes = "identity-role")]
     public class RoleUsersTagHelper : TagHelper
     {
         private UserManager<Person> userManager;
@@ -36,18 +38,17 @@ namespace ADL.Infrastructure
                     }
                 }
             }
-            if(names.Count == 0)
+            if (names.Count == 0)
             {
-                output.Content.SetContent("Ingen brugere");
+                output.Content.SetHtmlContent($"<li class=\"list-group-item\">Ingen fundet</li>");
             }
             else
             {
-                string o = "<ul>";
-                foreach(string name in names)
+                string o = "";
+                foreach (string name in names)
                 {
-                    o += $"<li>{name}</li>";
+                    o += $"<li class=\"list-group-item\">{name}</li>";
                 }
-                o += "</ul>";
                 output.Content.SetHtmlContent(o);
             }
         }

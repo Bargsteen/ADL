@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ADLApp.Views"
-             x:Class="ADLApp.Views.ResultPage">
+             x:Class="ADLApp.Views.ExclusiveResultPage">
   <StackLayout Spacing="30">
     <Label x:Name="QuestionLabel"
            Text="{Binding Path=Assignment.Question}"
@@ -24,6 +24,6 @@
            Text="{Binding Feedback.Item1}"
            TextColor="{Binding Feedback.Item2}"
            VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
-    <Button Text="Fortsæt" Clicked="Button_OnClicked" BackgroundColor="#66bb6a"></Button>
+    <Button Text="Fortsæt" Clicked="Button_OnClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
   </StackLayout>
 </ContentPage>

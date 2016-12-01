@@ -60,7 +60,7 @@ namespace ADL.Controllers
         }
 
 
-        private Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        public Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
 
         [HttpPost]
         public IActionResult DeleteAssignmentSet(int assignmentSetId)
@@ -80,16 +80,16 @@ namespace ADL.Controllers
             attachment.Locations = locationRepository.Locations;
             return View(attachment);
         }
+
         [HttpPost]
-        public IActionResult AttachAssignmentToLocation(AssignmentToLocationAttachment attachment)
+        public async Task<IActionResult> AttachAssignmentToLocation(AssignmentToLocationAttachment attachment)
         {
             Location chosenLocation = locationRepository.Locations.FirstOrDefault(l => l.LocationId == attachment.ChosenLocationId);
-            Assignment chosenAssignment = assignmentSetRepository.AssignmentSets.FirstOrDefault(b => b.AssignmentSetId == attachment.ChosenAssignmentSetId)
-                .Assignments.FirstOrDefault(a => a.AssignmentId == attachment.ChosenAssignmentId);
-                
-            if(chosenLocation != null && chosenAssignment != null)
+            Assignment chosenAssignment = assignmentSetRepository.AssignmentSets.FirstOrDefault(b => b.AssignmentSetId == attachment.ChosenAssignmentSetId).Assignments.FirstOrDefault(a => a.AssignmentId == attachment.ChosenAssignmentId);
+            Person chosenPerson = await GetCurrentUserAsync();
+            if (chosenLocation != null && chosenAssignment != null)
             {
-                locationRepository.SaveAttachedAssignmentId(chosenLocation.LocationId, chosenAssignment.AssignmentId);
+                locationRepository.SaveAttachedAssignmentId(chosenLocation.LocationId, chosenPerson.Id, chosenAssignment.AssignmentId);
                 TempData["message"] = $"Opgaven '{chosenAssignment.Title}' blev koblet med lokationen '{chosenLocation.Title}'";
                 return RedirectToAction(nameof(List));
             }
