@@ -38,7 +38,7 @@ namespace ADLApp.Views
             {
                 Assignment currentassignment = await _assignmentLoader
                     .GetAssignment(scanString);
-                currentassignment = new Assignment() { Question = "Hvad hedder Teitur?", Headline = "Om teitur" };
+                //currentassignment = new Assignment() { Question = "Hvad hedder Teitur?", Headline = "Om teitur" };
                 if (currentassignment != null)
                 {
                     if (currentassignment is ExclusiveChoiceAssignment)

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ADLApp.Views.FindQrPage"
              Title="Placering af QR-koder"
-             BackgroundColor="Lime">
+             BackgroundColor="White">
 
   <StackLayout>
     
@@ -12,8 +12,8 @@
         <ColumnDefinition Width="1*"/>
         <ColumnDefinition Width="1*"/>
       </Grid.ColumnDefinitions>
-      <Label Grid.Column="0" Text="Navn på QR-koden:" VerticalTextAlignment="Center"></Label>
-      <Label Grid.Column="1" Text="Sted:" VerticalTextAlignment="Center"></Label>
+      <Label Grid.Column="0" Text="Navn:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black"></Label>
+      <Label Grid.Column="1" Text="Sted:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black"></Label>
     </Grid>
 
     <ListView ItemsSource="{Binding}">
@@ -26,8 +26,8 @@
                   <ColumnDefinition Width="1*"/>
                   <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="{Binding Title}" VerticalTextAlignment="Center" BackgroundColor="Gray"></Label>
-                <Label Grid.Column="1" Text="{Binding Description}" VerticalTextAlignment="Center" BackgroundColor="White"></Label>
+                <Label Grid.Column="0" Text="{Binding Title}" VerticalTextAlignment="Center" BackgroundColor="#66bb6a" TextColor="White" FontSize="20"></Label>
+                <Label Grid.Column="1" Text="{Binding Description}" VerticalTextAlignment="Center" BackgroundColor="#66bb6a" TextColor="White" FontSize="20"></Label>
               </Grid>
             </ViewCell.View>
           </ViewCell>
