@@ -38,7 +38,6 @@ namespace ADL.Infrastructure
                     }
                 }
             }
-<<<<<<< HEAD
             if (names.Count == 0)
             {
                 output.Content.SetHtmlContent($"<li class=\"list-group-item\">Ingen fundet</li>");
@@ -50,20 +49,6 @@ namespace ADL.Infrastructure
                 {
                     o += $"<li class=\"list-group-item\">{name}</li>";
                 }
-=======
-            if(names.Count == 0)
-            {
-                output.Content.SetContent("Ingen brugere");
-            }
-            else
-            {
-                string o = "<ul>";
-                foreach(string name in names)
-                {
-                    o += $"<li>{name}</li>";
-                }
-                o += "</ul>";
->>>>>>> d3ab6db60ce785d6223c94ac03868f27d2d5619d
                 output.Content.SetHtmlContent(o);
             }
         }
