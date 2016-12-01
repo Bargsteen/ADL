@@ -89,7 +89,7 @@ namespace ADL.Controllers
                 
             if(chosenLocation != null && chosenAssignment != null)
             {
-                locationRepository.SaveAttachedAssignmentId(chosenLocation.LocationId, chosenAssignment.AssignmentId);
+                locationRepository.SaveAttachedAssignmentId(chosenLocation.LocationId, "christian er bøs", chosenAssignment.AssignmentId);
                 TempData["message"] = $"Opgaven '{chosenAssignment.Title}' blev koblet med lokationen '{chosenLocation.Title}'";
                 return RedirectToAction(nameof(List));
             }

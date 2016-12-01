@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using ADL.Models;
 
-namespace ADL.Migrations
+namespace adl.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -102,10 +102,6 @@ namespace ADL.Migrations
                 {
                     b.Property<int>("LocationId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AttachedAssignmentId");
-
-                    b.Property<int>("AttachedAssignmentSetId");
 
                     b.Property<string>("Description")
                         .IsRequired();
