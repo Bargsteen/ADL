@@ -15,27 +15,14 @@ namespace ADL.Migrations
                     AnswerId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
                     AnsweredAssignmentId = table.Column<int>(nullable: false),
+                    AnsweredAssignmentSetId = table.Column<int>(nullable: false),
                     ChosenAnswerOption = table.Column<int>(nullable: false),
-                    TimeAnswered = table.Column<DateTime>(nullable: false)
+                    TimeAnswered = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Answers", x => x.AnswerId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Assignments",
-                columns: table => new
-                {
-                    AssignmentId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    CorrectAnswer = table.Column<int>(nullable: false),
-                    Headline = table.Column<string>(nullable: false),
-                    Question = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Assignments", x => x.AssignmentId);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,6 +32,7 @@ namespace ADL.Migrations
                     LocationId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
                     AttachedAssignmentId = table.Column<int>(nullable: false),
+                    AttachedAssignmentSetId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Title = table.Column<string>(nullable: false)
                 },
@@ -93,26 +81,6 @@ namespace ADL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AnswerOption",
-                columns: table => new
-                {
-                    AnswerOptionID = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    AssignmentId = table.Column<int>(nullable: true),
-                    Text = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AnswerOption", x => x.AnswerOptionID);
-                    table.ForeignKey(
-                        name: "FK_AnswerOption_Assignments_AssignmentId",
-                        column: x => x.AssignmentId,
-                        principalTable: "Assignments",
-                        principalColumn: "AssignmentId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,6 +168,36 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AssignmentSets",
+                columns: table => new
+                {
+                    AssignmentSetId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    CreatorId = table.Column<string>(nullable: true),
+                    DateOfCreation = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    PublicityLevel = table.Column<int>(nullable: false),
+                    SchoolId = table.Column<int>(nullable: true),
+                    Title = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignmentSets", x => x.AssignmentSetId);
+                    table.ForeignKey(
+                        name: "FK_AssignmentSets_AspNetUsers_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AssignmentSets_Schools_SchoolId",
+                        column: x => x.SchoolId,
+                        principalTable: "Schools",
+                        principalColumn: "SchoolId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -264,10 +262,42 @@ namespace ADL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Assignment",
+                columns: table => new
+                {
+                    AssignmentId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    AssignmentSetId = table.Column<int>(nullable: true),
+                    AssignmentText = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assignment", x => x.AssignmentId);
+                    table.ForeignKey(
+                        name: "FK_Assignment_AssignmentSets_AssignmentSetId",
+                        column: x => x.AssignmentSetId,
+                        principalTable: "AssignmentSets",
+                        principalColumn: "AssignmentSetId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_AnswerOption_AssignmentId",
-                table: "AnswerOption",
-                column: "AssignmentId");
+                name: "IX_Assignment_AssignmentSetId",
+                table: "Assignment",
+                column: "AssignmentSetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssignmentSets_CreatorId",
+                table: "AssignmentSets",
+                column: "CreatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssignmentSets_SchoolId",
+                table: "AssignmentSets",
+                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Classes_SchoolId",
@@ -332,7 +362,7 @@ namespace ADL.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "AnswerOption");
+                name: "Assignment");
 
             migrationBuilder.DropTable(
                 name: "Locations");
@@ -353,7 +383,7 @@ namespace ADL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Assignments");
+                name: "AssignmentSets");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

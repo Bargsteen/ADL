@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using ADL.Models;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;

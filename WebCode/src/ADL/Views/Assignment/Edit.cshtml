@@ -1,15 +1,14 @@
-@model Assignment
+@model AssignmentSet
 
 @{
-    ViewBag.Title = "Opgave";
+    ViewBag.Title = "Opgave Sæt";
 }
 
 <div class="panel panel-succes">
     <div class="panel-heading text-center">
-        <h4>Opret en opgave</h4>
-    </div>
-    <div class="panel-body">
+        <h4>Opret et opgavesæt</h4>
         <form class="p-a-1" asp-action="Edit" method="POST">
+<<<<<<< HEAD
             <div asp-validation-summary="All"></div>
             <input type="hidden" value="@Model.AssignmentId" asp-for="AssignmentId" />
             <div class="form-group">
@@ -57,6 +56,20 @@
             <div class="text-center">
                 <button class="btn btn-primary" type="submit">Gem</button>
             </div>
+=======
+            <input type="hidden" asp-for="AssignmentSetId" value="0" />
+            <label asp-for="Headline">Titel</label>
+            <input class="form-control"asp-for="Headline" />
+            <label asp-for="Description">Beskrivelse</label>
+            <input class="form-control"asp-for ="Description" />
+            <label asp-for="Publicity"asp.for>Dele egenskaber</label>
+            <input class="form-control"asp-for="Publicity"/>
+            <input type="hidden" asp-for="Date" value="DateTime"/>
+            <button class="btn btn-md btn-success" type="submit">Multiple Choice</button>
+            <button class="btn btn-md btn-success" type="submit">Exclusive Choice</button>
+            <button class="btn btn-md btn-success" type="submit">Text</button>
+            <button class="btn btn-md btn-success" type="submit">Opret</button>
+>>>>>>> eed07edf56a92239337ba70bad5b0eb80bef3e24
         </form>
     </div>
 </div>

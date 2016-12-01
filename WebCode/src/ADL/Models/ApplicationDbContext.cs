@@ -13,7 +13,7 @@ namespace ADL.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
-        public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<AssignmentSet> AssignmentSets { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<School> Schools { get; set; }

@@ -6,6 +6,7 @@ namespace ADL.Models.ViewModels
     {
         public int ChosenLocationId { get; set; }
         public int ChosenAssignmentId { get; set; }
+        public int ChosenAssignmentSetId { get; set; }
         public IEnumerable<Location> Locations { get; set; }
     }
 }

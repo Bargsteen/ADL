@@ -2,12 +2,7 @@ namespace ADL.Models
 {
     public class IdentificationResult
     {
-        public IdentificationResult(bool successful, string username)
-        {
-            Successful = successful;
-            Username = username;
-        }
-       public bool Successful { get; set; }
-       public string Username { get; set; }
+       public bool IsAuthenticated { get; set; }
+       public string UserId { get; set; }
     }
 }

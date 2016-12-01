@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace ADL.Models
 {
@@ -30,6 +28,7 @@ namespace ADL.Models
                 Answer dbEntry = context.Answers.FirstOrDefault(l => l.AnswerId == answer.AnswerId);
                 if (dbEntry != null)
                 {
+                    dbEntry.UserId = answer.UserId;
                     dbEntry.ChosenAnswerOption = answer.ChosenAnswerOption;
                     dbEntry.TimeAnswered = answer.TimeAnswered;
                 }

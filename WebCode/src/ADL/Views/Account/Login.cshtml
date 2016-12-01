@@ -1,15 +1,37 @@
 @model LoginModel
-<div class="bg-primary panel-body"><h4>Log In</h4></div>
-<div class="text-danger" asp-validation-summary="All"></div>
-<form asp-action="Login" method="post">
-    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-    <div class="form-group">
-        <label asp-for="Username"></label>
-        <input asp-for="Username" class="form-control" />
+<div class="row">
+    <div class="col-md-offset-4 col-md-4">
+        <div class="jumbotron" style="border: solid 1px; padding-top: 5px; padding-bottom: 25px">
+            <div style="text-align: center">
+                <img src="/custom/images/logo.png" height="150" width="150">
+            </div>
+            <hr />
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <form asp-action="Login" method="post">
+                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                <div class="form-group">
+                    <label asp-for="Username">Brugernavn</label>
+                    <input asp-for="Username" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+                <button class="btn btn-md btn-success" type="submit">Log In</button>
+                <br />
+                <div style="padding-top: 10px">
+                    <a asp-controller="Account" asp-action="Create">Glemt dit password?</a>
+                    <a asp-controller="Account" asp-action="Create" style="float: right">Registrer</a>
+                </div>
+
+            </form>
+            <hr />
+            <a class="btn btn-block btn-social btn-google">
+                <span class="fa fa-google"></span> Log ind med Google
+            </a>
+            <a class="btn btn-block btn-social btn-facebook">
+                <span class="fa fa-facebook"></span> Log ind med Facebook
+            </a>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" />
 </div>
-    <button class="btn btn-primary" type="submit">Log In</button>
-</form>
