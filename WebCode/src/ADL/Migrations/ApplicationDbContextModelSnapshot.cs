@@ -75,8 +75,6 @@ namespace ADL.Migrations
 
                     b.HasKey("AssignmentSetId");
 
-                    b.HasIndex("CreatorId");
-
                     b.HasIndex("SchoolId");
 
                     b.ToTable("AssignmentSets");
@@ -313,10 +311,6 @@ namespace ADL.Migrations
 
             modelBuilder.Entity("ADL.Models.AssignmentSet", b =>
                 {
-                    b.HasOne("ADL.Models.Person", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId");
-
                     b.HasOne("ADL.Models.School", "School")
                         .WithMany()
                         .HasForeignKey("SchoolId");

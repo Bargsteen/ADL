@@ -10,7 +10,7 @@ namespace ADL.Models
         public string Title { get; set; }
         public string Description { get; set; }       
         public PublicityLevel PublicityLevel { get; set; }
-        public Person Creator { get; set; }
+        public string CreatorId { get; set; }
         public School School { get; set; }
         public DateTime DateOfCreation { get; set; }
         public List<Assignment> Assignments { get; set; }

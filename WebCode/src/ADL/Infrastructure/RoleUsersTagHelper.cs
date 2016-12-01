@@ -36,8 +36,20 @@ namespace ADL.Infrastructure
                     }
                 }
             }
-            output.Content.SetContent(names.Count == 0 ?
-                "No Users" : string.Join(", ", names));
+            if(names.Count == 0)
+            {
+                output.Content.SetContent("Ingen brugere");
+            }
+            else
+            {
+                string o = "<ul>";
+                foreach(string name in names)
+                {
+                    o += $"<li>{name}</li>";
+                }
+                o += "</ul>";
+                output.Content.SetHtmlContent(o);
+            }
         }
     }
 }
