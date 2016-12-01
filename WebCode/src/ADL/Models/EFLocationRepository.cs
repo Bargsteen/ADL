@@ -48,13 +48,13 @@ namespace ADL.Models
             return dbEntry;
         }
 
-        public bool SaveAttachedAssignmentId(int locationId, int assignmentId)
+        public bool SaveAttachedAssignmentId(int locationId, int personId, int assignmentId)
         {
             Location dbEntry = context.Locations
                 .FirstOrDefault(l => l.LocationId == locationId);
             if (dbEntry != null)
             {
-                dbEntry.AttachedAssignmentId = assignmentId;
+                dbEntry.AddAttachmentToLocation(personId, assignmentId);
                 context.SaveChanges();
                 return true;
             }
