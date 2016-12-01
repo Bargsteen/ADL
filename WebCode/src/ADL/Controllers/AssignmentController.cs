@@ -2,20 +2,25 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
 using ADL.Models.ViewModels;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace ADL.Controllers
 {
+    [Authorize(Roles = "Lærer")]
     public class AssignmentController : Controller
     {
         IAssignmentSetRepository assignmentSetRepository;
         ILocationRepository locationRepository;
 
-        public AssignmentController(IAssignmentSetRepository assignmentSetRepo, ILocationRepository locationRepo)
+        UserManager<Person> userManager;
+
+        public AssignmentController(IAssignmentSetRepository assignmentSetRepo, ILocationRepository locationRepo, UserManager<Person> usrMgr)
         {
             assignmentSetRepository = assignmentSetRepo;
             locationRepository = locationRepo;
+            userManager = usrMgr;
         }
 
         public ViewResult List()
@@ -47,7 +52,15 @@ namespace ADL.Controllers
         }
 
         // Uses the edit view, but gives it a new assignment. j
-        public ViewResult Create() => View(nameof(Edit));
+        public async Task<ViewResult> Create()
+        {
+            Person currentUser = await GetCurrentUserAsync();
+            AssignmentSet assignmentSet = new AssignmentSet() { CreatorId = currentUser.Id };
+            return View(nameof(Edit), assignmentSet);
+        }
+
+
+        private Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
 
         [HttpPost]
         public IActionResult DeleteAssignmentSet(int assignmentSetId)
