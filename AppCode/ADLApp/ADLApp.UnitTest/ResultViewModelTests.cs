@@ -5,35 +5,47 @@ using ADLApp.Views;
 using ADLApp.Models;
 using ADLApp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xamarin.Forms;
 
 namespace ADLApp.UnitTest
 {
     [TestClass]
     public class ResultViewModelTests
     {
-        [TestMethod]
-        public void TestMultipleChoiceResullt()
+        private ResultViewModel rvm = new ResultViewModel(exAssignment, 1);
+
+        private static ExclusiveChoiceAssignment exAssignment = new ExclusiveChoiceAssignment()
         {
-            MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
-            mpAssignment.CorrectAnswer = 0;
-            mpAssignment.Headline = "Test Headline";
-            mpAssignment.Question = "Test Question";
-            mpAssignment.AnswerOptions = new List<AnswerOption>()
+            CorrectAnswer = 0,
+            Headline = "Test Headline",
+            Question = "Test question",
+            AnswerOptions = new List<AnswerOption>()
             {
                 new AnswerOption() {AnswerOptionID = 333, Text = "AO1"},
                 new AnswerOption() {AnswerOptionID = 44, Text = "AO2"}
-            };
+            },
+        };
+        [TestMethod]
+        public void TestIfRVMCorrectAnswerIsCorrect()
+        {
 
-            var resultViewModel = new ResultViewModel(mpAssignment, 1);
-            
-            Assert.AreEqual(resultViewModel.CorrectAnswer, mpAssignment.AnswerOptions[mpAssignment.CorrectAnswer].Text);
+            Assert.AreEqual(rvm.CorrectAnswer, exAssignment.AnswerOptions[exAssignment.CorrectAnswer].Text);
         }
 
         [TestMethod]
-        public void TestFeedback()
+        public void TestFeedbackIsIncorrect()
         {
-            MultipleChoiceAssignment mpAssignment = new MultipleChoiceAssignment();
-            mpAssignment.CorrectAnswer = 2;
+            Assert.AreEqual($"Desværre, det rigtige svar var \"{rvm.CorrectAnswer}\"", rvm.Feedback.Item1);
+            Assert.AreEqual(Color.Red, rvm.Feedback.Item2);
+            
+        }
+
+        [TestMethod]
+        public void TestFeedbackisCorrect()
+        {
+            ResultViewModel rvm = new ResultViewModel(exAssignment, 0);
+            Assert.AreEqual("Godt gået, det er korrekt!", rvm.Feedback.Item1);
+            Assert.AreEqual(Color.Green, rvm.Feedback.Item2);   
         }
     }
 }

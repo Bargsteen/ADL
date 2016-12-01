@@ -10,6 +10,6 @@ namespace ADLApp.ViewModel
 {
     interface IAnswerSender
     {
-        Task<string> SendAnswer(Answer answer);
+        Task<string> SendAnswer(ExclusiveAnswer answer);
     }
 }

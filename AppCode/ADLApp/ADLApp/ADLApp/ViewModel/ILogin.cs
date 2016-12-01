@@ -9,6 +9,6 @@ namespace ADLApp.ViewModel
 {
     interface ILogin
     {
-        Task<IRestResponse> Login(LoginModel userinfo);       
+        Task<IRestResponse<LoginResult>> Login(UserLoginModel userinfo);       
     }
 }
