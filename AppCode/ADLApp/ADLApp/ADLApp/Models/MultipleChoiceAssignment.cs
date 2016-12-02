@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ADLApp.Models
 {
-    class MultipleChoiceAssignment
+    public class MultipleChoiceAssignment : Assignment
     {
+        public List<int> CorrectAnswers { get; set; }
+        public List<AnswerOption> AnswerOptions { get; set; }
     }
 }

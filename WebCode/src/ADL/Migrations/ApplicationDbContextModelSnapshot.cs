@@ -42,7 +42,7 @@ namespace ADL.Migrations
 
                     b.Property<int?>("AssignmentSetId");
 
-                    b.Property<string>("AssignmentText")
+                    b.Property<string>("Text")
                         .IsRequired();
 
                     b.Property<string>("Title");
@@ -69,13 +69,11 @@ namespace ADL.Migrations
 
                     b.Property<int>("PublicityLevel");
 
-                    b.Property<int?>("SchoolId");
+                    b.Property<int>("SchoolId");
 
                     b.Property<string>("Title");
 
                     b.HasKey("AssignmentSetId");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("AssignmentSets");
                 });
@@ -303,13 +301,6 @@ namespace ADL.Migrations
                     b.HasOne("ADL.Models.AssignmentSet")
                         .WithMany("Assignments")
                         .HasForeignKey("AssignmentSetId");
-                });
-
-            modelBuilder.Entity("ADL.Models.AssignmentSet", b =>
-                {
-                    b.HasOne("ADL.Models.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId");
                 });
 
             modelBuilder.Entity("ADL.Models.Class", b =>

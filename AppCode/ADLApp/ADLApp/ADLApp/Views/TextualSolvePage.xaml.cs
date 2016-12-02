@@ -1,4 +1,5 @@
 ﻿using ADLApp.Models;
+using ADLApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ADLApp.Views
 {
     public partial class TextualSolvePage : ContentPage
     {
+        private IAnswerSender answerSender = new RequestManager();
         public TextualSolvePage(Assignment assignment)
         {
             InitializeComponent();
@@ -18,9 +20,12 @@ namespace ADLApp.Views
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            if(AnswerEditor.Text != null)
+            if (AnswerEditor.Text != null)
             {
-
+                string status = await
+                answerSender.SendAnswer(new Answer((BindingContext as Assignment).AssignmentId, AnswerEditor.Text));
+                await Navigation.PushModalAsync(new TextualResultPage());
+                await Navigation.PopAsync();
             }
         }
     }
