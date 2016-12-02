@@ -19,11 +19,15 @@
              HorizontalOptions="Center" FontSize="25" FontAttributes="Bold">
       </Label>
     </StackLayout>
-    <Label
-           x:Name="FeedBackLabel"
-           Text="{Binding Feedback.Item1}"
-           TextColor="{Binding Feedback.Item2}"
-           VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
-    <Button Text="Fortsæt" Clicked="Button_OnClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+    <StackLayout VerticalOptions="CenterAndExpand">
+      <Label
+             x:Name="FeedBackLabel"
+             Text="{Binding Feedback.Item1}"
+             TextColor="{Binding Feedback.Item2}"
+             VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
+    </StackLayout>
+    <StackLayout VerticalOptions="End">
+      <Button Text="Fortsæt" Clicked="Button_OnClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+    </StackLayout>
   </StackLayout>
 </ContentPage>
