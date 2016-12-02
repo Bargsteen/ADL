@@ -13,6 +13,7 @@
     </StackLayout.BackgroundColor>
     <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" ></Label>
     <StackLayout VerticalOptions="CenterAndExpand">
+      <Label FontSize="18" Text="(Mulighed for en eller flere svarmuligheder)"></Label>
       <ListView x:Name="answerOptionView" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}" ItemSelected="OnItemSelected" >
         <ListView.ItemTemplate>
           <DataTemplate>

@@ -38,7 +38,6 @@ namespace ADLApp.Views
                 });
 
         public event EventHandler<bool> CheckedChanged;
-
         public CheckBox()
         {
             InitializeComponent();
