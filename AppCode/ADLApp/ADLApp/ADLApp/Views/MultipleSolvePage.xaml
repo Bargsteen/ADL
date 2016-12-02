@@ -16,7 +16,7 @@
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-              <controls:CheckBox Text="{Binding Text}" CheckedChanged="OnChecked"></controls:CheckBox>
+              <controls:CheckBox Text="{Binding Text}" CheckedChanged="OnChecked"  ></controls:CheckBox>
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>

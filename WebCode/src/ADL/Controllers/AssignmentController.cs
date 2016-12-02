@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ADL.Controllers
 {
-    [Authorize(Roles = "Lærer")]
+    [Authorize(Roles = "Lærer,Admin")]
     public class AssignmentController : Controller
     {
         IAssignmentSetRepository assignmentSetRepository;

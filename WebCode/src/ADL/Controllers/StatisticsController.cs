@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
-    [Authorize(Roles = "Lærer")]
+    [Authorize(Roles = "Lærer,Admin")]
     public class StatisticsController : Controller
     {
         private IAnswerRepository answerRepository;
