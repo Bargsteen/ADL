@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
+using System.Collections.Generic;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -29,19 +30,16 @@ namespace ADL.Controllers
         {
             PersonAndAssignmentViewModel studentList = new PersonAndAssignmentViewModel()
             {
-                AssignmentSets = assignmentSetRepository.AssignmentSets,
-                Persons = userManager.Users
+                /*TEST ANDREAS*/
+                AssignmentSets = new List<AssignmentSet>() { new AssignmentSet(), new AssignmentSet() },
+
+                Persons = new List<Person>() { new Person(), new Person(), new Person(), new Person(), new Person() }
+                
+                //AssignmentSets = assignmentSetRepository.AssignmentSets,
+                //Persons = userManager.Users as IEnumerable<Person>
             };
             return View(studentList);
         }
-
-        /*test*/
-     //   List<Class> klasser; /*load alle klasser*/
-      //  List<Assignment> opgaver; /*load alle opgaver*/
-
-      
-        /*test*/
-
 
         public ViewResult List()
         {
