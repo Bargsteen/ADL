@@ -8,7 +8,7 @@ using ZXing;
 
 namespace ADLApp.ViewModel
 {
-    class QRScanner : IScanner
+    class QrScanner : IScanner
     {
         public async Task<string> ScanAndGetString()
         {
@@ -24,7 +24,7 @@ namespace ADLApp.ViewModel
                 }
                 return "error";
             }
-            return null;
+            return "cancel";
         }
     }
 }
