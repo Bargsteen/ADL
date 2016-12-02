@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ADL.Controllers
 {
-    [Authorize(Roles = "Lærer")]
+    [Authorize(Roles = "Lærer,Admin")]
     public class AssignmentController : Controller
     {
         IAssignmentSetRepository assignmentSetRepository;
@@ -22,6 +22,26 @@ namespace ADL.Controllers
             locationRepository = locationRepo;
             userManager = usrMgr;
         }
+
+
+
+        public ViewResult StudentPick()
+        {
+            PersonAndAssignmentViewModel studentList = new PersonAndAssignmentViewModel()
+            {
+                AssignmentSets = assignmentSetRepository.AssignmentSets,
+                Persons = userManager.Users
+            };
+            return View(studentList);
+        }
+
+        /*test*/
+     //   List<Class> klasser; /*load alle klasser*/
+      //  List<Assignment> opgaver; /*load alle opgaver*/
+
+      
+        /*test*/
+
 
         public ViewResult List()
         {

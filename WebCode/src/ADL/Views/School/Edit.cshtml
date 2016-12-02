@@ -1,0 +1,28 @@
+﻿@model School
+
+@{
+    ViewBag.Title = "School";
+}
+
+<div class="panel panel-succes">
+    <div class="panel-heading text-center">
+        <h4>Skole</h4>
+    </div>
+    <div class="panel-body">
+        <form class="p-a-1" asp-action="Edit" method="POST">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" value="@Model.SchoolId" asp-for="SchoolId" />
+            <div class="form-group">
+                <label asp-for="SchoolName">Navn på skolen</label>
+                <input class="form-control" asp-for="SchoolName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="InstitutionNumber">Beskrivelse:</label>
+                <input class="form-control" type="text" asp-for="InstitutionNumber"/>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Gem</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model PersonAndAssignmentViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tildel opgave</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+<h2>Opgave tildeling</h2>
+<p>Vær venlig at vælge de forskellige opgavetildelinger</p>    
+    @if (Model.Persons.Count() > 0 && Model.AssignmentSets.Count() > 0)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Klasser</th>
+                    <th>Opgavesæt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Persons.Count() || i < Model.AssignmentSets.Count(); i++)
+                {
+                    if ((i <= Model.Persons.Count()) && (i <= Model.AssignmentSets.Count()))
+                    {
+                        <tr>
+                            <td>@Model.Persons.ElementAt(i).UserName</td>
+                            <td>@Model.AssignmentSets.ElementAt(i).AssignmentSetId</td>
+                        </tr>
+                    }
+                    else if ((i <= Model.Persons.Count()) && !(i <= Model.AssignmentSets.Count()))
+                    {
+                        <tr>
+                            <td>@Model.Persons.ElementAt(i).UserName</td>
+                            <td></td>
+                        </tr>
+                    }
+                    else if (!(i <= Model.Persons.Count()) && (i <= Model.AssignmentSets.Count()))
+                    {
+                        <tr>
+                            <td></td>
+                            <td>@Model.AssignmentSets.ElementAt(i).AssignmentSetId</td>
+                            </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+            <div>No student or Assignments found</div>
+    }
+</div>
+
+</body>
+</html>
+

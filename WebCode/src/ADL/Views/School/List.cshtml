@@ -1,0 +1,39 @@
+﻿@model IEnumerable<School>
+@{
+    ViewBag.Title = "Lokationsliste";
+}
+@if (Model.Count() > 0)
+{
+    <table class="table table-bordered table-striped">
+        <tr><th>Id</th><th>Skole</th><th>Institutionsnummer</th><th>Handlinger</th></tr>
+        @foreach (School l in Model)
+        {
+            <tr>
+                <td width="5%">@l.SchoolId</td>
+                <td width="15%">@l.SchoolName</td>
+                <td width="58%">@l.InstitutionNumber</td>
+                <td width="22%">
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="schoolId" value="@l.SchoolId" />
+                        <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-schoolId="@l.SchoolId">
+                            Rediger
+                        </a>
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Slet
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="text-right">
+        <a asp-controller="School" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret skole</a>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        Ingen lokationer blev fundet.<br /><br />
+        <a asp-controller="School" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret skole</a>
+    </div>
+}
