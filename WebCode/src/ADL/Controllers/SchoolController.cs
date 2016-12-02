@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ADL.Controllers
 {
 
-    [Authorize(Roles = "Lærer")]
+    [Authorize(Roles = "Lærer,Admin")]
     public class SchoolController : Controller
     {
         ISchoolRepository schoolRepository;
