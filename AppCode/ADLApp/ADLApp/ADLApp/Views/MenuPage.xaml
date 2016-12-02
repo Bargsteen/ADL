@@ -11,7 +11,7 @@
         <Button Text="Ret Profil" BackgroundColor="#66bb6a" TextColor="White"></Button>
         <Button Text="Indstillinger" BackgroundColor="#66bb6a" TextColor="White"></Button>
         <Button Text="Hjælp" BackgroundColor="#66bb6a" TextColor="White"></Button>
-        <Button Text="Log ud" BackgroundColor="#66bb6a" TextColor="White"></Button>
+        <Button Text="Log ud" BackgroundColor="#66bb6a" TextColor="White" Clicked="OnLogoutButtonClicked"></Button>
       </StackLayout>
     </ContentPage>
   </MasterDetailPage.Master>
