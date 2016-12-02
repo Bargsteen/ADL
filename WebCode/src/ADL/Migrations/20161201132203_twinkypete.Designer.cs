@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using ADL.Models;
 
-namespace adl.Migrations
+namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161201130956_christianerboes")]
-    partial class christianerboes
+    [Migration("20161201132203_twinkypete")]
+    partial class twinkypete
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
