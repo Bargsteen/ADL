@@ -20,14 +20,14 @@
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
-            <ViewCell.View>
-              <Grid ColumnSpacing="0">
-                <Grid.ColumnDefinitions>
+            <ViewCell.View >
+              <Grid ColumnSpacing="0"  >
+                <Grid.ColumnDefinitions >
                   <ColumnDefinition Width="1*"/>
                   <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="{Binding Title}" VerticalTextAlignment="Center" BackgroundColor="#66bb6a" TextColor="White" FontSize="20"></Label>
-                <Label Grid.Column="1" Text="{Binding Description}" VerticalTextAlignment="Center" BackgroundColor="#66bb6a" TextColor="White" FontSize="20"></Label>
+                <Label Grid.Column="0"  Text="{Binding Title}"  BackgroundColor="#66bb6a" TextColor="White" FontSize="15"   ></Label>
+                <Label Grid.Column="1" Text="{Binding Description}" BackgroundColor="#66bb6a" TextColor="White" FontSize="15" ></Label>
               </Grid>
             </ViewCell.View>
           </ViewCell>
