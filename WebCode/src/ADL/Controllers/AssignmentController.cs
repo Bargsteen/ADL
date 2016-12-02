@@ -23,6 +23,18 @@ namespace ADL.Controllers
             userManager = usrMgr;
         }
 
+
+
+        public ViewResult StudentPick() => View(userManager.Users);
+
+        /*test*/
+     //   List<Class> klasser; /*load alle klasser*/
+      //  List<Assignment> opgaver; /*load alle opgaver*/
+
+      
+        /*test*/
+
+
         public ViewResult List()
         {
             AssignmentAndLocationListViewModel assignmentList = new AssignmentAndLocationListViewModel()
