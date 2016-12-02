@@ -25,7 +25,15 @@ namespace ADL.Controllers
 
 
 
-        public ViewResult StudentPick() => View(userManager.Users);
+        public ViewResult StudentPick()
+        {
+            PersonAndAssignmentViewModel studentList = new PersonAndAssignmentViewModel()
+            {
+                AssignmentSets = assignmentSetRepository.AssignmentSets,
+                Persons = userManager.Users
+            };
+            return View(studentList);
+        }
 
         /*test*/
      //   List<Class> klasser; /*load alle klasser*/
