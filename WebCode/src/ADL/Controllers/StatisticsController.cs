@@ -18,36 +18,50 @@ namespace ADL.Controllers
             answerRepository = answerRepo;
             assignmentSetRepository = assignmentSetRepo;
         }
-        /*public ViewResult Index()
-        {
-            StatisticsViewModel statisticsViewModel = new StatisticsViewModel() 
-            { 
-                Answers = answerRepository.Answers, 
-                Assignments = assignmentSetRepository.Assignments 
-            };
-            
-            Dictionary<int, Tuple<int, int>> statsList = new Dictionary<int, Tuple<int, int>>();
+        //public ViewResult Index()
+        //{
+        //    List<Assignment> totalList = new List<Assignment>();
+        //    foreach (List<Assignment> assignmentList in assignmentSetRepository.AssignmentSets.Select(set => set.Assignments))
+        //    {
+        //        foreach (Assignment a in assignmentList)
+        //        {
+        //            totalList.Add(a);
+        //        }
+        //    }
+        //    IEnumerable<Assignment> asi = totalList;
+        //    StatisticsViewModel statisticsViewModel = new StatisticsViewModel()
+        //    {
+        //        Answers = answerRepository.Answers,
+        //        Assignments = asi,
+        //    };
 
-            foreach(Assignment assignment in statisticsViewModel.Assignments)
-            {
-                List<Answer> answersForThisAssignment = new List<Answer>();
-                foreach(Answer answer in statisticsViewModel.Answers)
-                {
-                    if(answer.AnsweredAssignmentId == assignment.AssignmentId)
-                    {
-                        answersForThisAssignment.Add(answer);
-                    }
-                }
-                Tuple<int, int> correctVsTotalAnswers = new Tuple<int, int>
-                (
-                    answersForThisAssignment.Where(a => a.ChosenAnswerOption == assignment.CorrectAnswer).Count(), // Count # of correct answers
-                    answersForThisAssignment.Count()
-                );
-                statsList.Add(assignment.AssignmentId, correctVsTotalAnswers);
-            }
-            statisticsViewModel.Stats = statsList;
+        //    Dictionary<int, Tuple<int, int>> exclusiveStatsList = new Dictionary<int, Tuple<int, int>>();
 
-            return View(statisticsViewModel);
-        }*/
+        //    foreach (Assignment assignment in statisticsViewModel.Assignments)
+        //    {
+        //        List<Answer> answersForThisAssignment = new List<Answer>();
+        //        foreach (Answer answer in statisticsViewModel.Answers)
+        //        {
+        //            if (answer.AnsweredAssignmentId == assignment.AssignmentId)
+        //            {
+        //                answersForThisAssignment.Add(answer);
+        //            }
+        //        }
+        //        if (assignment is ExclusiveChoiceAssignment)
+        //        {
+        //            Tuple<int, int> correctVsTotalAnswers = new Tuple<int, int>
+        //        (
+
+        //            answersForThisAssignment.Where(a => a.ChosenAnswerOption == assignment.CorrectAnswer).Count(), // Count # of correct answers
+        //            answersForThisAssignment.Count()
+        //        );
+        //            exclusiveStatsList.Add(assignment.AssignmentId, correctVsTotalAnswers);
+        //        }
+
+        //    }
+        //    statisticsViewModel.Stats = exclusiveStatsList;
+
+        //    return View(statisticsViewModel);
+        //}
     }
 }
