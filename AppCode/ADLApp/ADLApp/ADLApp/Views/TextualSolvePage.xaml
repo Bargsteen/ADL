@@ -7,6 +7,6 @@
     <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" ></Label>
       <Editor x:Name="AnswerEditor" HeightRequest="200">
       </Editor>
-      <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a"></Button>
+      <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
   </StackLayout>
 </ContentPage>

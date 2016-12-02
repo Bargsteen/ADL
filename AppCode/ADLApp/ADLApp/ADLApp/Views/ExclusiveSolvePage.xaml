@@ -16,11 +16,10 @@
 		
 		</StackLayout.BackgroundColor>
 		-->
-    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" TextColor="#66bb6a" ></Label>
+    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599"></Label>
     <StackLayout VerticalOptions="CenterAndExpand">
       <Label Text="Svarmuligheder(vælg ét svar):" TextColor="Black" FontSize="25"></Label>
-      <ListView x:Name="answerOptionView" SeparatorColor="Black"
-                HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}"  >
+      <ListView x:Name="answerOptionView" SeparatorColor="Black" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}"  >
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
