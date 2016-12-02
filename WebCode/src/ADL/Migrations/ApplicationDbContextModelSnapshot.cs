@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using ADL.Models;
 
-namespace adl.Migrations
+namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -42,7 +42,7 @@ namespace adl.Migrations
 
                     b.Property<int?>("AssignmentSetId");
 
-                    b.Property<string>("AssignmentText")
+                    b.Property<string>("Text")
                         .IsRequired();
 
                     b.Property<string>("Title");
@@ -69,13 +69,11 @@ namespace adl.Migrations
 
                     b.Property<int>("PublicityLevel");
 
-                    b.Property<int?>("SchoolId");
+                    b.Property<int>("SchoolId");
 
                     b.Property<string>("Title");
 
                     b.HasKey("AssignmentSetId");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("AssignmentSets");
                 });
@@ -303,13 +301,6 @@ namespace adl.Migrations
                     b.HasOne("ADL.Models.AssignmentSet")
                         .WithMany("Assignments")
                         .HasForeignKey("AssignmentSetId");
-                });
-
-            modelBuilder.Entity("ADL.Models.AssignmentSet", b =>
-                {
-                    b.HasOne("ADL.Models.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId");
                 });
 
             modelBuilder.Entity("ADL.Models.Class", b =>
