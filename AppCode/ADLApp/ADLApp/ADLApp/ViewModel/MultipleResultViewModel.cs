@@ -45,13 +45,18 @@ namespace ADLApp.ViewModel
                     }
                 }
             }
-            bool isCorrect = true;
-            foreach (int a in Assignment.CorrectAnswers)
-            {
-                if (!chosenAnswers.Exists(ca => ca == Assignment.AnswerOptions[a])) isCorrect = false;
-            }
+
+            bool isCorrect = FeedBackList.All(fb => fb.Item2 == Color.Green);
             if (isCorrect) ResultText = "Det er korrekt, godt gået!";
-            else ResultText = "Desværre, det er forkert";
+            else
+            {
+                int correctAnswerCount = FeedBackList.Count(fb => fb.Item2 == Color.Green);
+                if (((double)correctAnswerCount / FeedBackList.Count()) > 0.5)
+                    ResultText = $"Det er næsten korrekt! Du svarede {correctAnswerCount} ud af {FeedBackList.Count()} korrekte";
+                else
+                    ResultText = $"Desværre, det er forkert. Du svarede {correctAnswerCount} ud af {FeedBackList.Count()} korrekte";
+            }
+
         }
         public string ResultText { get; set; }
         public List<Tuple<string, Color, string>> FeedBackList { get; set; }

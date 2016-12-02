@@ -12,39 +12,341 @@
             <div class="panel">
                 <input type="hidden" asp-for="AssignmentSetId" value="@Model.AssignmentSetId" />
                 <input type="hidden" asp-for="CreatorId" value="@Model.CreatorId" />
+<<<<<<< HEAD
+                <input type="hidden" asp-for="DateOfCreation" value="DateTime.Now" />
+
+=======
                 <input type="hidden" asp-for="SchoolId" value="@Model.SchoolId" />
                 <input type="hidden" asp-for="DateOfCreation" value="@DateTime.Now"/>
                 
+>>>>>>> bb4f5687cb611d4b20d98361fb6364b898d34e23
                 <label asp-for="Title">Titel</label>
                 <input class="form-control" asp-for="Title" />
                 <label asp-for="Description">Beskrivelse</label>
                 <input class="form-control" asp-for="Description" />
+<<<<<<< HEAD
+                <label asp-for="PublicityLevel" asp.for>Dele egenskaber</label>
+=======
                 <label asp-for="PublicityLevel">Dele egenskaber</label>
+>>>>>>> bb4f5687cb611d4b20d98361fb6364b898d34e23
                 <select class="form-control" asp-for="PublicityLevel">
-                        <option value="0">Privat</option>
-                        <option value="1">Skolen</option>
-                        <option value="2">Verden</option>
-                    </select>
-                
+                    <option value="0">Privat</option>
+                    <option value="1">Skolen</option>
+                    <option value="2">Verden</option>
+                </select>
+
             </div>
             <div class="panel">
                 <!--<input type="hidden" asp-for="Assignments[0].Type" value="2" />
                 <input type="text" asp-for="Assignments[0].Title" />
                 <input type="text" asp-for="Assignments[0].Text" />-->
                 <h5>Indsæt ny opgave</h5>
+<<<<<<< HEAD
+
+=======
                 <button class="btn btn-md btn-primary" type="button" onclick="addAssignment('txt')">Text</button>
                 <button class="btn btn-md btn-primary" type="button"onclick="addAssignment('mc')">Multiple Choice</button>
                 <button class="btn btn-md btn-primary" type="button" onclick="addAssignment('ec')">Exclusive Choice</button>
                 
+>>>>>>> bb4f5687cb611d4b20d98361fb6364b898d34e23
             </div>
             <div class="panel" id="assignments-box">
             </div>
-                
+
             <div class="panel pull-right">
                 <button class="btn btn-md btn-success" type="submit">Opret Opgavesæt</button>
             </div>
         </form>
 
         
+    </div>
+</div>
+
+<!--EXCLUSIVE OPGAVE-->
+<div class="jumbotron" style="background: white; border: solid 1px">
+    <div class="row">
+        <form>
+            <div class="form-group row">
+                <label class="col-md-12"><h2>Opgavetitel:</h2></label>
+                <div class="col-md-12">
+                    <input type="email" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="Giv en beskrivende opgavetitel">
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tilføj en opgave til sættet</button>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Opgave med én svarmulighed</h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="example-text-input">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <small id="helptext" class="form-text text-muted">Vælg hvilken svarmulighed der er den rigtige:</small>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="radio" name="svar" aria-label="...">
+                                </span>
+                                <input type="text" class="form-control" aria-label="...">
+                            </div>
+
+                            <br />
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="radio" name="svar" aria-label="...">
+                                </span>
+                                <input type="text" class="form-control" aria-label="...">
+                            </div>
+
+                            <br />
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!--MULTIPLE CHOICE OPGAVE-->
+
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Opgave med flere svarmuligheder</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="example-text-input">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <small id="helptext" class="form-text text-muted">Vælg hvilke svarmuligheder der er rigtige:</small>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" aria-label="...">
+                                </span>
+                                <input type="text" class="form-control" aria-label="...">
+                            </div>
+
+                            <br />
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" aria-label="...">
+                                </span>
+                                <input type="text" class="form-control" aria-label="...">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!--TEXTOPGAVE-->
+
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Opgaver der besvares med tekst</h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="example-text-input">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleTextarea" rows="6"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Opgave med flere svarmuligheder</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="example-text-input">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <small id="helptext" class="form-text text-muted">Vælg hvilke svarmuligheder der er rigtige:</small>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" aria-label="...">
+                                </span>
+                                <input type="text" class="form-control" aria-label="...">
+                            </div>
+
+                            <br />
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" aria-label="...">
+                                </span>
+                                <input type="text" class="form-control" aria-label="...">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Opgave der besvares med tekst</h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="example-text-input">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleTextarea" rows="6"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+
+    </div>
+</div>
+
+
+
+<!--MODAL BEGYNDER HER-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Vælg opgavetype:</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <div>
+                    <button type="button" class="btn btn-md btn-success" data-dismiss="modal">Exclusive choice</button>
+                </div>
+                <br/>
+                <div>
+                    <button type="button" class="btn btn-md btn-warning" data-dismiss="modal">Multiple coice</button>
+                </div>
+                <br/>
+                <div>
+                    <button type="button" class="btn btn-md btn-primary" data-dismiss="modal">Textbesvarelse</button>
+                </div>
+               
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>

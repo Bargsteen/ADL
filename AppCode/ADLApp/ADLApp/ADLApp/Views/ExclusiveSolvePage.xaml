@@ -16,18 +16,21 @@
 		
 		</StackLayout.BackgroundColor>
 		-->
-    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" TextColor="#66bb6a" ></Label>
-    <Label Text="Svarmuligheder:" TextColor="Black" FontSize="25"></Label>
-    <ListView x:Name="answerOptionView" SeparatorColor="Black"  
-              HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}"  >
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Label FontSize="20" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text= "{Binding Text}" TextColor="Black" Margin="10"></Label>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked"  BackgroundColor="#66bb6a" TextColor="White"></Button>
+    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599"></Label>
+    <StackLayout VerticalOptions="CenterAndExpand">
+      <Label Text="Svarmuligheder(vælg ét svar):" TextColor="Black" FontSize="25"></Label>
+      <ListView x:Name="answerOptionView" SeparatorColor="Black" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}"  >
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Label FontSize="20" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text= "{Binding Text}" TextColor="Black" Margin="10"></Label>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+    <StackLayout VerticalOptions="End">
+      <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked"  BackgroundColor="#66bb6a" TextColor="White"></Button>
+    </StackLayout>
   </StackLayout>
 </ContentPage>

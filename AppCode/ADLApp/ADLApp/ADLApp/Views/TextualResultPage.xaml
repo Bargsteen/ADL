@@ -5,12 +5,14 @@
   <StackLayout>
     <StackLayout VerticalOptions="CenterAndExpand">
       <Label x:Name="FeedBackLabel"
-      Text="Tak for svaret. Det er nu sendt ind til din lærer"
-      TextColor="Green"
-      VerticalOptions="Center" HorizontalOptions="Center" FontSize="25"/>
+             Text="Tak for svaret. Det er nu sendt ind til din lærer"
+             TextColor="Green"
+             VerticalOptions="Center" 
+             HorizontalOptions="Center" FontSize="25"
+             />
     </StackLayout>
     <StackLayout VerticalOptions="End">
-      <Button Text="Fortsæt" Clicked="OnContinueButtonClicked" BackgroundColor="#66bb6a"></Button>
+      <Button Text="Fortsæt" Clicked="OnContinueButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
     </StackLayout>
   </StackLayout>
 </ContentPage>
