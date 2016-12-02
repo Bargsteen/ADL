@@ -38,7 +38,20 @@ namespace ADLApp.Views
             {
                 Assignment currentassignment = await _assignmentLoader
                     .GetAssignment(scanString);
-                //currentassignment = new Assignment() { Question = "Hvad hedder Teitur?", Headline = "Om teitur" };
+                currentassignment = new MultipleChoiceAssignment()
+                {
+                    Question = "Hvad hedder Teitur?",
+                    Headline = "Om teitur",
+                    CorrectAnswers = new List<int>() { 0, 2 },
+                    AnswerOptions = new List<AnswerOption>() { new AnswerOption() {
+                        AnswerOptionID = 1, Text = "mig"
+                    }, new AnswerOption() {
+                        AnswerOptionID = 2, Text = "eller mig"
+                    }, new AnswerOption() {
+                        AnswerOptionID = 3, Text = "måske mig?"
+                    }
+                    }
+                };
                 if (currentassignment != null)
                 {
                     if (currentassignment is ExclusiveChoiceAssignment)
@@ -46,9 +59,10 @@ namespace ADLApp.Views
                         ExclusiveSolvePage nextPage = new ExclusiveSolvePage(currentassignment as ExclusiveChoiceAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
-                    else if(currentassignment is MultipleChoiceAssignment)
+                    else if (currentassignment is MultipleChoiceAssignment)
                     {
-
+                        MultipleSolvePage nextPage = new MultipleSolvePage(currentassignment as MultipleChoiceAssignment);
+                        await Navigation.PushAsync(nextPage);
                     }
                     else
                     {

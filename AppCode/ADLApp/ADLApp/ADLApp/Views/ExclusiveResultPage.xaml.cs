@@ -6,9 +6,9 @@ using Xamarin.Forms;
 
 namespace ADLApp.Views
 {
-    public partial class ResultPage : ContentPage
+    public partial class ExclusiveResultPage : ContentPage
     {
-        public ResultPage(ResultViewModel RVM)
+        public ExclusiveResultPage(ExclusiveResultViewModel RVM)
         {
             InitializeComponent();
             BindingContext = RVM;

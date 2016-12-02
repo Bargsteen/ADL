@@ -9,9 +9,9 @@ using Xamarin.Forms;
 
 namespace ADLApp.ViewModel
 {
-    public class ResultViewModel : INotifyPropertyChanged
+    public class ExclusiveResultViewModel : INotifyPropertyChanged
     {
-        public ResultViewModel(Assignment assignment, int answer)
+        public ExclusiveResultViewModel(Assignment assignment, int answer)
         {
             Assignment = assignment;
             if (assignment is ExclusiveChoiceAssignment)
