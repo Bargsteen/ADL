@@ -9,7 +9,7 @@ namespace ADLApp.Views
 {
     public partial class HomePage : ContentPage
     {
-        private readonly IScanner _qrScanner = new QRScanner();
+        private readonly IScanner _qrScanner = new QrScanner();
         private readonly IAssignmentLoader _assignmentLoader = new RequestManager();
         private readonly ILocationLoader _locationLoader = new RequestManager();
 
@@ -34,11 +34,16 @@ namespace ADLApp.Views
         {
             ScanButton.IsEnabled = false;
             string scanString = await _qrScanner.ScanAndGetString();
+            if (scanString == "cancel")
+            {
+                ScanButton.IsEnabled = true;
+                return;
+            }
             if (scanString != "error")
             {
-                Assignment currentassignment = await _assignmentLoader
+                Assignment currentAssignment = await _assignmentLoader
                     .GetAssignment(scanString);
-                currentassignment = new MultipleChoiceAssignment()
+                currentAssignment = new MultipleChoiceAssignment()
                 {
                     Question = "Hvad hedder Teitur?",
                     Headline = "Om teitur",
@@ -52,21 +57,21 @@ namespace ADLApp.Views
                     }
                     }
                 };
-                if (currentassignment != null)
+                if (currentAssignment != null)
                 {
-                    if (currentassignment is ExclusiveChoiceAssignment)
+                    if (currentAssignment is ExclusiveChoiceAssignment)
                     {
-                        ExclusiveSolvePage nextPage = new ExclusiveSolvePage(currentassignment as ExclusiveChoiceAssignment);
+                        ExclusiveSolvePage nextPage = new ExclusiveSolvePage(currentAssignment as ExclusiveChoiceAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
-                    else if (currentassignment is MultipleChoiceAssignment)
+                    else if (currentAssignment is MultipleChoiceAssignment)
                     {
-                        MultipleSolvePage nextPage = new MultipleSolvePage(currentassignment as MultipleChoiceAssignment);
+                        MultipleSolvePage nextPage = new MultipleSolvePage(currentAssignment as MultipleChoiceAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
                     else
                     {
-                        TextualSolvePage nextPage = new TextualSolvePage(currentassignment);
+                        TextualSolvePage nextPage = new TextualSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
                 }
