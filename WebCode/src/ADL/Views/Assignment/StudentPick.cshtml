@@ -1,3 +1,4 @@
+﻿@model PersonAndAssignmentViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,30 +12,49 @@
 <body>
 
 <div class="container">
-  <h2>Bordered Table</h2>
-  <p>The .table-bordered class adds borders to a table:</p>            
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Klasser</th>
-        <th>Opgavesæt</th>
-      </tr>
-    </thead>
-    <tbod>>
-     <tr>
-        <td>John</td>
-        <td>Doe</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-      </tr>
-    </tbody>
-  </table>
+<h2>Opgave tildeling</h2>
+<p>Vær venlig at vælge de forskellige opgavetildelinger</p>    
+    @if (Model.Persons.Count() > 0 && Model.AssignmentSets.Count() > 0)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Klasser</th>
+                    <th>Opgavesæt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Persons.Count() || i < Model.AssignmentSets.Count(); i++)
+                {
+                    if ((i <= Model.Persons.Count()) && (i <= Model.AssignmentSets.Count()))
+                    {
+                        <tr>
+                            <td>@Model.Persons.ElementAt(i).UserName</td>
+                            <td>@Model.AssignmentSets.ElementAt(i).AssignmentSetId</td>
+                        </tr>
+                    }
+                    else if ((i <= Model.Persons.Count()) && !(i <= Model.AssignmentSets.Count()))
+                    {
+                        <tr>
+                            <td>@Model.Persons.ElementAt(i).UserName</td>
+                            <td></td>
+                        </tr>
+                    }
+                    else if (!(i <= Model.Persons.Count()) && (i <= Model.AssignmentSets.Count()))
+                    {
+                        <tr>
+                            <td></td>
+                            <td>@Model.AssignmentSets.ElementAt(i).AssignmentSetId</td>
+                            </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+            <div>No student or Assignments found</div>
+    }
 </div>
 
 </body>
