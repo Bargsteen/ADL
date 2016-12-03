@@ -11,12 +11,12 @@ namespace ADL.Controllers
     [Authorize(Roles = "Lærer,Admin")]
     public class StatisticsController : Controller
     {
-        private IAnswerRepository answerRepository;
-        private IAssignmentSetRepository assignmentSetRepository;
+        private readonly IAnswerRepository _answerRepository;
+        private readonly IAssignmentSetRepository _assignmentSetRepository;
         public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo)
         {
-            answerRepository = answerRepo;
-            assignmentSetRepository = assignmentSetRepo;
+            _answerRepository = answerRepo;
+            _assignmentSetRepository = assignmentSetRepo;
         }
 
         private IEnumerable<Answer> getAnswersForAssignment(Assignment assignment, IEnumerable<Answer> answers)
@@ -31,19 +31,19 @@ namespace ADL.Controllers
             }
             return answersForThisAssignment;
         }
-        private void AddExclusiveStats(ExclusiveChoiceAssignment assignment, Dictionary<int, Tuple<int, int>> exclusiveStatsList)
+        private Tuple<int, int> GetCorrectVsTotalForExclusiveAssignment(ExclusiveChoiceAssignment assignment)
         {
             List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment,
-                answerRepository.Answers) as List<Answer>;
+                _answerRepository.Answers) as List<Answer>;
             Tuple<int, int> correctVsTotalAnswers =
                 new Tuple<int, int>(answersForThisAssignment.Count(a => int.Parse(a.ChosenAnswers[0]) == assignment.CorrectAnswer), answersForThisAssignment.Count);
-            exclusiveStatsList.Add(assignment.AssignmentId, correctVsTotalAnswers);
+            return correctVsTotalAnswers;
         }
 
-        private void AddMultipleStats(MultipleChoiceAssignment assignment, Dictionary<int, IEnumerable<double>> mStatsList)
+        private IEnumerable<double> GetCorrectPercentageForMultipleAssignment(MultipleChoiceAssignment assignment)
         {
-            List<double> answerPcts = new List<double>();
-            List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment, answerRepository.Answers) as List<Answer>;
+            List<double> correctPercentages = new List<double>();
+            List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<Answer>;
             foreach (Answer a in answersForThisAssignment)
             {
                 int correctAnswers = 0;
@@ -52,51 +52,52 @@ namespace ADL.Controllers
                     if (a.ChosenAnswers.Exists(ca => int.Parse(ca) == correctAnswerIndex))
                         correctAnswers++;
                 }
-                answerPcts.Add((double)correctAnswers / assignment.AnswerOptions.Count);
+                correctPercentages.Add(((double)correctAnswers / assignment.AnswerOptions.Count) * 100);
             }
-            mStatsList.Add(assignment.AssignmentId, answerPcts);
+            return correctPercentages;
         }
 
-        private IEnumerable<string> addTextualAnswers(Assignment assignment)
+        private IEnumerable<string> GetAnswersForTextualAssignment(Assignment assignment)
         {
-            List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment, answerRepository.Answers) as List<Answer>;
+            List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<Answer>;
             return answersForThisAssignment.Select(a => a.ChosenAnswers[0]).ToList();
         }
 
         public ViewResult Index()
         {
-            List<Assignment> totalList = new List<Assignment>();
-            foreach (List<Assignment> assignmentList in assignmentSetRepository.AssignmentSets.Select(set => set.Assignments))
+            List<Assignment> allAssignments = new List<Assignment>();
+            foreach (List<Assignment> assignmentList in _assignmentSetRepository.AssignmentSets.Select(set => set.Assignments))
             {
                 foreach (Assignment a in assignmentList)
                 {
-                    totalList.Add(a);
+                    allAssignments.Add(a);
                 }
             }
             StatisticsViewModel statisticsViewModel = new StatisticsViewModel()
             {
-                Answers = answerRepository.Answers,
-                AssignmentSets = assignmentSetRepository.AssignmentSets
+                Answers = _answerRepository.Answers,
+                AssignmentSets = _assignmentSetRepository.AssignmentSets
             };
-            foreach (Assignment assignment in totalList)
+            foreach (Assignment assignment in allAssignments)
             {
                 if (assignment is ExclusiveChoiceAssignment)
                 {
-                    Dictionary<int, Tuple<int, int>> exclusiveStatsList = new Dictionary<int, Tuple<int, int>>();
-                    AddExclusiveStats(assignment as ExclusiveChoiceAssignment, exclusiveStatsList);
-                    statisticsViewModel.ExclusiveStats = exclusiveStatsList;
+                    statisticsViewModel.CorrectVsTotalForExclusiveAssignments
+                        .Add(assignment.AssignmentId
+                        , GetCorrectVsTotalForExclusiveAssignment(assignment as ExclusiveChoiceAssignment));
                 }
 
                 else if (assignment is MultipleChoiceAssignment)
                 {
-                    Dictionary<int, IEnumerable<double>> mStatsList = new Dictionary<int, IEnumerable<double>>();
-                    AddMultipleStats(assignment as MultipleChoiceAssignment, mStatsList);
-                    statisticsViewModel.MultipleStats = mStatsList;
+                    statisticsViewModel.CorrectPercentagesForMultipleAssignments
+                        .Add(assignment.AssignmentId
+                        , GetCorrectPercentageForMultipleAssignment(assignment as MultipleChoiceAssignment));
                 }
-
                 else
                 {
-                    statisticsViewModel.TextualAnswers.Add(assignment.AssignmentId, addTextualAnswers(assignment));
+                    statisticsViewModel.TextualAnswersForAssignments
+                        .Add(assignment.AssignmentId
+                        , GetAnswersForTextualAssignment(assignment));
                 }
             }
             return View(statisticsViewModel);
