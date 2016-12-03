@@ -9,6 +9,6 @@ namespace ADL.Models
         public List<AnswerOption> AnswerOptions { get; set; }
 
         [Required(ErrorMessage = "Venligst vælg det/de korrekte svar")]
-        public List<int> CorrectAnswers { get; set; }
+        public List<bool> AnswerCorrectness { get; set; }
     }
 }

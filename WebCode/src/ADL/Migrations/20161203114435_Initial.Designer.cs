@@ -8,8 +8,8 @@ using ADL.Models;
 namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161201181442_initial")]
-    partial class initial
+    [Migration("20161203114435_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
