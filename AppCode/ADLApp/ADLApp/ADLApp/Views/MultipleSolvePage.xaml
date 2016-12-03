@@ -2,24 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ADLApp.Views.MultipleSolvePage"
-             xmlns:pages="clr-namespace:ADLApp.Views;assembly=ADLApp">
-  <StackLayout Spacing="30" x:Name="SolveSL" Padding="5,10" >
+             xmlns:controls="clr-namespace:ADLApp.Views;assembly=ADLApp"
+             Title ="{Binding Headline}">
+  <StackLayout x:Name="SolveSL" >
     <StackLayout.BackgroundColor>
       <OnPlatform x:TypeArguments="Color"
                   Android="White"
-                  WinPhone="Black"
                   iOS="White" />
     </StackLayout.BackgroundColor>
-    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" ></Label>
-    <ListView x:Name="answerOptionView" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}" >
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <pages:CheckBox Text="{Binding Text}" CheckedChanged="OnChecked" ></pages:CheckBox>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a"></Button>
+    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599" ></Label>
+    <StackLayout VerticalOptions="CenterAndExpand">
+      <Label FontSize="18" Text="Vælg et eller flere svarmuligheder"></Label>
+      <ListView x:Name="answerOptionView" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}" ItemSelected="OnItemSelected" SeparatorColor="Black"  >
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <controls:CheckBox Text="{Binding Text}" CheckedChanged="OnChecked"  ></controls:CheckBox>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+    <StackLayout VerticalOptions="End">
+      <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+    </StackLayout>
   </StackLayout>
 </ContentPage>

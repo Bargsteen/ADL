@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using System.Linq;
+using System.Collections.Generic;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +12,7 @@ using static ADL.Models.EnumCollection;
 
 namespace ADL.Controllers
 {
-    [Authorize(Roles = "Lærer")]
+    [Authorize(Roles = "Lærer,Admin")]
     public class AssignmentController : Controller
     {
         IAssignmentSetRepository assignmentSetRepository;
@@ -24,6 +25,23 @@ namespace ADL.Controllers
             assignmentSetRepository = assignmentSetRepo;
             locationRepository = locationRepo;
             userManager = usrMgr;
+        }
+
+
+
+        public ViewResult StudentPick()
+        {
+            PersonAndAssignmentViewModel studentList = new PersonAndAssignmentViewModel()
+            {
+                /*TEST ANDREAS*/
+                AssignmentSets = new List<AssignmentSet>() { new AssignmentSet(), new AssignmentSet() },
+
+                Persons = new List<Person>() { new Person(), new Person(), new Person(), new Person(), new Person() }
+                
+                //AssignmentSets = assignmentSetRepository.AssignmentSets,
+                //Persons = userManager.Users as IEnumerable<Person>
+            };
+            return View(studentList);
         }
 
         public ViewResult List()

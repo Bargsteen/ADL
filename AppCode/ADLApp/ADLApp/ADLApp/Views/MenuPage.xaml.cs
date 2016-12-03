@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Xamarin.Forms;
 
 namespace ADLApp.Views
@@ -8,6 +9,18 @@ namespace ADLApp.Views
         public MenuPage()
         {
             InitializeComponent();
+        }
+
+        private async void OnLogoutButtonClicked(object sender, EventArgs e)
+        {
+            IsPresented = false;
+            await Navigation.PushModalAsync(new LoginPage());
+        }
+
+        private async void OnHelpButtonClicked(object sender, EventArgs e)
+        {
+            IsPresented = false;
+            await Navigation.PushModalAsync(new HelpPage());
         }
     }
 }

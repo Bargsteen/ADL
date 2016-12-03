@@ -13,6 +13,8 @@ namespace ADL.Models
         public string CreatorId { get; set; }
         public int SchoolId { get; set; }
         public DateTime DateOfCreation { get; set; }
-        public List<Assignment> Assignments { get; set; }
+        /*TEST ANDREAS*/
+        public List<Assignment> Assignments = new List<Assignment>() { new Assignment() };
+        //public List<Assignment> Assignments { get; set; }
     }
 }

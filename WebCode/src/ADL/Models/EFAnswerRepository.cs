@@ -29,7 +29,7 @@ namespace ADL.Models
                 if (dbEntry != null)
                 {
                     dbEntry.UserId = answer.UserId;
-                    dbEntry.ChosenAnswerOption = answer.ChosenAnswerOption;
+                    dbEntry.ChosenAnswers = answer.ChosenAnswers;
                     dbEntry.TimeAnswered = answer.TimeAnswered;
                 }
             }

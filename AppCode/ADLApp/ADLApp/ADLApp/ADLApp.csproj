@@ -43,11 +43,14 @@
     <Compile Include="Models\TextualAnswer.cs" />
     <Compile Include="ViewModel\ILogin.cs" />
     <Compile Include="ViewModel\LoginResult.cs" />
+    <Compile Include="ViewModel\MultipleResultViewModel.cs" />
     <Compile Include="ViewModel\UserLoginModel.cs" />
     <Compile Include="Views\CheckBox.xaml.cs">
       <DependentUpon>CheckBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CustomControls\CustomControls.cs" />
+    <Compile Include="Views\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -219,6 +222,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\CheckBox.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\HelpPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -2,9 +2,9 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ADLApp.Views.CheckBox">
-  <StackLayout Orientation="Horizontal">
-    <Label x:Name="boxLabel" Text="&#x2610;" />
-    <Label x:Name="textLabel" />
+  <StackLayout Orientation="Horizontal" >
+    <Label FontSize="30" x:Name="boxLabel" Text="&#x2610;"  />
+    <Label FontSize="30" x:Name="textLabel" />
   </StackLayout>
   <ContentView.GestureRecognizers>
     <TapGestureRecognizer Tapped="OnCheckBoxTapped" />
