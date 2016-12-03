@@ -84,20 +84,20 @@ namespace ADL.Controllers
                 {
                     statisticsViewModel.CorrectVsTotalForExclusiveAssignments
                         .Add(assignment.AssignmentId
-                        , GetCorrectVsTotalForExclusiveAssignment(assignment as ExclusiveChoiceAssignment));
+                             , GetCorrectVsTotalForExclusiveAssignment(assignment as ExclusiveChoiceAssignment));
                 }
 
                 else if (assignment is MultipleChoiceAssignment)
                 {
                     statisticsViewModel.CorrectPercentagesForMultipleAssignments
                         .Add(assignment.AssignmentId
-                        , GetCorrectPercentageForMultipleAssignment(assignment as MultipleChoiceAssignment));
+                             , GetCorrectPercentageForMultipleAssignment(assignment as MultipleChoiceAssignment));
                 }
                 else
                 {
                     statisticsViewModel.TextualAnswersForAssignments
                         .Add(assignment.AssignmentId
-                        , GetAnswersForTextualAssignment(assignment));
+                             , GetAnswersForTextualAssignment(assignment));
                 }
             }
             return View(statisticsViewModel);
