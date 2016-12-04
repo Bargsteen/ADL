@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ADL.Models
+namespace ADL.Models.Repositories
 {
 
     public class EFLocationRepository : ILocationRepository
@@ -48,12 +47,24 @@ namespace ADL.Models
             return dbEntry;
         }
 
-        public bool SaveAttachedAssignmentId(int locationId, string personId, int assignmentId)
+        public bool SavePersonAssignmentCoupling(int locationId, List<PersonAssignmentCoupling> personAssignmentCouplings)
         {
             Location dbEntry = context.Locations.FirstOrDefault(l => l.LocationId == locationId);
             if (dbEntry != null)
             {
-                dbEntry.AddAttachmentToLocation(personId, assignmentId);
+                dbEntry.PersonAssignmentCouplings = personAssignmentCouplings;
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemovePersonAssignmentCoupling(int locationId)
+        {
+            Location dbEntry = context.Locations.FirstOrDefault(l => l.LocationId == locationId);
+            if(dbEntry != null)
+            {
+                dbEntry.PersonAssignmentCouplings = null;
                 context.SaveChanges();
                 return true;
             }

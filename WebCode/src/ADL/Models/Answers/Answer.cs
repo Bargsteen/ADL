@@ -1,15 +1,14 @@
 using System;
-using System.Collections.Generic;
+using static ADL.Models.EnumCollection;
 
-namespace ADL.Models
+namespace ADL.Models.Answers
 {
-    public class Answer
+    public abstract class Answer
     {
         public int AnswerId { get; set; }
-        public List<string> ChosenAnswers { get; set; }
+        public AssignmentType Type { get; set; }
         public DateTime TimeAnswered { get; set; }
         public int AnsweredAssignmentId { get; set; }
-        public int AnsweredAssignmentSetId { get; set; }
         public string UserId { get; set; }
     }
 }

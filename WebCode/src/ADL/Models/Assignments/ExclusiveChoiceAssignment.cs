@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ADL.Models
+namespace ADL.Models.Assignments
 {
     public class ExclusiveChoiceAssignment : Assignment
     {

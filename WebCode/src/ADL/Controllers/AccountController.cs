@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
+using ADL.Models.Repositories;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 

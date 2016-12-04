@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ADL.Models;
+using ADL.Models.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ADL
@@ -65,7 +66,8 @@ namespace ADL
             app.UseMvcWithDefaultRoute();
             app.UseDeveloperExceptionPage();    
 
-            ApplicationDbContext.CreateAdminAccount(app.ApplicationServices, configuration).Wait();      
+            AdminAndRolesSeedData.CreateTeacherStudentAndAdminRoles(app.ApplicationServices, configuration).Wait();
+            AdminAndRolesSeedData.CreateAdminAccount(app.ApplicationServices, configuration).Wait();
         }
     }
 }

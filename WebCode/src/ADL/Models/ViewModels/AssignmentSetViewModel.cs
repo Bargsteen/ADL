@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+using ADL.Models.Assignments;
 namespace ADL.Models
 {
     public class AssignmentSetViewModel

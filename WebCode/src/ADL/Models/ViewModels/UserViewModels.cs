@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using static ADL.Models.EnumCollection;
 
 namespace ADL.Models {
     public class CreateModel {

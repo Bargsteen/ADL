@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using static ADL.Models.EnumCollection;
+using ADL.Models.Assignments;
 
 namespace ADL.Models
 {
@@ -12,9 +13,7 @@ namespace ADL.Models
         public PublicityLevel PublicityLevel { get; set; }
         public string CreatorId { get; set; }
         public int SchoolId { get; set; }
-        public DateTime DateOfCreation { get; set; }
-        /*TEST ANDREAS*/
-        public List<Assignment> Assignments = new List<Assignment>() { new Assignment() };
-        //public List<Assignment> Assignments { get; set; }
+        public DateTime LastUpdateDate { get; set; }
+        public List<Assignment> Assignments { get; set; }
     }
 }

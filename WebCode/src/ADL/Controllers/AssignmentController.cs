@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
+using ADL.Models.Assignments;
+using ADL.Models.Repositories;
 using System.Linq;
 using System.Collections.Generic;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using ADL.Infrastructure;
-using static ADL.Models.EnumCollection;
 
 namespace ADL.Controllers
 {
@@ -123,7 +122,7 @@ namespace ADL.Controllers
             return View(attachment);
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public async Task<IActionResult> AttachAssignmentToLocation(AssignmentToLocationAttachment attachment)
         {
             Location chosenLocation = locationRepository.Locations.FirstOrDefault(l => l.LocationId == attachment.ChosenLocationId);
@@ -137,7 +136,7 @@ namespace ADL.Controllers
             }
             return View(attachment);
         }
-
+*/
 
 
 

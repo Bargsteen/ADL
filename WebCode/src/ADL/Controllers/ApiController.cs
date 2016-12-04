@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
+using ADL.Models.Repositories;
+using ADL.Models.Assignments;
 using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -26,7 +28,7 @@ namespace ADL.Controllers
         }
 
         /*tager en location og personId som input, skider en assignment ud der er serializaed*/
-        public async Task<string> Location(int? id, string personId)
+        /*public async Task<string> Location(int? id, string personId)
         {
             Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
             if (location != null)
@@ -60,10 +62,10 @@ namespace ADL.Controllers
                 return "Lokationen har ikke nogen opgave";
             }
             return "Lokationen eksisterer ikke";
-        }
+        }*/
 
         /*skal have alle de locations som en person er connected til*/
-        public async Task<string> LocationList(string personId)
+       /* public async Task<string> LocationList(string personId)
         {
             if (await IsValidUser(personId))
             {
@@ -139,6 +141,6 @@ namespace ADL.Controllers
         {
             return await userManager.FindByIdAsync(userId) != null;
         }
-
+*/
     }
 }

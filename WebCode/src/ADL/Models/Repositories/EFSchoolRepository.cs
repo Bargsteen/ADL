@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ADL.Models
+namespace ADL.Models.Repositories
 {
     public class EFSchoolRepository : ISchoolRepository
     {

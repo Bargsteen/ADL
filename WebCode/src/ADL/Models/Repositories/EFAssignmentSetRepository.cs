@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using static ADL.Models.EnumCollection;
+using ADL.Models.Assignments;
 
-namespace ADL.Models
+namespace ADL.Models.Repositories
 {
 
     public class EFAssignmentSetRepository : IAssignmentSetRepository
@@ -24,7 +25,7 @@ namespace ADL.Models
 
         public void SaveAssignmentSet(AssignmentSet assignmentSet)
         {
-            if (assignmentSet.AssignmentSetId == 0)
+            if (assignmentSet.AssignmentSetId == 0) // new AssignmentSet
             {
                 foreach (Assignment assignment in assignmentSet.Assignments)
                 {
@@ -38,7 +39,7 @@ namespace ADL.Models
                         (assignment as MultipleChoiceAssignment).AnswerOptions = (assignment as MultipleChoiceAssignment).AnswerOptions.Where(ao => ao.Text != null).ToList();
                         assignmentSet.Assignments.Add(assignment);
                     }
-                    else
+                    else if(assignment.Type == AssignmentType.Text)
                     {
                         assignmentSet.Assignments.Add(assignment);
                     }
@@ -47,27 +48,17 @@ namespace ADL.Models
                 context.Add(assignmentSet);
                 
             }
-            else
+            else // Updating
             {
-                AssignmentSet dbEntry = context.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSet.AssignmentSetId);
+                AssignmentSet dbEntrySet = context.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSet.AssignmentSetId);
+                dbEntrySet.Title = assignmentSet.Title;
+                dbEntrySet.Description = assignmentSet.Description;
+                dbEntrySet.PublicityLevel = assignmentSet.PublicityLevel;
+                dbEntrySet.LastUpdateDate = assignmentSet.LastUpdateDate;
 
-                /*assignmentset felter UPDATE*/
-                dbEntry.Title = assignmentSet.Title;
-                dbEntry.Description = assignmentSet.Description;
-                dbEntry.PublicityLevel = assignmentSet.PublicityLevel;
-                //dbEntry.Creator = assignmentSet.Creator;
-                dbEntry.DateOfCreation = assignmentSet.DateOfCreation;
-
-                /*assignments felter UPDATE*/
-                foreach (Assignment assignment in dbEntry.Assignments)
-                {
-                    assignmentSet.Assignments.Remove(assignment);
-                }
-                foreach (Assignment assignment in assignmentSet.Assignments)
-                {
-                    assignmentSet.Assignments.Add(assignment);
-                }
-                context.Add(assignmentSet);
+                context.RemoveRange(dbEntrySet.Assignments);
+                // probably doesn't handle answerOptions 
+                context.AddRange(assignmentSet.Assignments);
             }
 
             context.SaveChanges();
@@ -78,6 +69,8 @@ namespace ADL.Models
             AssignmentSet dbEntry = AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSetId);
             if (dbEntry != null)
             {
+                context.RemoveRange(dbEntry.Assignments);
+                // probably missing the answerOptions
                 context.Remove(dbEntry);
                 context.SaveChanges();
             }

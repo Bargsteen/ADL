@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using ADL.Models;
-using ADL.Models.ViewModels;
+using ADL.Models.Repositories;
+using ADL.Models.Assignments;
+using ADL.Models.Answers;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
@@ -31,16 +33,16 @@ namespace ADL.Controllers
             }
             return answersForThisAssignment;
         }
-        private Tuple<int, int> GetCorrectVsTotalForExclusiveAssignment(ExclusiveChoiceAssignment assignment)
+        /*private Tuple<int, int> GetCorrectVsTotalForExclusiveAssignment(ExclusiveChoiceAssignment assignment)
         {
             List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment,
                 _answerRepository.Answers) as List<Answer>;
             Tuple<int, int> correctVsTotalAnswers =
                 new Tuple<int, int>(answersForThisAssignment.Count(a => int.Parse(a.ChosenAnswers[0]) == assignment.CorrectAnswer), answersForThisAssignment.Count);
             return correctVsTotalAnswers;
-        }
+        }*/
 
-        private IEnumerable<double> GetCorrectPercentageForMultipleAssignment(MultipleChoiceAssignment assignment)
+       /* private IEnumerable<double> GetCorrectPercentageForMultipleAssignment(MultipleChoiceAssignment assignment)
         {
             List<double> correctPercentages = new List<double>();
             List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<Answer>;
@@ -55,15 +57,15 @@ namespace ADL.Controllers
                 correctPercentages.Add(((double)correctAnswers / assignment.AnswerOptions.Count) * 100);
             }
             return correctPercentages;
-        }
+        }*/
 
-        private IEnumerable<string> GetAnswersForTextualAssignment(Assignment assignment)
+       /* private IEnumerable<string> GetAnswersForTextualAssignment(Assignment assignment)
         {
             List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<Answer>;
             return answersForThisAssignment.Select(a => a.ChosenAnswers[0]).ToList();
-        }
+        }*/
 
-        public ViewResult Index()
+       /* public ViewResult Index()
         {
             List<Assignment> allAssignments = new List<Assignment>();
             foreach (List<Assignment> assignmentList in _assignmentSetRepository.AssignmentSets.Select(set => set.Assignments))
@@ -101,6 +103,6 @@ namespace ADL.Controllers
                 }
             }
             return View(statisticsViewModel);
-        }
+        }*/
     }
 }
