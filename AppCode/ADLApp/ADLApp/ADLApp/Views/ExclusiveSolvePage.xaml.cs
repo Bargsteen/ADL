@@ -26,7 +26,7 @@ namespace ADLApp.Views
             SendAnswerButton.IsEnabled = false;
             int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
             string status = await
-                answerSender.SendAnswer(new ExclusiveAnswer(AssignmentToSolve.AssignmentId) {ChosenAnswer = selectedAnswerIndex});
+                answerSender.SendAnswer(new ExclusiveChoiceAnswer(AssignmentToSolve.AssignmentId) {ChosenAnswer = selectedAnswerIndex});
             await Navigation.PushModalAsync(new ExclusiveResultPage(new ExclusiveResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
             SendAnswerButton.IsEnabled = true;
             await Navigation.PopAsync();

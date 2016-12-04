@@ -35,17 +35,17 @@ namespace ADLApp.Views
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            List<bool> checkedAnswers = new List<bool>();
+            List<ChosenAnswerlBool> chosenAnswers = new List<ChosenAnswerlBool>();
             for (int i = 0; i < assignmentToSolve.AnswerOptions.Count; i++)
             {
-                checkedAnswers.Add(false);
+                chosenAnswers.Add( new ChosenAnswerlBool() {Value = false});
             }
             foreach (var ca in ChosenAnswers)
             {
-                checkedAnswers[assignmentToSolve.AnswerOptions.IndexOf(ca)] = true;
+                chosenAnswers[assignmentToSolve.AnswerOptions.IndexOf(ca)].Value = true;
             }
-            await answerSender.SendAnswer(new MultipleAnswer(assignmentToSolve.AssignmentId) { CheckedAnswers = checkedAnswers });
-            await Navigation.PushModalAsync(new MultipleResultPage(new MultipleResultViewModel(checkedAnswers, assignmentToSolve)));
+            await answerSender.SendAnswer(new MultipleChoiceAnswer(assignmentToSolve.AssignmentId) { ChosenAnswers = chosenAnswers });
+            await Navigation.PushModalAsync(new MultipleResultPage(new MultipleResultViewModel(chosenAnswers, assignmentToSolve)));
             await Navigation.PopAsync();
         }
         private void OnItemSelected(object sender, EventArgs e)

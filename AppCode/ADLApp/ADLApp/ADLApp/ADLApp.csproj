@@ -38,9 +38,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChosenAnswerlBool.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Models\ExclusiveAnswer.cs" />
-    <Compile Include="Models\MultipleAnswer.cs" />
+    <Compile Include="Models\ExclusiveChoiceAnswer.cs" />
+    <Compile Include="Models\MultipleChoiceAnswer.cs" />
     <Compile Include="Models\MultipleChoiceAssignment.cs" />
     <Compile Include="Models\TextAnswer.cs" />
     <Compile Include="ViewModel\ILogin.cs" />
