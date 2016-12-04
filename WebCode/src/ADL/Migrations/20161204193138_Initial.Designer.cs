@@ -8,13 +8,25 @@ using ADL.Models;
 namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161204171550_Initial")]
+    [Migration("20161204193138_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
+
+            modelBuilder.Entity("ADL.Models.AnswerOption", b =>
+                {
+                    b.Property<int>("AnswerOptionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("AnswerOptionId");
+
+                    b.ToTable("AnswerOptions");
+                });
 
             modelBuilder.Entity("ADL.Models.Answers.Answer", b =>
                 {
@@ -39,20 +51,20 @@ namespace ADL.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Answer");
                 });
 
-            modelBuilder.Entity("ADL.Models.Answers.ChosenAnswerlBool", b =>
+            modelBuilder.Entity("ADL.Models.Answers.AnswerBool", b =>
                 {
-                    b.Property<int>("ChosenAnswerlBoolId")
+                    b.Property<int>("AnswerBoolId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("MultipleChoiceAnswerAnswerId");
 
                     b.Property<bool>("Value");
 
-                    b.HasKey("ChosenAnswerlBoolId");
+                    b.HasKey("AnswerBoolId");
 
                     b.HasIndex("MultipleChoiceAnswerAnswerId");
 
-                    b.ToTable("ChosenAnswerlBool");
+                    b.ToTable("AnswerBools");
                 });
 
             modelBuilder.Entity("ADL.Models.Assignments.Assignment", b =>
@@ -79,9 +91,11 @@ namespace ADL.Migrations
                     b.Property<int>("AssignmentSetId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatorId");
+                    b.Property<string>("CreatorId")
+                        .IsRequired();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<DateTime>("LastUpdateDate");
 
@@ -89,7 +103,8 @@ namespace ADL.Migrations
 
                     b.Property<int>("SchoolId");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.HasKey("AssignmentSetId");
 
@@ -363,7 +378,7 @@ namespace ADL.Migrations
                     b.HasDiscriminator().HasValue("TextAnswer");
                 });
 
-            modelBuilder.Entity("ADL.Models.Answers.ChosenAnswerlBool", b =>
+            modelBuilder.Entity("ADL.Models.Answers.AnswerBool", b =>
                 {
                     b.HasOne("ADL.Models.Answers.MultipleChoiceAnswer")
                         .WithMany("ChosenAnswers")

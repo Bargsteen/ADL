@@ -17,10 +17,12 @@ namespace ADL.Models
 
             base.OnModelCreating(builder);
         }
-
+        
         public DbSet<AssignmentSet> AssignmentSets { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<AnswerOption> AnswerOptions { get; set; }
+        public DbSet<AnswerBool> AnswerBools { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Class> Classes { get; set; }
 

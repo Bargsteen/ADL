@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using static ADL.Models.EnumCollection;
 using ADL.Models.Assignments;
+using ADL.Models.Answers;
 
 namespace ADL.Models.Repositories
 {
@@ -17,34 +18,41 @@ namespace ADL.Models.Repositories
             context = ctx;
         }
 
-        public IEnumerable<AssignmentSet> AssignmentSets => context.AssignmentSets
-            .Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.ExclusiveChoice || aa.Type == AssignmentType.MultipleChoice))
+        public IEnumerable<AssignmentSet> AssignmentSets => context.AssignmentSets;
+           /* .Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.ExclusiveChoice || aa.Type == AssignmentType.MultipleChoice))
             .ThenInclude(b => (b as ExclusiveChoiceAssignment).AnswerOptions != null || (b as MultipleChoiceAssignment).AnswerOptions != null)
-            .Include(c => c.Assignments.Where(cc => cc.Type == AssignmentType.ExclusiveChoice));
+            .Include(c => c.Assignments.Where(cc => cc.Type == AssignmentType.ExclusiveChoice));*/
             
 
         public void SaveAssignmentSet(AssignmentSet assignmentSet)
         {
             if (assignmentSet.AssignmentSetId == 0) // new AssignmentSet
-            {
-                foreach (Assignment assignment in assignmentSet.Assignments)
+            {       
+                foreach(Assignment assignment in assignmentSet.Assignments)
                 {
-                    if (assignment.Type == AssignmentType.ExclusiveChoice)
+                    if(assignment.Type == AssignmentType.MultipleChoice)
                     {
-                        (assignment as ExclusiveChoiceAssignment).AnswerOptions = (assignment as ExclusiveChoiceAssignment).AnswerOptions.Where(ao => ao.Text != null).ToList();
-                        assignmentSet.Assignments.Add(assignment);
+                        var mcAssignment = assignment as MultipleChoiceAssignment;
+                        foreach(AnswerOption ao in mcAssignment.AnswerOptions)
+                        {
+                            context.Add(ao);
+                        }
+                        foreach(AnswerBool ab in mcAssignment.AnswerCorrectness)
+                        {
+                            context.Add(ab);
+                        }
                     }
-                    else if (assignment.Type == AssignmentType.MultipleChoice)
+                    if(assignment.Type == AssignmentType.ExclusiveChoice)
                     {
-                        (assignment as MultipleChoiceAssignment).AnswerOptions = (assignment as MultipleChoiceAssignment).AnswerOptions.Where(ao => ao.Text != null).ToList();
-                        assignmentSet.Assignments.Add(assignment);
+                        var ecAssignment = assignment as ExclusiveChoiceAssignment;
+                        foreach(AnswerOption ao in ecAssignment.AnswerOptions)
+                        {
+                            context.Add(ao);
+                        }
                     }
-                    else if(assignment.Type == AssignmentType.Text)
-                    {
-                        assignmentSet.Assignments.Add(assignment);
-                    }
-                }
-                
+
+                    context.Add(assignment);
+                }         
                 context.Add(assignmentSet);
                 
             }
