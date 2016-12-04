@@ -29,7 +29,7 @@ namespace ADLApp.ViewModel
             IRestResponse response = await GetDataAsString(request);
             if (response.Content != "Lokationen har ikke nogen opgave")
             {
-                switch ((AssignmentType)response.Headers[0].Value)
+                switch (AssignmentType.ExclusiveChoice)
                 {
                     case AssignmentType.ExclusiveChoice:
                         return await tf.StartNew(() => JsonConvert.DeserializeObject<ExclusiveChoiceAssignment>(response.Content));
