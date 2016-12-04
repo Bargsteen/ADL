@@ -5,7 +5,7 @@
              Title="Placering af QR-koder"
              BackgroundColor="White">
 
-  <StackLayout>
+  <StackLayout >
     
     <Grid>
       <Grid.ColumnDefinitions>
@@ -16,18 +16,18 @@
       <Label Grid.Column="1" Text="Sted:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black"></Label>
     </Grid>
 
-    <ListView ItemsSource="{Binding}">
+    <ListView ItemsSource="{Binding}" HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>
-          <ViewCell>
-            <ViewCell.View >
-              <Grid ColumnSpacing="0"  >
+          <ViewCell >
+            <ViewCell.View  >
+              <Grid ColumnSpacing="0"  BackgroundColor="#66bb6a" >
                 <Grid.ColumnDefinitions >
                   <ColumnDefinition Width="1*"/>
                   <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0"  Text="{Binding Title}"  BackgroundColor="#66bb6a" TextColor="White" FontSize="15"   ></Label>
-                <Label Grid.Column="1" Text="{Binding Description}" BackgroundColor="#66bb6a" TextColor="White" FontSize="15" ></Label>
+                <Label Grid.Column="0" Text="{Binding Title}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20"   ></Label>
+                <Label Grid.Column="1" Text="{Binding Description}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20" ></Label>
               </Grid>
             </ViewCell.View>
           </ViewCell>
