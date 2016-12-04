@@ -12,14 +12,14 @@ namespace ADLApp.ViewModel
     {
         public MultipleChoiceAssignment Assignment { get; set; }
 
-        public MultipleResultViewModel(List<bool> chosenAnswers, MultipleChoiceAssignment assignmentToSolve)
+        public MultipleResultViewModel(List<ChosenAnswerlBool> chosenAnswers, MultipleChoiceAssignment assignmentToSolve)
         {
             Assignment = assignmentToSolve;
             FeedBackList = new List<Tuple<string, Color, string>>();
             int counter = 0;
-            foreach (bool ca in chosenAnswers)
+            foreach (ChosenAnswerlBool ca in chosenAnswers)
             {
-                if (ca)
+                if (ca.Value)
                 {
                     string chosen = "\u2611";
                     FeedBackList.Add(Assignment.AnswerCorrectness[counter]

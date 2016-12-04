@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ADLApp.Models
 {
-    class ExclusiveAnswer : Answer
+    class ExclusiveChoiceAnswer : Answer
     {
         public int ChosenAnswer { get; set; }
-        public ExclusiveAnswer(int assignmentId) : base(assignmentId)
+        public ExclusiveChoiceAnswer(int assignmentId) : base(assignmentId)
         {
         }
     }

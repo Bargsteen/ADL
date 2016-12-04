@@ -23,7 +23,7 @@ namespace ADLApp.Views
             if (AnswerEditor.Text != null)
             {
                 string status = await
-                answerSender.SendAnswer(new TextAnswer((BindingContext as Assignment).AssignmentId) {Answer = AnswerEditor.Text});
+                answerSender.SendAnswer(new TextAnswer((BindingContext as Assignment).AssignmentId) {Text = AnswerEditor.Text});
                 await Navigation.PushModalAsync(new TextualResultPage());
                 await Navigation.PopAsync();
             }

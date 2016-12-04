@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace ADLApp.Models
 {
-    class TextAnswer : Answer
+    public class ChosenAnswerlBool
     {
-        public string Text { get; set; }
-        public TextAnswer(int assignmentId) : base(assignmentId)
-        {
-        }
+        public int ChosenAnswerlBoolId { get; set; }
+        public bool Value { get; set; }
     }
 }
