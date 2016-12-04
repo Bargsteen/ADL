@@ -39,8 +39,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\ExclusiveAnswer.cs" />
+    <Compile Include="Models\MultipleAnswer.cs" />
     <Compile Include="Models\MultipleChoiceAssignment.cs" />
-    <Compile Include="Models\TextualAnswer.cs" />
+    <Compile Include="Models\TextAnswer.cs" />
     <Compile Include="ViewModel\ILogin.cs" />
     <Compile Include="ViewModel\LoginResult.cs" />
     <Compile Include="ViewModel\MultipleResultViewModel.cs" />

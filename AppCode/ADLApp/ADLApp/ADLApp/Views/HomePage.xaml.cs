@@ -42,12 +42,12 @@ namespace ADLApp.Views
             if (scanString != "error")
             {
                 Assignment currentAssignment = await _assignmentLoader
-                    .GetAssignment(scanString);
+                .GetAssignment(scanString);
                 currentAssignment = new MultipleChoiceAssignment()
                 {
                     Question = "Hvad hedder Teitur?",
                     Headline = "Om teitur",
-                    CorrectAnswers = new List<int>() { 0, 2 },
+                    AnswerCorrectness = new List<bool>() { true, false, true },
                     AnswerOptions = new List<AnswerOption>() { new AnswerOption() {
                         AnswerOptionID = 1, Text = "mig"
                     }, new AnswerOption() {
