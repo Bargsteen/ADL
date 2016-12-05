@@ -25,7 +25,7 @@ namespace ADL.Controllers
             userManager = usrMgr;
         }
 
-<<<<<<< HEAD
+
         public ViewResult StudentPick()
         {
             PersonAndAssignmentViewModel studentList = new PersonAndAssignmentViewModel()
@@ -43,9 +43,6 @@ namespace ADL.Controllers
       
         /*test*/
 
-
-=======
->>>>>>> 824ad0691b3e8be108f5b9811ce650f099d1043a
         public ViewResult List()
         {
             AssignmentAndLocationListViewModel assignmentList = new AssignmentAndLocationListViewModel()

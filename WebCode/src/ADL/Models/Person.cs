@@ -8,7 +8,7 @@ namespace ADL.Models
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public School School { get; set; }
+        public int SchoolId { get; set; }
         public PersonTypes PersonType { get; set; }
     }
 }

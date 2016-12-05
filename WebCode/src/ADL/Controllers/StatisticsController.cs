@@ -6,6 +6,7 @@ using ADL.Models.Assignments;
 using ADL.Models.Answers;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -75,13 +76,14 @@ namespace ADL.Controllers
             return answersForTextualAssignment;
         }
 
-        public ViewResult Index()
+        public async Task<ViewResult> Index()
         {
+            Person currentPerson = await _userManager.GetUserAsync(HttpContext.User);
             StatisticsViewModel statisticsViewModel = new StatisticsViewModel()
             {
                 Answers = _answerRepository.Answers,
                 AssignmentSets = _assignmentSetRepository.AssignmentSets,
-                People = _userManager.Users
+                People = _userManager.Users.Where(p => p.PersonType == EnumCollection.PersonTypes.Student && p.SchoolId == currentPerson.SchoolId)
             };
             return View(statisticsViewModel);
         }
