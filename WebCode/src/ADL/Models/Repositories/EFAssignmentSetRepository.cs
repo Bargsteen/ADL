@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using static ADL.Models.EnumCollection;
 using ADL.Models.Assignments;
 using ADL.Models.Answers;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace ADL.Models.Repositories
 {
@@ -18,18 +19,22 @@ namespace ADL.Models.Repositories
             context = ctx;
         }
 
-        public IEnumerable<AssignmentSet> AssignmentSets => context.AssignmentSets;
-           /* .Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.ExclusiveChoice || aa.Type == AssignmentType.MultipleChoice))
-            .ThenInclude(b => (b as ExclusiveChoiceAssignment).AnswerOptions != null || (b as MultipleChoiceAssignment).AnswerOptions != null)
-            .Include(c => c.Assignments.Where(cc => cc.Type == AssignmentType.ExclusiveChoice));*/
-            
+        public IEnumerable<AssignmentSet> AssignmentSets => context.AssignmentSets.Include(aa => aa.Assignments);
+            //.Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.ExclusiveChoice))
+            //.ThenInclude(e => (e as ExclusiveChoiceAssignment).AnswerOptions != null)
+            //.Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.MultipleChoice))
+            //.ThenInclude(m => (m as MultipleChoiceAssignment).AnswerOptions != null)
+            //.Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.MultipleChoice))
+            //.ThenInclude(m => (m as MultipleChoiceAssignment).AnswerCorrectness != null)
+            //.Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.Text));
+
 
         public void SaveAssignmentSet(AssignmentSet assignmentSet)
         {
             if (assignmentSet.AssignmentSetId == 0) // new AssignmentSet
-            {         
+            {
                 context.Add(assignmentSet);
-                
+
             }
             else // Updating
             {
