@@ -13,7 +13,6 @@ namespace ADL.Controllers
     {
         IAssignmentSetRepository assignmentSetRepository;
         ILocationRepository locationRepository;
-
         UserManager<Person> userManager;
 
         public AssignmentController(IAssignmentSetRepository assignmentSetRepo, ILocationRepository locationRepo, UserManager<Person> usrMgr)
@@ -22,8 +21,6 @@ namespace ADL.Controllers
             locationRepository = locationRepo;
             userManager = usrMgr;
         }
-
-
 
         public ViewResult StudentPick()
         {

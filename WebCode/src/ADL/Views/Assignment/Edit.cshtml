@@ -12,23 +12,21 @@
             <div class="panel">
                 <input type="hidden" asp-for="AssignmentSetId" value="@Model.AssignmentSetId" />
                 <input type="hidden" asp-for="CreatorId" value="@Model.CreatorId" />
-<<<<<<< HEAD
+
                 <input type="hidden" asp-for="DateOfCreation" value="DateTime.Now" />
 
-=======
+
                 <input type="hidden" asp-for="SchoolId" value="@Model.SchoolId" />
                 <input type="hidden" asp-for="DateOfCreation" value="@DateTime.Now"/>
                 
->>>>>>> bb4f5687cb611d4b20d98361fb6364b898d34e23
+
                 <label asp-for="Title">Titel</label>
                 <input class="form-control" asp-for="Title" />
                 <label asp-for="Description">Beskrivelse</label>
                 <input class="form-control" asp-for="Description" />
-<<<<<<< HEAD
+
                 <label asp-for="PublicityLevel" asp.for>Dele egenskaber</label>
-=======
                 <label asp-for="PublicityLevel">Dele egenskaber</label>
->>>>>>> bb4f5687cb611d4b20d98361fb6364b898d34e23
                 <select class="form-control" asp-for="PublicityLevel">
                     <option value="0">Privat</option>
                     <option value="1">Skolen</option>
@@ -41,14 +39,11 @@
                 <input type="text" asp-for="Assignments[0].Title" />
                 <input type="text" asp-for="Assignments[0].Text" />-->
                 <h5>Indsæt ny opgave</h5>
-<<<<<<< HEAD
 
-=======
                 <button class="btn btn-md btn-primary" type="button" onclick="addAssignment('txt')">Text</button>
                 <button class="btn btn-md btn-primary" type="button"onclick="addAssignment('mc')">Multiple Choice</button>
                 <button class="btn btn-md btn-primary" type="button" onclick="addAssignment('ec')">Exclusive Choice</button>
                 
->>>>>>> bb4f5687cb611d4b20d98361fb6364b898d34e23
             </div>
             <div class="panel" id="assignments-box">
             </div>
