@@ -20,9 +20,17 @@ namespace ADL.Migrations
                     b.Property<int>("AnswerOptionId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("ExclusiveChoiceAssignmentAssignmentId");
+
+                    b.Property<int?>("MultipleChoiceAssignmentAssignmentId");
+
                     b.Property<string>("Text");
 
                     b.HasKey("AnswerOptionId");
+
+                    b.HasIndex("ExclusiveChoiceAssignmentAssignmentId");
+
+                    b.HasIndex("MultipleChoiceAssignmentAssignmentId");
 
                     b.ToTable("AnswerOptions");
                 });
@@ -57,11 +65,15 @@ namespace ADL.Migrations
 
                     b.Property<int?>("MultipleChoiceAnswerAnswerId");
 
+                    b.Property<int?>("MultipleChoiceAssignmentAssignmentId");
+
                     b.Property<bool>("Value");
 
                     b.HasKey("AnswerBoolId");
 
                     b.HasIndex("MultipleChoiceAnswerAnswerId");
+
+                    b.HasIndex("MultipleChoiceAssignmentAssignmentId");
 
                     b.ToTable("AnswerBools");
                 });
@@ -73,6 +85,9 @@ namespace ADL.Migrations
 
                     b.Property<int?>("AssignmentSetId");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Text")
                         .IsRequired();
 
@@ -82,7 +97,9 @@ namespace ADL.Migrations
 
                     b.HasIndex("AssignmentSetId");
 
-                    b.ToTable("Assignment");
+                    b.ToTable("Assignments");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Assignment");
                 });
 
             modelBuilder.Entity("ADL.Models.AssignmentSet", b =>
@@ -377,11 +394,57 @@ namespace ADL.Migrations
                     b.HasDiscriminator().HasValue("TextAnswer");
                 });
 
+            modelBuilder.Entity("ADL.Models.Assignments.ExclusiveChoiceAssignment", b =>
+                {
+                    b.HasBaseType("ADL.Models.Assignments.Assignment");
+
+                    b.Property<int>("CorrectAnswer");
+
+                    b.ToTable("ExclusiveChoiceAssignment");
+
+                    b.HasDiscriminator().HasValue("ExclusiveChoiceAssignment");
+                });
+
+            modelBuilder.Entity("ADL.Models.Assignments.MultipleChoiceAssignment", b =>
+                {
+                    b.HasBaseType("ADL.Models.Assignments.Assignment");
+
+
+                    b.ToTable("MultipleChoiceAssignment");
+
+                    b.HasDiscriminator().HasValue("MultipleChoiceAssignment");
+                });
+
+            modelBuilder.Entity("ADL.Models.Assignments.TextAssignment", b =>
+                {
+                    b.HasBaseType("ADL.Models.Assignments.Assignment");
+
+
+                    b.ToTable("TextAssignment");
+
+                    b.HasDiscriminator().HasValue("TextAssignment");
+                });
+
+            modelBuilder.Entity("ADL.Models.AnswerOption", b =>
+                {
+                    b.HasOne("ADL.Models.Assignments.ExclusiveChoiceAssignment")
+                        .WithMany("AnswerOptions")
+                        .HasForeignKey("ExclusiveChoiceAssignmentAssignmentId");
+
+                    b.HasOne("ADL.Models.Assignments.MultipleChoiceAssignment")
+                        .WithMany("AnswerOptions")
+                        .HasForeignKey("MultipleChoiceAssignmentAssignmentId");
+                });
+
             modelBuilder.Entity("ADL.Models.Answers.AnswerBool", b =>
                 {
                     b.HasOne("ADL.Models.Answers.MultipleChoiceAnswer")
                         .WithMany("ChosenAnswers")
                         .HasForeignKey("MultipleChoiceAnswerAnswerId");
+
+                    b.HasOne("ADL.Models.Assignments.MultipleChoiceAssignment")
+                        .WithMany("AnswerCorrectness")
+                        .HasForeignKey("MultipleChoiceAssignmentAssignmentId");
                 });
 
             modelBuilder.Entity("ADL.Models.Assignments.Assignment", b =>

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ADL.Models.Answers;
+using ADL.Models.Assignments;
 
 namespace ADL.Models
 {
@@ -15,9 +16,13 @@ namespace ADL.Models
             builder.Entity<ExclusiveChoiceAnswer>();
             builder.Entity<MultipleChoiceAnswer>();
 
+            builder.Entity<TextAssignment>();
+            builder.Entity<MultipleChoiceAssignment>();
+            builder.Entity<ExclusiveChoiceAssignment>();
+
             base.OnModelCreating(builder);
         }
-        
+        public DbSet<Assignment> Assignments { get; set; }
         public DbSet<AssignmentSet> AssignmentSets { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Answer> Answers { get; set; }

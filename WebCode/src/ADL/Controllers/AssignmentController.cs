@@ -8,6 +8,7 @@ using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using static ADL.Models.EnumCollection;
 
 namespace ADL.Controllers
 {
@@ -26,13 +27,11 @@ namespace ADL.Controllers
             userManager = usrMgr;
         }
 
-        public ViewResult List()
+        public async Task<ViewResult> List()
         {
-            AssignmentAndLocationListViewModel assignmentList = new AssignmentAndLocationListViewModel()
-            {
-                AssignmentSets = assignmentSetRepository.AssignmentSets,
-                Locations = locationRepository.Locations
-            };
+            Person currentUser = await GetCurrentUserAsync();
+            IEnumerable<AssignmentSet> availableAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public);
+            //availableAssignmentSets += assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Internal && a.SchoolId == currentUser.SchoolId);
             return View(assignmentSetRepository.AssignmentSets);
         }
 
@@ -52,7 +51,7 @@ namespace ADL.Controllers
 
                 if (model.TextAssignments != null)
                 {
-                    foreach (Assignment tA in model.TextAssignments)
+                    foreach (TextAssignment tA in model.TextAssignments)
                     {
                         model.AssignmentSet.Assignments.Add(tA);
                     }

@@ -3,7 +3,7 @@ using static ADL.Models.EnumCollection;
 
 namespace ADL.Models.Assignments
 {
-    public class Assignment
+    public abstract class Assignment
     {
         public int AssignmentId { get; set; }
         public AssignmentType Type { get; set; }

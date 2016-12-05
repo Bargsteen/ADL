@@ -9,19 +9,6 @@ namespace ADL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AnswerOptions",
-                columns: table => new
-                {
-                    AnswerOptionId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    Text = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AnswerOptions", x => x.AnswerOptionId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Answers",
                 columns: table => new
                 {
@@ -130,40 +117,22 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AnswerBools",
-                columns: table => new
-                {
-                    AnswerBoolId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    MultipleChoiceAnswerAnswerId = table.Column<int>(nullable: true),
-                    Value = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AnswerBools", x => x.AnswerBoolId);
-                    table.ForeignKey(
-                        name: "FK_AnswerBools_Answers_MultipleChoiceAnswerAnswerId",
-                        column: x => x.MultipleChoiceAnswerAnswerId,
-                        principalTable: "Answers",
-                        principalColumn: "AnswerId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Assignment",
+                name: "Assignments",
                 columns: table => new
                 {
                     AssignmentId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
                     AssignmentSetId = table.Column<int>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
                     Text = table.Column<string>(nullable: false),
-                    Type = table.Column<int>(nullable: false)
+                    Type = table.Column<int>(nullable: false),
+                    CorrectAnswer = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Assignment", x => x.AssignmentId);
+                    table.PrimaryKey("PK_Assignments", x => x.AssignmentId);
                     table.ForeignKey(
-                        name: "FK_Assignment_AssignmentSets_AssignmentSetId",
+                        name: "FK_Assignments_AssignmentSets_AssignmentSetId",
                         column: x => x.AssignmentSetId,
                         principalTable: "AssignmentSets",
                         principalColumn: "AssignmentSetId",
@@ -255,6 +224,60 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AnswerOptions",
+                columns: table => new
+                {
+                    AnswerOptionId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    ExclusiveChoiceAssignmentAssignmentId = table.Column<int>(nullable: true),
+                    MultipleChoiceAssignmentAssignmentId = table.Column<int>(nullable: true),
+                    Text = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnswerOptions", x => x.AnswerOptionId);
+                    table.ForeignKey(
+                        name: "FK_AnswerOptions_Assignments_ExclusiveChoiceAssignmentAssignmentId",
+                        column: x => x.ExclusiveChoiceAssignmentAssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "AssignmentId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AnswerOptions_Assignments_MultipleChoiceAssignmentAssignmentId",
+                        column: x => x.MultipleChoiceAssignmentAssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "AssignmentId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AnswerBools",
+                columns: table => new
+                {
+                    AnswerBoolId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    MultipleChoiceAnswerAnswerId = table.Column<int>(nullable: true),
+                    MultipleChoiceAssignmentAssignmentId = table.Column<int>(nullable: true),
+                    Value = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnswerBools", x => x.AnswerBoolId);
+                    table.ForeignKey(
+                        name: "FK_AnswerBools_Answers_MultipleChoiceAnswerAnswerId",
+                        column: x => x.MultipleChoiceAnswerAnswerId,
+                        principalTable: "Answers",
+                        principalColumn: "AnswerId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AnswerBools_Assignments_MultipleChoiceAssignmentAssignmentId",
+                        column: x => x.MultipleChoiceAssignmentAssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "AssignmentId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -320,13 +343,28 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AnswerOptions_ExclusiveChoiceAssignmentAssignmentId",
+                table: "AnswerOptions",
+                column: "ExclusiveChoiceAssignmentAssignmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnswerOptions_MultipleChoiceAssignmentAssignmentId",
+                table: "AnswerOptions",
+                column: "MultipleChoiceAssignmentAssignmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AnswerBools_MultipleChoiceAnswerAnswerId",
                 table: "AnswerBools",
                 column: "MultipleChoiceAnswerAnswerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Assignment_AssignmentSetId",
-                table: "Assignment",
+                name: "IX_AnswerBools_MultipleChoiceAssignmentAssignmentId",
+                table: "AnswerBools",
+                column: "MultipleChoiceAssignmentAssignmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Assignments_AssignmentSetId",
+                table: "Assignments",
                 column: "AssignmentSetId");
 
             migrationBuilder.CreateIndex(
@@ -395,9 +433,6 @@ namespace ADL.Migrations
                 name: "AnswerBools");
 
             migrationBuilder.DropTable(
-                name: "Assignment");
-
-            migrationBuilder.DropTable(
                 name: "PersonAssignmentCoupling");
 
             migrationBuilder.DropTable(
@@ -419,7 +454,7 @@ namespace ADL.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "AssignmentSets");
+                name: "Assignments");
 
             migrationBuilder.DropTable(
                 name: "Locations");
@@ -429,6 +464,9 @@ namespace ADL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "AssignmentSets");
 
             migrationBuilder.DropTable(
                 name: "Classes");

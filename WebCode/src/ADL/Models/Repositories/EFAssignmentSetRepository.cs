@@ -27,32 +27,7 @@ namespace ADL.Models.Repositories
         public void SaveAssignmentSet(AssignmentSet assignmentSet)
         {
             if (assignmentSet.AssignmentSetId == 0) // new AssignmentSet
-            {       
-                foreach(Assignment assignment in assignmentSet.Assignments)
-                {
-                    if(assignment.Type == AssignmentType.MultipleChoice)
-                    {
-                        var mcAssignment = assignment as MultipleChoiceAssignment;
-                        foreach(AnswerOption ao in mcAssignment.AnswerOptions)
-                        {
-                            context.Add(ao);
-                        }
-                        foreach(AnswerBool ab in mcAssignment.AnswerCorrectness)
-                        {
-                            context.Add(ab);
-                        }
-                    }
-                    if(assignment.Type == AssignmentType.ExclusiveChoice)
-                    {
-                        var ecAssignment = assignment as ExclusiveChoiceAssignment;
-                        foreach(AnswerOption ao in ecAssignment.AnswerOptions)
-                        {
-                            context.Add(ao);
-                        }
-                    }
-
-                    context.Add(assignment);
-                }         
+            {         
                 context.Add(assignmentSet);
                 
             }
