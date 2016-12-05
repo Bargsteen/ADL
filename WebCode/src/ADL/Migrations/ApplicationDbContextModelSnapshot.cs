@@ -197,7 +197,7 @@ namespace ADL.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int?>("SchoolId");
+                    b.Property<int>("SchoolId");
 
                     b.Property<string>("SecurityStamp");
 
@@ -216,8 +216,6 @@ namespace ADL.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -459,10 +457,6 @@ namespace ADL.Migrations
                     b.HasOne("ADL.Models.Class")
                         .WithMany("People")
                         .HasForeignKey("ClassId");
-
-                    b.HasOne("ADL.Models.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId");
                 });
 
             modelBuilder.Entity("ADL.Models.PersonAssignmentCoupling", b =>

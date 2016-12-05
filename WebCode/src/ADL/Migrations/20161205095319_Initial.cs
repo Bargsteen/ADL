@@ -140,27 +140,6 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonAssignmentCoupling",
-                columns: table => new
-                {
-                    PersonAssignmentCouplingId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    AssignmentId = table.Column<int>(nullable: false),
-                    LocationId = table.Column<int>(nullable: true),
-                    PersonId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonAssignmentCoupling", x => x.PersonAssignmentCouplingId);
-                    table.ForeignKey(
-                        name: "FK_PersonAssignmentCoupling_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
-                        principalColumn: "LocationId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -180,7 +159,7 @@ namespace ADL.Migrations
                     PersonType = table.Column<int>(nullable: false),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    SchoolId = table.Column<int>(nullable: true),
+                    SchoolId = table.Column<int>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true)
@@ -194,11 +173,26 @@ namespace ADL.Migrations
                         principalTable: "Classes",
                         principalColumn: "ClassId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonAssignmentCoupling",
+                columns: table => new
+                {
+                    PersonAssignmentCouplingId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    AssignmentId = table.Column<int>(nullable: false),
+                    LocationId = table.Column<int>(nullable: true),
+                    PersonId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonAssignmentCoupling", x => x.PersonAssignmentCouplingId);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "SchoolId",
+                        name: "FK_PersonAssignmentCoupling_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "LocationId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -384,11 +378,6 @@ namespace ADL.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_SchoolId",
-                table: "AspNetUsers",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PersonAssignmentCoupling_LocationId",
                 table: "PersonAssignmentCoupling",
                 column: "LocationId");
@@ -436,6 +425,9 @@ namespace ADL.Migrations
                 name: "PersonAssignmentCoupling");
 
             migrationBuilder.DropTable(
+                name: "Schools");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -470,9 +462,6 @@ namespace ADL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Classes");
-
-            migrationBuilder.DropTable(
-                name: "Schools");
         }
     }
 }
