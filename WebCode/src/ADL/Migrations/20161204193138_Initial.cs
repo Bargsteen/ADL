@@ -9,6 +9,19 @@ namespace ADL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AnswerOptions",
+                columns: table => new
+                {
+                    AnswerOptionId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Text = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnswerOptions", x => x.AnswerOptionId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Answers",
                 columns: table => new
                 {
@@ -33,12 +46,12 @@ namespace ADL.Migrations
                 {
                     AssignmentSetId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
-                    CreatorId = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    CreatorId = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     LastUpdateDate = table.Column<DateTime>(nullable: false),
                     PublicityLevel = table.Column<int>(nullable: false),
                     SchoolId = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,19 +130,19 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ChosenAnswerlBool",
+                name: "AnswerBools",
                 columns: table => new
                 {
-                    ChosenAnswerlBoolId = table.Column<int>(nullable: false)
+                    AnswerBoolId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
                     MultipleChoiceAnswerAnswerId = table.Column<int>(nullable: true),
                     Value = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ChosenAnswerlBool", x => x.ChosenAnswerlBoolId);
+                    table.PrimaryKey("PK_AnswerBools", x => x.AnswerBoolId);
                     table.ForeignKey(
-                        name: "FK_ChosenAnswerlBool_Answers_MultipleChoiceAnswerAnswerId",
+                        name: "FK_AnswerBools_Answers_MultipleChoiceAnswerAnswerId",
                         column: x => x.MultipleChoiceAnswerAnswerId,
                         principalTable: "Answers",
                         principalColumn: "AnswerId",
@@ -307,8 +320,8 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChosenAnswerlBool_MultipleChoiceAnswerAnswerId",
-                table: "ChosenAnswerlBool",
+                name: "IX_AnswerBools_MultipleChoiceAnswerAnswerId",
+                table: "AnswerBools",
                 column: "MultipleChoiceAnswerAnswerId");
 
             migrationBuilder.CreateIndex(
@@ -376,7 +389,10 @@ namespace ADL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ChosenAnswerlBool");
+                name: "AnswerOptions");
+
+            migrationBuilder.DropTable(
+                name: "AnswerBools");
 
             migrationBuilder.DropTable(
                 name: "Assignment");

@@ -54,9 +54,9 @@ namespace ADL.Controllers
             {
                 int correctAnswers = 0;
                 int answerOptionCounter = 0;
-                foreach (bool b in assignment.AnswerCorrectness)
+                foreach (AnswerBool b in assignment.AnswerCorrectness)
                 {
-                    if (a.ChosenAnswers[answerOptionCounter++].Value == b)
+                    if (a.ChosenAnswers[answerOptionCounter++].Value == b.Value)
                         correctAnswers++;
                 }
                 correctPercentages.Add(new Tuple<string, double>(a.UserId, ((double)correctAnswers / assignment.AnswerOptions.Count) * 100));

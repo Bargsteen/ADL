@@ -129,8 +129,8 @@ function addAnswerOption(assignmentId, theDivId, assignmentType) {
 
 
     if (isMultipleChoice) {
-        var checkBoxName = assignmentType + "Assignments[" + assignmentId + "].AnswerCorrectness[" + currentAnswerOption + "]";
-        var checkBoxId = assignmentType + "Assignments_" + assignmentId + "__AnswerCorrectness_" + currentAnswerOption + "_";
+        var checkBoxName = assignmentType + "Assignments[" + assignmentId + "].AnswerCorrectness[" + currentAnswerOption + "].Value";
+        var checkBoxId = assignmentType + "Assignments_" + assignmentId + "__AnswerCorrectness_" + currentAnswerOption + "__Value_";
         var hiddenFallBackInputCheck = '<input type="hidden" id="' + checkBoxId + '" name="' + checkBoxName + '" value="false" />';
         choiceHtml = '<div class="input-group"><span class="input-group-addon">' +
             '<input type="checkbox" id= "' + checkBoxId + '" name="' + checkBoxName + '" value="true" />' +
