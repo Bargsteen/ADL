@@ -16,13 +16,18 @@ namespace ADL.Controllers
         private IUserValidator<Person> userValidator;
         private IPasswordValidator<Person> passwordValidator; private IPasswordHasher<Person> passwordHasher;
         private ISchoolRepository schoolRepository;
+
+        private IClassRepository classRepository;
         public AccountController(UserManager<Person> userMgr,
                 SignInManager<Person> signinMgr,
-                ISchoolRepository schoolRepo, IUserValidator<Person> userValid,
+                ISchoolRepository schoolRepo, 
+                IClassRepository classRepo,
+                IUserValidator<Person> userValid,
                 IPasswordValidator<Person> passValid,
                 IPasswordHasher<Person> passwordHash)
         {
             schoolRepository = schoolRepo;
+            classRepository = classRepo;
             userManager = userMgr;
             signInManager = signinMgr;
             userValidator = userValid;
@@ -78,7 +83,8 @@ namespace ADL.Controllers
         [AllowAnonymous]
         public ViewResult Create() => View(new CreateModel()
         {
-            AvailableSchools = schoolRepository.Schools
+            AvailableSchools = schoolRepository.Schools,
+            AvailableClasses = classRepository.Classes
         });
 
         [AllowAnonymous]
@@ -100,8 +106,13 @@ namespace ADL.Controllers
                     = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if(model.ClassId != 0)
+                    {
+                        Person newUserDbEntry = await userManager.FindByNameAsync(user.UserName); // It needs the actual db entry
+                        classRepository.AddPersonToClass(model.ClassId, newUserDbEntry);
+                    }
                     TempData["message"] = $"Brugeren '{model.Username}' blev oprettet";
-                    return RedirectToAction("Login");
+                    return RedirectToAction(nameof(Login));
                 }
                 else
                 {
@@ -111,7 +122,8 @@ namespace ADL.Controllers
                     }
                 }
             }
-            return View(model);
+            TempData["errorMessage"] = "Der skete en fejl. Prøv igen";
+            return View();
         }
 
         public async Task<IActionResult> Edit(string id)

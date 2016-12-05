@@ -1,4 +1,9 @@
 @model CreateModel
+
+@{
+    ViewBag.Title = "Brugeroprettelse";
+}
+
 <div class="row">
     <div class="col-md-offset-4 col-md-4">
         <div class="jumbotron" style="border: solid 1px; padding-bottom: 20px">
@@ -13,7 +18,7 @@
                     <input asp-for="Lastname" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="SchoolId">SkoleID</label>
+                    <label asp-for="SchoolId">Skole</label>
                     <select class="form-control" asp-for="SchoolId">
                         @foreach (School school in Model.AvailableSchools)
                         {
@@ -21,6 +26,18 @@
                         }
                     </select>
                 </div>
+                @if(Model.AvailableClasses.Count() != 0)
+                {
+                    <div class="form-group">
+                        <label asp-for="ClassId">Klasse</label>
+                        <select class="form-control" asp-for="ClassId">
+                            @foreach(Class cls in Model.AvailableClasses)
+                            {
+                                <option value="@cls.ClassId">@cls.StartYear @cls.Name</option>
+                            }
+                        </select>
+                    </div>
+                }  
                 <div class="form-group">
                     <label asp-for="PersonType">Rolle</label>
                     <select class="form-control" asp-for="PersonType">

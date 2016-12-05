@@ -1,0 +1,33 @@
+@model IEnumerable<Class>
+
+
+<div class="panel-group">
+@if(Model.Count() != 0){
+    @foreach(Class cls in Model)
+    {
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#@cls.ClassId">@cls.StartYear @cls.Name</a>
+                </h4>
+            </div>
+
+            <div id="@cls.ClassId" class="panel-collapse collapse">
+                @if(cls.People.Count() != 0)
+                {
+                    <ul class="list-group">
+                        @foreach(Person p in cls.People)
+                        {
+                            <li class="list-group-item">@p.Firstname @p.Lastname</li>
+                        }
+                    </ul>
+
+                }
+             
+            </div>
+        </div>
+
+    }
+  
+}
+</div>

@@ -83,6 +83,10 @@
         {
             <div class="alert alert-success">@TempData["message"]</div>
         }
+        @if (TempData["errorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["errorMessage"]</div>
+        }
         @RenderBody()
         <hr />
         <footer>

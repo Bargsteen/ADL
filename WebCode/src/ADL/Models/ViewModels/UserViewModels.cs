@@ -13,6 +13,7 @@ namespace ADL.Models {
         public PersonTypes PersonType { get; set; }
         [Required]
         public int SchoolId { get; set; }
+        public int ClassId { get; set; }
         [Required]
         public string Username { get; set; }
         [Required]
@@ -20,6 +21,7 @@ namespace ADL.Models {
         [Required]
         public string Password { get; set; }
         public IEnumerable<School> AvailableSchools { get; set; }
+        public IEnumerable<Class> AvailableClasses { get; set; }
     }
 
     public class LoginModel

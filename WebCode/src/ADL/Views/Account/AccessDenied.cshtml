@@ -1,2 +1,6 @@
-<div class="bg-danger panel-body"><h4>Access Denied</h4></div>
-<a asp-action="Index" asp-controller="Home" class="btn btn-primary">OK</a>
+@{
+    ViewBag.Title = "Adgang nægtet";
+}
+
+<div class="bg-danger panel-body"><h4>Du har ikke adgang til denne side.</h4><p> Kontakt din administrator, hvis du mener, at dette er en fejl</p></div>
+<a asp-action="Index" asp-controller="Home" class="btn btn-primary">Tilbage til forsiden.</a>

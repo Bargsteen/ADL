@@ -1,0 +1,28 @@
+@model Class
+
+@{
+    ViewBag.Title = "Klasseoprettelse";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <h4>Opret klasse</h4>
+    </div>
+    <div class="panel-body">
+        <form class="p-a-1" asp-action="Create" method="POST">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" asp-for="SchoolId" value="@Model.SchoolId" />
+            <div class="form-group">
+                <label asp-for="StartYear">Startår:</label>
+                <input type="text" class="form-control" asp-for="StartYear" placeholder="2000"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name">Navn:</label>
+                <input type="text" asp-for="Name" class="form-control" placeholder="fx A, Special eller lignende"/>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Gem</button>
+            </div>
+        </form>
+    </div>
+</div>

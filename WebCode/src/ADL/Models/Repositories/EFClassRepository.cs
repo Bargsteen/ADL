@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ADL.Models.Repositories
 {
@@ -13,7 +14,7 @@ namespace ADL.Models.Repositories
         }
 
 
-        public IEnumerable<Class> Classes => context.Classes;
+        public IEnumerable<Class> Classes => context.Classes.Include(c => c.People);
 
         public void SaveClass(Class theClass)
         {
@@ -36,6 +37,20 @@ namespace ADL.Models.Repositories
             }
             context.SaveChanges();
             return classToBeDeleted;
+        }
+
+        public void AddPersonToClass(int classId, Person newPerson)
+        {
+            Class dbEntry = context.Classes.FirstOrDefault(c => c.ClassId == classId);
+            if(dbEntry != null)
+            {
+                if(dbEntry.People == null)
+                {
+                    dbEntry.People = new List<Person>();
+                }
+                dbEntry.People.Add(newPerson);
+                context.SaveChanges();
+            }
         }
     }
 }
