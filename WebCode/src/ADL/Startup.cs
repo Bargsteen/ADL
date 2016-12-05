@@ -46,6 +46,7 @@ namespace ADL
             services.AddTransient<IAssignmentSetRepository, EFAssignmentSetRepository>();
             services.AddTransient<ILocationRepository, EFLocationRepository>();
             services.AddTransient<IAnswerRepository, EFAnswerRepository>();
+            services.AddTransient<IClassRepository, EFClassRepository>();
             services.AddMemoryCache();
             services.AddSession();
         }

@@ -26,12 +26,17 @@ namespace ADL.Controllers
             userManager = usrMgr;
         }
 
-        public async Task<ViewResult> List()
+        public async Task<ViewResult> AssignmentSetList()
         {
             Person currentUser = await GetCurrentUserAsync();
-            IEnumerable<AssignmentSet> availableAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public);
-            //availableAssignmentSets += assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Internal && a.SchoolId == currentUser.SchoolId);
-            return View(assignmentSetRepository.AssignmentSets);
+            AssignmentSetListViewModel model = new AssignmentSetListViewModel()
+            {
+                PublicAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public),
+                InternalAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Internal && a.SchoolId == currentUser.SchoolId),
+                PrivateAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Private && a.CreatorId == currentUser.Id)
+
+            };
+            return View(model);
         }
 
         public ViewResult Edit(int assignmentSetId)
@@ -74,7 +79,7 @@ namespace ADL.Controllers
                 {
                     assignmentSetRepository.SaveAssignmentSet(model.AssignmentSet);
                     TempData["message"] = $"Opgaven '{model.AssignmentSet.Title}' blev gemt.";
-                    return RedirectToAction(nameof(List));
+                    return RedirectToAction(nameof(AssignmentSetList));
                 }
                 else
                 { // No assignments were created.
@@ -112,7 +117,7 @@ namespace ADL.Controllers
             {
                 TempData["message"] = $"Opgaven '{deletedAssignmentSet.Title}' blev slettet.";
             }
-            return RedirectToAction(nameof(List));
+            return RedirectToAction(nameof(AssignmentSetList));
         }
     }
 }

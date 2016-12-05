@@ -11,4 +11,11 @@ namespace ADL.Models
         public List<ExclusiveChoiceAssignment> ExclusiveChoiceAssignments { get; set; }
 
     }
+
+    public class AssignmentSetListViewModel
+    {
+        public IEnumerable<AssignmentSet> PublicAssignmentSets { get; set; }
+        public IEnumerable<AssignmentSet> PrivateAssignmentSets { get; set; }
+        public IEnumerable<AssignmentSet> InternalAssignmentSets { get; set; }
+    }
 }
