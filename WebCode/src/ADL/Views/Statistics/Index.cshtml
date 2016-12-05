@@ -2,39 +2,7 @@
 @{ 
     ViewBag.Title = "Statistik"; 
 } 
-<table class="table table-bordered table-striped table-hover" id="accordion">
-    <thead>
-        <th>Id</th>
-        <th>Opgavetitel</th>
-        <th>Spørgsmål</th>
-        <th>Tidspunkt</th>
-    </thead>
-    <tbody>
-    @foreach (Assignment assignment in Model.Assignments) {
-        <tr data-toggle="collapse" data-parent="#accordion" href="#assignment-@assignment.AssignmentId">
-            <td>@assignment.AssignmentId</td>
-            <td>@assignment.Headline</td>
-            <td>@assignment.Question</td>
-            <td>@Model.Stats[assignment.AssignmentId].Item1 / @Model.Stats[assignment.AssignmentId].Item2</td>
-        </tr>
-        <tr>
-            <td colspan="4">
-        <table id="assignment-@assignment.AssignmentId" class="collapse table table-bordered table-striped table-hover">
-        @foreach(Answer answer in Model.Answers)
-        {
-            @if(answer.AnsweredAssignmentId == assignment.AssignmentId)
-            {
-            <tr>
-                <td>@answer.TimeAnswered</td>
-                <td>@answer.ChosenAnswerOption</td>
-            
-            </tr>
-            }
-        }      
-        </table>
-        </td>
-        </tr>
-
-    }
-    </tbody>
-</table>
+@foreach (var person in Model.People)
+{
+    <p>@person.Firstname</p>
+}

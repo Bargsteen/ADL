@@ -3,6 +3,61 @@
     ViewBag.Title = "Opgave Sæt"; 
 }
 
+<div class="panel panel-succes">
+    <div class="panel-heading text-center">
+        <h4>Opret et opgavesæt</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form class="p-a-1" asp-action="Edit" method="POST">
+            <div class="panel">
+                <input type="hidden" asp-for="AssignmentSetId" value="@Model.AssignmentSetId" />
+                <input type="hidden" asp-for="CreatorId" value="@Model.CreatorId" />
+
+                <input type="hidden" asp-for="DateOfCreation" value="DateTime.Now" />
+
+
+                <input type="hidden" asp-for="SchoolId" value="@Model.SchoolId" />
+                <input type="hidden" asp-for="DateOfCreation" value="@DateTime.Now"/>
+                
+
+                <label asp-for="Title">Titel</label>
+                <input class="form-control" asp-for="Title" />
+                <label asp-for="Description">Beskrivelse</label>
+                <input class="form-control" asp-for="Description" />
+
+                <label asp-for="PublicityLevel" asp.for>Dele egenskaber</label>
+                <label asp-for="PublicityLevel">Dele egenskaber</label>
+                <select class="form-control" asp-for="PublicityLevel">
+                    <option value="0">Privat</option>
+                    <option value="1">Skolen</option>
+                    <option value="2">Verden</option>
+                </select>
+
+            </div>
+            <div class="panel">
+                <!--<input type="hidden" asp-for="Assignments[0].Type" value="2" />
+                <input type="text" asp-for="Assignments[0].Title" />
+                <input type="text" asp-for="Assignments[0].Text" />-->
+                <h5>Indsæt ny opgave</h5>
+
+                <button class="btn btn-md btn-primary" type="button" onclick="addAssignment('txt')">Text</button>
+                <button class="btn btn-md btn-primary" type="button"onclick="addAssignment('mc')">Multiple Choice</button>
+                <button class="btn btn-md btn-primary" type="button" onclick="addAssignment('ec')">Exclusive Choice</button>
+                
+            </div>
+            <div class="panel" id="assignments-box">
+            </div>
+
+            <div class="panel pull-right">
+                <button class="btn btn-md btn-success" type="submit">Opret Opgavesæt</button>
+            </div>
+        </form>
+
+        
+    </div>
+</div>
+
+<!--EXCLUSIVE OPGAVE-->
+
 <div class="jumbotron" style="background: white; border: solid 1px">
     <h2 class="text-center">Nyt opgavesæt</h2>
     <div class="row">

@@ -6,8 +6,10 @@ using ADL.Models.Assignments;
 using ADL.Models.Answers;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace ADL.Controllers
 {
@@ -16,9 +18,11 @@ namespace ADL.Controllers
     {
         private readonly IAnswerRepository _answerRepository;
         private readonly IAssignmentSetRepository _assignmentSetRepository;
-        public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo)
+        private readonly UserManager<Person> _userManager;
+        public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo, UserManager<Person> userManager)
         {
             _answerRepository = answerRepo;
+            _userManager = userManager;
             _assignmentSetRepository = assignmentSetRepo;
         }
 
@@ -43,9 +47,9 @@ namespace ADL.Controllers
             return correctVsTotalAnswers;
         }
 
-        private IEnumerable<double> GetCorrectPercentageForMultipleAssignment(MultipleChoiceAssignment assignment)
+        private List<Tuple<string, double>> GetCorrectPercentageForMultipleAssignment(MultipleChoiceAssignment assignment)
         {
-            List<double> correctPercentages = new List<double>();
+            List<Tuple<string, double>> correctPercentages = new List<Tuple<string, double>>();
             List<MultipleChoiceAnswer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<MultipleChoiceAnswer>;
             foreach (MultipleChoiceAnswer a in answersForThisAssignment)
             {
@@ -56,55 +60,32 @@ namespace ADL.Controllers
                     if (a.ChosenAnswers[answerOptionCounter++].Value == b.Value)
                         correctAnswers++;
                 }
-                correctPercentages.Add(((double)correctAnswers / assignment.AnswerOptions.Count) * 100);
+                correctPercentages.Add(new Tuple<string, double>(a.UserId, ((double)correctAnswers / assignment.AnswerOptions.Count) * 100));
             }
             return correctPercentages;
         }
 
-        private IEnumerable<string> GetAnswersForTextualAssignment(Assignment assignment)
+        private IEnumerable<Tuple<string, string>> GetAnswersForTextualAssignment(Assignment assignment)
         {
             List<TextAnswer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<TextAnswer>;
-            return answersForThisAssignment.Select(a => a.Text).ToList();
+            List<Tuple<string, string>> answersForTextualAssignment = new List<Tuple<string, string>>();
+            foreach (TextAnswer answer in answersForThisAssignment)
+            {
+                answersForTextualAssignment.Add(new Tuple<string, string>(answer.UserId, answer.Text));
+            }
+            return answersForTextualAssignment;
         }
 
-         public ViewResult Index()
-         {
-             List<Assignment> allAssignments = new List<Assignment>();
-             foreach (List<Assignment> assignmentList in _assignmentSetRepository.AssignmentSets.Select(set => set.Assignments))
-             {
-                 foreach (Assignment a in assignmentList)
-                 {
-                     allAssignments.Add(a);
-                 }
-             }
-             StatisticsViewModel statisticsViewModel = new StatisticsViewModel()
-             {
-                 Answers = _answerRepository.Answers,
-                 AssignmentSets = _assignmentSetRepository.AssignmentSets
-             };
-             foreach (Assignment assignment in allAssignments)
-             {
-                 if (assignment is ExclusiveChoiceAssignment)
-                 {
-                     statisticsViewModel.CorrectVsTotalForExclusiveAssignments
-                         .Add(assignment.AssignmentId
-                              , GetCorrectVsTotalForExclusiveAssignment(assignment as ExclusiveChoiceAssignment));
-                 }
-
-                 else if (assignment is MultipleChoiceAssignment)
-                 {
-                     statisticsViewModel.CorrectPercentagesForMultipleAssignments
-                         .Add(assignment.AssignmentId
-                              , GetCorrectPercentageForMultipleAssignment(assignment as MultipleChoiceAssignment));
-                 }
-                 else
-                 {
-                     statisticsViewModel.TextualAnswersForAssignments
-                         .Add(assignment.AssignmentId
-                              , GetAnswersForTextualAssignment(assignment));
-                 }
-             }
-             return View(statisticsViewModel);
-         }
+        public async Task<ViewResult> Index()
+        {
+            Person currentPerson = await _userManager.GetUserAsync(HttpContext.User);
+            StatisticsViewModel statisticsViewModel = new StatisticsViewModel()
+            {
+                Answers = _answerRepository.Answers,
+                AssignmentSets = _assignmentSetRepository.AssignmentSets,
+                People = _userManager.Users.Where(p => p.PersonType == EnumCollection.PersonTypes.Student && p.SchoolId == currentPerson.SchoolId)
+            };
+            return View(statisticsViewModel);
+        }
     }
 }

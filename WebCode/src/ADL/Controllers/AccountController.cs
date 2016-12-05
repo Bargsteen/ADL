@@ -87,13 +87,12 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid)
             {
-                School school = schoolRepository.Schools.FirstOrDefault(s => s.SchoolId == model.SchoolId);
                 Person user = new Person
                 {
                     Firstname = model.Firstname,
                     Lastname = model.Lastname,
                     PersonType = model.PersonType,
-                    School = school,
+                    SchoolId = model.SchoolId,
                     UserName = model.Username,
                     Email = model.Email,
                 };
