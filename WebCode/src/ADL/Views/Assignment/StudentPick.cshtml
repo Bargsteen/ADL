@@ -1,20 +1,8 @@
 ﻿@model PersonAndAssignmentViewModel
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Tildel opgave</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
-
 <div class="container">
-<h2>Opgave tildeling</h2>
-<p>Vær venlig at vælge de forskellige opgavetildelinger</p>    
-    @if (Model.Persons.Count() > 0 && Model.AssignmentSets.Count() > 0)
+    <h2>Opgave tildeling</h2>
+    <p>Vær venlig at vælge de forskellige opgavetildelinger</p>
+    @if (true)
     {
         <table class="table table-bordered">
             <thead>
@@ -24,28 +12,48 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < Model.Persons.Count() || i < Model.AssignmentSets.Count(); i++)
+                @for (int i = 0; i < Model.Persons.ToList().Count() || i < Model.AssignmentSets.ToList().Count(); i++)
                 {
-                    if ((i <= Model.Persons.Count()) && (i <= Model.AssignmentSets.Count()))
+                    @if ((i <= Model.Persons.ToList().Count() -1) && (i <= Model.AssignmentSets.ToList().Count() -1))
                     {
                         <tr>
-                            <td>@Model.Persons.ElementAt(i).UserName</td>
-                            <td>@Model.AssignmentSets.ElementAt(i).AssignmentSetId</td>
+                            <td>
+                                <label><input type="checkbox" value="">Student Username: @Model.Persons.ElementAt(i).UserName</label>
+                            </td>
+                            <td>
+                                <label><input type="checkbox" value="">AssignmentSet Title: @Model.AssignmentSets.ElementAt(i).Title</label>
+                                @for (int b = 0; b < @Model.AssignmentSets.ElementAt(i).Assignments.Count(); b++)
+                                {
+                                    <label><input type="checkbox" value="">Assignment Title: @Model.AssignmentSets.ElementAt(i).Assignments[b].Title</label>
+                                }
+                            </td>
                         </tr>
                     }
-                    else if ((i <= Model.Persons.Count()) && !(i <= Model.AssignmentSets.Count()))
+                    else if ((i <= Model.Persons.ToList().Count() -1) && !(i <= Model.AssignmentSets.ToList().Count() -1))
                     {
                         <tr>
-                            <td>@Model.Persons.ElementAt(i).UserName</td>
-                            <td></td>
+                            <td>
+                                <label><input type="checkbox" value="">Student Username: @Model.Persons.ElementAt(i).UserName</label>
+                            </td>
+                            <td>
+                                @*SKAL VÆRE TOM*@
+                            </td>
                         </tr>
                     }
-                    else if (!(i <= Model.Persons.Count()) && (i <= Model.AssignmentSets.Count()))
+                    else if (!(i <= Model.Persons.ToList().Count() -1) && (i <= Model.AssignmentSets.ToList().Count() -1))
                     {
                         <tr>
-                            <td></td>
-                            <td>@Model.AssignmentSets.ElementAt(i).AssignmentSetId</td>
-                            </tr>
+                            <td>
+                                @*SKAL VÆRE TOM*@
+                            </td>
+                            <td>
+                                <label><input type="checkbox" value="">AssignmentSet Title: @Model.AssignmentSets.ElementAt(i).Title</label>
+                                @for (int b = 0; b < @Model.AssignmentSets.ElementAt(i).Assignments.Count(); b++)
+                                {
+                                    <label><input type="checkbox" value="">Assignment Title: @Model.AssignmentSets.ElementAt(i).Assignments[b].Title</label>
+                                }
+                            </td>
+                        </tr>
                     }
                 }
             </tbody>
@@ -53,10 +61,6 @@
     }
     else
     {
-            <div>No student or Assignments found</div>
+        <div>No student or Assignments found</div>
     }
 </div>
-
-</body>
-</html>
-

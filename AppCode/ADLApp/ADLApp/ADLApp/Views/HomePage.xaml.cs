@@ -42,21 +42,21 @@ namespace ADLApp.Views
             if (scanString != "error")
             {
                 Assignment currentAssignment = await _assignmentLoader
-                    .GetAssignment(scanString);
-                currentAssignment = new MultipleChoiceAssignment()
-                {
-                    Question = "Hvad hedder Teitur?",
-                    Headline = "Om teitur",
-                    CorrectAnswers = new List<int>() { 0, 2 },
-                    AnswerOptions = new List<AnswerOption>() { new AnswerOption() {
-                        AnswerOptionID = 1, Text = "mig"
-                    }, new AnswerOption() {
-                        AnswerOptionID = 2, Text = "eller mig"
-                    }, new AnswerOption() {
-                        AnswerOptionID = 3, Text = "måske mig?"
-                    }
-                    }
-                };
+                .GetAssignment(scanString);
+                //currentAssignment = new MultipleChoiceAssignment()
+                //{
+                //    Question = "Hvad hedder Teitur?",
+                //    Headline = "Om teitur",
+                //    AnswerCorrectness = new List<bool>() { true, false, true },
+                //    AnswerOptions = new List<AnswerOption>() { new AnswerOption() {
+                //        AnswerOptionID = 1, Text = "mig"
+                //    }, new AnswerOption() {
+                //        AnswerOptionID = 2, Text = "eller mig"
+                //    }, new AnswerOption() {
+                //        AnswerOptionID = 3, Text = "måske mig?"
+                //    }
+                //    }
+                //};
                 if (currentAssignment != null)
                 {
                     if (currentAssignment is ExclusiveChoiceAssignment)

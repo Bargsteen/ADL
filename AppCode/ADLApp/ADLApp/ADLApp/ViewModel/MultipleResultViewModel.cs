@@ -11,40 +11,33 @@ namespace ADLApp.ViewModel
     public class MultipleResultViewModel
     {
         public MultipleChoiceAssignment Assignment { get; set; }
-        private List<AnswerOption> chosenAnswers;
 
-        public MultipleResultViewModel(List<AnswerOption> chosenAnswers, MultipleChoiceAssignment assignmentToSolve)
+        public MultipleResultViewModel(List<ChosenAnswerlBool> chosenAnswers, MultipleChoiceAssignment assignmentToSolve)
         {
-            this.chosenAnswers = chosenAnswers;
             Assignment = assignmentToSolve;
             FeedBackList = new List<Tuple<string, Color, string>>();
-            foreach (AnswerOption ao in Assignment.AnswerOptions)
+            int counter = 0;
+            foreach (ChosenAnswerlBool ca in chosenAnswers)
             {
-                if (chosenAnswers.Exists(a => a == ao))
+                if (ca.Value)
                 {
                     string chosen = "\u2611";
-                    if (Assignment.CorrectAnswers.Exists(ca => Assignment.AnswerOptions[ca] == ao))
-                    {
-                        FeedBackList.Add(new Tuple<string, Color, string>(ao.Text, Color.Green, chosen));
-                    }
-                    else
-                    {
-                        FeedBackList.Add(new Tuple<string, Color, string>(ao.Text, Color.Red, chosen));
-                    }
+                    FeedBackList.Add(Assignment.AnswerCorrectness[counter]
+                        ? new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Green,
+                            chosen)
+                        : new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Red,
+                            chosen));
                 }
                 else
                 {
                     string notChosen = "\u2610";
-                    if (Assignment.CorrectAnswers.Exists(ca => Assignment.AnswerOptions[ca] == ao))
-                    {
-                        FeedBackList.Add(new Tuple<string, Color, string>(ao.Text, Color.Red, notChosen));
-                    }
-                    else
-                    {
-                        FeedBackList.Add(new Tuple<string, Color, string>(ao.Text, Color.Green, notChosen));
-                    }
+                    FeedBackList.Add(!Assignment.AnswerCorrectness[counter]
+                        ? new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Green, notChosen)
+                        : new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Red, notChosen));
                 }
+                counter++;
             }
+
 
             bool isCorrect = FeedBackList.All(fb => fb.Item2 == Color.Green);
             if (isCorrect) ResultText = "Det er korrekt, godt gået!";

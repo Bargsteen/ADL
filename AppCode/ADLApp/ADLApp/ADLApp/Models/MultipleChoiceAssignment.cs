@@ -8,7 +8,7 @@ namespace ADLApp.Models
 {
     public class MultipleChoiceAssignment : Assignment
     {
-        public List<int> CorrectAnswers { get; set; }
+        public List<bool> AnswerCorrectness { get; set; }
         public List<AnswerOption> AnswerOptions { get; set; }
     }
 }

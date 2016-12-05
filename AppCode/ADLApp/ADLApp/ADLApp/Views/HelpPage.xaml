@@ -4,7 +4,21 @@
              x:Class="ADLApp.Views.HelpPage">
   <ScrollView>
     <StackLayout>
-      <Label Text="Find lokation side" TextColor="Black" FontSize="30"></Label>
+      <Label Text="Placering af QR-koder side"  FontSize="30"></Label>
+      <Image Source="find_lokation.PNG"></Image>
+      <Label Text="Placering af QR-koder siden viser en list. Venstre side af listen viser navnet på lokationen og højre side, hvor den er placeret. " TextColor="Black" FontSize="15"></Label>
+      <Label Text="Scan QR-kode" FontSize="30"></Label>
+      <Image Source=""></Image>
+      <Label Text="QR-scanneren virker således at mobil telefonen bliver hold over en QR-kode indtil en opgave bliver vist" TextColor="Black" FontSize="15"></Label>
+      <Label Text="Multiple choice opgaver" FontSize="30"></Label>
+      <Image Source=""></Image>
+      <Label Text="Multiple choice opgaver bliver løst ved at vælge en eller flere svarmuligheder og derefter trykke på knappen i bunden" TextColor="Black" FontSize="15"></Label>
+      <Label Text="Exclusive choice opgaver" FontSize="30"></Label>
+      <Image Source=""></Image>
+      <Label Text="Exclusive choice opgaver bliver løst ved at vælge en af svarmulighederne og derefter trykke på knappen i bunden" TextColor="Black" FontSize="15"></Label>
+      <Label Text="TekstOpgaver" FontSize="30"></Label>
+      <Image Source=""></Image>
+      <Label Text="En tekstopgave bliver løst ved at skrive i tekst boksen og derefter trykke på knappen i bunden" TextColor="Black" FontSize="15"></Label>
       <Button Text="Gå tilbage" TextColor="White" BackgroundColor="#66bb6a" Clicked="OnGoHomeButtonClicked"></Button>
     </StackLayout>
   </ScrollView>

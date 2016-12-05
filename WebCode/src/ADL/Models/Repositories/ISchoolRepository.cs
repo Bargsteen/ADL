@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ADL.Models
+namespace ADL.Models.Repositories
 {
     public interface ISchoolRepository
     {

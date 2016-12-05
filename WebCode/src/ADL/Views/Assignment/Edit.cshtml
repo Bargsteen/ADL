@@ -1,7 +1,6 @@
-@model AssignmentSet
-
-@{
-    ViewBag.Title = "Opgave Sæt";
+@model AssignmentSetViewModel 
+@{ 
+    ViewBag.Title = "Opgave Sæt"; 
 }
 
 <div class="panel panel-succes">
@@ -58,290 +57,83 @@
 </div>
 
 <!--EXCLUSIVE OPGAVE-->
+
 <div class="jumbotron" style="background: white; border: solid 1px">
+    <h2 class="text-center">Nyt opgavesæt</h2>
     <div class="row">
-        <form>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="Edit" method="POST">
             <div class="form-group row">
-                <label class="col-md-12"><h2>Opgavetitel:</h2></label>
+
+                <input type="hidden" asp-for="AssignmentSet.CreatorId" value="@Model.AssignmentSet.CreatorId" />
+                <input type="hidden" asp-for="AssignmentSet.AssignmentSetId" value="@Model.AssignmentSet.AssignmentSetId" />
+                <input type="hidden" asp-for="AssignmentSet.CreatorId" value="@Model.AssignmentSet.CreatorId" />
+                <input type="hidden" asp-for="AssignmentSet.SchoolId" value="@Model.AssignmentSet.SchoolId" />
+                <input type="hidden" asp-for="AssignmentSet.LastUpdateDate" value="@DateTime.Now" />
+
+                <label class="col-md-12" asp-for="AssignmentSet.Title">Titel:</label>
                 <div class="col-md-12">
-                    <input type="email" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="Giv en beskrivende opgavetitel">
+                    <input asp-for="AssignmentSet.Title" class="form-control form-control-lg" placeholder="Giv en beskrivende opgavetitel">
+                </div>
+                <label class="col-md-12" asp-for="AssignmentSet.Description">Beskrivelse</label>
+                <div class="col-md-12">
+                    <input class="form-control form-control-lg" asp-for="AssignmentSet.Description" placeholder="Opgavebeskrivelse" />
+                </div>
+
+                <label class="col-md-12" asp-for="AssignmentSet.PublicityLevel">Del med:</label>
+                <div class="col-md-12">
+                    <select class="form-control form-control-lg" asp-for="AssignmentSet.PublicityLevel">
+                        <option value="0">Privat</option>
+                        <option value="1">Skolen</option>
+                        <option value="2">Verden</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tilføj en opgave til sættet</button>
+                    <button type="submit" class="btn btn-primary btn-md">Opret opgavesæt</button>
                 </div>
             </div>
+
+            <hr />
+
+            <div class="row" id="allAssignmentsDiv"> </div>
+
         </form>
-
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tilføj en opgave til sættet</button>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Opgave med én svarmulighed</h3>
+
+
+
+    <!--MODAL BEGYNDER HER-->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Vælg opgavetype:</h4>
                 </div>
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="example-text-input">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
-                                <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <small id="helptext" class="form-text text-muted">Vælg hvilken svarmulighed der er den rigtige:</small>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="radio" name="svar" aria-label="...">
-                                </span>
-                                <input type="text" class="form-control" aria-label="...">
-                            </div>
-
-                            <br />
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="radio" name="svar" aria-label="...">
-                                </span>
-                                <input type="text" class="form-control" aria-label="...">
-                            </div>
-
-                            <br />
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-                            </div>
-
-                        </div>
+                <div class="modal-body" style="text-align: center">
+                    <div>
+                        <button type="button" class="btn btn-md btn-success" data-dismiss="modal" onclick="addAssignment('ec')">Exclusive choice</button>
+                    </div>
+                    <br/>
+                    <div>
+                        <button type="button" class="btn btn-md btn-warning" data-dismiss="modal" onclick="addAssignment('mc')">Multiple choice</button>
+                    </div>
+                    <br/>
+                    <div>
+                        <button type="button" class="btn btn-md btn-primary" data-dismiss="modal" onclick="addAssignment('txt')">Tekstbesvarelse</button>
                     </div>
 
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <!--MULTIPLE CHOICE OPGAVE-->
-
-        <div class="col-md-6">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Opgave med flere svarmuligheder</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="example-text-input">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
-                                <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <small id="helptext" class="form-text text-muted">Vælg hvilke svarmuligheder der er rigtige:</small>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" aria-label="...">
-                                </span>
-                                <input type="text" class="form-control" aria-label="...">
-                            </div>
-
-                            <br />
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" aria-label="...">
-                                </span>
-                                <input type="text" class="form-control" aria-label="...">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <br />
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-                    </div>
 
                 </div>
-            </div>
-        </div>
-
-
-
-
-        <!--TEXTOPGAVE-->
-
-        <div class="col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Opgaver der besvares med tekst</h3>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
                 </div>
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="example-text-input">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
-                                <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleTextarea" rows="6"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        <div class="col-md-6">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Opgave med flere svarmuligheder</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="example-text-input">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
-                                <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <small id="helptext" class="form-text text-muted">Vælg hvilke svarmuligheder der er rigtige:</small>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" aria-label="...">
-                                </span>
-                                <input type="text" class="form-control" aria-label="...">
-                            </div>
-
-                            <br />
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" aria-label="...">
-                                </span>
-                                <input type="text" class="form-control" aria-label="...">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <br />
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        
-        
-        <div class="col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Opgave der besvares med tekst</h3>
-                </div>
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Titel:</label>
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="example-text-input">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Beskrivelse:</label>
-                                <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleTextarea" rows="6"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-
-
-    </div>
-</div>
-
-
-
-<!--MODAL BEGYNDER HER-->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Vælg opgavetype:</h4>
-            </div>
-            <div class="modal-body" style="text-align: center">
-                <div>
-                    <button type="button" class="btn btn-md btn-success" data-dismiss="modal">Exclusive choice</button>
-                </div>
-                <br/>
-                <div>
-                    <button type="button" class="btn btn-md btn-warning" data-dismiss="modal">Multiple coice</button>
-                </div>
-                <br/>
-                <div>
-                    <button type="button" class="btn btn-md btn-primary" data-dismiss="modal">Textbesvarelse</button>
-                </div>
-               
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</div>

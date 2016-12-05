@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using ADL.Models.Answers;
 
-namespace ADL.Models
+namespace ADL.Models.Repositories
 {
 
     public class EFAnswerRepository : IAnswerRepository
@@ -17,22 +19,7 @@ namespace ADL.Models
 
         public void SaveAnswer(Answer answer)
         {
-            if (answer.AnswerId == 0)
-            {
-                // This is a new answer
-                context.Answers.Add(answer);
-            }
-            else
-            {
-                // Editing an existing answer
-                Answer dbEntry = context.Answers.FirstOrDefault(l => l.AnswerId == answer.AnswerId);
-                if (dbEntry != null)
-                {
-                    dbEntry.UserId = answer.UserId;
-                    dbEntry.ChosenAnswerOption = answer.ChosenAnswerOption;
-                    dbEntry.TimeAnswered = answer.TimeAnswered;
-                }
-            }
+            context.Add(answer);
             context.SaveChanges();
         }
 

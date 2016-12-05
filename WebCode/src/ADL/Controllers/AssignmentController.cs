@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
+using ADL.Models.Assignments;
+using ADL.Models.Repositories;
 using System.Linq;
+using System.Collections.Generic;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,6 +25,7 @@ namespace ADL.Controllers
             userManager = usrMgr;
         }
 
+<<<<<<< HEAD
         public ViewResult StudentPick()
         {
             PersonAndAssignmentViewModel studentList = new PersonAndAssignmentViewModel()
@@ -40,6 +44,8 @@ namespace ADL.Controllers
         /*test*/
 
 
+=======
+>>>>>>> 824ad0691b3e8be108f5b9811ce650f099d1043a
         public ViewResult List()
         {
             AssignmentAndLocationListViewModel assignmentList = new AssignmentAndLocationListViewModel()
@@ -47,33 +53,74 @@ namespace ADL.Controllers
                 AssignmentSets = assignmentSetRepository.AssignmentSets,
                 Locations = locationRepository.Locations
             };
-            return View(assignmentList);
+            return View(assignmentSetRepository.AssignmentSets);
         }
 
         public ViewResult Edit(int assignmentSetId)
         {
-            return View(assignmentSetRepository.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSetId));
+            AssignmentSet assignmentSet = assignmentSetRepository.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSetId);
+            AssignmentSetViewModel model = new AssignmentSetViewModel { AssignmentSet = assignmentSet };
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(AssignmentSet assignmentSet)
+        public IActionResult Edit(AssignmentSetViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                assignmentSetRepository.SaveAssignmentSet(assignmentSet);
-                TempData["message"] = $"Opgaven '{assignmentSet.Title}' blev gemt.";
-                return RedirectToAction(nameof(List));
+                model.AssignmentSet.Assignments = new List<Assignment>();
+
+                if (model.TextAssignments != null)
+                {
+                    foreach (Assignment tA in model.TextAssignments)
+                    {
+                        model.AssignmentSet.Assignments.Add(tA);
+                    }
+                }
+                if (model.ExclusiveChoiceAssignments != null)
+                {
+                    foreach (ExclusiveChoiceAssignment ecA in model.ExclusiveChoiceAssignments)
+                    {
+                        model.AssignmentSet.Assignments.Add(ecA);
+                    }
+                }
+                if (model.MultipleChoiceAssignments != null)
+                {
+                    foreach (MultipleChoiceAssignment mcA in model.MultipleChoiceAssignments)
+                    {
+                        model.AssignmentSet.Assignments.Add(mcA);
+                    }
+
+                }
+                if (model.AssignmentSet.Assignments.Count > 0)
+                {
+                    assignmentSetRepository.SaveAssignmentSet(model.AssignmentSet);
+                    TempData["message"] = $"Opgaven '{model.AssignmentSet.Title}' blev gemt.";
+                    return RedirectToAction(nameof(List));
+                }
+                else
+                { // No assignments were created.
+                    ModelState.AddModelError("", "Der skal være tilføjet mindst én opgave.");
+                }
             }
             // Something was wrong with the entered data
-            return View(assignmentSet);
+            return View(model);
         }
 
-        // Uses the edit view, but gives it a new assignment. j
+        // Uses the edit view, but gives it a new assignment.
         public async Task<ViewResult> Create()
         {
             Person currentUser = await GetCurrentUserAsync();
-            AssignmentSet assignmentSet = new AssignmentSet() { CreatorId = currentUser.Id };
-            return View(nameof(Edit), assignmentSet);
+
+            AssignmentSet assignmentSet = new AssignmentSet()
+            {
+                CreatorId = currentUser.Id,
+            };
+            AssignmentSetViewModel model = new AssignmentSetViewModel()
+            {
+                AssignmentSet = assignmentSet
+            };
+            return View(nameof(Edit), model);
         }
 
 
@@ -83,38 +130,11 @@ namespace ADL.Controllers
         public IActionResult DeleteAssignmentSet(int assignmentSetId)
         {
             AssignmentSet deletedAssignmentSet = assignmentSetRepository.DeleteAssignmentSet(assignmentSetId);
-            if(deletedAssignmentSet != null)
+            if (deletedAssignmentSet != null)
             {
                 TempData["message"] = $"Opgaven '{deletedAssignmentSet.Title}' blev slettet.";
             }
             return RedirectToAction(nameof(List));
         }
-
-        public ViewResult AttachAssignmentToLocation(int chosenAssignmentId)
-        {
-            AssignmentToLocationAttachment attachment = new AssignmentToLocationAttachment();
-            attachment.ChosenAssignmentId = chosenAssignmentId;
-            attachment.Locations = locationRepository.Locations;
-            return View(attachment);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AttachAssignmentToLocation(AssignmentToLocationAttachment attachment)
-        {
-            Location chosenLocation = locationRepository.Locations.FirstOrDefault(l => l.LocationId == attachment.ChosenLocationId);
-            Assignment chosenAssignment = assignmentSetRepository.AssignmentSets.FirstOrDefault(b => b.AssignmentSetId == attachment.ChosenAssignmentSetId).Assignments.FirstOrDefault(a => a.AssignmentId == attachment.ChosenAssignmentId);
-            Person chosenPerson = await GetCurrentUserAsync();
-            if (chosenLocation != null && chosenAssignment != null)
-            {
-                locationRepository.SaveAttachedAssignmentId(chosenLocation.LocationId, chosenPerson.Id, chosenAssignment.AssignmentId);
-                TempData["message"] = $"Opgaven '{chosenAssignment.Title}' blev koblet med lokationen '{chosenLocation.Title}'";
-                return RedirectToAction(nameof(List));
-            }
-            return View(attachment);
-        }
-
-
-        
-    
     }
 }

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ADL.Models.Answers;
 
-namespace ADL.Models
+namespace ADL.Models.Assignments
 {
     public class MultipleChoiceAssignment : Assignment
     {
@@ -9,6 +10,6 @@ namespace ADL.Models
         public List<AnswerOption> AnswerOptions { get; set; }
 
         [Required(ErrorMessage = "Venligst vælg det/de korrekte svar")]
-        public List<int> CorrectAnswers { get; set; }
+        public List<AnswerBool> AnswerCorrectness { get; set; }
     }
 }

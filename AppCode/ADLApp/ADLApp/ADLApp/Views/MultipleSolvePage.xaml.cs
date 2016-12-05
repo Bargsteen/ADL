@@ -14,6 +14,7 @@ namespace ADLApp.Views
     {
         private IAnswerSender answerSender = new RequestManager();
         List<AnswerOption> ChosenAnswers = new List<AnswerOption>();
+        List<bool> answers = new List<bool>();
         public MultipleSolvePage(MultipleChoiceAssignment mca)
         {
             InitializeComponent();
@@ -34,14 +35,17 @@ namespace ADLApp.Views
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            List<string> answerIndices = new List<string>();
-            foreach (AnswerOption ao in ChosenAnswers)
+            List<ChosenAnswerlBool> chosenAnswers = new List<ChosenAnswerlBool>();
+            for (int i = 0; i < assignmentToSolve.AnswerOptions.Count; i++)
             {
-                answerIndices.Add(assignmentToSolve.AnswerOptions.IndexOf(ao).ToString());
+                chosenAnswers.Add( new ChosenAnswerlBool() {Value = false});
             }
-
-            await answerSender.SendAnswer(new Answer(assignmentToSolve.AssignmentId, answerIndices.ToArray()));
-            await Navigation.PushModalAsync(new MultipleResultPage(new MultipleResultViewModel(ChosenAnswers, assignmentToSolve)));
+            foreach (var ca in ChosenAnswers)
+            {
+                chosenAnswers[assignmentToSolve.AnswerOptions.IndexOf(ca)].Value = true;
+            }
+            await answerSender.SendAnswer(new MultipleChoiceAnswer(assignmentToSolve.AssignmentId) { ChosenAnswers = chosenAnswers });
+            await Navigation.PushModalAsync(new MultipleResultPage(new MultipleResultViewModel(chosenAnswers, assignmentToSolve)));
             await Navigation.PopAsync();
         }
         private void OnItemSelected(object sender, EventArgs e)
