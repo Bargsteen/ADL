@@ -12,6 +12,7 @@
         <form class="p-a-1" asp-action="Edit" method="POST">
             <div asp-validation-summary="All"></div>
             <input type="hidden" value="@Model.LocationId" asp-for="LocationId" />
+            <input type="hidden" value="@Model.SchoolId" asp-for="SchoolId" />
             <div class="form-group">
                 <label asp-for="Title">Titel:</label>
                 <input class="form-control" asp-for="Title" />
