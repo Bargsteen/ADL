@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ADL.Models.Answers;
+using Microsoft.EntityFrameworkCore;
 
 namespace ADL.Models.Repositories
 {
@@ -76,7 +77,7 @@ namespace ADL.Models.Repositories
             //});
         }
 
-        public IEnumerable<Answer> Answers => context.Answers;
+        public IEnumerable<Answer> Answers => context.Answers.Include(a => a.ChosenAnswers);
 
         public void SaveAnswer(Answer answer)
         {
