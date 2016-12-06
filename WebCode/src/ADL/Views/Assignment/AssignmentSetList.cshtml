@@ -16,7 +16,18 @@
           @foreach(AssignmentSet assignmentSet in Model.PrivateAssignmentSets)
           {
               <li class="list-group-item">@assignmentSet.Title 
-              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a></li>
+                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" class="btn btn-xs btn-success pull-right">Tildel</a>
+                @if(assignmentSet.Assignments.Count() != 0)
+                {
+                  <ul>
+                    @foreach(Assignment assignment in assignmentSet.Assignments)
+                    {   
+                      <li>@assignment.Text</li>
+          
+                    }
+                    </ul>
+                }
+              </li>
           }
 
       </ul>
@@ -35,7 +46,7 @@
           @foreach(AssignmentSet assignmentSet in Model.InternalAssignmentSets)
           {
               <li class="list-group-item">@assignmentSet.Title 
-              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a></li>
+              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" class="btn btn-xs btn-success pull-right">Tildel</a></li>
           }
 
       </ul>
@@ -55,7 +66,7 @@
           @foreach(AssignmentSet assignmentSet in Model.PublicAssignmentSets)
           {
               <li class="list-group-item">@assignmentSet.Title 
-              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
+              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" class="btn btn-xs btn-success pull-right">Tildel</a>
               </li>
           }
 

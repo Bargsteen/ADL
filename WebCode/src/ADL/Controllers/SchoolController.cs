@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ADL.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Lærer,Admin")]
     public class SchoolController : Controller
     {
         ISchoolRepository schoolRepository;
