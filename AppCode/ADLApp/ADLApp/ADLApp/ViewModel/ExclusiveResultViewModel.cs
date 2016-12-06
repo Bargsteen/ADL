@@ -11,7 +11,7 @@ namespace ADLApp.ViewModel
 {
     public class ExclusiveResultViewModel : INotifyPropertyChanged
     {
-        public ExclusiveResultViewModel(ExclusiveChoiceAssignment assignment, int answer)
+        public ExclusiveResultViewModel(Assignment assignment, int answer)
         {
             Assignment = assignment;
             CorrectAnswer = Assignment.AnswerOptions[Assignment.CorrectAnswer].Text;
@@ -25,7 +25,7 @@ namespace ADLApp.ViewModel
                 Feedback = new Tuple<string, Color>($"Desværre, det rigtige svar var \"{CorrectAnswer}\"", Color.Red);
             }
         }
-        public ExclusiveChoiceAssignment Assignment { get; set; }
+        public Assignment Assignment { get; set; }
         public string AnswerChosen { get; set; }
         public Tuple<string, Color> Feedback { get; set; }
         public string CorrectAnswer { get; set; }

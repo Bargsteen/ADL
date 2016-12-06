@@ -9,8 +9,8 @@ namespace ADLApp.Views
     public partial class ExclusiveSolvePage : ContentPage
     {
         private IAnswerSender answerSender = new RequestManager();
-        public ExclusiveChoiceAssignment AssignmentToSolve { get; set; }
-        public ExclusiveSolvePage(ExclusiveChoiceAssignment currentAssignment)
+        public Assignment AssignmentToSolve { get; set; }
+        public ExclusiveSolvePage(Assignment currentAssignment)
         {
             InitializeComponent();
             BindingContext = currentAssignment;

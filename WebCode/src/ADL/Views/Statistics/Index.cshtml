@@ -1,28 +1,189 @@
-@using System.ComponentModel
+﻿<style>
+    .rdonly:hover {
+        cursor: default;
+    }
+
+    input[type='radio']:disabled {
+        cursor: default;
+    }
+
+    input[type='checkbox']:disabled {
+        cursor: default;
+    }
+    .cursor:hover {
+        cursor: default;
+    }
+    .btn:disabled, .btn-success:disabled, .btn-danger:disabled {
+        opacity: 100;
+        border: solid 1px;
+    }
+</style>
 @model StatisticsViewModel
 @{
     ViewBag.Title = "Statistik";
 }
-@foreach (var person in Model.People)
-{
-    <div class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#@person.Id">@person.Firstname @person.Id @person.Lastname med brugernavn @person.UserName</a>
-                </h4>
-            </div>
-            <div id="@person.Id" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <!--INNER COLLAPSE-->
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">Panel with panel-danger class</div>
-                        <div class="panel-body">Panel Content</div>
-                    </div>
-                    <!--INNER COLLAPSE END-->
 
+<div class="row">
+    <div class="col-md-12" style="margin-bottom: 15px">
+        <button type="button" class="btn cursor" style="background-color: lightgreen" disabled="">Symbolisere korrekt svar</button>
+        <button type="button" class="btn gul cursor" style="background-color: lemonchiffon" disabled="">Symboliserer hvad man skulle have svaret</button>
+        <button type="button" class="btn cursor" style="background-color: lightpink" disabled="">Symboliserer forkert svar</button>
+    </div>
+    @foreach (var person in Model.People)
+    {
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion1" href="#@person.Id">
+                            @person.Firstname @person.Lastname
+                        </a>
+                    </h4>
+                </div>
+                <div id="@person.Id" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="panel-group" id="@person.Id">
+                            <!--Inner kollaps-->
+                            @foreach (var set in Model.AnswerInformationViewModels.Where(aivm => aivm.User.Id == person.Id))
+                            {
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#@set.CollapseId">
+                                                Opgavesæt @set.AssignmentSet.AssignmentSetId: @set.AssignmentSet.Title
+                                            </a>
+                                        </h4>
+                                    </div>
+
+
+                                    <div id="@set.CollapseId" class="panel-collapse collapse">
+                                        <div class="panel-body">
+
+                                            @foreach (var assignmentAnswer in set.AssignmentAnswers)
+                                            {
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">
+                                                        <p>@assignmentAnswer.Item1.Text</p>
+                                                    </div>
+
+                                                    <div class="col-md-6" style="border-left: solid 3px; margin-bottom: 20px">
+                                                        <p>Besvarelse:</p>
+                                                        @if (assignmentAnswer.Item2.Type == EnumCollection.AssignmentType.ExclusiveChoice)
+                                                        {
+                                                            foreach (var exAnswersOpp in assignmentAnswer.Item1.AnswerOptions)
+                                                            {
+                                                                if (exAnswersOpp.AnswerOptionId == assignmentAnswer
+                                                                    .Item1.AnswerOptions[assignmentAnswer.Item1.CorrectAnswer].AnswerOptionId
+                                                                    && assignmentAnswer.Item2.ChosenAnswer == assignmentAnswer.Item1.CorrectAnswer)
+                                                                {
+                                                                    <div class="input-group" style="margin-bottom: 5px">
+                                                                        <span class="input-group-addon rdonly">
+                                                                            <input type="radio" aria-label="..." checked="" disabled="">
+                                                                        </span>
+                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightgreen" placeholder="@exAnswersOpp.Text" disabled="">
+                                                                    </div>
+                                                                }
+                                                                else if (exAnswersOpp.AnswerOptionId == assignmentAnswer
+                                                                    .Item1.AnswerOptions[assignmentAnswer.Item1.CorrectAnswer].AnswerOptionId
+                                                                         && assignmentAnswer.Item2.ChosenAnswer != assignmentAnswer.Item1.CorrectAnswer)
+                                                                {
+                                                                    <div class="input-group" style="margin-bottom: 5px">
+                                                                        <span class="input-group-addon">
+                                                                            <input type="radio" aria-label="..." disabled="">
+                                                                        </span>
+                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lemonchiffon" placeholder="@exAnswersOpp.Text" disabled="">
+                                                                    </div>
+                                                                }
+
+                                                                else if (assignmentAnswer.Item1.AnswerOptions.IndexOf(exAnswersOpp) == assignmentAnswer.Item2.ChosenAnswer
+                                                                         && assignmentAnswer.Item2.ChosenAnswer != assignmentAnswer.Item1.CorrectAnswer)
+                                                                {
+                                                                    <div class="input-group" style="margin-bottom: 5px">
+                                                                        <span class="input-group-addon">
+                                                                            <input type="radio" aria-label="..." checked="" disabled="">
+                                                                        </span>
+                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightpink" placeholder="@exAnswersOpp.Text" disabled="">
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="input-group" style="margin-bottom: 5px">
+                                                                        <span class="input-group-addon">
+                                                                            <input type="radio" aria-label="..." disabled="">
+                                                                        </span>
+                                                                        <input type="text" class="form-control rdonly" aria-label="..." placeholder="@exAnswersOpp.Text" disabled="">
+                                                                    </div>
+                                                                }
+
+                                                            }
+                                                        }
+                                                        else if (assignmentAnswer.Item2.Type == EnumCollection.AssignmentType.MultipleChoice)
+                                                        {
+                                                            int counter = 0;
+                                                            foreach (var muAnswerOpp in assignmentAnswer.Item1.AnswerOptions)
+                                                            {
+
+                                                                if (assignmentAnswer.Item2.ChosenAnswers[counter].Value == assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
+                                                                {
+                                                                    <div class="input-group" style="margin-bottom: 5px">
+                                                                        <span class="input-group-addon">
+                                                                            <input type="checkbox" aria-label="..." checked="" disabled="">
+                                                                        </span>
+                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightgreen" placeholder="@muAnswerOpp.Text" disabled="">
+                                                                    </div>
+                                                                }
+                                                                else if (assignmentAnswer.Item2.ChosenAnswers[counter].Value == false && assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
+                                                                {
+                                                                    <div class="input-group" style="margin-bottom: 5px">
+                                                                        <span class="input-group-addon">
+                                                                            <input type="checkbox" aria-label="..." disabled="">
+                                                                        </span>
+                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lemonchiffon" placeholder="@muAnswerOpp.Text" disabled="">
+                                                                    </div>
+                                                                }
+                                                                else if (assignmentAnswer.Item2.ChosenAnswers[counter].Value != assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
+                                                                {
+                                                                    <div class="input-group" style="margin-bottom: 5px">
+                                                                        <span class="input-group-addon">
+                                                                            <input type="checkbox" aria-label="..." checked="" disabled="">
+                                                                        </span>
+                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightpink" placeholder="@muAnswerOpp.Text" disabled="">
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="input-group" style="margin-bottom: 5px">
+                                                                        <span class="input-group-addon">
+                                                                            <input type="radio" aria-label="..." disabled="">
+                                                                        </span>
+                                                                        <input type="text" class="form-control rdonly" aria-label="..." placeholder="@muAnswerOpp.Text" disabled="">
+                                                                    </div>
+                                                                }
+                                                                counter++;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <i>@assignmentAnswer.Item2.AnswerText</i>
+
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }<!--enden på inner kollaps-->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
+
+
+
+
+

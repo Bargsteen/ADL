@@ -15,13 +15,13 @@ namespace ADLApp.Views
         private IAnswerSender answerSender = new RequestManager();
         List<AnswerOption> ChosenAnswers = new List<AnswerOption>();
         List<bool> answers = new List<bool>();
-        public MultipleSolvePage(MultipleChoiceAssignment mca)
+        public MultipleSolvePage(Assignment mca)
         {
             InitializeComponent();
             BindingContext = mca;
             assignmentToSolve = mca;
         }
-        private MultipleChoiceAssignment assignmentToSolve;
+        private Assignment assignmentToSolve;
         private void OnChecked(object sender, bool isChecked)
         {
             if (isChecked)
