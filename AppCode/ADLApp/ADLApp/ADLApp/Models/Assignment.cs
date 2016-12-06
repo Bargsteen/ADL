@@ -12,5 +12,8 @@ namespace ADLApp.Models
         public int AssignmentId { get; set; }
         public string Headline { get; set; }
         public string Question { get; set; }
+        public List<AnswerOption> AnswerOptions { get; set; }
+        public int CorrectAnswer { get; set; }
+        public List<ChosenAnswerlBool> AnswerCorrectness { get; set; }
     }
 }
