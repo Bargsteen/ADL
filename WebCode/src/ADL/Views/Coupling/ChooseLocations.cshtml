@@ -1,0 +1,68 @@
+@model ChooseLocationsViewModel 
+@{ 
+    ViewBag.Title = "Vælg lokationer"; 
+} 
+
+@if(Model.AvailableLocations.Count() != 0) {
+
+    int listIndexCount = 0;
+    int couplingIndexCount = 0;
+
+<div class="container">
+    <h2>Vælg lokationer</h2>
+    <p>Vælg hvilke lokationer, som du vil benytte.</p>
+    <form asp-action="FinishCoupling" method="POST">
+        @foreach(PersonAssignmentCoupling coupling in Model.PersonAssignmentCouplings)
+        {
+            <input type="hidden" asp-for="@Model.PersonAssignmentCouplings[@couplingIndexCount].PersonId" value="@coupling.PersonId" />
+            <input type="hidden" asp-for="@Model.PersonAssignmentCouplings[@couplingIndexCount].AssignmentId" value="@coupling.AssignmentId" />
+
+            couplingIndexCount = couplingIndexCount + 1;
+
+        }
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Beskrivelse</th>
+                    <th>Valgt</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach(Location location in Model.AvailableLocations)
+                {
+
+                    Model.ChosenLocations.Add(new ChosenLocation());
+
+                    <tr>
+                        <td>@location.Title</td>
+                        <td>@location.Description</td>
+
+                        
+                        
+                        <input type="hidden" asp-for="@Model.ChosenLocations[listIndexCount].LocationId" value="@location.LocationId" /> 
+                        <td><input type="checkbox" asp-for="@Model.ChosenLocations[listIndexCount].IsChosen"/></td>
+
+                        
+
+                    </tr>
+
+                    listIndexCount = listIndexCount + 1;
+
+                }
+
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary pull-right">Færdiggør tildeling</button>
+
+    </form>
+</div>
+
+}
+else
+{
+     <div class="text-center">Ingen lokationer blev fundet.<br/><br/>
+        <a asp-controller="Location" asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Opret lokation</a>
+    </div>
+}

@@ -144,6 +144,8 @@ namespace ADL.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
+                    b.Property<int>("SchoolId");
+
                     b.Property<string>("Title")
                         .IsRequired();
 

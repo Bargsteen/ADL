@@ -2,12 +2,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using ADL.Models;
 using ADL.Models.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ADL.Controllers
 {
-    public class ClassController : Controller 
+    [Authorize(Roles = "Lærer,Admin")]
+    public class ClassController : Controller
     {
         private readonly IClassRepository classRepository;
         private readonly UserManager<Person> userManager;
@@ -18,21 +20,21 @@ namespace ADL.Controllers
         }
 
         public Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
-
         public async Task<ViewResult> Create()
         {
             int currentSchoolId = (await GetCurrentUserAsync()).SchoolId;
 
-            return View(new Class() { SchoolId = currentSchoolId});
+            return View(new Class() { SchoolId = currentSchoolId });
         }
 
         [HttpPost]
         public IActionResult Create(Class newClass)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 classRepository.SaveClass(newClass);
-                return View(nameof(List));
+                TempData["message"] = $"Klassen '{newClass.StartYear} {newClass.Name}' blev oprettet.";
+                return View("List");
             }
             return View(newClass);
         }

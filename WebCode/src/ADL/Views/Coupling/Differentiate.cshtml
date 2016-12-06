@@ -1,0 +1,61 @@
+@model DifferentiateViewModel
+
+@{
+    ViewBag.Title = "Differentiering";
+}
+
+<div class="container">
+  <h2>Differentier din undervisning</h2>
+  <p>Vælg hvilke opgaver, som de enkelte elever skal have.</p>    
+  <form asp-action="Differentiate" method="POST">        
+      <input type="hidden" asp-for="CurrentSchoolId" value="@Model.CurrentSchoolId" />
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Elev</th>
+        @if(Model.ChosenAssignmentSet.Assignments.Count() != 0)
+        {
+        
+            @foreach(Assignment assignment in Model.ChosenAssignmentSet.Assignments)
+            {
+                <th>@assignment.Text</th>
+            }
+
+        }
+      </tr>
+    </thead>
+    <tbody>
+        @if(Model.ChosenClass.People.Count() != 0)
+        {
+            
+            int listIndexCount = 0;
+            
+            
+            @foreach(Person person in Model.ChosenClass.People)
+            {
+                <tr>
+                    <td>@person.Firstname @person.Lastname</td>
+                    @if(Model.ChosenAssignmentSet.Assignments.Count() != 0)
+                    {
+                        @foreach(Assignment assignment in Model.ChosenAssignmentSet.Assignments)
+                        {
+                            Model.PersonAssignmentCouplings.Add(new PersonIdAssignmentIdCoupling());
+
+                            <input type="hidden" asp-for="@Model.PersonAssignmentCouplings[listIndexCount].AssignmentId" value="@assignment.AssignmentId" />
+                            <input type="hidden" asp-for="@Model.PersonAssignmentCouplings[listIndexCount].PersonId" value="@person.Id" />
+                            <th><input type="checkbox" asp-for="@Model.PersonAssignmentCouplings[listIndexCount].IsChosen"></th>
+                            listIndexCount = listIndexCount + 1;
+                        }
+                    }
+                </tr>
+            }
+            
+    
+        }
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-primary pull-right">Gem og gå videre til valg af lokationer</button>
+        
+    </form>
+</div>
+

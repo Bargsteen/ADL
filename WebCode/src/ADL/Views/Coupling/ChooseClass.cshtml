@@ -1,4 +1,4 @@
-@model IEnumerable<Class>
+@model ChooseClassViewModel
 
 @{
     ViewBag.Title = "Vælg klasse";
@@ -7,14 +7,14 @@
 <h4>Vælg en klasse</h4>
 
 <div class="panel-group">
-@if(Model.Count() != 0){
-    @foreach(Class cls in Model)
+@if(Model.AvailableClasses.Count() != 0){
+    @foreach(Class cls in Model.AvailableClasses)
     {
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#@cls.ClassId">@cls.StartYear @cls.Name</a>
-                    <a class="btn btn-xs btn-primary pull-right" href="#"><span style="color:white;">Vælg</span></a>
+                    <a class="btn btn-xs btn-primary pull-right" asp-action="Differentiate" asp-route-chosenAssignmentSetId="@Model.ChosenAssignmentSetId" asp-route-chosenClassId="@cls.ClassId"><span style="color:white;">Vælg</span></a>
                 </h4>
             </div>
 
