@@ -66,7 +66,6 @@ namespace ADL.Migrations
                     LocationId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
                     Description = table.Column<string>(nullable: false),
-                    SchoolId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>

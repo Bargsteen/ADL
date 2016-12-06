@@ -8,7 +8,7 @@ using ADL.Models;
 namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161206142908_Initial")]
+    [Migration("20161206095739_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,8 +144,6 @@ namespace ADL.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired();
-
-                    b.Property<int>("SchoolId");
 
                     b.Property<string>("Title")
                         .IsRequired();

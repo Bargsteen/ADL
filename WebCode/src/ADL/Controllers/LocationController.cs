@@ -4,8 +4,6 @@ using ADL.Models.Repositories;
 using System.Linq;
 using System;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
 
 namespace ADL.Controllers
 {
@@ -13,19 +11,12 @@ namespace ADL.Controllers
     public class LocationController : Controller
     {
         ILocationRepository locationRepository;
-        UserManager<Person> userManager;
-        public LocationController(ILocationRepository repo, UserManager<Person> usrMgr)
+        public LocationController(ILocationRepository repo)
         {
             locationRepository = repo;
-            userManager = usrMgr;
         }
 
-        public async Task<ViewResult> List()
-        {
-            Person currentUser = await GetCurrentUserAsync();
-            return View(locationRepository.Locations.Where(l => l.SchoolId == currentUser.SchoolId));
-        }
-
+        public ViewResult List() => View(locationRepository.Locations);
 
         public ViewResult Edit(int locationId) =>
             View(locationRepository.Locations
@@ -34,36 +25,23 @@ namespace ADL.Controllers
         [HttpPost]
         public IActionResult Edit(Location location)
         {
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 locationRepository.SaveLocation(location);
                 TempData["message"] = $"Lokationen '{location.Title}' blev gemt.";
                 return RedirectToAction(nameof(List));
-            }
-            else
-            {
+            } else {
                 // there is something wrong with the data values
                 return View(location);
             }
         }
 
         // Uses edit view, but gives it a new location as input
-        public async Task<ViewResult> Create()
-        {
-            Person currentUser = await GetCurrentUserAsync();
-            Location newLocation = new Location()
-            {
-                SchoolId = currentUser.SchoolId
-            };
-            return View(nameof(Edit), newLocation);
-        }
+        public ViewResult Create() => View(nameof(Edit), new Location());
 
         [HttpPost]
-        public IActionResult Delete(int locationId)
-        {
+        public IActionResult Delete(int locationId) {
             Location deletedLocation = locationRepository.DeleteLocation(locationId);
-            if (deletedLocation != null)
-            {
+            if (deletedLocation != null) {
                 TempData["message"] = $"Lokationen '{deletedLocation.Title}' blev slettet.";
             }
             return RedirectToAction(nameof(List));
@@ -74,7 +52,5 @@ namespace ADL.Controllers
             QrGenerator.GenerateQR(locationId);
             return View("ViewQR", title);
         }
-        public Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
-
     }
 }
