@@ -6,9 +6,9 @@ namespace ADL.Models.ViewModels
     public class AssignmentSetViewModel
     {
         public AssignmentSet AssignmentSet { get; set; }
-        public List<TextAssignment> TextAssignments { get; set; }
-        public List<MultipleChoiceAssignment> MultipleChoiceAssignments { get; set; }
-        public List<ExclusiveChoiceAssignment> ExclusiveChoiceAssignments { get; set; }
+        public List<Assignment> TextAssignments { get; set; }
+        public List<Assignment> MultipleChoiceAssignments { get; set; }
+        public List<Assignment> ExclusiveChoiceAssignments { get; set; }
 
     }
 

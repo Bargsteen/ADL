@@ -55,21 +55,21 @@ namespace ADL.Controllers
 
                 if (model.TextAssignments != null)
                 {
-                    foreach (TextAssignment tA in model.TextAssignments)
+                    foreach (Assignment tA in model.TextAssignments)
                     {
                         model.AssignmentSet.Assignments.Add(tA);
                     }
                 }
                 if (model.ExclusiveChoiceAssignments != null)
                 {
-                    foreach (ExclusiveChoiceAssignment ecA in model.ExclusiveChoiceAssignments)
+                    foreach (Assignment ecA in model.ExclusiveChoiceAssignments)
                     {
                         model.AssignmentSet.Assignments.Add(ecA);
                     }
                 }
                 if (model.MultipleChoiceAssignments != null)
                 {
-                    foreach (MultipleChoiceAssignment mcA in model.MultipleChoiceAssignments)
+                    foreach (Assignment mcA in model.MultipleChoiceAssignments)
                     {
                         model.AssignmentSet.Assignments.Add(mcA);
                     }

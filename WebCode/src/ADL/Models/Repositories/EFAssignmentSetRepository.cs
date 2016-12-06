@@ -19,15 +19,11 @@ namespace ADL.Models.Repositories
             context = ctx;
         }
 
-        public IEnumerable<AssignmentSet> AssignmentSets => context.AssignmentSets.Include(aa => aa.Assignments);
-            //.Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.ExclusiveChoice))
-            //.ThenInclude(e => (e as ExclusiveChoiceAssignment).AnswerOptions != null)
-            //.Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.MultipleChoice))
-            //.ThenInclude(m => (m as MultipleChoiceAssignment).AnswerOptions != null)
-            //.Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.MultipleChoice))
-            //.ThenInclude(m => (m as MultipleChoiceAssignment).AnswerCorrectness != null)
-            //.Include(a => a.Assignments.Where(aa => aa.Type == AssignmentType.Text));
-
+        public IEnumerable<AssignmentSet> AssignmentSets => context.AssignmentSets
+            .Include(aS => aS.Assignments)
+                .ThenInclude(a => a.AnswerOptions)
+            .Include(aS => aS.Assignments)
+                .ThenInclude(a => a.AnswerCorrectness);
 
         public void SaveAssignmentSet(AssignmentSet assignmentSet)
         {

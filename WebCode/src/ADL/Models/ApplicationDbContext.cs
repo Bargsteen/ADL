@@ -10,19 +10,6 @@ namespace ADL.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<TextAnswer>();
-            builder.Entity<ExclusiveChoiceAnswer>();
-            builder.Entity<MultipleChoiceAnswer>();
-
-            builder.Entity<TextAssignment>();
-            builder.Entity<MultipleChoiceAssignment>();
-            builder.Entity<ExclusiveChoiceAssignment>();
-
-            base.OnModelCreating(builder);
-        }
-        public DbSet<Assignment> Assignments { get; set; }
         public DbSet<AssignmentSet> AssignmentSets { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Answer> Answers { get; set; }

@@ -15,11 +15,11 @@ namespace ADL.Models.Repositories
 
             context = ctx;
 
-            SaveAnswer(new ExclusiveChoiceAnswer()
+            SaveAnswer(new Answer()
             {
                 AnsweredAssignmentId = 2, ChosenAnswer = 0, TimeAnswered = DateTime.Now, Type = EnumCollection.AssignmentType.ExclusiveChoice, UserId = "4d783701-c83a-4380-ac1b-1ea7dbb2e8d0"
             });
-            SaveAnswer(new MultipleChoiceAnswer()
+            SaveAnswer(new Answer()
             {
                 AnsweredAssignmentId = 1, ChosenAnswers = new List<AnswerBool>() {
                     new AnswerBool()

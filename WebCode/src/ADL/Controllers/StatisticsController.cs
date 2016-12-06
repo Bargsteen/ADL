@@ -38,20 +38,20 @@ namespace ADL.Controllers
             }
             return answersForThisAssignment;
         }
-        private Tuple<int, int> GetCorrectVsTotalForExclusiveAssignment(ExclusiveChoiceAssignment assignment)
+        private Tuple<int, int> GetCorrectVsTotalForExclusiveAssignment(Assignment assignment)
         {
-            List<ExclusiveChoiceAnswer> answersForThisAssignment = getAnswersForAssignment(assignment,
-                _answerRepository.Answers) as List<ExclusiveChoiceAnswer>;
+            List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment,
+                _answerRepository.Answers) as List<Answer>;
             Tuple<int, int> correctVsTotalAnswers =
                 new Tuple<int, int>(answersForThisAssignment.Count(a => a.ChosenAnswer == assignment.CorrectAnswer), answersForThisAssignment.Count);
             return correctVsTotalAnswers;
         }
 
-        private List<Tuple<string, double>> GetCorrectPercentageForMultipleAssignment(MultipleChoiceAssignment assignment)
+        private List<Tuple<string, double>> GetCorrectPercentageForMultipleAssignment(Assignment assignment)
         {
             List<Tuple<string, double>> correctPercentages = new List<Tuple<string, double>>();
-            List<MultipleChoiceAnswer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<MultipleChoiceAnswer>;
-            foreach (MultipleChoiceAnswer a in answersForThisAssignment)
+            List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<Answer>;
+            foreach (Answer a in answersForThisAssignment)
             {
                 int correctAnswers = 0;
                 int answerOptionCounter = 0;
@@ -67,11 +67,11 @@ namespace ADL.Controllers
 
         private IEnumerable<Tuple<string, string>> GetAnswersForTextualAssignment(Assignment assignment)
         {
-            List<TextAnswer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<TextAnswer>;
+            List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment, _answerRepository.Answers) as List<Answer>;
             List<Tuple<string, string>> answersForTextualAssignment = new List<Tuple<string, string>>();
-            foreach (TextAnswer answer in answersForThisAssignment)
+            foreach (Answer answer in answersForThisAssignment)
             {
-                answersForTextualAssignment.Add(new Tuple<string, string>(answer.UserId, answer.Text));
+                answersForTextualAssignment.Add(new Tuple<string, string>(answer.UserId, answer.AnswerText));
             }
             return answersForTextualAssignment;
         }
