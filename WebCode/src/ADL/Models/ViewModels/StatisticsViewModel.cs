@@ -14,27 +14,27 @@ namespace ADL.Models.ViewModels
         public Dictionary<int, Tuple<int, int>> CorrectVsTotalForExclusiveAssignments { get; set; }
         public Dictionary<int, IEnumerable<Tuple<string, double>>> CorrectPercentagesForMultipleAssignments { get; set; }
         public Dictionary<int, IEnumerable<Tuple<string, string>>> TextualAnswersForAssignments { get; set; }
-        public List<AnswerInformationPerSetViewModel> AnswerInformationViewModels { get; set; }
+        public List<AnswerInformationPerSetViewModel> AnswerInformationViewModels { get; set; } = new List<AnswerInformationPerSetViewModel>();
 
-        public StatisticsViewModel(IEnumerable<Answer> answerRepositoryAnswers, IEnumerable<AssignmentSet> assignmentSets, IQueryable<Person> people)
+        public StatisticsViewModel(IEnumerable<Answer> answerRepositoryAnswers, IEnumerable<AssignmentSet> assignmentSets, IQueryable<Person> people, Person currentUser)
         {
             Answers = answerRepositoryAnswers;
             AssignmentSets = assignmentSets;
             People = people;
-            //foreach (AssignmentSet assignmentSet in AssignmentSets)
-            //{
-            //    foreach (Person person in People)
-            //    {
-            //        AnswerInformationViewModels.Add(new AnswerInformationPerSetViewModel(person, assignmentSet, Answers));
-            //    }
-            //}
+            foreach (AssignmentSet assignmentSet in AssignmentSets.Where(set => set.CreatorId == currentUser.Id))
+            {
+                foreach (Person person in People)
+                {
+                    AnswerInformationViewModels.Add(new AnswerInformationPerSetViewModel(person, assignmentSet, Answers));
+                }
+            }
         }
     }
     public class AnswerInformationPerSetViewModel
     {
         public Person User { get; set; }
         public AssignmentSet AssignmentSet { get; set; }
-        public List<Tuple<Assignment, Answer>> AssignmentAnswers { get; set; }
+        public List<Tuple<Assignment, Answer>> AssignmentAnswers { get; set; } = new List<Tuple<Assignment, Answer>>();
 
         public AnswerInformationPerSetViewModel(Person user, AssignmentSet set, IEnumerable<Answer> answers)
         {

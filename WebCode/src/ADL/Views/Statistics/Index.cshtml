@@ -1,28 +1,82 @@
-@using System.ComponentModel
+﻿<style>
+    .btn-static {
+        border: 1px solid black;
+        cursor: default;
+        width: auto;
+    }
+
+        .btn-static:active {
+            -moz-box-shadow: inset 0 0 0px white;
+            -webkit-box-shadow: inset 0 0 0px white;
+            box-shadow: inset 0 0 0px white;
+            width: auto;
+        }
+
+    .verticalLine {
+        border-left: thick solid #ff0000;
+    }
+</style>
 @model StatisticsViewModel
 @{
     ViewBag.Title = "Statistik";
 }
-@foreach (var person in Model.People)
-{
-    <div class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#@person.Id">@person.Firstname @person.Id @person.Lastname med brugernavn @person.UserName</a>
-                </h4>
-            </div>
-            <div id="@person.Id" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <!--INNER COLLAPSE-->
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">Panel with panel-danger class</div>
-                        <div class="panel-body">Panel Content</div>
-                    </div>
-                    <!--INNER COLLAPSE END-->
+<div class="row">
+    @foreach (var person in Model.People)
+    {
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion1" href="#@person.Id">
+                            @person.Firstname @person.Lastname
+                        </a>
+                    </h4>   
+                </div>
+                <div id="@person.Id" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="panel-group" id="@person.Id">
+                            <!--Inner kollaps-->
+                            @foreach (var set in Model.AnswerInformationViewModels.Where(aivm => aivm.User.Id == person.Id))
+                {
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#@set.AssignmentSet.AssignmentSetId">
+                                                @set.AssignmentSet.Title
+                                            </a>
+                                        </h4>
+                                    </div>
 
+
+                                    <div id="@set.AssignmentSet.AssignmentSetId" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col-md-6">
+                                                <p></p>
+                                                <p>Her skal der stå en opgavebeskrivelse til multiple coice opgave</p>
+                                            </div>
+
+                                            <div class="col-md-6" style="border-left: dashed 1px">
+                                                <p>Besvarelse:</p>
+                                                <div class="btn btn-static" style="background-color: lightpink">Static</div><br />
+                                                <div class="btn btn-static">Static</div><br />
+                                                <div class="btn btn-static" style="background-color: #d6e9c6">Static</div><br />
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            }
+                            <!--enden på inner kollaps-->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+
+    }
+</div>
+
+
