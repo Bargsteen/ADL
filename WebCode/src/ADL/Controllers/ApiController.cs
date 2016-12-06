@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using ADL.Models.Answers;
 using Microsoft.AspNetCore.Identity;
 
 namespace ADL.Controllers
@@ -28,7 +29,7 @@ namespace ADL.Controllers
         }
 
         /*tager en location og personId som input, skider en assignment ud der er serializaed*/
-        /*public async Task<string> Location(int? id, string personId)
+        public async Task<string> Location(int? id, string personId)
         {
             Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
             if (location != null)
@@ -40,13 +41,12 @@ namespace ADL.Controllers
                 {
                     foreach (Assignment _assignment in _assignmentSet.Assignments)
                     {
-                        if (_assignment.AssignmentId == location.GetAssignmentIdFromPersonId(personId))
+                        if (_assignment.AssignmentId == location.PersonAssignmentCouplings.First(pa => pa.PersonId == personId).AssignmentId)
                         {
                             assignment = _assignment;
                         }
                     }
                 }
-
                 if (assignment != null)
                 {
                     if (await IsValidUser(personId))
@@ -57,19 +57,18 @@ namespace ADL.Controllers
                     {
                         return "Brugeren blev ikke genkendt.";
                     }
-
                 }
                 return "Lokationen har ikke nogen opgave";
             }
             return "Lokationen eksisterer ikke";
-        }*/
+        }
 
         /*skal have alle de locations som en person er connected til*/
-       /* public async Task<string> LocationList(string personId)
+        public async Task<string> LocationList(string personId)
         {
             if (await IsValidUser(personId))
             {
-                List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.GetPersonConnectedToLocation(personId) == true).ToList();
+                List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.PersonAssignmentCouplings.Exists( pa => pa.PersonId == personId)).ToList();
                 return JsonConvert.SerializeObject(allLocationsWithAssignments);
             }
             else
@@ -78,6 +77,7 @@ namespace ADL.Controllers
             }
 
         }
+        
 
         [HttpPost]
         public async Task<string> SendAnswer([FromBody]Answer answer)
@@ -87,9 +87,9 @@ namespace ADL.Controllers
             {
                 if (await IsValidUser(answer.UserId))
                 {
-                    Assignment answeredAssignment = assignmentSetRepository.AssignmentSets
-                    .FirstOrDefault(a => a.AssignmentSetId == answer.AnsweredAssignmentSetId)
-                    .Assignments.FirstOrDefault(a => a.AssignmentId == answer.AnsweredAssignmentId);
+                    Assignment answeredAssignment =
+                        assignmentSetRepository.AssignmentSets.SelectMany(set => set.Assignments)
+                            .First(a => a.AssignmentId == answer.AnsweredAssignmentId);
                     
                     if (answeredAssignment != null)
                     {
@@ -136,11 +136,10 @@ namespace ADL.Controllers
             identificationResult.IsAuthenticated = false;
             return JsonConvert.SerializeObject(identificationResult);
         }
-
         public async Task<bool> IsValidUser(string userId)
         {
             return await userManager.FindByIdAsync(userId) != null;
         }
-*/
+
     }
 }
