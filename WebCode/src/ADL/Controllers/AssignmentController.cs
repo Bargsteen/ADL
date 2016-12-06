@@ -33,8 +33,8 @@ namespace ADL.Controllers
             {
                 PublicAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public),
                 InternalAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Internal && a.SchoolId == currentUser.SchoolId),
-                PrivateAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Private && a.CreatorId == currentUser.Id)
-
+                PrivateAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Private && a.CreatorId == currentUser.Id),
+                CurrentSchoolId = currentUser.SchoolId
             };
             return View(model);
         }

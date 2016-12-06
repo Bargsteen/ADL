@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ADL.Models;
 using ADL.Models.Repositories;
 using ADL.Models.ViewModels;
@@ -9,11 +10,18 @@ namespace ADL.Controllers
     public class CouplingController : Controller
     {
         private readonly ILocationRepository locationRepository;
-        public CouplingController(ILocationRepository locationRepo)
+        private readonly IClassRepository classRepository;
+        public CouplingController(ILocationRepository locationRepo, IClassRepository classRepo)
         {
             locationRepository = locationRepo;
+            classRepository = classRepo;
         }
 
+        public ViewResult ChooseClass(int currentSchoolId)
+        {
+            var classesInThisSchool = classRepository.Classes.Where(c => c.SchoolId == currentSchoolId);
+            return View(classesInThisSchool);
+        }
 
         public ViewResult StudentPick()
         {

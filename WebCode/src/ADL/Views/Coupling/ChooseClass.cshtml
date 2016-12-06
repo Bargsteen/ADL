@@ -1,8 +1,10 @@
 @model IEnumerable<Class>
 
 @{
-    ViewBag.Title = "Klasseliste";
+    ViewBag.Title = "Vælg klasse";
 }
+
+<h4>Vælg en klasse</h4>
 
 <div class="panel-group">
 @if(Model.Count() != 0){
@@ -12,6 +14,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#@cls.ClassId">@cls.StartYear @cls.Name</a>
+                    <a class="btn btn-xs btn-primary pull-right" href="#"><span style="color:white;">Vælg</span></a>
                 </h4>
             </div>
 

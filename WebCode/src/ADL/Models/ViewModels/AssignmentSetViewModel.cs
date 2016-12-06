@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 using ADL.Models.Assignments;
-namespace ADL.Models
+namespace ADL.Models.ViewModels
 {
     public class AssignmentSetViewModel
     {
@@ -17,5 +17,6 @@ namespace ADL.Models
         public IEnumerable<AssignmentSet> PublicAssignmentSets { get; set; }
         public IEnumerable<AssignmentSet> PrivateAssignmentSets { get; set; }
         public IEnumerable<AssignmentSet> InternalAssignmentSets { get; set; }
+        public int CurrentSchoolId { get; set; }
     }
 }

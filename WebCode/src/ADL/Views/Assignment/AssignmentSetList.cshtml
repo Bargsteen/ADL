@@ -16,7 +16,7 @@
           @foreach(AssignmentSet assignmentSet in Model.PrivateAssignmentSets)
           {
               <li class="list-group-item">@assignmentSet.Title 
-              <a class="btn btn-xs btn-success pull-right">Tildel</a></li>
+              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" class="btn btn-xs btn-success pull-right">Tildel</a></li>
           }
 
       </ul>
@@ -35,7 +35,7 @@
           @foreach(AssignmentSet assignmentSet in Model.InternalAssignmentSets)
           {
               <li class="list-group-item">@assignmentSet.Title 
-              <a class="btn btn-xs btn-success pull-right">Tildel</a></li>
+              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" class="btn btn-xs btn-success pull-right">Tildel</a></li>
           }
 
       </ul>
@@ -55,7 +55,7 @@
           @foreach(AssignmentSet assignmentSet in Model.PublicAssignmentSets)
           {
               <li class="list-group-item">@assignmentSet.Title 
-              <a class="btn btn-xs btn-success pull-right">Tildel</a></li>
+              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" class="btn btn-xs btn-success pull-right">Tildel</a></li>
           }
 
       </ul>
