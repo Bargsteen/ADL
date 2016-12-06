@@ -10,9 +10,9 @@ namespace ADLApp.ViewModel
 {
     public class MultipleResultViewModel
     {
-        public MultipleChoiceAssignment Assignment { get; set; }
+        public Assignment Assignment { get; set; }
 
-        public MultipleResultViewModel(List<ChosenAnswerlBool> chosenAnswers, MultipleChoiceAssignment assignmentToSolve)
+        public MultipleResultViewModel(List<ChosenAnswerlBool> chosenAnswers, Assignment assignmentToSolve)
         {
             Assignment = assignmentToSolve;
             FeedBackList = new List<Tuple<string, Color, string>>();
@@ -22,7 +22,7 @@ namespace ADLApp.ViewModel
                 if (ca.Value)
                 {
                     string chosen = "\u2611";
-                    FeedBackList.Add(Assignment.AnswerCorrectness[counter]
+                    FeedBackList.Add(Assignment.AnswerCorrectness[counter].Value
                         ? new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Green,
                             chosen)
                         : new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Red,
@@ -31,7 +31,7 @@ namespace ADLApp.ViewModel
                 else
                 {
                     string notChosen = "\u2610";
-                    FeedBackList.Add(!Assignment.AnswerCorrectness[counter]
+                    FeedBackList.Add(!Assignment.AnswerCorrectness[counter].Value
                         ? new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Green, notChosen)
                         : new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Red, notChosen));
                 }

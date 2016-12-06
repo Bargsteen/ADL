@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADLApp.Models
 {
-    public abstract class Answer
+    public class Answer
     {
         public Answer(int assignmentId)
         {

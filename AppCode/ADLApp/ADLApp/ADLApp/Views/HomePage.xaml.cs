@@ -43,30 +43,31 @@ namespace ADLApp.Views
             {
                 Assignment currentAssignment = await _assignmentLoader
                 .GetAssignment(scanString);
-                //currentAssignment = new MultipleChoiceAssignment()
-                //{
-                //    Question = "Hvad hedder Teitur?",
-                //    Headline = "Om teitur",
-                //    AnswerCorrectness = new List<bool>() { true, false, true },
-                //    AnswerOptions = new List<AnswerOption>() { new AnswerOption() {
-                //        AnswerOptionID = 1, Text = "mig"
-                //    }, new AnswerOption() {
-                //        AnswerOptionID = 2, Text = "eller mig"
-                //    }, new AnswerOption() {
-                //        AnswerOptionID = 3, Text = "måske mig?"
-                //    }
-                //    }
-                //};
+                currentAssignment = new MultipleChoiceAssignment()
+                {
+                    Question = "Hvad hedder Teitur?",
+                    Headline = "Om teitur",
+                    AnswerCorrectness = new List<ChosenAnswerlBool>() { new ChosenAnswerlBool() { Value = true }, new ChosenAnswerlBool() { Value = false }, new ChosenAnswerlBool() { Value = true } },
+                    AnswerOptions = new List<AnswerOption>() { new AnswerOption() {
+                        AnswerOptionID = 1, Text = "mig"
+                    }, new AnswerOption() {
+                        AnswerOptionID = 2, Text = "eller mig"
+                    }, new AnswerOption() {
+                        AnswerOptionID = 3, Text = "måske mig?"
+                    }
+                    },
+                    AssignmentType = AssignmentType.MultipleChoice
+                };
                 if (currentAssignment != null)
                 {
-                    if (currentAssignment is ExclusiveChoiceAssignment)
+                    if (currentAssignment.AssignmentType == AssignmentType.ExclusiveChoice)
                     {
-                        ExclusiveSolvePage nextPage = new ExclusiveSolvePage(currentAssignment as ExclusiveChoiceAssignment);
+                        ExclusiveSolvePage nextPage = new ExclusiveSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
-                    else if (currentAssignment is MultipleChoiceAssignment)
+                    else if (currentAssignment.AssignmentType == AssignmentType.MultipleChoice)
                     {
-                        MultipleSolvePage nextPage = new MultipleSolvePage(currentAssignment as MultipleChoiceAssignment);
+                        MultipleSolvePage nextPage = new MultipleSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
                     else

@@ -9,7 +9,6 @@ namespace ADLApp.Models
 {
     public class ExclusiveChoiceAssignment : Assignment
     {
-        public List<AnswerOption> AnswerOptions { get; set; }
-        public int CorrectAnswer { get; set; }
+       
     }
 }
