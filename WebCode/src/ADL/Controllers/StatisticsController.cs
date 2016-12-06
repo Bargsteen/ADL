@@ -79,12 +79,11 @@ namespace ADL.Controllers
         public async Task<ViewResult> Index()
         {
             Person currentPerson = await _userManager.GetUserAsync(HttpContext.User);
-            StatisticsViewModel statisticsViewModel = new StatisticsViewModel()
-            {
-                Answers = _answerRepository.Answers,
-                AssignmentSets = _assignmentSetRepository.AssignmentSets,
-                People = _userManager.Users.Where(p => p.PersonType == EnumCollection.PersonTypes.Student && p.SchoolId == currentPerson.SchoolId)
-            };
+
+            StatisticsViewModel statisticsViewModel = new StatisticsViewModel(_answerRepository.Answers,
+                _assignmentSetRepository.AssignmentSets,
+                _userManager.Users.Where(
+                    p => p.PersonType == EnumCollection.PersonTypes.Student && p.SchoolId == currentPerson.SchoolId));
             return View(statisticsViewModel);
         }
     }

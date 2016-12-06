@@ -1,8 +1,28 @@
-@model StatisticsViewModel 
-@{ 
-    ViewBag.Title = "Statistik"; 
-} 
+@using System.ComponentModel
+@model StatisticsViewModel
+@{
+    ViewBag.Title = "Statistik";
+}
 @foreach (var person in Model.People)
 {
-    <p>@person.Firstname</p>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#@person.Id">@person.Firstname @person.Id @person.Lastname med brugernavn @person.UserName</a>
+                </h4>
+            </div>
+            <div id="@person.Id" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <!--INNER COLLAPSE-->
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">Panel with panel-danger class</div>
+                        <div class="panel-body">Panel Content</div>
+                    </div>
+                    <!--INNER COLLAPSE END-->
+
+                </div>
+            </div>
+        </div>
+    </div>
 }
