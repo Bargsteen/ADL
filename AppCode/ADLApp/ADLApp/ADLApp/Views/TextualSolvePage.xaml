@@ -2,11 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ADLApp.Views.TextualSolvePage"
-             Title="{Binding Headline}">
-  <StackLayout Spacing="30" x:Name="SolveSL" Padding="5,10" >
-    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" ></Label>
-      <Editor x:Name="AnswerEditor" HeightRequest="200">
+             Title="{Binding Headline}"
+             BackgroundColor="White">
+  
+  <StackLayout>
+    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599"></Label>
+  <StackLayout Spacing="30" x:Name="SolveSL" VerticalOptions="StartAndExpand"  >
+    
+    <Label Text="  Skriv tekst her" TextColor="Black" FontSize="18" ></Label>
+      <Editor x:Name="AnswerEditor" HeightRequest="200" BackgroundColor="#F7F7F7" >
       </Editor>
-      <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+  </StackLayout>
+  <StackLayout VerticalOptions="End">
+    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+  </StackLayout>
   </StackLayout>
 </ContentPage>
