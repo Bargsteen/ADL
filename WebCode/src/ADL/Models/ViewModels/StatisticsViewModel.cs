@@ -4,15 +4,18 @@ using System.Drawing;
 using System.Linq;
 using ADL.Models.Answers;
 using ADL.Models.Assignments;
+using ADL.Models.Repositories;
 
 namespace ADL.Models.ViewModels
 {
     public class StatisticsViewModel
     {
+        private readonly IClassRepository _classRepository;
 
         public IQueryable<Person> People { get; set; }
         public IEnumerable<AssignmentSet> AssignmentSets { get; set; }
         public IEnumerable<Answer> Answers { get; set; }
+        public IEnumerable<Class> ClassesInSchool { get; set; }
         public Dictionary<int, Tuple<int, int,int>> CorrectVsTotalForSet { get; set; } = new Dictionary<int, Tuple<int, int,int>>();
         public List<AnswerInformationPerSetViewModel> AnswerInformationViewModels { get; set; } = new List<AnswerInformationPerSetViewModel>();
 
@@ -71,8 +74,9 @@ namespace ADL.Models.ViewModels
             return new Tuple<int, int, int>(correctAnswers, totalAnswers, answersForReview);
         }
 
-        public StatisticsViewModel(IEnumerable<Answer> answerRepositoryAnswers, IEnumerable<AssignmentSet> assignmentSets, IQueryable<Person> people, Person currentUser)
+        public StatisticsViewModel(IEnumerable<Answer> answerRepositoryAnswers, IEnumerable<AssignmentSet> assignmentSets, IQueryable<Person> people, Person currentUser, IEnumerable<Class> classesInSchool)
         {
+            ClassesInSchool = classesInSchool;
             Answers = answerRepositoryAnswers;
             AssignmentSets = assignmentSets;
             People = people;
