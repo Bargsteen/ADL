@@ -22,7 +22,7 @@ namespace ADLApp.Views
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             LoginButton.IsEnabled = false;
-            UsernameEntry.Text = "swagger";
+            UsernameEntry.Text = "elevaa";
             PasswordEntry.Text = "Abekat123$";
             ILogin loginService = new RequestManager();
             var response = await loginService.Login(new UserLoginModel()

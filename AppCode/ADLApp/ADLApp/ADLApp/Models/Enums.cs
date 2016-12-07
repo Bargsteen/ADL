@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace ADLApp.Models
 {
-    public enum AssignmentType { ExclusiveChoice, MultipleChoice, Textual }
+    public enum AssignmentType { MultipleChoice, ExclusiveChoice, Text };
 }

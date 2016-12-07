@@ -25,7 +25,7 @@ namespace ADLApp.ViewModel
         public async Task<Assignment> GetAssignment(string resourceLocationId)
         {
             TaskFactory tf = new TaskFactory();
-            RestRequest request = new RestRequest("/location/" + resourceLocationId + "?UserId=" + App.LoginResult.UserId, Method.GET);
+            RestRequest request = new RestRequest("/location/" + resourceLocationId + "?personId=" + App.LoginResult.UserId, Method.GET);
             IRestResponse response = await GetDataAsString(request);
             if (response.Content != "Lokationen har ikke nogen opgave")
             {
