@@ -7,7 +7,7 @@ namespace ADL.Models.Repositories
         IEnumerable<Location> Locations { get; }
         void SaveLocation(Location location);
         Location DeleteLocation(int locationId);
-        bool SavePersonAssignmentCoupling(int locationId, List<PersonAssignmentCoupling> personAssignmentCouplings);
-        bool RemovePersonAssignmentCoupling(int locationId);
+        bool AddCouplingsToLocation(int locationId, List<PersonAssignmentCoupling> personAssignmentCouplings);
+        bool RemoveAllCouplingsForSpecificPersonOnLocation(int locationId, string personId);
     }
 }

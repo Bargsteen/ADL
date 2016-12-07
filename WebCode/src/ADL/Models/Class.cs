@@ -5,6 +5,7 @@ namespace ADL.Models
 {
     public class Class
     {
+        [Key]
         public int ClassId { get; set; }
         [Required]
         public int SchoolId { get; set; }

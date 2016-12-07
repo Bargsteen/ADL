@@ -25,7 +25,7 @@
 
 <div class="row">
     <div class="col-md-12" style="margin-bottom: 15px">
-        <button type="button" class="btn cursor" style="background-color: lightgreen" disabled="">Symbolisere korrekt svar</button>
+        <button type="button" class="btn cursor" style="background-color: lightgreen" disabled="">Symboliserer korrekt svar</button>
         <button type="button" class="btn gul cursor" style="background-color: lemonchiffon" disabled="">Symboliserer hvad man skulle have svaret</button>
         <button type="button" class="btn cursor" style="background-color: lightpink" disabled="">Symboliserer forkert svar</button>
     </div>
@@ -43,7 +43,7 @@
                 <div id="@person.Id" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="panel-group" id="@person.Id">
-                            <!--Inner kollaps-->
+                            <!-- innerCollapse -->
                             @foreach (var set in Model.AnswerInformationViewModels.Where(aivm => aivm.User.Id == person.Id))
                             {
                                 <div class="panel panel-success">
@@ -174,7 +174,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            }<!--enden på inner kollaps-->
+                            }<!-- innerCollapse end -->
                         </div>
                     </div>
                 </div>

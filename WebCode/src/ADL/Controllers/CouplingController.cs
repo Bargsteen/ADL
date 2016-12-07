@@ -39,7 +39,8 @@ namespace ADL.Controllers
                 DifferentiateViewModel model = new DifferentiateViewModel()
                 {
                     ChosenClass = chosenClass,
-                    ChosenAssignmentSet = chosenAssignmentSet
+                    ChosenAssignmentSet = chosenAssignmentSet,
+                    CurrentSchoolId = chosenClass.SchoolId
                 };
 
                 return View(model);
@@ -89,31 +90,60 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid)
             {
-              
+                Dictionary<int, List<PersonAssignmentCoupling>> chosenLocations = model.ChosenLocations.Where(cl => cl.IsChosen == true).ToDictionary(key => key.LocationId, val => new List<PersonAssignmentCoupling>());
+                int amountOfLocations = chosenLocations.Count();
+                List<string> chosenPeopleIds = model.PersonAssignmentCouplings.Select(pac => pac.PersonId).Distinct().ToList();
+                foreach (var personId in chosenPeopleIds)
+                {
+                    foreach (var locationId in chosenLocations.Keys)
+                    {
+                        // Clear old couplings for this person on the chosen locations
+                        locationRepository.RemoveAllCouplingsForSpecificPersonOnLocation(locationId, personId);
+                    }
+                    List<int> assignmentsForPerson = model.PersonAssignmentCouplings.Where(pac => pac.PersonId == personId).Select(pac => pac.AssignmentId).ToList();
+                    List<int> locationsForPerson = chosenLocations.Keys.ToList();
+                    int differenceBetweenAssignmentsAndLocationsCount = assignmentsForPerson.Count() - locationsForPerson.Count();
 
-                TempData["errorMessage"] = "Koblingen blev teknisk set færdig, men blev ikke gemt.";
+
+                    if (differenceBetweenAssignmentsAndLocationsCount > 0) // there are more assignments than locations
+                    {
+                        int indexOfChosenLocations = 0;
+                        while (differenceBetweenAssignmentsAndLocationsCount > 0)
+                        { // adds locations in order from chosenLocationsIds until enough locationsForPerson exist.
+                            locationsForPerson.Add(chosenLocations.Keys.ElementAt(indexOfChosenLocations % amountOfLocations));
+                            indexOfChosenLocations++;
+                            differenceBetweenAssignmentsAndLocationsCount--;
+                        }
+                    }
+                    foreach(int assignmentId in assignmentsForPerson)
+                    {
+                        // Choose a location, where a coupling should be made
+                        // locationsForPersons contains at least as many locations as there are assignments.
+                        var someLocationId = locationsForPerson.First();
+                        locationsForPerson.Remove(someLocationId);
+                        var newCoupling = new PersonAssignmentCoupling()
+                        {
+                            AssignmentId = assignmentId,
+                            PersonId = personId
+                            
+                        };
+                        chosenLocations[someLocationId].Add(newCoupling);
+                    }
+
+                }
+
+                foreach(var kvp in chosenLocations)
+                { // Save the changes to db
+                    locationRepository.AddCouplingsToLocation(kvp.Key, kvp.Value);
+                }
+
+                TempData["message"] = "Koblingen blev gemt.";
                 return View();
             }
             TempData["errorMessage"] = "Der skete en fejl.";
             return View(nameof(ChooseLocations), model);
         }
 
-
-
-        public ViewResult StudentPick()
-        {
-            PersonAndAssignmentViewModel studentList = new PersonAndAssignmentViewModel()
-            {
-                /*TEST ANDREAS*/
-                AssignmentSets = new List<AssignmentSet>() { new AssignmentSet(), new AssignmentSet() },
-
-                Persons = new List<Person>() { new Person(), new Person(), new Person(), new Person(), new Person() }
-
-                //AssignmentSets = assignmentSetRepository.AssignmentSets,
-                //Persons = userManager.Users as IEnumerable<Person>
-            };
-            return View(studentList);
-        }
 
         public ViewResult AttachAssignmentToLocation(int chosenAssignmentId)
         {
