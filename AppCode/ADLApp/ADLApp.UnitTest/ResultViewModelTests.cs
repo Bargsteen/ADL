@@ -18,7 +18,7 @@ namespace ADLApp.UnitTest
         {
             CorrectAnswer = 0,
             Headline = "Test Headline",
-            Question = "Test question",
+            Text = "Test question",
             AnswerOptions = new List<AnswerOption>()
             {
                 new AnswerOption() {AnswerOptionID = 333, Text = "AO1"},
