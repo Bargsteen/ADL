@@ -40,11 +40,12 @@ namespace ADL.Controllers
                 foreach (Assignment _assignment in assignmentSetRepository.AssignmentSets.SelectMany(a => a.Assignments))
                 {
                     if (_assignment.AssignmentId ==
-                        location.PersonAssignmentCouplings.First(pa => pa.PersonId == personId).AssignmentId)
+                        location.PersonAssignmentCouplings.FirstOrDefault(pa => pa.PersonId == personId).AssignmentId)
                     {
                         location.PersonAssignmentCouplings.Remove(
-                            location.PersonAssignmentCouplings.First(pa => pa.PersonId == personId));
+                            location.PersonAssignmentCouplings.FirstOrDefault(pa => pa.PersonId == personId));
                         assignment = _assignment;
+                        break;
                     }
                 }
                 if (assignment != null)
@@ -131,7 +132,6 @@ namespace ADL.Controllers
                 }
 
             }
-
             // Credentials are invalid, or account doesn't exist
             identificationResult.IsAuthenticated = false;
             return JsonConvert.SerializeObject(identificationResult);
