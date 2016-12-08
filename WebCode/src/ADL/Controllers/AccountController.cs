@@ -14,7 +14,8 @@ namespace ADL.Controllers
         private UserManager<Person> userManager;
         private SignInManager<Person> signInManager;
         private IUserValidator<Person> userValidator;
-        private IPasswordValidator<Person> passwordValidator; private IPasswordHasher<Person> passwordHasher;
+        private IPasswordValidator<Person> passwordValidator; 
+        private IPasswordHasher<Person> passwordHasher;
         private ISchoolRepository schoolRepository;
 
         private IClassRepository classRepository;
@@ -123,7 +124,9 @@ namespace ADL.Controllers
                 }
             }
             TempData["errorMessage"] = "Der skete en fejl. Prøv igen";
-            return View();
+            model.AvailableClasses = classRepository.Classes;
+            model.AvailableSchools = schoolRepository.Schools;
+            return View(model);
         }
 
         public async Task<IActionResult> Edit(string id)

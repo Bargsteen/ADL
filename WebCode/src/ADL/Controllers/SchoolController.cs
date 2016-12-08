@@ -30,7 +30,7 @@ namespace ADL.Controllers
             if (ModelState.IsValid)
             {
                 schoolRepository.SaveSchool(school);
-                TempData["message"] = $"Lokationen '{school.SchoolName}' blev gemt.";
+                TempData["message"] = $"Skolen ved navn '{school.SchoolName}' blev gemt.";
                 return RedirectToAction(nameof(List));
             }
             else

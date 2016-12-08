@@ -28,7 +28,6 @@ namespace ADL.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Lærer,Admin")]
         public async Task<IActionResult> Create(Class newClass)
         {
             if (ModelState.IsValid)
@@ -40,7 +39,6 @@ namespace ADL.Controllers
             }
             return View(newClass);
         }
-        [Authorize(Roles = "Lærer,Admin")]
         public async Task<ViewResult> List()
         {
             int currentSchoolId = (await GetCurrentUserAsync()).SchoolId;

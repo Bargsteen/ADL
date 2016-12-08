@@ -14,10 +14,10 @@
       <Image Source="multiple_choice.png"></Image>
       <Label Text="Multiple choice opgaver bliver løst ved at vælge en eller flere svarmuligheder og derefter trykke på knappen i bunden" TextColor="Black" FontSize="15"></Label>
       <Label Text="Exclusive choice opgaver" FontSize="30"></Label>
-      <Image Source=""></Image>
+      <Image Source="exclusiv.PNG"></Image>
       <Label Text="Exclusive choice opgaver bliver løst ved at vælge en af svarmulighederne og derefter trykke på knappen i bunden" TextColor="Black" FontSize="15"></Label>
       <Label Text="TekstOpgaver" FontSize="30"></Label>
-      <Image Source=""></Image>
+      <Image Source="text.png"></Image>
       <Label Text="En tekstopgave bliver løst ved at skrive i tekst boksen og derefter trykke på knappen i bunden" TextColor="Black" FontSize="15"></Label>
       <Button Text="Gå tilbage" TextColor="White" BackgroundColor="#66bb6a" Clicked="OnGoHomeButtonClicked"></Button>
     </StackLayout>
