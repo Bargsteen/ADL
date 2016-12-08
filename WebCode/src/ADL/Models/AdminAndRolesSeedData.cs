@@ -44,7 +44,7 @@ namespace ADL.Models
                     .CreateAsync(user, password);
                 if (result.Succeeded)
                 {
-                    foreach (string role in roles) // 
+                    foreach (string role in roles)
                     {
                         await userManager.AddToRoleAsync(user, role);
                     }

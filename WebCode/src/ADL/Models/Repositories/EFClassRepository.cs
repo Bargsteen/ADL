@@ -30,7 +30,7 @@ namespace ADL.Models.Repositories
         }
         public Class DeleteClass(int classId)
         {
-            Class classToBeDeleted = context.Classes.FirstOrDefault(c => c.ClassId == classId);
+            Class classToBeDeleted = Classes.FirstOrDefault(c => c.ClassId == classId);
             if(classToBeDeleted != null)
             {
                 context.Remove(classToBeDeleted);
@@ -41,7 +41,7 @@ namespace ADL.Models.Repositories
 
         public void AddPersonToClass(int classId, Person newPerson)
         {
-            Class dbEntry = context.Classes.FirstOrDefault(c => c.ClassId == classId);
+            Class dbEntry = Classes.FirstOrDefault(c => c.ClassId == classId);
             if(dbEntry != null)
             {
                 if(dbEntry.People == null)

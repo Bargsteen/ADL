@@ -1,10 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using static ADL.Models.EnumCollection;
-using ADL.Models.Assignments;
-using ADL.Models.Answers;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace ADL.Models.Repositories
 {
@@ -34,7 +30,7 @@ namespace ADL.Models.Repositories
             }
             else // Updating
             {
-                AssignmentSet dbEntrySet = context.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSet.AssignmentSetId);
+                AssignmentSet dbEntrySet = AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSet.AssignmentSetId);
                 dbEntrySet.Title = assignmentSet.Title;
                 dbEntrySet.Description = assignmentSet.Description;
                 dbEntrySet.PublicityLevel = assignmentSet.PublicityLevel;

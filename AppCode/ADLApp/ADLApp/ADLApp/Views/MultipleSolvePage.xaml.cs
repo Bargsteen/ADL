@@ -18,6 +18,9 @@ namespace ADLApp.Views
         public MultipleSolvePage(Assignment mca)
         {
             InitializeComponent();
+			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
+						   new Thickness(10, 00, 10, 00),
+						   new Thickness(0));
             BindingContext = mca;
             assignmentToSolve = mca;
         }
@@ -35,16 +38,16 @@ namespace ADLApp.Views
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            List<ChosenAnswerlBool> chosenAnswers = new List<ChosenAnswerlBool>();
+            List<AnswerBool> chosenAnswers = new List<AnswerBool>();
             for (int i = 0; i < assignmentToSolve.AnswerOptions.Count; i++)
             {
-                chosenAnswers.Add( new ChosenAnswerlBool() {Value = false});
+                chosenAnswers.Add( new AnswerBool() {Value = false});
             }
             foreach (var ca in ChosenAnswers)
             {
                 chosenAnswers[assignmentToSolve.AnswerOptions.IndexOf(ca)].Value = true;
             }
-            await answerSender.SendAnswer(new MultipleChoiceAnswer(assignmentToSolve.AssignmentId) { ChosenAnswers = chosenAnswers });
+            await answerSender.SendAnswer(new Answer(assignmentToSolve.AssignmentId) { ChosenAnswers = chosenAnswers });
             await Navigation.PushModalAsync(new MultipleResultPage(new MultipleResultViewModel(chosenAnswers, assignmentToSolve)));
             await Navigation.PopAsync();
         }

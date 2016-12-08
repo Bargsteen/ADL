@@ -28,17 +28,17 @@ namespace ADL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Class newClass)
+        public async Task<IActionResult> Create(Class newClass)
         {
             if (ModelState.IsValid)
             {
                 classRepository.SaveClass(newClass);
                 TempData["message"] = $"Klassen '{newClass.StartYear} {newClass.Name}' blev oprettet.";
-                return View("List");
+                int currentUserSchoolId = (await GetCurrentUserAsync()).SchoolId;
+                return View("List", classRepository.Classes.Where(c => c.SchoolId == currentUserSchoolId));
             }
             return View(newClass);
         }
-
         public async Task<ViewResult> List()
         {
             int currentSchoolId = (await GetCurrentUserAsync()).SchoolId;

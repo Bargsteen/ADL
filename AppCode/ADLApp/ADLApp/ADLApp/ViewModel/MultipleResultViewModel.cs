@@ -12,12 +12,12 @@ namespace ADLApp.ViewModel
     {
         public Assignment Assignment { get; set; }
 
-        public MultipleResultViewModel(List<ChosenAnswerlBool> chosenAnswers, Assignment assignmentToSolve)
+        public MultipleResultViewModel(List<AnswerBool> chosenAnswers, Assignment assignmentToSolve)
         {
             Assignment = assignmentToSolve;
             FeedBackList = new List<Tuple<string, Color, string>>();
             int counter = 0;
-            foreach (ChosenAnswerlBool ca in chosenAnswers)
+            foreach (AnswerBool ca in chosenAnswers)
             {
                 if (ca.Value)
                 {

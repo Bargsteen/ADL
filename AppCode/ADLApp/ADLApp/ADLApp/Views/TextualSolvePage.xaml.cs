@@ -16,6 +16,9 @@ namespace ADLApp.Views
         public TextualSolvePage(Assignment assignment)
         {
             InitializeComponent();
+			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
+						   new Thickness(10, 00, 10, 00),
+						   new Thickness(0));
             BindingContext = assignment;
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
@@ -23,7 +26,7 @@ namespace ADLApp.Views
             if (AnswerEditor.Text != null)
             {
                 string status = await
-                answerSender.SendAnswer(new TextAnswer((BindingContext as Assignment).AssignmentId) {Text = AnswerEditor.Text});
+                answerSender.SendAnswer(new Answer((BindingContext as Assignment).AssignmentId) {AnswerText = AnswerEditor.Text});
                 await Navigation.PushModalAsync(new TextualResultPage());
                 await Navigation.PopAsync();
             }

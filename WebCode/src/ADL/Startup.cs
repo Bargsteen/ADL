@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ADL.Models;
 using ADL.Models.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace ADL
 {
@@ -52,11 +52,12 @@ namespace ADL
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             // Logging
-            loggerFactory.AddConsole(configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+        
+            //loggerFactory.AddConsole(configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
 
             //MigrateDatabase(app);
 

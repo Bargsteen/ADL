@@ -34,14 +34,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+<<<<<<< HEAD
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">ADL</a>
+=======
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">ADL</a>
+>>>>>>> 82fbff588a4524a34495c5fbc8eb9eedd42ef52a
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="Assignment" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a></li>
+                    <li><a asp-controller="Assignment" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Opret opgavesæt</a></li>
                     <li><a asp-controller="Assignment" asp-action="AssignmentSetList"><span class="glyphicon glyphicon-paperclip"></span> Opgavebibliotek</a></li>
                     <li><a  asp-controller="Location" asp-action="List"><span class="glyphicon glyphicon-map-marker"></span> Lokationer</a></li>
                     <li><a asp-controller="Statistics" asp-action="Index"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
+<<<<<<< HEAD
                     @if (this.User.Identity.Name == "Admin")
                     {
                         <li class="dropdown">
@@ -54,6 +59,23 @@
                             </ul>
                         </li>
                     }
+=======
+                    
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Admin <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-controller="Class" asp-action="Create">Lav ny klasse</a></li>
+                                <li><a asp-controller="Class" asp-action="List">Se alle klasser</a></li>
+                                <li class="divider" role="separator"></li>
+                                <li><a asp-controller="RoleAdmin" asp-action="Index">Giv roller</a></li>
+                            </ul>
+                        </li>
+                    <!--DROPDOWN MENU-->
+                    }
+                    
+>>>>>>> 82fbff588a4524a34495c5fbc8eb9eedd42ef52a
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.User.Identity.Name == null)

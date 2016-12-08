@@ -38,11 +38,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChosenAnswerlBool.cs" />
+    <Compile Include="Models\AnswerBool.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Models\ExclusiveChoiceAnswer.cs" />
-    <Compile Include="Models\MultipleChoiceAnswer.cs" />
-    <Compile Include="Models\MultipleChoiceAssignment.cs" />
     <Compile Include="Models\TextAnswer.cs" />
     <Compile Include="ViewModel\ILogin.cs" />
     <Compile Include="ViewModel\LoginResult.cs" />
@@ -83,7 +80,6 @@
     <Compile Include="ViewModel\RequestManager.cs" />
     <Compile Include="ViewModel\IAssignmentLoader.cs" />
     <Compile Include="ViewModel\IScanner.cs" />
-    <Compile Include="Models\ExclusiveChoiceAssignment.cs" />
     <Compile Include="ViewModel\QRScanner.cs" />
     <Compile Include="Views\MultipleResultPage.xaml.cs">
       <DependentUpon>MultipleResultPage.xaml</DependentUpon>
