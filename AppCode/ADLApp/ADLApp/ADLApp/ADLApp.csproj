@@ -38,12 +38,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChosenAnswerlBool.cs" />
-    <Compile Include="Models\Enums.cs" />
-    <Compile Include="Models\ExclusiveChoiceAnswer.cs" />
-    <Compile Include="Models\MultipleChoiceAnswer.cs" />
-    <Compile Include="Models\MultipleChoiceAssignment.cs" />
-    <Compile Include="Models\TextAnswer.cs" />
     <Compile Include="ViewModel\ILogin.cs" />
     <Compile Include="ViewModel\LoginResult.cs" />
     <Compile Include="ViewModel\MultipleResultViewModel.cs" />
@@ -57,9 +51,6 @@
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Answer.cs" />
-    <Compile Include="Models\AnswerOption.cs" />
-    <Compile Include="Models\Location.cs" />
     <Compile Include="ViewModel\IAnswerSender.cs" />
     <Compile Include="ViewModel\ILocationLoader.cs" />
     <Compile Include="ViewModel\ExclusiveResultViewModel.cs" />
@@ -72,7 +63,6 @@
     <Compile Include="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Assignment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ExclusiveResultPage.xaml.cs">
       <DependentUpon>ExclusiveResultPage.xaml</DependentUpon>
@@ -83,7 +73,6 @@
     <Compile Include="ViewModel\RequestManager.cs" />
     <Compile Include="ViewModel\IAssignmentLoader.cs" />
     <Compile Include="ViewModel\IScanner.cs" />
-    <Compile Include="Models\ExclusiveChoiceAssignment.cs" />
     <Compile Include="ViewModel\QRScanner.cs" />
     <Compile Include="Views\MultipleResultPage.xaml.cs">
       <DependentUpon>MultipleResultPage.xaml</DependentUpon>
@@ -120,6 +109,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ADL">
+      <HintPath>..\..\..\..\WebCode\src\ADL\bin\Debug\netcoreapp1.0\ADL.dll</HintPath>
+    </Reference>
     <Reference Include="ExifLib, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ExifLib.PCL.1.0.1\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
       <Private>True</Private>

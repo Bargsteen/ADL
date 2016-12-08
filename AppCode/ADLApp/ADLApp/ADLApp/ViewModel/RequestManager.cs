@@ -5,9 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using ZXing;
 using RestSharp;
-using ADLApp.Models;
+using ADLApp.ViewModel;
+using ADL.Models.Assignments;
+using ADL.Models.Answers;
 using Newtonsoft.Json;
 using System.Net;
+using ADL.Models;
 using RestSharp.Deserializers;
 
 namespace ADLApp.ViewModel
@@ -29,8 +32,6 @@ namespace ADLApp.ViewModel
             IRestResponse response = await GetDataAsString(request);
             if (response.Content != "Lokationen har ikke nogen opgave")
             {
-                string lol = response.Content;
-                string a = "asd";
                 return JsonConvert.DeserializeObject<Assignment>(response.Content);
             }
             else return null;
@@ -68,5 +69,6 @@ namespace ADLApp.ViewModel
             IRestResponse<LoginResult> resp = await _rClient.ExecutePostTaskAsync<LoginResult>(request);
             return resp;
         }
+
     }
 }

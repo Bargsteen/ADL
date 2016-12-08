@@ -1,5 +1,4 @@
-﻿using ADLApp.Models;
-using ADLApp.ViewModel;
+﻿using ADLApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ADL.Models;
+using ADL.Models.Assignments;
 using Xamarin.Forms;
 using ADLApp.ViewModel;
-using ADLApp.Models;
 
 namespace ADLApp.Views
 {
@@ -45,12 +46,12 @@ namespace ADLApp.Views
                 .GetAssignment(scanString);
                 if (currentAssignment != null)
                 {
-                    if (currentAssignment.Type == AssignmentType.ExclusiveChoice)
+                    if (currentAssignment.Type == EnumCollection.AssignmentType.ExclusiveChoice)
                     {
                         ExclusiveSolvePage nextPage = new ExclusiveSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
-                    else if (currentAssignment.Type == AssignmentType.MultipleChoice)
+                    else if (currentAssignment.Type == EnumCollection.AssignmentType.MultipleChoice)
                     {
                         MultipleSolvePage nextPage = new MultipleSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
