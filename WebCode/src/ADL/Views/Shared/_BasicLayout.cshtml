@@ -8,8 +8,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.css" />
-    <link rel="stylesheet" type="text/css" href="~/custom/css/csscustom.css">
     <link rel="stylesheet" type="text/css" href="~/custom/css/bootstrap-social.css">
+    <link rel="stylesheet" type="text/css" href="~/custom/css/csscustom.css">
+
 
     <script asp-src-include="lib/jquery/**/jquery.min.js"></script>
     <script asp-src-include="lib/jquery-validation/**/jquery.validate.min.js"></script>
@@ -20,6 +21,10 @@
 </head>
 
 <body>
+
+    
+    
+    
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -29,71 +34,64 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">ActiveLearning</a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">ADL</a>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
+            <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Assignment" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Opret opgave</a></li>
                     <li><a asp-controller="Assignment" asp-action="AssignmentSetList"><span class="glyphicon glyphicon-paperclip"></span> Opgavebibliotek</a></li>
-                    <li><a asp-controller="Location" asp-action="List"><span class="glyphicon glyphicon-map-marker"></span> Lokationer</a></li>
+                    <li><a  asp-controller="Location" asp-action="List"><span class="glyphicon glyphicon-map-marker"></span> Lokationer</a></li>
                     <li><a asp-controller="Statistics" asp-action="Index"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
-
-                    <!--<li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>-->
-                    <!--DROPDOWN MENU-->
+                    @if (this.User.Identity.Name == "Admin")
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-wrench"></span> Adminpanel <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-controller="Class" asp-action="Create">Opret klasse</a></li>
+                                <li><a asp-controller="Class" asp-action="List">Klasseliste</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a asp-controller="RoleAdmin" asp-action="Index">Rolle administration</a></li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a asp-controller="Home" asp-action="Index" style="padding-bottom: 0">
-                            @if (this.User.Identity.Name != null)
-                            {
-                                <p style="color: white">
-                                    Hej @this.User.Identity.Name! <span class="glyphicon glyphicon-user"></span>
-                                </p>
-                            }
-                        </a>
-                    </li>
                     @if (this.User.Identity.Name == null)
                     {
-                        <a asp-controller="Account" asp-action="Login" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-log-in"></span> Log ind</a>
+                        <li class="login-button"><a asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span> Log ind</a></li>
                     }
                     else
                     {
-                        <a asp-controller="Account" asp-action="Logout" class="btn btn-danger navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Log ud</a>
+                        <li><a a asp-controller="Home" asp-action="Index">Hej @this.User.Identity.Name! </a></li>
+                        <li class="logout-button"><a asp-controller="Account" asp-action="Logout"><span class="glyphicon glyphicon-log-out"></span> Log ud</a></li>
                     }
 
-
                 </ul>
-            </div>
+            </div><!--/.nav-collapse -->
         </div>
     </nav>
 
-    <div class="container body-content" style="padding-top:70px">
-        @if (TempData["message"] != null)
-        {
-            <div class="alert alert-success">@TempData["message"]</div>
-        }
-        @if (TempData["errorMessage"] != null)
-        {
-            <div class="alert alert-danger">@TempData["errorMessage"]</div>
-        }
-        @RenderBody()
-        <hr />
-        <footer>
-            <p class="text-center">&copy; 2016 - e309, Aalborg Universitet</p>
-        </footer>
-    </div>
-    <script src="/js/AssignmentSetCreation.js"></script>
+    
+    
+
+
+
+<div class="container body-content" style="padding-top: 70px">
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
+    @if (TempData["errorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["errorMessage"]</div>
+    }
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p class="text-center">&copy; 2016 - e309, Aalborg Universitet</p>
+    </footer>
+</div>
+<script src="/js/AssignmentSetCreation.js"></script>
 
 </body>
 </html>

@@ -1,5 +1,4 @@
 ﻿body {
-
 }
 
 .glyphicon-large {
@@ -14,9 +13,9 @@
     background: url(../images/jumbbg.jpg);
 }
 
-.jumbotron-fix h1, .jumbotron p {
-    color: #ffffff;
-}
+    .jumbotron-fix h1, .jumbotron p {
+        color: #ffffff;
+    }
 
 .jumbotron-create {
     background-color: palegreen;
@@ -27,13 +26,28 @@
     background-color: #fee;
 }
 
-a.glyph-black-link
-{
+a.glyph-black-link {
     color: #222;
 }
 
-a.glyph-green-link
-{
-    color:#A4C639;
+a.glyph-green-link {
+    color: #A4C639;
 }
 
+.input-group {
+    margin-bottom: 5px;
+}
+
+.login-button {
+    background-color: #449d44;
+    text-align: center;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.logout-button {
+    background-color: #c9302c;
+    text-align: center;
+}
