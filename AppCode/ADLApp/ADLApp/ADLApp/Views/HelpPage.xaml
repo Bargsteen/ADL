@@ -11,7 +11,7 @@
       <Image Source=""></Image>
       <Label Text="QR-scanneren virker således at mobil telefonen bliver hold over en QR-kode indtil en opgave bliver vist" TextColor="Black" FontSize="15"></Label>
       <Label Text="Multiple choice opgaver" FontSize="30"></Label>
-      <Image Source=""></Image>
+      <Image Source="multiple_choice.png"></Image>
       <Label Text="Multiple choice opgaver bliver løst ved at vælge en eller flere svarmuligheder og derefter trykke på knappen i bunden" TextColor="Black" FontSize="15"></Label>
       <Label Text="Exclusive choice opgaver" FontSize="30"></Label>
       <Image Source=""></Image>

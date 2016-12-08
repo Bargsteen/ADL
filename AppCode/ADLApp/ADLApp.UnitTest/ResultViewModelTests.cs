@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using ADL.Models;
+using ADL.Models.Assignments;
 using ADLApp.ViewModel;
 using ADLApp.Views;
-using ADLApp.Models;
 using ADLApp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xamarin.Forms;
@@ -17,7 +18,6 @@ namespace ADLApp.UnitTest
         private static Assignment exAssignment = new Assignment()
         {
             CorrectAnswer = 0,
-            Headline = "Test Headline",
             Text = "Test question",
             AnswerOptions = new List<AnswerOption>()
             {
