@@ -24,7 +24,7 @@ namespace ADLApp.Views
             LoginButton.IsEnabled = false;
             if (UsernameEntry.Text == "123")
             {
-                UsernameEntry.Text = "elevaa";
+                UsernameEntry.Text = "eleva";
                 PasswordEntry.Text = "Abekat123$";
             }
             ILogin loginService = new RequestManager();

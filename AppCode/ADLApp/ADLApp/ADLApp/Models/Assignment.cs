@@ -14,6 +14,6 @@ namespace ADLApp.Models
         public string Text { get; set; }
         public List<AnswerOption> AnswerOptions { get; set; }
         public int CorrectAnswer { get; set; }
-        public List<ChosenAnswerlBool> AnswerCorrectness { get; set; }
+        public List<AnswerBool> AnswerCorrectness { get; set; }
     }
 }

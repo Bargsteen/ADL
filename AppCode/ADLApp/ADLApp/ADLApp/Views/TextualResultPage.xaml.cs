@@ -14,6 +14,9 @@ namespace ADLApp.Views
         public TextualResultPage()
         {
             InitializeComponent();
+            Padding = Device.OnPlatform(new Thickness(0, 20, 0, 0),
+                            new Thickness(0),
+                            new Thickness(0));
         }
         private async void OnContinueButtonClicked(object sender, EventArgs e)
         {
