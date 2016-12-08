@@ -26,7 +26,7 @@ namespace ADL.Models.Repositories
             else
             {
                 // Editing an existing location
-                Location dbEntry = context.Locations.FirstOrDefault(l => l.LocationId == location.LocationId);
+                Location dbEntry = Locations.FirstOrDefault(l => l.LocationId == location.LocationId);
                 if (dbEntry != null)
                 {
                     dbEntry.Title = location.Title;
@@ -38,8 +38,7 @@ namespace ADL.Models.Repositories
 
         public Location DeleteLocation(int locationId)
         {
-            Location dbEntry = context.Locations
-                .FirstOrDefault(l => l.LocationId == locationId);
+            Location dbEntry = Locations.FirstOrDefault(l => l.LocationId == locationId);
             if (dbEntry != null)
             {
                 context.Locations.Remove(dbEntry);

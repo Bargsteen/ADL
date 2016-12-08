@@ -4,9 +4,11 @@ using ADL.Models;
 using ADL.Models.Repositories;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ADL.Controllers
 {
+    [Authorize(Roles="Admin, Lærer")]
     public class CouplingController : Controller
     {
         private readonly ILocationRepository locationRepository;
@@ -90,7 +92,9 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid)
             {
-                Dictionary<int, List<PersonAssignmentCoupling>> chosenLocations = model.ChosenLocations.Where(cl => cl.IsChosen == true).ToDictionary(key => key.LocationId, val => new List<PersonAssignmentCoupling>());
+                Dictionary<int, List<PersonAssignmentCoupling>> chosenLocations = model.ChosenLocations.Where(cl => cl.IsChosen == true)
+                    .ToDictionary(key => key.LocationId, val => new List<PersonAssignmentCoupling>());
+                    
                 int amountOfLocations = chosenLocations.Count();
                 List<string> chosenPeopleIds = model.PersonAssignmentCouplings.Select(pac => pac.PersonId).Distinct().ToList();
                 foreach (var personId in chosenPeopleIds)
@@ -106,13 +110,14 @@ namespace ADL.Controllers
 
 
                     if (differenceBetweenAssignmentsAndLocationsCount > 0) // there are more assignments than locations
-                    {
+                    { 
                         int indexOfChosenLocations = 0;
                         while (differenceBetweenAssignmentsAndLocationsCount > 0)
                         { // adds locations in order from chosenLocationsIds until enough locationsForPerson exist.
                             locationsForPerson.Add(chosenLocations.Keys.ElementAt(indexOfChosenLocations % amountOfLocations));
                             indexOfChosenLocations++;
                             differenceBetweenAssignmentsAndLocationsCount--;
+                            // E.g. 10 assignments and 5 locations. locationsForPerson = [1,2,3,4,5] -> [1,2,3,4,5,1,2,3,4,5]
                         }
                     }
                     foreach(int assignmentId in assignmentsForPerson)
@@ -143,31 +148,5 @@ namespace ADL.Controllers
             TempData["errorMessage"] = "Der skete en fejl.";
             return View(nameof(ChooseLocations), model);
         }
-
-
-        public ViewResult AttachAssignmentToLocation(int chosenAssignmentId)
-        {
-            AssignmentToLocationAttachment attachment = new AssignmentToLocationAttachment();
-            attachment.ChosenAssignmentId = chosenAssignmentId;
-            attachment.Locations = locationRepository.Locations;
-            return View(attachment);
-        }
-
-        /*[HttpPost]
-public async Task<IActionResult> AttachAssignmentToLocation(AssignmentToLocationAttachment attachment)
-{
-    Location chosenLocation = locationRepository.Locations.FirstOrDefault(l => l.LocationId == attachment.ChosenLocationId);
-    Assignment chosenAssignment = assignmentSetRepository.AssignmentSets.FirstOrDefault(b => b.AssignmentSetId == attachment.ChosenAssignmentSetId).Assignments.FirstOrDefault(a => a.AssignmentId == attachment.ChosenAssignmentId);
-    Person chosenPerson = await GetCurrentUserAsync();
-    if (chosenLocation != null && chosenAssignment != null)
-    {
-        locationRepository.SaveAttachedAssignmentId(chosenLocation.LocationId, chosenPerson.Id, chosenAssignment.AssignmentId);
-        TempData["message"] = $"Opgaven '{chosenAssignment.Title}' blev koblet med lokationen '{chosenLocation.Title}'";
-        return RedirectToAction(nameof(List));
-    }
-    return View(attachment);
-}
-*/
-
     }
 }

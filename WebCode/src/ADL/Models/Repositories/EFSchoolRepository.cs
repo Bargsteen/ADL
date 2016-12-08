@@ -24,7 +24,7 @@ namespace ADL.Models.Repositories
             else
             {
                 // Update School
-                School DbEntry = context.Schools.FirstOrDefault(s => s.SchoolId == school.SchoolId);
+                School DbEntry = Schools.FirstOrDefault(s => s.SchoolId == school.SchoolId);
                 if(DbEntry != null)
                 {
                     DbEntry.SchoolName = school.SchoolName;
@@ -35,7 +35,7 @@ namespace ADL.Models.Repositories
         }
         public School DeleteSchool(int schoolId)
         {
-            School DbEntry = context.Schools.FirstOrDefault(s => s.SchoolId == schoolId);
+            School DbEntry = Schools.FirstOrDefault(s => s.SchoolId == schoolId);
             if(DbEntry != null)
             {
                 context.Remove(DbEntry);

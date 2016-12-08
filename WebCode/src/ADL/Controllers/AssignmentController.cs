@@ -115,7 +115,7 @@ namespace ADL.Controllers
             AssignmentSet deletedAssignmentSet = assignmentSetRepository.DeleteAssignmentSet(assignmentSetId);
             if (deletedAssignmentSet != null)
             {
-                TempData["message"] = $"Opgaven '{deletedAssignmentSet.Title}' blev slettet.";
+                TempData["message"] = $"Opgavesættet '{deletedAssignmentSet.Title}' blev slettet.";
             }
             return RedirectToAction(nameof(AssignmentSetList));
         }

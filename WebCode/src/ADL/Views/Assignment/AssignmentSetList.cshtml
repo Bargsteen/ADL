@@ -5,7 +5,7 @@
 
 <div class="panel-group">
 @if(Model.PrivateAssignmentSets.Count() != 0){
-  <div class="panel panel-success">
+  <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" href="#PrivateAssignmentSets">Dine egne opgavesæt</a>
@@ -24,10 +24,10 @@
   </div>
 }
 @if(Model.InternalAssignmentSets.Count() != 0){
-  <div class="panel panel-info">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#InternalAssignmentSets">Skolen opgavesæt</a>
+        <a data-toggle="collapse" href="#InternalAssignmentSets">Skolens opgavesæt</a>
       </h4>
     </div>
     <div id="InternalAssignmentSets" class="panel-collapse collapse">
@@ -44,7 +44,7 @@
 }
 
 @if(Model.PublicAssignmentSets.Count() != 0){
-  <div class="panel panel-default">
+  <div class="panel panel-warning">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" href="#PublicAssignmentSets">Offentlige opgavesæt</a>
