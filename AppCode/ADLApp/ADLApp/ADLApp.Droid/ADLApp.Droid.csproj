@@ -180,6 +180,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\scan.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splashscreen.png" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

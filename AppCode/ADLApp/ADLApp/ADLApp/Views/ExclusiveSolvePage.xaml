@@ -23,13 +23,13 @@
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-              <Label FontSize="20" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text= "{Binding Text}" TextColor="Black" Margin="10"></Label>
+              <Label FontSize="20" Text= "{Binding Text}" TextColor="Black" Margin="10"></Label>
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-    </StackLayout>
-    <StackLayout VerticalOptions="End">
+    <!--</StackLayout>-->
+    <!--<StackLayout VerticalOptions="End">-->
       <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked"  BackgroundColor="#66bb6a" TextColor="White"></Button>
     </StackLayout>
   </StackLayout>

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ADL.Models;
-using ADL.Models.Assignments;
 using ADLApp.ViewModel;
 using ADLApp.Views;
 using ADLApp;
+using ADLApp.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xamarin.Forms;
 
