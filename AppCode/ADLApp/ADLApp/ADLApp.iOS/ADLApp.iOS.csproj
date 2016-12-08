@@ -119,6 +119,17 @@
     <BundleResource Include="Resources\57.png" />
     <BundleResource Include="Resources\120.png" />
     <BundleResource Include="Resources\87.png" />
+    <BundleResource Include="Resources\SplashScreen.png" />
+    <BundleResource Include="Resources\SplashScreen_1080x1920.png" />
+    <BundleResource Include="Resources\Find_128px.png" />
+    <BundleResource Include="Resources\Find_171px.png" />
+    <BundleResource Include="Resources\Find_256px.png" />
+    <BundleResource Include="Resources\Find_512px.png" />
+    <BundleResource Include="Resources\Logo.png" />
+    <BundleResource Include="Resources\Scan_128px.png" />
+    <BundleResource Include="Resources\Scan_171px.png" />
+    <BundleResource Include="Resources\Scan_256px.png" />
+    <BundleResource Include="Resources\Scan_512px.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
