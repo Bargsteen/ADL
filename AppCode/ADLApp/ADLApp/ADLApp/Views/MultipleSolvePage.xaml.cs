@@ -1,10 +1,11 @@
-﻿using ADL.Models;
+﻿using ADLApp.Models;
 using ADLApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ADL.Models.Answers;
-using ADL.Models.Assignments;
+using System.Text;
+using System.Threading.Tasks;
+
 using Xamarin.Forms;
 
 namespace ADLApp.Views
@@ -34,16 +35,16 @@ namespace ADLApp.Views
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            List<AnswerBool> chosenAnswers = new List<AnswerBool>();
+            List<ChosenAnswerlBool> chosenAnswers = new List<ChosenAnswerlBool>();
             for (int i = 0; i < assignmentToSolve.AnswerOptions.Count; i++)
             {
-                chosenAnswers.Add( new AnswerBool() {Value = false});
+                chosenAnswers.Add( new ChosenAnswerlBool() {Value = false});
             }
             foreach (var ca in ChosenAnswers)
             {
                 chosenAnswers[assignmentToSolve.AnswerOptions.IndexOf(ca)].Value = true;
             }
-            await answerSender.SendAnswer(new Answer() { AnsweredAssignmentId = assignmentToSolve.AssignmentId,ChosenAnswers = chosenAnswers });
+            await answerSender.SendAnswer(new MultipleChoiceAnswer(assignmentToSolve.AssignmentId) { ChosenAnswers = chosenAnswers });
             await Navigation.PushModalAsync(new MultipleResultPage(new MultipleResultViewModel(chosenAnswers, assignmentToSolve)));
             await Navigation.PopAsync();
         }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ADLApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ADL.Models.Assignments;
 
 namespace ADLApp.ViewModel
 {

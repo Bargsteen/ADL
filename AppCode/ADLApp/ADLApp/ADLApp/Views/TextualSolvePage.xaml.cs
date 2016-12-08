@@ -1,11 +1,11 @@
-﻿using ADL.Models.Answers;
+﻿using ADLApp.Models;
 using ADLApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ADL.Models.Assignments;
+
 using Xamarin.Forms;
 
 namespace ADLApp.Views
@@ -23,7 +23,7 @@ namespace ADLApp.Views
             if (AnswerEditor.Text != null)
             {
                 string status = await
-                answerSender.SendAnswer(new Answer() {AnsweredAssignmentId = (BindingContext as Assignment).AssignmentId, AnswerText = AnswerEditor.Text});
+                answerSender.SendAnswer(new TextAnswer((BindingContext as Assignment).AssignmentId) {Text = AnswerEditor.Text});
                 await Navigation.PushModalAsync(new TextualResultPage());
                 await Navigation.PopAsync();
             }

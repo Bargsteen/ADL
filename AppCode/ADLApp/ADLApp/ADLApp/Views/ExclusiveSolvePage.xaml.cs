@@ -1,22 +1,20 @@
 ﻿using System;
 using Xamarin.Forms;
+using ADLApp.Models;
 using ADLApp.ViewModel;
 using System.Net;
-using ADL.Models;
-using ADL.Models.Answers;
-using ADL.Models.Assignments;
 
 namespace ADLApp.Views
 {
     public partial class ExclusiveSolvePage : ContentPage
     {
         private IAnswerSender answerSender = new RequestManager();
-        private readonly Assignment _assignmentToSolve;
+        public Assignment AssignmentToSolve { get; set; }
         public ExclusiveSolvePage(Assignment currentAssignment)
         {
             InitializeComponent();
             BindingContext = currentAssignment;
-            _assignmentToSolve = currentAssignment;
+            AssignmentToSolve = currentAssignment;
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
@@ -26,10 +24,10 @@ namespace ADLApp.Views
                 return;
             }
             SendAnswerButton.IsEnabled = false;
-            int selectedAnswerIndex = _assignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
+            int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
             string status = await
-                answerSender.SendAnswer(new Answer { AnsweredAssignmentId = _assignmentToSolve.AssignmentId,ChosenAnswer = selectedAnswerIndex});
-            await Navigation.PushModalAsync(new ExclusiveResultPage(new ExclusiveResultViewModel(_assignmentToSolve, selectedAnswerIndex)));
+                answerSender.SendAnswer(new ExclusiveChoiceAnswer(AssignmentToSolve.AssignmentId) {ChosenAnswer = selectedAnswerIndex});
+            await Navigation.PushModalAsync(new ExclusiveResultPage(new ExclusiveResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
             SendAnswerButton.IsEnabled = true;
             await Navigation.PopAsync();
         }

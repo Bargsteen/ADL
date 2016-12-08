@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ADL.Models.Assignments;
+using ADLApp.Models;
 using Xamarin.Forms;
 
 namespace ADLApp.ViewModel
 {
-    public class ExclusiveResultViewModel
+    public class ExclusiveResultViewModel : INotifyPropertyChanged
     {
         public ExclusiveResultViewModel(Assignment assignment, int answer)
         {
@@ -22,14 +22,13 @@ namespace ADLApp.ViewModel
             }
             else
             {
-                Feedback = new Tuple<string, Color>($"Desværre, det rigtige svar var \"{CorrectAnswer}\"",
-                    Color.Red);
+                Feedback = new Tuple<string, Color>($"Desværre, det rigtige svar var \"{CorrectAnswer}\"", Color.Red);
             }
         }
-
         public Assignment Assignment { get; set; }
         public string AnswerChosen { get; set; }
         public Tuple<string, Color> Feedback { get; set; }
-        public string CorrectAnswer { get; set;}
+        public string CorrectAnswer { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

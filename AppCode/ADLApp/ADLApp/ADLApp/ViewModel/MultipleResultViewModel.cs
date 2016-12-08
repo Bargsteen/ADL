@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ADL.Models.Assignments;
-using ADL.Models.Answers;
+using ADLApp.Models;
 using Xamarin.Forms;
 
 namespace ADLApp.ViewModel
@@ -13,12 +12,12 @@ namespace ADLApp.ViewModel
     {
         public Assignment Assignment { get; set; }
 
-        public MultipleResultViewModel(List<AnswerBool> chosenAnswers, Assignment assignmentToSolve)
+        public MultipleResultViewModel(List<ChosenAnswerlBool> chosenAnswers, Assignment assignmentToSolve)
         {
             Assignment = assignmentToSolve;
             FeedBackList = new List<Tuple<string, Color, string>>();
             int counter = 0;
-            foreach (AnswerBool ca in chosenAnswers)
+            foreach (ChosenAnswerlBool ca in chosenAnswers)
             {
                 if (ca.Value)
                 {
