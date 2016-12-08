@@ -13,9 +13,9 @@ namespace ADLApp.Views
         public HelpPage()
         {
             InitializeComponent();
-            Padding = Device.OnPlatform(new Thickness(0, 20, 0, 0),
-                            new Thickness(0),
-                            new Thickness(0));
+            Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
+						   new Thickness(10, 00, 10, 00),
+						   new Thickness(0));
         }
 
         private async void OnGoHomeButtonClicked(object sender, EventArgs e)
