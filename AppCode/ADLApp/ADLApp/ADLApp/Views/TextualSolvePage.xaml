@@ -6,7 +6,7 @@
              BackgroundColor="White">
   
   <StackLayout>
-    <Label x:Name="Question" Text ="{Binding Question}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599"></Label>
+    <Label x:Name="Question" Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599"></Label>
   <StackLayout Spacing="30" x:Name="SolveSL" VerticalOptions="StartAndExpand"  >
     
     <Label Text="  Skriv tekst her" TextColor="Black" FontSize="18" ></Label>

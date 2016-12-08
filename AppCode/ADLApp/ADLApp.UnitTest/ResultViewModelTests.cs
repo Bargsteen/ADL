@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using ADL.Models;
+using ADL.Models.Assignments;
 using ADLApp.ViewModel;
 using ADLApp.Views;
-using ADLApp.Models;
 using ADLApp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xamarin.Forms;
@@ -14,15 +15,14 @@ namespace ADLApp.UnitTest
     {
         private ExclusiveResultViewModel rvm = new ExclusiveResultViewModel(exAssignment, 1);
 
-        private static ExclusiveChoiceAssignment exAssignment = new ExclusiveChoiceAssignment()
+        private static Assignment exAssignment = new Assignment()
         {
             CorrectAnswer = 0,
-            Headline = "Test Headline",
-            Question = "Test question",
+            Text = "Test question",
             AnswerOptions = new List<AnswerOption>()
             {
-                new AnswerOption() {AnswerOptionID = 333, Text = "AO1"},
-                new AnswerOption() {AnswerOptionID = 44, Text = "AO2"}
+                new AnswerOption() {AnswerOptionId = 333, Text = "AO1"},
+                new AnswerOption() {AnswerOptionId = 44, Text = "AO2"}
             },
         };
         [TestMethod]

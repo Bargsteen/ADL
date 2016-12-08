@@ -29,6 +29,8 @@ namespace ADLApp.ViewModel
             IRestResponse response = await GetDataAsString(request);
             if (response.Content != "Lokationen har ikke nogen opgave")
             {
+                string lol = response.Content;
+                string a = "asd";
                 return JsonConvert.DeserializeObject<Assignment>(response.Content);
             }
             else return null;

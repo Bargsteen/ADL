@@ -11,6 +11,9 @@ namespace ADLApp.Views
         public ExclusiveResultPage(ExclusiveResultViewModel RVM)
         {
             InitializeComponent();
+            Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
+						   new Thickness(10, 00, 10, 00),
+						   new Thickness(0));
             BindingContext = RVM;
         }
         private async void Button_OnClicked(object sender, EventArgs e)

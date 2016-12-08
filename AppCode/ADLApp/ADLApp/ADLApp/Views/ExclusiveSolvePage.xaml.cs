@@ -13,6 +13,9 @@ namespace ADLApp.Views
         public ExclusiveSolvePage(Assignment currentAssignment)
         {
             InitializeComponent();
+			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
+						   new Thickness(10, 00, 10, 00),
+						   new Thickness(0));
             BindingContext = currentAssignment;
             AssignmentToSolve = currentAssignment;
         }
@@ -26,7 +29,7 @@ namespace ADLApp.Views
             SendAnswerButton.IsEnabled = false;
             int selectedAnswerIndex = AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
             string status = await
-                answerSender.SendAnswer(new ExclusiveChoiceAnswer(AssignmentToSolve.AssignmentId) {ChosenAnswer = selectedAnswerIndex});
+                answerSender.SendAnswer(new Answer(AssignmentToSolve.AssignmentId) {ChosenAnswer = selectedAnswerIndex});
             await Navigation.PushModalAsync(new ExclusiveResultPage(new ExclusiveResultViewModel(AssignmentToSolve, selectedAnswerIndex)));
             SendAnswerButton.IsEnabled = true;
             await Navigation.PopAsync();

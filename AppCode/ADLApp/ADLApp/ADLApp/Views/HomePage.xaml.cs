@@ -17,6 +17,9 @@ namespace ADLApp.Views
         public HomePage()
         {
             InitializeComponent();
+			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
+						   new Thickness(10, 00, 10, 00),
+						   new Thickness(0));
             PromptForLogin();
             LoginPage.OnLogin += OnLoginLoadLocations;
         }
@@ -45,12 +48,12 @@ namespace ADLApp.Views
                 .GetAssignment(scanString);
                 if (currentAssignment != null)
                 {
-                    if (currentAssignment.AssignmentType == AssignmentType.ExclusiveChoice)
+                    if (currentAssignment.Type == AssignmentType.ExclusiveChoice)
                     {
                         ExclusiveSolvePage nextPage = new ExclusiveSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
-                    else if (currentAssignment.AssignmentType == AssignmentType.MultipleChoice)
+                    else if (currentAssignment.Type == AssignmentType.MultipleChoice)
                     {
                         MultipleSolvePage nextPage = new MultipleSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);

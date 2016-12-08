@@ -16,21 +16,27 @@ namespace ADLApp.Views
         public LoginPage()
         {
             InitializeComponent();
+			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
+						   new Thickness(10, 00, 10, 00),
+						   new Thickness(0));
         }
         public static event EventHandler OnLogin;
-    
+
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             LoginButton.IsEnabled = false;
-            UsernameEntry.Text = "elevaa";
-            PasswordEntry.Text = "Abekat123$";
+            if (UsernameEntry.Text == "123")
+            {
+                UsernameEntry.Text = "eleva";
+                PasswordEntry.Text = "Abekat123$";
+            }
             ILogin loginService = new RequestManager();
             var response = await loginService.Login(new UserLoginModel()
             {
                 Username = UsernameEntry.Text,
                 Password = PasswordEntry.Text
             });
-            if(response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode == HttpStatusCode.OK)
             {
                 if (response.Data != null && response.Data.IsAuthenticated)
                 {

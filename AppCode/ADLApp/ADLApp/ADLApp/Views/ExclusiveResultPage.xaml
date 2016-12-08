@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:ADLApp.Views"
              x:Class="ADLApp.Views.ExclusiveResultPage">
   <StackLayout Spacing="30">
-    <Label x:Name="QuestionLabel" Text="{Binding Path=Assignment.Question}" VerticalTextAlignment="Start" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="20" TextColor="Black"></Label>
+    <Label x:Name="QuestionLabel" Text="{Binding Path=Assignment.Text}" VerticalTextAlignment="Start" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="20" TextColor="Black"></Label>
     <StackLayout Orientation="Vertical">
       <Label x:Name="preTextLabel" Text="Du svarede:" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="Black"></Label>
       <Label x:Name="AnswerLabel" Text="{Binding AnswerChosen}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontAttributes="Bold" TextColor="{Binding Feedback.Item2}"></Label>
