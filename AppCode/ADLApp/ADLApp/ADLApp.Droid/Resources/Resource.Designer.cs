@@ -1955,7 +1955,7 @@ namespace ADLApp.Droid
 			public const int exclusiv = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
-			public const int find_qr = 2130837582;
+			public const int find = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
 			public const int ic_audiotrack = 2130837583;
@@ -2219,7 +2219,7 @@ namespace ADLApp.Droid
 			public const int notification_template_icon_bg = 2130837672;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int scan_qr = 2130837669;
+			public const int scan = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
 			public const int splashscreen = 2130837670;
