@@ -1952,7 +1952,7 @@ namespace ADLApp.Droid
 			public const int design_snackbar_background = 2130837580;
 			
 			// aapt resource value: 0x7f02004d
-			public const int exclusive = 2130837581;
+			public const int exclusiv = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
 			public const int find_lokation = 2130837582;
