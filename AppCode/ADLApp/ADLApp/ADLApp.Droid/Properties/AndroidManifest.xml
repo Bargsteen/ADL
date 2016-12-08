@@ -8,5 +8,5 @@
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<application android:label="ADL - Active Differentiated Learning" android:icon="@drawable/splashscreen"></application>
+	<application android:label="ADL - Active Differentiated Learning" android:icon="@drawable/logo"></application>
 </manifest>
