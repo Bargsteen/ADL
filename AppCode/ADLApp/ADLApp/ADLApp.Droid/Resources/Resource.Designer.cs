@@ -2222,7 +2222,7 @@ namespace ADLApp.Droid
 			public const int scan = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
-			public const int splashscreen = 2130837670;
+			public const int SplashScreen = 2130837670;
 			
 			// aapt resource value: 0x7f0200a7
 			public const int text = 2130837671;

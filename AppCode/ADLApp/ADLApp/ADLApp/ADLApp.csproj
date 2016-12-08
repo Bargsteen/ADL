@@ -40,7 +40,6 @@
     </Compile>
     <Compile Include="Models\AnswerBool.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Models\TextAnswer.cs" />
     <Compile Include="ViewModel\ILogin.cs" />
     <Compile Include="ViewModel\LoginResult.cs" />
     <Compile Include="ViewModel\MultipleResultViewModel.cs" />
@@ -106,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
   </ItemGroup>
