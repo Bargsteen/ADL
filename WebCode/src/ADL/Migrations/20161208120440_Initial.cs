@@ -81,7 +81,7 @@ namespace ADL.Migrations
                     SchoolId = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
                     InstitutionNumber = table.Column<int>(nullable: false),
-                    SchoolName = table.Column<string>(nullable: true)
+                    SchoolName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,7 +217,7 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AnswerOptions",
+                name: "AnswerOption",
                 columns: table => new
                 {
                     AnswerOptionId = table.Column<int>(nullable: false)
@@ -227,9 +227,9 @@ namespace ADL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AnswerOptions", x => x.AnswerOptionId);
+                    table.PrimaryKey("PK_AnswerOption", x => x.AnswerOptionId);
                     table.ForeignKey(
-                        name: "FK_AnswerOptions_Assignment_AssignmentId",
+                        name: "FK_AnswerOption_Assignment_AssignmentId",
                         column: x => x.AssignmentId,
                         principalTable: "Assignment",
                         principalColumn: "AssignmentId",
@@ -237,7 +237,7 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AnswerBools",
+                name: "AnswerBool",
                 columns: table => new
                 {
                     AnswerBoolId = table.Column<int>(nullable: false)
@@ -248,15 +248,15 @@ namespace ADL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AnswerBools", x => x.AnswerBoolId);
+                    table.PrimaryKey("PK_AnswerBool", x => x.AnswerBoolId);
                     table.ForeignKey(
-                        name: "FK_AnswerBools_Answers_AnswerId",
+                        name: "FK_AnswerBool_Answers_AnswerId",
                         column: x => x.AnswerId,
                         principalTable: "Answers",
                         principalColumn: "AnswerId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AnswerBools_Assignment_AssignmentId",
+                        name: "FK_AnswerBool_Assignment_AssignmentId",
                         column: x => x.AssignmentId,
                         principalTable: "Assignment",
                         principalColumn: "AssignmentId",
@@ -329,18 +329,18 @@ namespace ADL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AnswerOptions_AssignmentId",
-                table: "AnswerOptions",
+                name: "IX_AnswerOption_AssignmentId",
+                table: "AnswerOption",
                 column: "AssignmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AnswerBools_AnswerId",
-                table: "AnswerBools",
+                name: "IX_AnswerBool_AnswerId",
+                table: "AnswerBool",
                 column: "AnswerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AnswerBools_AssignmentId",
-                table: "AnswerBools",
+                name: "IX_AnswerBool_AssignmentId",
+                table: "AnswerBool",
                 column: "AssignmentId");
 
             migrationBuilder.CreateIndex(
@@ -403,10 +403,10 @@ namespace ADL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AnswerOptions");
+                name: "AnswerOption");
 
             migrationBuilder.DropTable(
-                name: "AnswerBools");
+                name: "AnswerBool");
 
             migrationBuilder.DropTable(
                 name: "PersonAssignmentCoupling");
