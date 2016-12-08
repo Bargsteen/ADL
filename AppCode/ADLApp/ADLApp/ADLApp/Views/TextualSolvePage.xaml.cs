@@ -16,17 +16,20 @@ namespace ADLApp.Views
         public TextualSolvePage(Assignment assignment)
         {
             InitializeComponent();
-			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
-						   new Thickness(10, 00, 10, 00),
+			SolveSL.Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),
+						   new Thickness(20, 00, 20, 10),
 						   new Thickness(0));
             BindingContext = assignment;
+            _assignmentId = assignment.AssignmentId;
         }
+
+        private int _assignmentId = 0;
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
             if (AnswerEditor.Text != null)
             {
                 string status = await
-                answerSender.SendAnswer(new Answer((BindingContext as Assignment).AssignmentId) {AnswerText = AnswerEditor.Text});
+                answerSender.SendAnswer(new Answer(_assignmentId) {AnswerText = AnswerEditor.Text});
                 await Navigation.PushModalAsync(new TextualResultPage());
                 await Navigation.PopAsync();
             }

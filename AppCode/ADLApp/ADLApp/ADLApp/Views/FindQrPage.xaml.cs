@@ -14,8 +14,8 @@ namespace ADLApp.Views
         {
             
             InitializeComponent();
-			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
-						   new Thickness(10, 00, 10, 00),
+			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),
+						   new Thickness(10, 00, 10, 10),
 						   new Thickness(0));
             this.BindingContext = locations;
         }

@@ -18,7 +18,7 @@ namespace ADLApp.Views
         {
             InitializeComponent();
 			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
-						   new Thickness(10, 00, 10, 00),
+						   new Thickness(00, 00, 00, 00),
 						   new Thickness(0));
             PromptForLogin();
             LoginPage.OnLogin += OnLoginLoadLocations;
@@ -58,7 +58,7 @@ namespace ADLApp.Views
                         MultipleSolvePage nextPage = new MultipleSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
-                    else
+                    else if(currentAssignment.Type == AssignmentType.Text)
                     {
                         TextualSolvePage nextPage = new TextualSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
