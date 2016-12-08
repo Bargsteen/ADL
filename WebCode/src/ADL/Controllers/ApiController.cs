@@ -29,37 +29,26 @@ namespace ADL.Controllers
         }
 
         /*tager en location og personId som input, skider en assignment ud der er serializaed*/
-        public async Task<string> Location(int? id, string personId)
+        public string Location(int? id, string personId)
         {
             Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
-            if (location != null)
+
+            if (location != null) // this is a valid location
             {
 
-                Assignment assignment = null;
-
-                foreach (Assignment _assignment in assignmentSetRepository.AssignmentSets.SelectMany(a => a.Assignments))
+                var firstCouplingWithThisPerson = location.PersonAssignmentCouplings.FirstOrDefault(pac => pac.PersonId == personId);
+                if(firstCouplingWithThisPerson != null) // there is a coupling with this person
                 {
-                    if (_assignment.AssignmentId ==
-                        location.PersonAssignmentCouplings.FirstOrDefault(pa => pa.PersonId == personId).AssignmentId)
+                    var allAssignments = assignmentSetRepository.AssignmentSets.SelectMany(a => a.Assignments);
+                    Assignment assignmentToGiveToUser = allAssignments.FirstOrDefault(a => a.AssignmentId == firstCouplingWithThisPerson.AssignmentId);
+                    if(assignmentToGiveToUser != null) // assignment was found
                     {
-                        location.PersonAssignmentCouplings.Remove(
-                            location.PersonAssignmentCouplings.FirstOrDefault(pa => pa.PersonId == personId));
-                        assignment = _assignment;
-                        break;
+                        locationRepository.RemoveSpecificCouplingOnLocation(location.LocationId, firstCouplingWithThisPerson);
+                        return JsonConvert.SerializeObject(assignmentToGiveToUser);
                     }
+                    return "Opgaven blev ikke fundet";
                 }
-                if (assignment != null)
-                {
-                    if (await IsValidUser(personId))
-                    {
-                        return JsonConvert.SerializeObject(assignment);
-                    }
-                    else
-                    {
-                        return "Brugeren blev ikke genkendt.";
-                    }
-                }
-                return "Lokationen har ikke nogen opgave";
+                return "Der er ingen opgaver til dig på denne lokation";
             }
             return "Lokationen eksisterer ikke";
         }

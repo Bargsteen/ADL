@@ -52,7 +52,7 @@ namespace ADL.Models.Repositories
             Location dbEntry = Locations.FirstOrDefault(l => l.LocationId == locationId);
             if (dbEntry != null)
             {
-                if(dbEntry.PersonAssignmentCouplings == null)
+                if (dbEntry.PersonAssignmentCouplings == null)
                 {
                     dbEntry.PersonAssignmentCouplings = new List<PersonAssignmentCoupling>();
                 }
@@ -71,9 +71,9 @@ namespace ADL.Models.Repositories
                 if (dbEntry.PersonAssignmentCouplings != null)
                 {
                     List<PersonAssignmentCoupling> couplingsToBeDeleted = new List<PersonAssignmentCoupling>();
-                    foreach(PersonAssignmentCoupling coupling in dbEntry.PersonAssignmentCouplings)
+                    foreach (PersonAssignmentCoupling coupling in dbEntry.PersonAssignmentCouplings)
                     {
-                        if(coupling.PersonId == personId) // Selects all couplings with this person.
+                        if (coupling.PersonId == personId) // Selects all couplings with this person.
                         {
                             couplingsToBeDeleted.Add(coupling);
                         }
@@ -88,10 +88,30 @@ namespace ADL.Models.Repositories
                         }
                         context.SaveChanges();
                     }
-                    
+
                 }
 
                 return true;
+            }
+            return false;
+        }
+
+        public bool RemoveSpecificCouplingOnLocation(int locationId, PersonAssignmentCoupling coupling)
+        {
+            var dbEntry = Locations.FirstOrDefault(l => l.LocationId == locationId);
+            if (dbEntry != null)
+            {
+                if (dbEntry.PersonAssignmentCouplings != null)
+                {
+                    var couplingToBeDeleted = dbEntry.PersonAssignmentCouplings.FirstOrDefault(pac => pac.PersonAssignmentCouplingId == coupling.PersonAssignmentCouplingId);
+                    if (couplingToBeDeleted != null)
+                    {
+                        dbEntry.PersonAssignmentCouplings.Remove(couplingToBeDeleted);
+                        context.Remove(couplingToBeDeleted);
+                        context.SaveChanges();
+                        return true;
+                    }
+                }
             }
             return false;
         }
