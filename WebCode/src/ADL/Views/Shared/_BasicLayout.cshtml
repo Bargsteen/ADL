@@ -43,7 +43,7 @@
                     <li><a  asp-controller="Location" asp-action="List"><span class="glyphicon glyphicon-map-marker"></span> Lokationer</a></li>
                     <li><a asp-controller="Statistics" asp-action="Index"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
 
-                    @if (this.User.Identity.Name == "Admin")
+                    @if (this.User.IsInRole("Admin"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-wrench"></span> Adminpanel <span class="caret"></span></a>

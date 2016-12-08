@@ -46,6 +46,8 @@
                             <!-- innerCollapse -->
                             @foreach (var set in Model.AnswerInformationViewModels.Where(aivm => aivm.User.Id == person.Id))
                             {
+                                if(set.AssignmentAnswers != null)
+                                {
                                 <div class="panel panel-success">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -174,6 +176,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                }
                             }<!-- innerCollapse end -->
                         </div>
                     </div>
