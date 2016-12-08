@@ -11,7 +11,7 @@
                   iOS="White" />
     </StackLayout.BackgroundColor>
     <Label x:Name="Question" Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599" ></Label>
-    <StackLayout VerticalOptions="CenterAndExpand">
+    <StackLayout VerticalOptions="CenterAndExpand" x:Name="TextSL">
       <Label FontSize="18" Text="Vælg et eller flere svarmuligheder"></Label>
       <ListView x:Name="answerOptionView" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}" ItemSelected="OnItemSelected" SeparatorColor="Black"  >
         <ListView.ItemTemplate>

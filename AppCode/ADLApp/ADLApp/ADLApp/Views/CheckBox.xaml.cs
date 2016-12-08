@@ -41,9 +41,6 @@ namespace ADLApp.Views
         public CheckBox()
         {
             InitializeComponent();
-			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
-						   new Thickness(10, 00, 10, 00),
-						   new Thickness(0));
         }
 
         public string Text

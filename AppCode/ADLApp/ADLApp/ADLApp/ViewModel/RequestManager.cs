@@ -29,8 +29,6 @@ namespace ADLApp.ViewModel
             IRestResponse response = await GetDataAsString(request);
             if (response.Content != "Lokationen har ikke nogen opgave")
             {
-                string lol = response.Content;
-                string a = "asd";
                 return JsonConvert.DeserializeObject<Assignment>(response.Content);
             }
             else return null;
@@ -54,7 +52,7 @@ namespace ADLApp.ViewModel
 
         public async Task<List<Location>> GetLocations(string resource)
         {
-            RestRequest request = new RestRequest(resource + "?UserId=" + App.LoginResult.UserId, Method.GET);
+            RestRequest request = new RestRequest(resource + "?personId=" + App.LoginResult.UserId, Method.GET);
             request.RequestFormat = DataFormat.Json;
             IRestResponse<List<Location>> response = await _rClient.ExecuteGetTaskAsync<List<Location>>(request);
             return response.Data;
