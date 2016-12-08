@@ -102,25 +102,6 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Default-568h%402x.png" />
-    <BundleResource Include="Resources\Default-Portrait.png" />
-    <BundleResource Include="Resources\Default-Portrait%402x.png" />
-    <BundleResource Include="Resources\Default.png" />
-    <BundleResource Include="Resources\Default%402x.png" />
-    <BundleResource Include="Resources\Icon-60%403x.png" />
-    <BundleResource Include="Resources\Icon-76.png" />
-    <BundleResource Include="Resources\Icon-76%402x.png" />
-    <BundleResource Include="Resources\Icon-Small-40.png" />
-    <BundleResource Include="Resources\Icon-Small-40%403x.png" />
-    <BundleResource Include="Resources\Icon-Small%403x.png" />
-    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <BundleResource Include="Resources\180.png" />
-    <BundleResource Include="Resources\114.png" />
-    <BundleResource Include="Resources\57.png" />
-    <BundleResource Include="Resources\120.png" />
-    <BundleResource Include="Resources\87.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -193,12 +174,7 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\scan_qr.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\find_qr.png" />
-  </ItemGroup>
-  <ItemGroup>
+<<<<<<< Updated upstream
     <BundleResource Include="Resources\text.png" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +182,30 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\multiple_choice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\splashscreen.png" />
+=======
+    <BundleResource Include="Resources\exclusiv.PNG" />
+    <BundleResource Include="Resources\find.png" />
+    <BundleResource Include="Resources\logo.png" />
+    <BundleResource Include="Resources\multiple_choice.png" />
+    <BundleResource Include="Resources\scan.png" />
+    <BundleResource Include="Resources\splashscreen.png" />
+    <BundleResource Include="Resources\text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.2.0.45\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.2.0.45\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

@@ -23,7 +23,7 @@ namespace ADLApp.Views
             _assignmentId = assignment.AssignmentId;
         }
 
-        private int _assignmentId = 0;
+        private int _assignmentId;
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
             SendAnswerButton.IsEnabled = false;

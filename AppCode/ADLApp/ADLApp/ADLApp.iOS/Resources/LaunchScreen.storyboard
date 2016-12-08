@@ -1,39 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="X5k-f2-b5h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" launchScreen="YES" initialViewController="62">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="gAE-YM-kbH">
+        <scene sceneID="61">
             <objects>
-                <viewController id="X5k-f2-b5h" sceneMemberID="viewController">
+                <viewController id="62" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Y8P-hJ-Z43"/>
-                        <viewControllerLayoutGuide type="bottom" id="9ZL-r4-8FZ"/>
+                        <viewControllerLayoutGuide type="top" id="59"/>
+                        <viewControllerLayoutGuide type="bottom" id="60"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yd7-JS-zBw">
+                    <view key="view" contentMode="scaleToFill" id="63">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" image="Icon-60.png" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                                <rect key="frame" x="270" y="270" width="60" height="60"/>
-                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="66" translatesAutoresizingMaskIntoConstraints="NO" image="SplashScreen_1080x1920.png">
+                                <rect key="frame" x="80" y="349" width="240" height="128"/>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="800"/>
+                                    <mask key="constraints">
+                                        <include reference="75"/>
+                                        <include reference="76"/>
+                                    </mask>
+                                </variation>
+                                <constraints>
+                                    <constraint id="75" firstAttribute="width" constant="400"/>
+                                    <constraint id="76" firstAttribute="height" constant="800"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="75"/>
+                                        <exclude reference="76"/>
+                                    </mask>
+                                </variation>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="66"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="79"/>
+                                <exclude reference="80"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="66"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="79"/>
+                                <include reference="80"/>
+                            </mask>
+                        </variation>
                         <constraints>
-                            <constraint firstItem="23" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY" priority="1" id="39"/>
-                            <constraint firstItem="23" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX" priority="1" id="41"/>
+                            <constraint id="79" firstItem="63" firstAttribute="trailing" secondItem="66" secondAttribute="trailing"/>
+                            <constraint id="80" firstItem="63" firstAttribute="bottom" secondItem="66" secondAttribute="bottom"/>
                         </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XAI-xm-WK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="64" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="349" y="339"/>
+            <point key="canvasLocation" x="148" y="-59"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Icon-60.png" width="180" height="180"/>
+        <image name="Icon-60.png" width="60" height="60"/>
+        <image name="Default-568h.png" width="320" height="568"/>
+        <image name="Default-Portrait.png" width="768" height="1004"/>
+        <image name="Default.png" width="320" height="480"/>
+        <image name="Icon-76.png" width="76" height="76"/>
+        <image name="Icon-Small-40.png" width="40" height="40"/>
+        <image name="Icon-Small.png" width="29" height="29"/>
+        <image name="180.png" width="180" height="180"/>
+        <image name="114.png" width="114" height="114"/>
+        <image name="57.png" width="57" height="57"/>
+        <image name="120.png" width="120" height="120"/>
+        <image name="87.png" width="87" height="87"/>
+        <image name="scan_qr.png" width="230" height="227"/>
+        <image name="find_qr.png" width="230" height="227"/>
+        <image name="text.png" width="504" height="401"/>
+        <image name="exclusiv.PNG" width="506" height="433"/>
+        <image name="multiple_choice.png" width="501" height="339"/>
+        <image name="SplashScreen.png" width="1024" height="1024"/>
+        <image name="SplashScreen_1080x1920.png" width="1080" height="1920"/>
+        <image name="Find_128px.png" width="128" height="128"/>
+        <image name="Find_171px.png" width="171" height="171"/>
+        <image name="Find_256px.png" width="256" height="256"/>
+        <image name="Find_512px.png" width="512" height="512"/>
+        <image name="Logo.png" width="1024" height="1024"/>
+        <image name="Scan_128px.png" width="128" height="128"/>
+        <image name="Scan_171px.png" width="171" height="171"/>
+        <image name="Scan_256px.png" width="256" height="256"/>
+        <image name="Scan_512px.png" width="512" height="512"/>
     </resources>
 </document>

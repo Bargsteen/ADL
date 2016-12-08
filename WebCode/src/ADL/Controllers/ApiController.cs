@@ -37,14 +37,15 @@ namespace ADL.Controllers
 
                 Assignment assignment = null;
 
-                foreach (AssignmentSet _assignmentSet in assignmentSetRepository.AssignmentSets)
+                foreach (Assignment _assignment in assignmentSetRepository.AssignmentSets.SelectMany(a => a.Assignments))
                 {
-                    foreach (Assignment _assignment in _assignmentSet.Assignments)
+                    if (_assignment.AssignmentId ==
+                        location.PersonAssignmentCouplings.FirstOrDefault(pa => pa.PersonId == personId).AssignmentId)
                     {
-                        if (_assignment.AssignmentId == location.PersonAssignmentCouplings.First(pa => pa.PersonId == personId).AssignmentId)
-                        {
-                            assignment = _assignment;
-                        }
+                        location.PersonAssignmentCouplings.Remove(
+                            location.PersonAssignmentCouplings.FirstOrDefault(pa => pa.PersonId == personId));
+                        assignment = _assignment;
+                        break;
                     }
                 }
                 if (assignment != null)
@@ -68,7 +69,7 @@ namespace ADL.Controllers
         {
             if (await IsValidUser(personId))
             {
-                List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.PersonAssignmentCouplings.Exists( pa => pa.PersonId == personId)).ToList();
+                List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.PersonAssignmentCouplings.Exists(pa => pa.PersonId == personId)).ToList();
                 return JsonConvert.SerializeObject(allLocationsWithAssignments);
             }
             else
@@ -77,7 +78,7 @@ namespace ADL.Controllers
             }
 
         }
-        
+
 
         [HttpPost]
         public async Task<string> SendAnswer([FromBody]Answer answer)
@@ -90,7 +91,7 @@ namespace ADL.Controllers
                     Assignment answeredAssignment =
                         assignmentSetRepository.AssignmentSets.SelectMany(set => set.Assignments)
                             .First(a => a.AssignmentId == answer.AnsweredAssignmentId);
-                    
+
                     if (answeredAssignment != null)
                     {
                         answerRepository.SaveAnswer(answer);
@@ -131,7 +132,6 @@ namespace ADL.Controllers
                 }
 
             }
-
             // Credentials are invalid, or account doesn't exist
             identificationResult.IsAuthenticated = false;
             return JsonConvert.SerializeObject(identificationResult);
