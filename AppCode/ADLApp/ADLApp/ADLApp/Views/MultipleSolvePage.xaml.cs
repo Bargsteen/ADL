@@ -38,6 +38,7 @@ namespace ADLApp.Views
         }
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
+            SendAnswerButton.IsEnabled = false;
             List<AnswerBool> chosenAnswers = new List<AnswerBool>();
             for (int i = 0; i < assignmentToSolve.AnswerOptions.Count; i++)
             {
@@ -50,6 +51,7 @@ namespace ADLApp.Views
             await answerSender.SendAnswer(new Answer(assignmentToSolve.AssignmentId) { ChosenAnswers = chosenAnswers });
             await Navigation.PushModalAsync(new MultipleResultPage(new MultipleResultViewModel(chosenAnswers, assignmentToSolve)));
             await Navigation.PopAsync();
+            SendAnswerButton.IsEnabled = true;
         }
         private void OnItemSelected(object sender, EventArgs e)
         {

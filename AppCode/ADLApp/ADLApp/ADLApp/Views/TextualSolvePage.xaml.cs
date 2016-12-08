@@ -26,6 +26,7 @@ namespace ADLApp.Views
         private int _assignmentId = 0;
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
+            SendAnswerButton.IsEnabled = false;
             if (AnswerEditor.Text != null)
             {
                 string status = await
@@ -33,6 +34,7 @@ namespace ADLApp.Views
                 await Navigation.PushModalAsync(new TextualResultPage());
                 await Navigation.PopAsync();
             }
+            SendAnswerButton.IsEnabled = true;
         }
     }
 }
