@@ -10,8 +10,6 @@ namespace ADL.Models.ViewModels
 {
     public class StatisticsViewModel
     {
-        private readonly IClassRepository _classRepository;
-
         public IQueryable<Person> People { get; set; }
         public IEnumerable<AssignmentSet> AssignmentSets { get; set; }
         public IEnumerable<Answer> Answers { get; set; }
