@@ -2,7 +2,9 @@
 @{
     ViewBag.Title = "Opgaveliste";
 }
-
+<a asp-action="Create" class="btn btn-md btn-success pull-right"><span class="glyphicon glyphicon-plus"></span> Opret opgavesæt</a>
+<br />
+<hr />
 <div class="panel-group">
 @if(Model.PrivateAssignmentSets.Count() != 0){
   <div class="panel panel-info">
@@ -15,8 +17,15 @@
       <ul class="list-group">
           @foreach(AssignmentSet assignmentSet in Model.PrivateAssignmentSets)
           {
+            <form asp-action="DeleteAssignmentSet" method="POST">
+              <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
               <li class="list-group-item">@assignmentSet.Title 
-              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a></li>
+              
+                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
+                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
+              
+              </li>
+              </form>
           }
 
       </ul>
@@ -34,9 +43,16 @@
       <ul class="list-group">
           @foreach(AssignmentSet assignmentSet in Model.InternalAssignmentSets)
           {
+             <form asp-action="DeleteAssignmentSet" method="POST">
+              <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
               <li class="list-group-item">@assignmentSet.Title 
-              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a></li>
-          }
+              
+                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
+                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
+              
+              </li>
+              </form>
+               }
 
       </ul>
     </div>
@@ -54,16 +70,21 @@
       <ul class="list-group">
           @foreach(AssignmentSet assignmentSet in Model.PublicAssignmentSets)
           {
+              <form asp-action="DeleteAssignmentSet" method="POST">
+              <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
               <li class="list-group-item">@assignmentSet.Title 
-              <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
+              
+                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
+                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
+              
               </li>
+              </form>
           }
 
       </ul>
     </div>
   </div>
 }
-
 
 
 </div>

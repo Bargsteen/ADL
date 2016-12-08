@@ -50,7 +50,16 @@ namespace ADL.Models.Repositories
             if (dbEntry != null)
             {
                 context.RemoveRange(dbEntry.Assignments);
-                // probably missing the answerOptions
+                var allAnswerOptionsInSet = dbEntry.Assignments.SelectMany(a => a.AnswerOptions);
+                var allAnswerBoolsInSet = dbEntry.Assignments.SelectMany(a => a.AnswerCorrectness);
+                foreach(var answerOption in allAnswerOptionsInSet)
+                {
+                    context.Remove(answerOption);
+                }
+                foreach(var answerBool in allAnswerBoolsInSet)
+                {
+                    context.Remove(answerBool);
+                }
                 context.Remove(dbEntry);
                 context.SaveChanges();
             }
