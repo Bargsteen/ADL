@@ -5,6 +5,7 @@ using ADL.Models.Repositories;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using static ADL.Models.EnumCollection;
 
 namespace ADL.Controllers
 {
@@ -35,6 +36,7 @@ namespace ADL.Controllers
         public ViewResult Differentiate(int chosenAssignmentSetId, int chosenClassId)
         {
             var chosenClass = classRepository.Classes.FirstOrDefault(c => c.ClassId == chosenClassId);
+            chosenClass.People = chosenClass.People.Where(p => p.PersonType == PersonTypes.Student).ToList(); // Only take students connected to class
             var chosenAssignmentSet = assignmentSetRepository.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == chosenAssignmentSetId);
             if (chosenClass != null && chosenAssignmentSet != null)
             {
