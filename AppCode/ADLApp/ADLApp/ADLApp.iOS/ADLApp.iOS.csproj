@@ -52,7 +52,7 @@
     <CodesignKey>iPhone Developer: Alexander Flensborg (3JWJ98HEAK)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>8a021e69-5377-4719-b033-9c729f578a10</CodesignProvision>
+    <CodesignProvision>1c22019c-71c0-46af-a302-2560faf6f607</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -174,38 +174,20 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
-    <BundleResource Include="Resources\text.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\exclusiv.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\multiple_choice.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\find.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\scan.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\splashscreen.png" />
-=======
     <BundleResource Include="Resources\exclusiv.PNG" />
-    <BundleResource Include="Resources\find.png" />
     <BundleResource Include="Resources\logo.png" />
     <BundleResource Include="Resources\multiple_choice.png" />
-    <BundleResource Include="Resources\scan.png" />
-    <BundleResource Include="Resources\splashscreen.png" />
     <BundleResource Include="Resources\text.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
->>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.2.0.45\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.2.0.45\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
