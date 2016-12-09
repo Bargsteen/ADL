@@ -48,7 +48,7 @@ namespace ADL.Controllers
                     }
                     return "Opgaven blev ikke fundet";
                 }
-                return "Der er ingen opgaver til dig på denne lokation";
+                return "Lokationen har ikke nogen opgave";
             }
             return "Lokationen eksisterer ikke";
         }
