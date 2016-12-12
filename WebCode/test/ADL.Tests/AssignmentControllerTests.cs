@@ -1,11 +1,16 @@
 using Xunit;
-using ADL.Controllers;
 using ADL.Models;
-using Moq;
+using ADL.Models.Assignments;
+using ADL.Models.Repositories;
 using System.Linq;
+using System.Collections.Generic;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using static ADL.Models.EnumCollection;
+using Moq;
+using ADL.Controllers;
 
 
 namespace ADL.Tests
@@ -15,15 +20,15 @@ namespace ADL.Tests
         private Mock<IAssignmentSetRepository> assignmentSetRepositoryMock;
         private Mock<ILocationRepository> locationRepositoryMock;
 
-        private Mock<UserManager<Person>> userManager; 
-        private AssignmentController assignmentController;
+        Person currentUser;
+
         public AssignmentControllerTests()
         {
             assignmentSetRepositoryMock = new Mock<IAssignmentSetRepository>();
 
             assignmentSetRepositoryMock.Setup(m => m.AssignmentSets).Returns(new AssignmentSet[]
             {
-                new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1", Assignments = {new Assignment {Title = "test", AssignmentId = 1234, }}  }
+                new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1", Assignments = {new Assignment {Text = "test", AssignmentId = 1234, }}  }
 
             });
 
@@ -35,9 +40,11 @@ namespace ADL.Tests
                 new Location {LocationId = 2}
             });
 
-            assignmentController = new AssignmentController(assignmentSetRepositoryMock.Object, locationRepositoryMock.Object, userManager.Object);   
+            
+
+            assignmentController = new AssignmentController(assignmentSetRepositoryMock.Object, locationRepositoryMock.Object, );   
         }
-        [Fact]
+    [Fact]
         public void Can_List_Assignments()
         {
             // Arrange is done in ctor 
