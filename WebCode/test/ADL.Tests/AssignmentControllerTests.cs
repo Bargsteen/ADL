@@ -1,34 +1,52 @@
 using Xunit;
 using ADL.Models;
+<<<<<<< HEAD
 using ADL.Models.Assignments;
 using ADL.Models.Repositories;
 using System.Linq;
 using System.Collections.Generic;
+=======
+using Moq;
+>>>>>>> adcd4d38632890ace3a62baa868c9f8a286e09d0
 using ADL.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+using ADL.Models.Repositories;
 using Microsoft.AspNetCore.Identity;
+<<<<<<< HEAD
 using System.Threading.Tasks;
 using static ADL.Models.EnumCollection;
 using Moq;
 using ADL.Controllers;
 
+=======
+using ADL.Models.Assignments;
+>>>>>>> adcd4d38632890ace3a62baa868c9f8a286e09d0
 
 namespace ADL.Tests
 {
+
     public class AssignmentControllerTests
     {
         private Mock<IAssignmentSetRepository> assignmentSetRepositoryMock;
         private Mock<ILocationRepository> locationRepositoryMock;
 
+<<<<<<< HEAD
         Person currentUser;
 
+=======
+        private Mock<UserManager<Person>> userManager;
+        private AssignmentController assignmentController;
+>>>>>>> adcd4d38632890ace3a62baa868c9f8a286e09d0
         public AssignmentControllerTests()
         {
             assignmentSetRepositoryMock = new Mock<IAssignmentSetRepository>();
 
             assignmentSetRepositoryMock.Setup(m => m.AssignmentSets).Returns(new AssignmentSet[]
             {
+<<<<<<< HEAD
                 new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1", Assignments = {new Assignment {Text = "test", AssignmentId = 1234, }}  }
+=======
+                new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1", Assignments = {new Assignment { AssignmentId = 1234, }}  }
+>>>>>>> adcd4d38632890ace3a62baa868c9f8a286e09d0
 
             });
 
@@ -40,17 +58,21 @@ namespace ADL.Tests
                 new Location {LocationId = 2}
             });
 
+<<<<<<< HEAD
             
 
             assignmentController = new AssignmentController(assignmentSetRepositoryMock.Object, locationRepositoryMock.Object, );   
+=======
+            assignmentController = new AssignmentController(assignmentSetRepositoryMock.Object, locationRepositoryMock.Object, userManager.Object);
+>>>>>>> adcd4d38632890ace3a62baa868c9f8a286e09d0
         }
     [Fact]
         public void Can_List_Assignments()
         {
             // Arrange is done in ctor 
 
-           // Act
-        //    Assignment[] results = (assignmentController.List().ViewData.Model as AssignmentAndLocationListViewModel).Assignments.ToArray();
+            // Act
+            //    Assignment[] results = (assignmentController.List().ViewData.Model as AssignmentAndLocationListViewModel).Assignments.ToArray();
 
             // Asser
             /*
@@ -72,7 +94,7 @@ namespace ADL.Tests
             Assignment requestedAssignment = assignmentController.Edit(id).ViewData.Model as Assignment;
 
             // Assert
-;
+            ;
         }
 
         [Theory]
@@ -103,13 +125,13 @@ namespace ADL.Tests
         {
             // Arrange is done in ctor
             // Act
-            AssignmentToLocationAttachment requestedAttachment = assignmentController.AttachAssignmentToLocation(ChosenAssignmentId).ViewData.Model as AssignmentToLocationAttachment;
+            /*AssignmentToLocationAttachment requestedAttachment = assignmentController.AttachAssignmentToLocation(ChosenAssignmentId).ViewData.Model as AssignmentToLocationAttachment;
             requestedAttachment.ChosenAssignmentId = ChosenAssignmentId;
             requestedAttachment.Locations = locationRepositoryMock.Object.Locations;
             // Assert
             Assert.Equal(requestedAttachment.ChosenAssignmentId, ChosenAssignmentId);
-            Assert.Null(requestedAttachment.ChosenLocationId);
-            
+            Assert.Null(requestedAttachment.ChosenLocationId);*/
+
         }
     }
 }

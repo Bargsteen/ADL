@@ -14,6 +14,6 @@ namespace ADL.Models
         public int StartYear { get; set; }
         [Required]
         public string Name { get; set; }
-        public List<Person> People { get; set; }
+        public virtual List<Person> People { get; set; }
     }
 }

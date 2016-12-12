@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using ADL.Models.Repositories;
 using Microsoft.AspNetCore.Identity;
 
+
+
 namespace ADL.Tests
 {
-    public class LocationControllerTests
+    /*public class LocationControllerTests
     {
         private Mock<ILocationRepository> locationRepositoryMock;
         private LocationController LocationController;
@@ -127,5 +129,5 @@ namespace ADL.Tests
             locationRepositoryMock.Verify(m => m.DeleteLocation(id));
         }
     }
-
+*/
 }
