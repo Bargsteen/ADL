@@ -5,6 +5,7 @@ using ADL.Models.Repositories;
 using System.Linq;
 using System.Collections.Generic;
 using ADL.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using static ADL.Models.EnumCollection;
@@ -12,59 +13,56 @@ using Moq;
 using ADL.Controllers;
 
 
-using ADL.Models.Assignments;
-
 namespace ADL.Tests
 {
-
     public class AssignmentControllerTests
     {
-        private Mock<IAssignmentSetRepository> assignmentSetRepositoryMock;
-        private Mock<ILocationRepository> locationRepositoryMock;
-
-
-        Person currentUser;
-
-        private Mock<UserManager<Person>> userManager;
+        private Mock<IAssignmentSetRepository> MockassignmentSetRepository;
+        private Mock<ILocationRepository> MocklocationRepository;
         private AssignmentController assignmentController;
+        UserManager<Person> userManager;
+
 
         public AssignmentControllerTests()
         {
-            assignmentSetRepositoryMock = new Mock<IAssignmentSetRepository>();
+            MockassignmentSetRepository = new Mock<IAssignmentSetRepository>();
 
-            assignmentSetRepositoryMock.Setup(m => m.AssignmentSets).Returns(new AssignmentSet[]
+            MockassignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new AssignmentSet[]
             {
-
-                new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1", Assignments = {new Assignment {Text = "test", AssignmentId = 1234, }}  }
-
-                new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1", Assignments = {new Assignment { AssignmentId = 1234, }}  }
-
+                new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1", CreatorId = "1" , SchoolId = 1, PublicityLevel = PublicityLevel.Internal,  Assignments = {new Assignment {Text = "test", AssignmentId = 1, }}  },
+                new AssignmentSet {AssignmentSetId = 2, Title = "Set 2", Description = "d2", CreatorId = "2" , SchoolId = 1, PublicityLevel = PublicityLevel.Private, Assignments = {new Assignment {Text = "test", AssignmentId = 2, }}  },
+                new AssignmentSet {AssignmentSetId = 3, Title = "Set 3", Description = "d3", CreatorId = "3" , SchoolId = 2, PublicityLevel = PublicityLevel.Public, Assignments = {new Assignment {Text = "test", AssignmentId = 3, }}  }
 
             });
 
-            locationRepositoryMock = new Mock<ILocationRepository>();
+            MocklocationRepository
+             = new Mock<ILocationRepository>();
 
-            locationRepositoryMock.Setup(m => m.Locations).Returns(new Location[]
+            MocklocationRepository
+            .Setup(m => m.Locations).Returns(new Location[]
             {
                 new Location {LocationId = 1},
                 new Location {LocationId = 2}
             });
 
-
+             List<Person> users = new List<Person>
+             {
+                 new Person() {Firstname = "Eigil", Lastname = "maaalt", SchoolId = 1, PersonType = PersonTypes.Student, Id = "1"},
+                 new Person() {Firstname = "Jonas", Lastname = "Saxegaard", SchoolId = 1, PersonType = PersonTypes.Student, Id = "2"},
+                 new Person() {Firstname = "Ivan", Lastname = "Lorenzen", SchoolId = 2, PersonType = PersonTypes.Student, Id = "3"}
+             };
             
 
-            assignmentController = new AssignmentController(assignmentSetRepositoryMock.Object, locationRepositoryMock.Object, );   
-
-            assignmentController = new AssignmentController(assignmentSetRepositoryMock.Object, locationRepositoryMock.Object, userManager.Object);
-
+            assignmentController = new AssignmentController(MockassignmentSetRepository.Object, MocklocationRepository
+            .Object, userManager);   
         }
     [Fact]
         public void Can_List_Assignments()
         {
             // Arrange is done in ctor 
 
-            // Act
-            //    Assignment[] results = (assignmentController.List().ViewData.Model as AssignmentAndLocationListViewModel).Assignments.ToArray();
+           // Act
+        //    Assignment[] results = (assignmentController.List().ViewData.Model as AssignmentAndLocationListViewModel).Assignments.ToArray();
 
             // Asser
             /*
@@ -76,6 +74,17 @@ namespace ADL.Tests
         */
         }
 
+        
+        public void Can_Edit_Existing_Assignment_HttpPost(int id)
+        {
+            // Act
+            AssignmentSet requestedAssignmentSet = assignmentController.Edit(id).ViewData.Model as AssignmentSet;
+
+        }
+
+
+
+
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
@@ -83,10 +92,16 @@ namespace ADL.Tests
         public void Can_Edit_Existing_Assignment_HttpGet(int id)
         {
             // Act
-            Assignment requestedAssignment = assignmentController.Edit(id).ViewData.Model as Assignment;
+            AssignmentSet requestedAssignmentSet = assignmentController.Edit(id).ViewData.Model as AssignmentSet;
 
             // Assert
-            ;
+
+            Assert.Equal(requestedAssignmentSet.AssignmentSetId, id);
+            Assert.Equal(requestedAssignmentSet.CreatorId, id.ToString());
+            Assert.Equal(requestedAssignmentSet.Title, "Set " + id);
+            Assert.Equal(requestedAssignmentSet.Description, "d"+id);
+            // Lav test, som tester Assignmentid I assignmentset
+
         }
 
         [Theory]
@@ -96,10 +111,10 @@ namespace ADL.Tests
         public void Can_Not_Edit_Non_Existing_Assignment_HttpGet(int id)
         {
             // Act
-            Assignment requestedAssignment = assignmentController.Edit(id).ViewData.Model as Assignment;
+            AssignmentSet requestedAssignmentSet = assignmentController.Edit(id).ViewData.Model as AssignmentSet;
 
             // Assert
-            Assert.Equal(requestedAssignment, null);
+            Assert.Equal(requestedAssignmentSet, null);
         }
         [Theory]
         [InlineData(1)]
@@ -111,19 +126,24 @@ namespace ADL.Tests
             // Act
             assignmentController.DeleteAssignmentSet(id);
             // Assert
-            assignmentSetRepositoryMock.Verify(m => m.DeleteAssignmentSet(id));
+            MockassignmentSetRepository.Verify(m => m.DeleteAssignmentSet(id));
         }
+
+
+        /*
         public void Can_AttachAssignment_To_ExistingLocation_HTTPGet(int ChosenAssignmentId)
         {
             // Arrange is done in ctor
             // Act
-            /*AssignmentToLocationAttachment requestedAttachment = assignmentController.AttachAssignmentToLocation(ChosenAssignmentId).ViewData.Model as AssignmentToLocationAttachment;
+            AssignmentToLocationAttachment requestedAttachment = assignmentController.AttachAssignmentToLocation(ChosenAssignmentId).ViewData.Model as AssignmentToLocationAttachment;
             requestedAttachment.ChosenAssignmentId = ChosenAssignmentId;
-            requestedAttachment.Locations = locationRepositoryMock.Object.Locations;
+            requestedAttachment.Locations = MocklocationRepository
+            .Object.Locations;
             // Assert
             Assert.Equal(requestedAttachment.ChosenAssignmentId, ChosenAssignmentId);
-            Assert.Null(requestedAttachment.ChosenLocationId);*/
-
+            Assert.Null(requestedAttachment.ChosenLocationId);
+            
         }
+        */
     }
 }
