@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ADLApp.ViewModel
 {
-    interface ILogin
+    public interface ILogin
     {
         Task<IRestResponse<LoginResult>> Login(UserLoginModel userinfo);       
     }

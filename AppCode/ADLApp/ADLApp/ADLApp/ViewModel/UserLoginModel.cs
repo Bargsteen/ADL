@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADLApp.ViewModel
 {
-    class UserLoginModel
+    public class UserLoginModel
     {
         public string Username { get; set; }
         public string Password { get; set; }
