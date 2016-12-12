@@ -18,7 +18,7 @@ namespace ADL.Controllers
         IAssignmentSetRepository assignmentSetRepository;
         ILocationRepository locationRepository;
         UserManager<Person> userManager;
-
+        Person currentUser;
         public AssignmentController(IAssignmentSetRepository assignmentSetRepo, ILocationRepository locationRepo, UserManager<Person> usrMgr)
         {
             assignmentSetRepository = assignmentSetRepo;
@@ -28,7 +28,10 @@ namespace ADL.Controllers
 
         public async Task<ViewResult> AssignmentSetList()
         {
-            Person currentUser = await GetCurrentUserAsync();
+            if (currentUser == null)
+            {
+                currentUser = await GetCurrentUserAsync();
+            }
             AssignmentSetListViewModel model = new AssignmentSetListViewModel()
             {
                 PublicAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public),
@@ -93,7 +96,10 @@ namespace ADL.Controllers
         // Uses the edit view, but gives it a new assignment.
         public async Task<ViewResult> Create()
         {
-            Person currentUser = await GetCurrentUserAsync();
+            if (currentUser == null)
+            {
+                currentUser = await GetCurrentUserAsync();
+            }
 
             AssignmentSet assignmentSet = new AssignmentSet()
             {
@@ -107,7 +113,7 @@ namespace ADL.Controllers
         }
 
 
-        public Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        private Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
 
         [HttpPost]
         public IActionResult DeleteAssignmentSet(int assignmentSetId)

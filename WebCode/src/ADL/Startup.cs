@@ -39,6 +39,11 @@ namespace ADL
             services.AddIdentity<Person, IdentityRole>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;
+                opts.Password.RequiredLength = 4;
+                opts.Password.RequireDigit = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireNonAlphanumeric = false;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
