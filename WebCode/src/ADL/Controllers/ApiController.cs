@@ -27,7 +27,6 @@ namespace ADL.Controllers
             userManager = userMgr;
             signInManager = signinMgr;
         }
-
         /*tager en location og personId som input, skider en assignment ud der er serializaed*/
         public string Location(int? id, string personId)
         {
@@ -52,7 +51,6 @@ namespace ADL.Controllers
             }
             return "Lokationen eksisterer ikke";
         }
-
         /*skal have alle de locations som en person er connected til*/
         public async Task<string> LocationList(string personId)
         {

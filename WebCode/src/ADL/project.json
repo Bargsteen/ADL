@@ -70,5 +70,21 @@
     "postpublish": [
       "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"
     ]
+  },
+  "configurations": {
+    "asd": {},
+    "asdasdasdasd": {},
+    "asdasdasdasda": {},
+    "de": {},
+    "debug1": {},
+    "debug123": {},
+    "debug2": {},
+    "debug3": {},
+    "debugasd": {},
+    "hhkhhjkasdasd": {},
+    "hjhjhjkj": {},
+    "jhjhkj": {},
+    "kjlkjlkjl": {},
+    "qwe½": {}
   }
 }

@@ -12,7 +12,7 @@ using RestSharp.Deserializers;
 
 namespace ADLApp.ViewModel
 {
-    class RequestManager : IAssignmentLoader, IAnswerSender, ILocationLoader, ILogin
+    public class RequestManager : IAssignmentLoader, IAnswerSender, ILocationLoader, ILogin
     {
         private readonly IRestClient _rClient = new RestClient("http://adlearning.azurewebsites.net/api");
 
