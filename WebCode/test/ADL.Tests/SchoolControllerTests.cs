@@ -38,8 +38,7 @@ namespace ADL.Tests
             mockSchoolRepository.Setup(m => m.DeleteSchool(It.IsAny<int>()));
             mockSchoolRepository.Setup(m => m.SaveSchool(It.IsAny<School>()));
 
-            schoolController = new SchoolController(mockSchoolRepository.Object);
-            schoolController.TempData = tempData.Object;
+            schoolController = new SchoolController(mockSchoolRepository.Object) {TempData = tempData.Object};
 
         }
 
@@ -81,16 +80,44 @@ namespace ADL.Tests
             // Act
             //Calls method with correct information
             var result = schoolController.Edit(testSchool);
+            mockSchoolRepository.Verify(s => s.SaveSchool(testSchool), Times.Once);
             //Calls method with school not having name and institution number. Proof that controller checks model state,
             //need addittional proof that model contains validating properties. 
             schoolController.ModelState.AddModelError("", "error");
             var invalidResult = schoolController.Edit(invalidTestSchool);
+            mockSchoolRepository.Verify(s => s.SaveSchool(invalidTestSchool), Times.Never);
 
             // Assert
             Assert.IsType(typeof(RedirectToActionResult), result);
             Assert.IsType(typeof(ViewResult), invalidResult);
         }
 
+        [Fact]
+        public void TestEditSchoolWithSchoolId()
+        {
+            //Act
+            var result1 = schoolController.Edit(1);
+            //Assert
+            Assert.Equal("TestSchoolOne", (result1.Model as School).SchoolName);
+            //Act
+            var result2 = schoolController.Edit(2);
+            //Assert
+            Assert.Equal("TestSchoolTwo", (result2.Model as School).SchoolName);
+
+        }
+
+        [Fact]
+        public void TestCreateMethod()
+        {
+            //Act
+            var result = schoolController.Create();
+            //Assert
+            Assert.NotNull(result.Model);
+            Assert.Null((result.Model as School).SchoolName);
+            Assert.Equal(default(int), (result.Model as School).InstitutionNumber);
+            Assert.Equal(default(int),(result.Model as School).SchoolId);
+
+        }
         [Fact]
         public void TestDeleteSchool()
         {
