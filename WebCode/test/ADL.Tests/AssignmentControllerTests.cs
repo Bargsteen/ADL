@@ -18,7 +18,7 @@ namespace ADL.Tests
 {
     public class AssignmentControllerTests
     {
-        private Mock<IAssignmentSetRepository> MockassignmentSetRepository;
+        private Mock<IAssignmentSetRepository> mockAssignmentSetRepository;
         private Mock<ILocationRepository> MocklocationRepository;
         private AssignmentController assignmentController;
         UserManager<Person> userManager;
@@ -26,13 +26,18 @@ namespace ADL.Tests
 
         public AssignmentControllerTests()
         {
-            MockassignmentSetRepository = new Mock<IAssignmentSetRepository>();
+            mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
 
-            MockassignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
+            mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
+             {
+                new AssignmentSet {AssignmentSetId = 1, Title = "TestTitle", Description = "TestDescription", Assignments = new List<Assignment>(){new Assignment { AssignmentId = 7, Text = "TestText"}}  }
+
+             });
+            mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
             {
                 new AssignmentSet
                 {
-                    AssignmentSetId = 1, Title = "Set 1", Description = "d1", CreatorId = "1" , SchoolId = 1, PublicityLevel = PublicityLevel.Internal,  Assignments =
+                    AssignmentSetId = 1, Title = "Set 1", Description = "d1", CreatorId = "1" , SchoolId = 1, PublicityLevel = PublicityLevel.Internal,  Assignments = new List<Assignment>()
                     {
                         new Assignment
                         {
@@ -45,14 +50,14 @@ namespace ADL.Tests
                 },
                 new AssignmentSet
                 {
-                    AssignmentSetId = 2, Title = "Set 2", Description = "d2", CreatorId = "2" , SchoolId = 1, PublicityLevel = PublicityLevel.Private, Assignments =
+                    AssignmentSetId = 2, Title = "Set 2", Description = "d2", CreatorId = "2" , SchoolId = 1, PublicityLevel = PublicityLevel.Private, Assignments = new List<Assignment>()
                     {
                         new Assignment {Text = "test2a", AssignmentId = 3 }, new Assignment {Text = "test2b", AssignmentId = 4}
                     }
                 },
                 new AssignmentSet
                 {
-                    AssignmentSetId = 3, Title = "Set 3", Description = "d3", CreatorId = "3" , SchoolId = 2, PublicityLevel = PublicityLevel.Public, Assignments =
+                    AssignmentSetId = 3, Title = "Set 3", Description = "d3", CreatorId = "3" , SchoolId = 2, PublicityLevel = PublicityLevel.Public, Assignments = new List<Assignment>()
                     {
                         new Assignment
                         {
@@ -88,7 +93,7 @@ namespace ADL.Tests
             userStore.Setup(u => u.FindByIdAsync(users.First().Id, default(CancellationToken))).Returns(new Task<Person>(() => users.First()));
 
 
-            assignmentController = new AssignmentController(MockassignmentSetRepository.Object, MocklocationRepository
+            assignmentController = new AssignmentController(mockAssignmentSetRepository.Object, MocklocationRepository
             .Object, um);   
         }
         /*
@@ -109,7 +114,6 @@ namespace ADL.Tests
 
                 }
                 */
-        [Fact]
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
@@ -155,7 +159,7 @@ namespace ADL.Tests
             // Act
             assignmentController.DeleteAssignmentSet(id);
             // Assert
-            MockassignmentSetRepository.Verify(m => m.DeleteAssignmentSet(id));
+            mockAssignmentSetRepository.Verify(m => m.DeleteAssignmentSet(id));
         }
 
 */
