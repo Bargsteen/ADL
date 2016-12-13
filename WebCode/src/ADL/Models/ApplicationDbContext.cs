@@ -10,6 +10,8 @@ namespace ADL.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
+        public ApplicationDbContext() { }
+
         public virtual DbSet<AssignmentSet> AssignmentSets { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Answer> Answers { get; set; }
