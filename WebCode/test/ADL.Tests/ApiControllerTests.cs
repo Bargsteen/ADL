@@ -18,7 +18,7 @@ using Xunit.Sdk;
 
 namespace ADL.Tests
 {
-    public class ApiTest
+    public class ApiControllerTests
     {
         private Mock<IAssignmentSetRepository> mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
         private Mock<ILocationRepository> mockLocationRepository = new Mock<ILocationRepository>();
@@ -33,12 +33,12 @@ namespace ADL.Tests
             Firstname = "TestFN",
             Lastname = "TestLn"
         };
-        public ApiTest()
+        public ApiControllerTests()
         {
             mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
             mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
              {
-                new AssignmentSet {AssignmentSetId = 1, Title = "TestTitle", Description = "TestDescription", Assignments = new List<Assignment>(){new Assignment { AssignmentId = 7, }}  }
+                new AssignmentSet {AssignmentSetId = 1, Title = "TestTitle", Description = "TestDescription", Assignments = new List<Assignment>(){new Assignment { AssignmentId = 7, Text = "TestText"}}  }
 
              });
             mockLocationRepository = new Mock<ILocationRepository>();
@@ -110,7 +110,7 @@ namespace ADL.Tests
             //Assert
             Assert.Equal("Lokationen eksisterer ikke", resultWhenInvalidLocationId);
             Assignment deserializedASsignment = Newtonsoft.Json.JsonConvert.DeserializeObject<Assignment>(resultWhenValidPersonIdAndLocationId);
-            Assert.NotNull(deserializedASsignment);
+            Assert.Equal("TestText",deserializedASsignment.Text);
             Assert.Equal("Lokationen har ikke nogen opgave", resultWhenInvalidPersonId);
         }
         [Fact]
