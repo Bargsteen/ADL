@@ -4,6 +4,7 @@ using ADL.Models.Assignments;
 using ADL.Models.Repositories;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -27,11 +28,41 @@ namespace ADL.Tests
         {
             MockassignmentSetRepository = new Mock<IAssignmentSetRepository>();
 
-            MockassignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new AssignmentSet[]
+            MockassignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
             {
-                new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1", CreatorId = "1" , SchoolId = 1, PublicityLevel = PublicityLevel.Internal,  Assignments = {new Assignment {Text = "test1a", AssignmentId = 1 }, new Assignment {Text = "test1b", AssignmentId = 2}} },
-                new AssignmentSet {AssignmentSetId = 2, Title = "Set 2", Description = "d2", CreatorId = "2" , SchoolId = 1, PublicityLevel = PublicityLevel.Private, Assignments = {new Assignment {Text = "test2a", AssignmentId = 3 }, new Assignment {Text = "test2b", AssignmentId = 4}} },
-                new AssignmentSet {AssignmentSetId = 3, Title = "Set 3", Description = "d3", CreatorId = "3" , SchoolId = 2, PublicityLevel = PublicityLevel.Public, Assignments = {new Assignment {Text = "test3a", AssignmentId = 5 }, new Assignment {Text = "test3b", AssignmentId = 6}} }
+                new AssignmentSet
+                {
+                    AssignmentSetId = 1, Title = "Set 1", Description = "d1", CreatorId = "1" , SchoolId = 1, PublicityLevel = PublicityLevel.Internal,  Assignments =
+                    {
+                        new Assignment
+                        {
+                            Text = "test1a", AssignmentId = 1
+                        }, new Assignment
+                        {
+                            Text = "test1b", AssignmentId = 2
+                        }
+                    }
+                },
+                new AssignmentSet
+                {
+                    AssignmentSetId = 2, Title = "Set 2", Description = "d2", CreatorId = "2" , SchoolId = 1, PublicityLevel = PublicityLevel.Private, Assignments =
+                    {
+                        new Assignment {Text = "test2a", AssignmentId = 3 }, new Assignment {Text = "test2b", AssignmentId = 4}
+                    }
+                },
+                new AssignmentSet
+                {
+                    AssignmentSetId = 3, Title = "Set 3", Description = "d3", CreatorId = "3" , SchoolId = 2, PublicityLevel = PublicityLevel.Public, Assignments =
+                    {
+                        new Assignment
+                        {
+                            Text = "test3a", AssignmentId = 5
+                        }, new Assignment
+                        {
+                            Text = "test3b", AssignmentId = 6
+                        }
+                    }
+                }
 
             });
 
@@ -39,7 +70,7 @@ namespace ADL.Tests
              = new Mock<ILocationRepository>();
 
             MocklocationRepository
-            .Setup(m => m.Locations).Returns(new Location[]
+            .Setup(m => m.Locations).Returns(new List<Location>
             {
                 new Location {LocationId = 1},
                 new Location {LocationId = 2}
@@ -51,29 +82,33 @@ namespace ADL.Tests
                  new Person() {Firstname = "Jonas", Lastname = "Saxegaard", SchoolId = 1, PersonType = PersonTypes.Student, Id = "2"},
                  new Person() {Firstname = "Ivan", Lastname = "Lorenzen", SchoolId = 2, PersonType = PersonTypes.Student, Id = "3"}
              };
-            
+
+            var userStore = new Mock<IUserStore<Person>>();
+            UserManager<Person> um = new UserManager<Person>(userStore.Object, null, null, null, null, null, null, null, null);
+            userStore.Setup(u => u.FindByIdAsync(users.First().Id, default(CancellationToken))).Returns(new Task<Person>(() => users.First()));
+
 
             assignmentController = new AssignmentController(MockassignmentSetRepository.Object, MocklocationRepository
-            .Object, userManager);   
+            .Object, um);   
         }
-/*
-        public void Can_List_Assignments()
-        {
-            // Arrange is done in ctor 
+        /*
+                public void Can_List_Assignments()
+                {
+                    // Arrange is done in ctor 
 
-           // Act
-        //    Assignment[] results = (assignmentController.List().ViewData.Model as AssignmentAndLocationListViewModel).Assignments.ToArray();
+                   // Act
+                //    Assignment[] results = (assignmentController.List().ViewData.Model as AssignmentAndLocationListViewModel).Assignments.ToArray();
 
-            // Asser
-            
-            
-            Assert.Equal(results.Length, 3);
-            Assert.Equal(results[0].AssignmentId, 1);
-            Assert.Equal(results[1].AssignmentId, 2);
-            Assert.Equal(results[2].AssignmentId, 3);
-        
-        }
-        */
+                    // Asser
+
+
+                    Assert.Equal(results.Length, 3);
+                    Assert.Equal(results[0].AssignmentId, 1);
+                    Assert.Equal(results[1].AssignmentId, 2);
+                    Assert.Equal(results[2].AssignmentId, 3);
+
+                }
+                */
         [Fact]
         [Theory]
         [InlineData(1)]
