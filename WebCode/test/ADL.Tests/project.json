@@ -1,7 +1,6 @@
 {
   "version": "1.0.0-*",
   "testRunner": "xunit",
-
   "dependencies": {
     "Microsoft.NETCore.App": {
       "type": "platform",
@@ -16,10 +15,25 @@
     "xunit": "2.2.0-beta2-build3300",
     "dotnet-test-xunit": "2.2.0-preview2-build1029"
   },
-
   "frameworks": {
     "netcoreapp1.0": {
       "imports": [ "dotnet5.6", "portable-net45+win8" ]
     }
+  },
+  "configurations": {
+    "asd": {},
+    "asdasdasdasd": {},
+    "asdasdasdasda": {},
+    "de": {},
+    "debug1": {},
+    "debug123": {},
+    "debug2": {},
+    "debug3": {},
+    "debugasd": {},
+    "hhkhhjkasdasd": {},
+    "hjhjhjkj": {},
+    "jhjhkj": {},
+    "kjlkjlkjl": {},
+    "qwe½": {}
   }
 }
