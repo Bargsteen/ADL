@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using ADL.Controllers;
@@ -63,11 +64,11 @@ namespace ADL.Tests
                         PersonAssignmentCouplings = new List<PersonAssignmentCoupling>() {
                             new PersonAssignmentCoupling()
                         {
-                            AssignmentId = 9, PersonAssignmentCouplingId = 2, PersonId = "TestPerId2"
+                            AssignmentId = 7, PersonAssignmentCouplingId = 2, PersonId = "TestPerId2"
                         },
                             new PersonAssignmentCoupling()
                         {
-                            AssignmentId = 10, PersonAssignmentCouplingId = 3, PersonId = "TestPerId"
+                            AssignmentId = 7, PersonAssignmentCouplingId = 3, PersonId = "TestPerId"
                         }
                         },
                         Title = "TestTitle2"
@@ -112,19 +113,18 @@ namespace ADL.Tests
             Assert.NotNull(deserializedASsignment);
             Assert.Equal("Lokationen har ikke nogen opgave", resultWhenInvalidPersonId);
         }
-
         [Fact]
-        public async void TestGetLocationListFromUserId()
+        public async Task TestGetLocationListFromInvalidUserId()
         {
             //Act
-            string resultWhenInvalidUserId = await apiController.LocationList("asd");
-            string resultWhenValidUserId = await apiController.LocationList("TestPerId");
-            var list = JsonConvert.DeserializeObject<List<Location>>(resultWhenValidUserId);
+            string resultWhenInvalidUserId = await apiController.LocationList("WrongId");
+            string resultWhenValidUserId = await apiController.LocationList("TestPerIds");
 
             //Assert
             Assert.Equal("Brugeren blev ikke genkendt.", resultWhenInvalidUserId);
-            Assert.Equal(1, list.Count);
+            Assert.Equal("Brugeren blev ikke genkendt.", resultWhenValidUserId);
         }
+
     }
 }
 
