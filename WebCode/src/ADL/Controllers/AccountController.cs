@@ -102,7 +102,7 @@ namespace ADL.Controllers
                     PersonType = model.PersonType,
                     SchoolId = model.SchoolId,
                     UserName = model.Username,
-                    Email = model.Email,
+                    Email = model.Email
                 };
                 IdentityResult result
                     = await userManager.CreateAsync(user, model.Password);
