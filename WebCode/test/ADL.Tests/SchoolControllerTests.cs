@@ -13,6 +13,7 @@ using ADL.Models.Repositories;
 using Xunit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Xunit.Sdk;
@@ -22,9 +23,11 @@ namespace ADL.Tests
     public class SchoolControllerTests
     {
         private Mock<ISchoolRepository> mockSchoolRepository;
+        private Mock<ITempDataDictionary> tempData;
         private SchoolController schoolController; 
         public SchoolControllerTests()
         {
+            tempData = new Mock<ITempDataDictionary>();
             mockSchoolRepository = new Mock<ISchoolRepository>();
             mockSchoolRepository.SetupGet(s => s.Schools).Returns(new List<School>()
             {
@@ -32,9 +35,33 @@ namespace ADL.Tests
                 new School() {InstitutionNumber = 22, SchoolId = 2, SchoolName = "TestSchoolTwo"}
             });
             mockSchoolRepository.Setup(m => m.DeleteSchool(It.IsAny<int>()));
+            mockSchoolRepository.Setup(m => m.SaveSchool(It.IsAny<School>()));
 
             schoolController = new SchoolController(mockSchoolRepository.Object);
+            schoolController.TempData = tempData.Object;
+           
         }
+
+
+        [Fact]
+        public void TestEditSchoolWithSchoolInput()
+        {
+            // Arrange
+            School testSchool = new School();
+            testSchool.SchoolName = "test school";
+            testSchool.InstitutionNumber = 123456;
+
+            School invalidTestSchool = new School();
+
+            // Act
+            var result = schoolController.Edit(testSchool);
+            //var invalidResult = schoolController.Edit(invalidTestSchool);
+
+            // Assert
+            Assert.IsType(typeof(RedirectToActionResult), result);
+            //Assert.IsType(typeof(ViewResult), invalidTestSchool);
+        }
+
         [Fact]
         public void TestDeleteSchool()
         {
