@@ -20,12 +20,11 @@ namespace ADL.Tests
 {
     public class ApiControllerTests
     {
-        private Mock<IAssignmentSetRepository> mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
-        private Mock<ILocationRepository> mockLocationRepository = new Mock<ILocationRepository>();
-        private Mock<IAnswerRepository> mockAnswerRepository = new Mock<IAnswerRepository>();
-        private Mock<UserManager<Person>> mockUserManager = new Mock<UserManager<Person>>();
-        private Mock<SignInManager<Person>> mockSignInManager = new Mock<SignInManager<Person>>();
-        private ApiController apiController;
+        private Mock<IAssignmentSetRepository> mockAssignmentSetRepository;
+        private Mock<ILocationRepository> mockLocationRepository;
+        private Mock<IAnswerRepository> mockAnswerRepository;
+        private Mock<SignInManager<Person>> mockSignInManager;
+        private readonly ApiController _apiController;
         Person testPerson = new Person()
         {
             Id = "TestPerId",
@@ -97,15 +96,15 @@ namespace ADL.Tests
                 {
 
                 }));
-            apiController = new ApiController(mockAssignmentSetRepository.Object, mockLocationRepository.Object, mockAnswerRepository.Object, um, null);
+            _apiController = new ApiController(mockAssignmentSetRepository.Object, mockLocationRepository.Object, mockAnswerRepository.Object, um, null);
         }
         [Fact]
         public void TestGetAssignmentFromLocationIdAndUserId()
         {
             //Act
-            string resultWhenInvalidLocationId = apiController.Location(10, "TestPerId");
-            string resultWhenValidPersonIdAndLocationId = apiController.Location(30, "TestPerId");
-            string resultWhenInvalidPersonId = apiController.Location(30, "NotValidPerId");
+            string resultWhenInvalidLocationId = _apiController.Location(10, "TestPerId");
+            string resultWhenValidPersonIdAndLocationId = _apiController.Location(30, "TestPerId");
+            string resultWhenInvalidPersonId = _apiController.Location(30, "NotValidPerId");
 
             //Assert
             Assert.Equal("Lokationen eksisterer ikke", resultWhenInvalidLocationId);
@@ -117,8 +116,8 @@ namespace ADL.Tests
         public async Task TestGetLocationListFromInvalidUserId()
         {
             //Act
-            string resultWhenInvalidUserId = await apiController.LocationList("WrongId");
-            string resultWhenValidUserId = await apiController.LocationList("TestPerIds");
+            string resultWhenInvalidUserId = await _apiController.LocationList("WrongId");
+            string resultWhenValidUserId = await _apiController.LocationList("TestPerIds");
 
             //Assert
             Assert.Equal("Brugeren blev ikke genkendt.", resultWhenInvalidUserId);
