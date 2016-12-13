@@ -30,47 +30,12 @@ namespace ADL.Tests
 
             mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
              {
-                new AssignmentSet {AssignmentSetId = 1, Title = "TestTitle", Description = "TestDescription", Assignments = new List<Assignment>(){new Assignment { AssignmentId = 7, Text = "TestText"}}  }
+                new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1",  CreatorId = "1", Assignments = new List<Assignment>(){new Assignment { AssignmentId = 1, Text = "Test1"}}  },
+                new AssignmentSet {AssignmentSetId = 2, Title = "Set 2", Description = "d2", CreatorId = "2", Assignments = new List<Assignment>(){new Assignment { AssignmentId = 2, Text = "Test2"}}  },
+                new AssignmentSet {AssignmentSetId = 3, Title = "Set 3", Description = "d3", CreatorId = "3", Assignments = new List<Assignment>(){new Assignment { AssignmentId = 3, Text = "Test3"}}  }
 
              });
-            mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
-            {
-                new AssignmentSet
-                {
-                    AssignmentSetId = 1, Title = "Set 1", Description = "d1", CreatorId = "1" , SchoolId = 1, PublicityLevel = PublicityLevel.Internal,  Assignments = new List<Assignment>()
-                    {
-                        new Assignment
-                        {
-                            Text = "test1a", AssignmentId = 1
-                        }, new Assignment
-                        {
-                            Text = "test1b", AssignmentId = 2
-                        }
-                    }
-                },
-                new AssignmentSet
-                {
-                    AssignmentSetId = 2, Title = "Set 2", Description = "d2", CreatorId = "2" , SchoolId = 1, PublicityLevel = PublicityLevel.Private, Assignments = new List<Assignment>()
-                    {
-                        new Assignment {Text = "test2a", AssignmentId = 3 }, new Assignment {Text = "test2b", AssignmentId = 4}
-                    }
-                },
-                new AssignmentSet
-                {
-                    AssignmentSetId = 3, Title = "Set 3", Description = "d3", CreatorId = "3" , SchoolId = 2, PublicityLevel = PublicityLevel.Public, Assignments = new List<Assignment>()
-                    {
-                        new Assignment
-                        {
-                            Text = "test3a", AssignmentId = 5
-                        }, new Assignment
-                        {
-                            Text = "test3b", AssignmentId = 6
-                        }
-                    }
-                }
-
-            });
-
+            
             MocklocationRepository
              = new Mock<ILocationRepository>();
 
@@ -114,6 +79,8 @@ namespace ADL.Tests
 
                 }
                 */
+/*
+
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
@@ -161,8 +128,9 @@ namespace ADL.Tests
             // Assert
             mockAssignmentSetRepository.Verify(m => m.DeleteAssignmentSet(id));
         }
-
 */
+
+
         /*
         public void Can_AttachAssignment_To_ExistingLocation_HTTPGet(int ChosenAssignmentId)
         {
