@@ -19,7 +19,7 @@ namespace ADL.Models.Repositories
             if(school.SchoolId == 0)
             {
                 // New School
-                context.Add(school);
+                context.Schools.Add(school);
             }
             else
             {
@@ -38,7 +38,7 @@ namespace ADL.Models.Repositories
             School DbEntry = Schools.FirstOrDefault(s => s.SchoolId == schoolId);
             if(DbEntry != null)
             {
-                context.Remove(DbEntry);
+                context.Schools.Remove(DbEntry);
                 context.SaveChanges();
             }
             return DbEntry;

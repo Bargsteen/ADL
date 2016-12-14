@@ -104,6 +104,7 @@ namespace ADL.Controllers
             AssignmentSet assignmentSet = new AssignmentSet()
             {
                 CreatorId = currentUser.Id,
+                SchoolId = currentUser.SchoolId
             };
             AssignmentSetViewModel model = new AssignmentSetViewModel()
             {

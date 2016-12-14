@@ -20,11 +20,7 @@ namespace ADL.Models.Repositories
         {
             if(theClass.ClassId == 0) // new
             {
-                context.Add(theClass);
-            }
-            else // edit
-            {
-
+                context.Classes.Add(theClass);
             }
             context.SaveChanges();
         }
@@ -33,7 +29,7 @@ namespace ADL.Models.Repositories
             Class classToBeDeleted = Classes.FirstOrDefault(c => c.ClassId == classId);
             if(classToBeDeleted != null)
             {
-                context.Remove(classToBeDeleted);
+                context.Classes.Remove(classToBeDeleted);
             }
             context.SaveChanges();
             return classToBeDeleted;

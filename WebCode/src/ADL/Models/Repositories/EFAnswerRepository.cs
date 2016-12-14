@@ -20,7 +20,7 @@ namespace ADL.Models.Repositories
 
         public void SaveAnswer(Answer answer)
         {
-            context.Add(answer);
+            context.Answers.Add(answer);
             context.SaveChanges();
         }
 

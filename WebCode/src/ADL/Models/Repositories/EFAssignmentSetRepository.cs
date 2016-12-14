@@ -25,7 +25,7 @@ namespace ADL.Models.Repositories
         {
             if (assignmentSet.AssignmentSetId == 0) // new AssignmentSet
             {
-                context.Add(assignmentSet);
+                context.AssignmentSets.Add(assignmentSet);
 
             }
             else // Updating
@@ -54,13 +54,13 @@ namespace ADL.Models.Repositories
                 var allAnswerBoolsInSet = dbEntry.Assignments.SelectMany(a => a.AnswerCorrectness);
                 foreach(var answerOption in allAnswerOptionsInSet)
                 {
-                    context.Remove(answerOption);
+                    context.AnswerOptions.Remove(answerOption);
                 }
                 foreach(var answerBool in allAnswerBoolsInSet)
                 {
-                    context.Remove(answerBool);
+                    context.AnswerBools.Remove(answerBool);
                 }
-                context.Remove(dbEntry);
+                context.AssignmentSets.Remove(dbEntry);
                 context.SaveChanges();
             }
             return dbEntry;
