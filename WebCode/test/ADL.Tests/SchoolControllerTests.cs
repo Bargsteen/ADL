@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using ADL.Controllers;
 using ADL.Models;
-using ADL.Models.ViewModels;
 using Moq;
-using ADL.Models.Assignments;
 using ADL.Models.Repositories;
 using Xunit;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Xunit.Sdk;
 
 namespace ADL.Tests
 {
@@ -25,7 +14,7 @@ namespace ADL.Tests
     {
         private Mock<ISchoolRepository> mockSchoolRepository;
         private Mock<ITempDataDictionary> tempData;
-        private SchoolController schoolController; 
+        private SchoolController schoolController;
         public SchoolControllerTests()
         {
             tempData = new Mock<ITempDataDictionary>();
@@ -38,21 +27,21 @@ namespace ADL.Tests
             mockSchoolRepository.Setup(m => m.DeleteSchool(It.IsAny<int>()));
             mockSchoolRepository.Setup(m => m.SaveSchool(It.IsAny<School>()));
 
-            schoolController = new SchoolController(mockSchoolRepository.Object) {TempData = tempData.Object};
+            schoolController = new SchoolController(mockSchoolRepository.Object) { TempData = tempData.Object };
 
         }
 
         [Fact]
-        public void TestModelValidation()
+        public void Can_ValidateModel()
         {
             // Arrange
             var incorrectModel = new School();
             var incorrectModelContext = new ValidationContext(incorrectModel, null, null);
             var incorrectResult = new List<ValidationResult>();
-            var modelWithInstNumber = new School() {InstitutionNumber = 123123};
+            var modelWithInstNumber = new School() { InstitutionNumber = 123123 };
             var incorrectModelContextWithInstNumber = new ValidationContext(modelWithInstNumber, null, null);
             var resultWithName = new List<ValidationResult>();
-            var correctModel = new School() { SchoolName = "Test", InstitutionNumber = 123};
+            var correctModel = new School() { SchoolName = "Test", InstitutionNumber = 123 };
             var correctContext = new ValidationContext(correctModel, null, null);
             var correctResult = new List<ValidationResult>();
 
@@ -68,7 +57,7 @@ namespace ADL.Tests
         }
 
         [Fact]
-        public void TestEditSchoolWithSchoolInput()
+        public void Can_EditSchoolWithSchoolInput()
         {
             // Arrange
             School testSchool = new School();
@@ -93,7 +82,7 @@ namespace ADL.Tests
         }
 
         [Fact]
-        public void TestEditSchoolWithSchoolId()
+        public void Can_Get_EditSchoolView_WithSchoolId()
         {
             //Act
             var result1 = schoolController.Edit(1);
@@ -107,7 +96,7 @@ namespace ADL.Tests
         }
 
         [Fact]
-        public void TestCreateMethod()
+        public void Can_Get_CreateSchool_View()
         {
             //Act
             var result = schoolController.Create();
@@ -115,11 +104,11 @@ namespace ADL.Tests
             Assert.NotNull(result.Model);
             Assert.Null((result.Model as School).SchoolName);
             Assert.Equal(default(int), (result.Model as School).InstitutionNumber);
-            Assert.Equal(default(int),(result.Model as School).SchoolId);
+            Assert.Equal(default(int), (result.Model as School).SchoolId);
 
         }
         [Fact]
-        public void TestDeleteSchool()
+        public void Can_DeleteSchool()
         {
             //Act
             var result1 = schoolController.Delete(1) as RedirectToActionResult;
