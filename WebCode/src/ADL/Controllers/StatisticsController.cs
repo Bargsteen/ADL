@@ -20,6 +20,7 @@ namespace ADL.Controllers
         private readonly IAssignmentSetRepository _assignmentSetRepository;
         private readonly UserManager<Person> _userManager;
         private readonly IClassRepository _classRepository;
+        private readonly Person currentUser;
 
         public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo, UserManager<Person> userManager, IClassRepository classRepository)
         {
@@ -29,9 +30,18 @@ namespace ADL.Controllers
             _assignmentSetRepository = assignmentSetRepo;
         }
 
+        public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo, UserManager<Person> userManager, IClassRepository classRepository, Person currentUser)
+        : this(assignmentSetRepo, answerRepo, userManager, classRepository)
+        {
+            this.currentUser = currentUser;
+        }
+
         public async Task<ViewResult> Index()
         {
-            Person currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            if(currentUser == null)
+            {
+                await _userManager.GetUserAsync(HttpContext.User);
+            }
             StatisticsViewModel statisticsViewModel = new StatisticsViewModel(_answerRepository.Answers,
                 _assignmentSetRepository.AssignmentSets,
                 _userManager.Users.Where(

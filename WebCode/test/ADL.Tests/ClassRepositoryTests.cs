@@ -297,7 +297,7 @@ namespace ADL.Tests
             }
         }
 
-        [Fact]
+        /*[Fact]
         public async void Can_Add_People_To_Class()
         {
 
@@ -351,7 +351,7 @@ namespace ADL.Tests
                     classRepository.SaveClass(theClass);
                 }
 
-                /*using (var context = new ApplicationDbContext(options))
+                using (var context = new ApplicationDbContext(options))
                 {
                     var classRepository = new EFClassRepository(context);
                     UserStore<Person> userStore = new UserStore<Person>(context);
@@ -360,7 +360,7 @@ namespace ADL.Tests
                     // Act 
                     Person personFromDb = await userManager.FindByNameAsync("johndoe");
                     classRepository.AddPersonToClass(classRepository.Classes.Single().ClassId, personFromDb);
-                }*/
+                }
 
                 // Assert
                 // Use a separate instance of the context to verify correct data was saved to database
@@ -375,7 +375,7 @@ namespace ADL.Tests
             {
                 connection.Close();
             }
-        }
+        }*/
 
 
 
