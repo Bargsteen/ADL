@@ -136,9 +136,7 @@ namespace ADL.Controllers
                         };
                         chosenLocations[someLocationId].Add(newCoupling);
                     }
-
                 }
-
                 foreach(var kvp in chosenLocations)
                 { // Save the changes to db
                     locationRepository.AddCouplingsToLocation(kvp.Key, kvp.Value);

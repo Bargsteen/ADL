@@ -10,8 +10,10 @@ using ADL.Models.ViewModels;
 using Moq;
 using ADL.Models.Assignments;
 using ADL.Models.Repositories;
+using Castle.Components.DictionaryAdapter;
 using Xunit;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -29,6 +31,8 @@ namespace ADL.Tests
         public CouplingControllerTests()
         {
             mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
+
+            #region Setups assignmentsetrepository's assignmentsSets property
             mockAssignmentSetRepository.Setup(ma => ma.AssignmentSets).Returns(new[]
             {
                 new AssignmentSet {
@@ -36,34 +40,76 @@ namespace ADL.Tests
                     {
                         new Assignment
                         {
-                            AssignmentId = 7, Text = "TestText"
+                            AssignmentId = 5, Text = "TestText"
+                        },
+                        new Assignment
+                        {
+                            AssignmentId = 1, Text = "TestText"
+                        },
+                        new Assignment
+                        {
+                            AssignmentId = 2, Text = "TestText"
+                        },
+                        new Assignment
+                        {
+                            AssignmentId = 3, Text = "TestText"
+                        },
+                        new Assignment
+                        {
+                            AssignmentId = 4, Text = "TestText"
                         }
+
                     }
                 }
              });
+            #endregion
+
             mockLocationRepository = new Mock<ILocationRepository>();
+
+            #region Setups locationrepository locations property and used methods
             mockLocationRepository.SetupGet(ml => ml.Locations).Returns(new List<Location>()
             {
                     new Location()
                     {
                         Description = "TestDescription",
-                        LocationId = 30, SchoolId = 42,
+                        LocationId = 1, SchoolId = 1,
                         Title = "TestTitle"
                     },
                     new Location()
                     {
                         Description = "TestDescription2",
-                        LocationId = 31, SchoolId = 42,
+                        LocationId = 2, SchoolId = 1,
                         Title = "TestTitle2"
                     },
                     new Location()
                     {
                         Description = "TestDescription",
-                        LocationId = 329, SchoolId = 42,
+                        LocationId = 3, SchoolId = 1,
+                        Title = "TestTitle"
+                    },
+                    new Location()
+                    {
+                        Description = "TestDescription",
+                        LocationId = 4, SchoolId = 1,
+                        Title = "TestTitle"
+                    },
+                    new Location()
+                    {
+                        Description = "TestDescription",
+                        LocationId = 4, SchoolId = 3,
                         Title = "TestTitle"
                     }
+
             });
+
+            mockLocationRepository.Setup(
+                        l => l.RemoveAllCouplingsForSpecificPersonOnLocation(It.IsAny<int>(), It.IsAny<string>()));
+            mockLocationRepository.Setup(l => l.AddCouplingsToLocation(It.IsAny<int>(), It.IsAny<List<PersonAssignmentCoupling>>()));
+            #endregion
+
             mockClassRepository = new Mock<IClassRepository>();
+
+            #region Setups ClassRepository classes property
             mockClassRepository.Setup(mc => mc.Classes).Returns(new[]
             {
                 new Class()
@@ -177,6 +223,9 @@ namespace ADL.Tests
                     }
                 }
             });
+            #endregion
+
+
             _couplingController = new CouplingController(mockLocationRepository.Object, mockClassRepository.Object, mockAssignmentSetRepository.Object) { TempData = tempData.Object };
         }
         [Fact]
@@ -203,18 +252,266 @@ namespace ADL.Tests
             Assert.Equal(1, (result3.Model as ChooseClassViewModel).ChosenAssignmentSetId);
         }
 
-        private DifferentiateViewModel dvm;
         [Fact]
         public void TestDifferentiate()
         {
             var result = _couplingController.Differentiate(1, 2);
+            int chosenSchoolId = (result.Model as DifferentiateViewModel).ChosenClass.SchoolId;
             //Number of people connected to class 2 is 4, tests if differentiate gets students only
             Assert.Equal(3, (result.Model as DifferentiateViewModel).ChosenClass.People.Count);
-            int chosenSchoolId = (result.Model as DifferentiateViewModel).ChosenClass.SchoolId;
             Assert.Equal(chosenSchoolId, (result.Model as DifferentiateViewModel).CurrentSchoolId);
             Assert.Equal(1, (result.Model as DifferentiateViewModel).ChosenAssignmentSet.AssignmentSetId);
             //Instantiates dvm with result of calling Differentiate with chosenAssignmentSetId and chosenClass
-            dvm = result.Model as DifferentiateViewModel;
+        }
+
+        [Fact]
+        public void TestDifferentiateWithDifferentiateViewModelInput()
+        {
+
+            //Arrange
+            DifferentiateViewModel dvm = new DifferentiateViewModel();
+
+            #region Initialises fields in viewmodel
+
+            dvm.ChosenAssignmentSet =
+                mockAssignmentSetRepository.Object.AssignmentSets.First(a => a.AssignmentSetId == 1);
+            dvm.ChosenClass = mockClassRepository.Object.Classes.First(c => c.ClassId == 1);
+            dvm.CurrentSchoolId = 1;
+            dvm.PersonAssignmentCouplings = new List<PersonIdAssignmentIdCoupling>()
+            {
+
+                //Person 1 gets 5/5 assignments
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 1,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 2,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 3,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 4,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 5,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+
+                //Person 2 gets 4/5 assignments
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 1,
+                    IsChosen = true,
+                    PersonId = "TestId2"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 2,
+                    IsChosen = true,
+                    PersonId = "TestId2"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 3,
+                    IsChosen = true,
+                    PersonId = "TestId2"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 5,
+                    IsChosen = true,
+                    PersonId = "TestId2"
+                },
+
+                //Person 3 gets 1/5 assignments
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 1,
+                    IsChosen = true,
+                    PersonId = "TestId3"
+                }
+
+                //Person 4 gets no assignments
+            };
+
+            #endregion
+
+            //Act
+            var result = _couplingController.Differentiate(dvm);
+            //Assert
+            Assert.IsType(typeof(ViewResult), result);
+            ViewResult vresult = result as ViewResult;
+            Assert.Equal("ChooseLocations", vresult.ViewName);
+            ChooseLocationsViewModel clvm = vresult.Model as ChooseLocationsViewModel;
+
+            //Test if correct amount of assignments are assigned to testpeople
+
+            Assert.Equal(5, clvm.PersonAssignmentCouplings.Count(pac => pac.PersonId == "TestId1"));
+            Assert.Equal(4, clvm.PersonAssignmentCouplings.Count(pac => pac.PersonId == "TestId2"));
+            Assert.Equal(1, clvm.PersonAssignmentCouplings.Count(pac => pac.PersonId == "TestId3"));
+            Assert.Equal(0, clvm.PersonAssignmentCouplings.Count(pac => pac.PersonId == "TestId4"));
+
+            Assert.True(testIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId1"));
+            Assert.True(testIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId2"));
+            Assert.True(testIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId3"));
+        }
+
+        private bool testIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(ChooseLocationsViewModel clvm, string personId)
+        {
+            bool containsDuplicates = false;
+            //Test if correct assignments are sent with and no duplicates assignments
+            foreach (
+                PersonAssignmentCoupling personAssignmentCoupling in
+                clvm.PersonAssignmentCouplings.Where(pac => pac.PersonId == personId))
+            {
+                bool isDuplicate = false;
+                foreach (
+                    PersonAssignmentCoupling pac in
+                    clvm.PersonAssignmentCouplings.Where(pac => pac.PersonId == personId))
+                {
+                    if (personAssignmentCoupling.AssignmentId == pac.AssignmentId)
+                        isDuplicate = !isDuplicate;
+                }
+                containsDuplicates = isDuplicate;
+            }
+            return containsDuplicates;
+        }
+
+        [Fact]
+        public void TestFinishCoupling()
+        {
+            ChooseLocationsViewModel clvm = new ChooseLocationsViewModel();
+            DifferentiateViewModel dvm = new DifferentiateViewModel();
+            #region Initialises fields in ViewModel
+
+            dvm.ChosenAssignmentSet =
+                mockAssignmentSetRepository.Object.AssignmentSets.First(a => a.AssignmentSetId == 1);
+            dvm.ChosenClass = mockClassRepository.Object.Classes.First(c => c.ClassId == 1);
+            dvm.CurrentSchoolId = 1;
+            dvm.PersonAssignmentCouplings = new List<PersonIdAssignmentIdCoupling>()
+            {
+
+                //Person 1 gets 5/5 assignments
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 1,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 2,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 3,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 4,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 5,
+                    IsChosen = true,
+                    PersonId = "TestId1"
+                },
+
+                //Person 2 gets 4/5 assignments
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 1,
+                    IsChosen = true,
+                    PersonId = "TestId2"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 2,
+                    IsChosen = true,
+                    PersonId = "TestId2"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 3,
+                    IsChosen = true,
+                    PersonId = "TestId2"
+                },
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 5,
+                    IsChosen = true,
+                    PersonId = "TestId2"
+                },
+
+                //Person 3 gets 1/5 assignments
+                new PersonIdAssignmentIdCoupling()
+                {
+                    AssignmentId = 1,
+                    IsChosen = true,
+                    PersonId = "TestId3"
+                }
+
+                //Person 4 gets no assignments
+            };
+
+
+            #endregion
+
+            var result = _couplingController.Differentiate(dvm) as ViewResult;
+            clvm = result.Model as ChooseLocationsViewModel;
+            clvm.AvailableLocations = mockLocationRepository.Object.Locations.ToList();
+            clvm.ChosenLocations = new List<ChosenLocation>()
+            {
+                new ChosenLocation() {IsChosen = true, LocationId = 1 },
+                new ChosenLocation() {IsChosen = true, LocationId = 2 },
+                new ChosenLocation() {IsChosen = true, LocationId = 3 },
+            };
+            var finishCouplingResult = _couplingController.FinishCoupling(clvm);
+            foreach (string s in clvm.PersonAssignmentCouplings.Select(pac => pac.PersonId).Distinct())
+            {
+                foreach (ChosenLocation location in clvm.ChosenLocations)
+                {
+                    mockLocationRepository.Verify(
+                        l => l.RemoveAllCouplingsForSpecificPersonOnLocation(location.LocationId, s),
+                        Times.Once);
+                }
+            }
+            //Tests if expected personassignmentcouplings input to function 'AddCouplingsToLocations' actual input 
+            List<PersonAssignmentCoupling> firstCallList = new List<PersonAssignmentCoupling>();
+            firstCallList.AddRange(clvm.PersonAssignmentCouplings.Where(pac => pac.PersonId == "TestId1" && (pac.AssignmentId == 1 || pac.AssignmentId == 4)));
+            firstCallList.AddRange(clvm.PersonAssignmentCouplings.Where(pac => pac.PersonId == "TestId2" && (pac.AssignmentId == 1 || pac.AssignmentId == 5)));
+            firstCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId3"));
+            mockLocationRepository.Verify(l => l.AddCouplingsToLocation(1, firstCallList), Times.Once);
+            var secondCallList = new List<PersonAssignmentCoupling>();
+            secondCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId1" && pac.AssignmentId == 2));
+            secondCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId1" && pac.AssignmentId == 5));
+            secondCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId2" && pac.AssignmentId == 2));
+            mockLocationRepository.Verify(l => l.AddCouplingsToLocation(2, secondCallList), Times.Once);
+            var thirdCallList = new List<PersonAssignmentCoupling>();
+            thirdCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId1" && pac.AssignmentId == 3));
+            thirdCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId2" && pac.AssignmentId == 3));
+            mockLocationRepository.Verify(l => l.AddCouplingsToLocation(3, thirdCallList), Times.Once);
 
         }
     }
