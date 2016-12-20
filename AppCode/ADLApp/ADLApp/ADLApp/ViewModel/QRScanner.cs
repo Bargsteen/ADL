@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Libraries
+
 using System.Threading.Tasks;
-using ZXing.Mobile;
 using ZXing;
+using ZXing.Mobile;
+
+#endregion
 
 namespace ADLApp.ViewModel
 {
-    class QrScanner : IScanner
+    internal class QrScanner : IScanner
     {
         public async Task<string> ScanAndGetString()
         {

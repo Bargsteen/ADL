@@ -6,13 +6,13 @@
   <StackLayout >
     
     <StackLayout VerticalOptions="Start">
-      <Label Text="Login" FontSize="50" HorizontalTextAlignment="Center" TextColor="Black" Margin="20"></Label>
+      <Label Text="Login" FontSize="50" HorizontalTextAlignment="Center" TextColor="Black" Margin="20" />
     </StackLayout>
   
     <StackLayout VerticalOptions="CenterAndExpand">
-      <Entry x:Name="UsernameEntry"   Placeholder="Brugernavn"></Entry>
-      <Entry x:Name="PasswordEntry" Placeholder="Adgangskode" IsPassword="True"></Entry>
-      <Button x:Name="LoginButton" Text="Login" Clicked="OnLoginButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+      <Entry x:Name="UsernameEntry"   Placeholder="Brugernavn" />
+        <Entry x:Name="PasswordEntry" Placeholder="Adgangskode" IsPassword="True" />
+        <Button x:Name="LoginButton" Text="Login" Clicked="OnLoginButtonClicked" BackgroundColor="#66bb6a" TextColor="White" />
     </StackLayout>
 
   </StackLayout>

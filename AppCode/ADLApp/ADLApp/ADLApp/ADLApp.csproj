@@ -34,6 +34,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'asd|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\asd\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -79,7 +88,7 @@
     <Compile Include="ViewModel\RequestManager.cs" />
     <Compile Include="ViewModel\IAssignmentLoader.cs" />
     <Compile Include="ViewModel\IScanner.cs" />
-    <Compile Include="ViewModel\QRScanner.cs" />
+    <Compile Include="ViewModel\QrScanner.cs" />
     <Compile Include="Views\MultipleResultPage.xaml.cs">
       <DependentUpon>MultipleResultPage.xaml</DependentUpon>
     </Compile>

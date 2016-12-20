@@ -1,10 +1,13 @@
-﻿
+﻿#region Libraries
+
 using System;
 using Xamarin.Forms;
 
+#endregion
+
 namespace ADLApp.Views
 {
-    public partial class MenuPage : MasterDetailPage
+    public partial class MenuPage
     {
         public MenuPage()
         {

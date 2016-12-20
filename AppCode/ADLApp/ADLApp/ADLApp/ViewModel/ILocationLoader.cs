@@ -1,14 +1,14 @@
-﻿using System;
+﻿#region Libraries
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ADLApp.Models;
 
+#endregion
 
 namespace ADLApp.ViewModel
 {
-    interface ILocationLoader
+    internal interface ILocationLoader
     {
         Task<List<Location>> GetLocations(string resource);
     }

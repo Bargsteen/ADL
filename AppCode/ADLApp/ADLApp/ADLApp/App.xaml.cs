@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Libraries
+
+using ADLApp.ViewModel;
 using ADLApp.Views;
 using Xamarin.Forms;
-using ADLApp.Models;
-using ADLApp.ViewModel;
+
+#endregion
 
 namespace ADLApp
 {
-    public partial class App : Application
+    public partial class App
     {
         public static LoginResult LoginResult;
+
         public App()
         {
             InitializeComponent();

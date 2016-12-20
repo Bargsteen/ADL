@@ -1,25 +1,29 @@
-﻿using System;
+﻿#region Libraries
+
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using ADLApp.ViewModel;
 using ADLApp.Models;
+using ADLApp.ViewModel;
+using Xamarin.Forms;
+
+#endregion
 
 namespace ADLApp.Views
 {
-    public partial class HomePage : ContentPage
+    public partial class HomePage
     {
-        private readonly IScanner _qrScanner = new QrScanner();
         private readonly IAssignmentLoader _assignmentLoader = new RequestManager();
         private readonly ILocationLoader _locationLoader = new RequestManager();
+        private readonly IScanner _qrScanner = new QrScanner();
 
         private List<Location> _locations;
+
         public HomePage()
         {
             InitializeComponent();
-			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
-						   new Thickness(00, 00, 00, 00),
-						   new Thickness(0));
+            Padding = Device.OnPlatform(new Thickness(20, 20, 20, 0),
+                new Thickness(00, 00, 00, 00),
+                new Thickness(0));
             PromptForLogin();
             LoginPage.OnLogin += OnLoginLoadLocations;
         }
@@ -33,6 +37,7 @@ namespace ADLApp.Views
         {
             await Navigation.PushModalAsync(new LoginPage());
         }
+
         private async void OnScanButtonClicked(object sender, EventArgs e)
         {
             ScanButton.IsEnabled = false;
@@ -45,7 +50,7 @@ namespace ADLApp.Views
             if (scanString != "error")
             {
                 Assignment currentAssignment = await _assignmentLoader
-                .GetAssignment(scanString);
+                    .GetAssignment(scanString);
                 if (currentAssignment != null)
                 {
                     if (currentAssignment.Type == AssignmentType.ExclusiveChoice)
@@ -58,7 +63,7 @@ namespace ADLApp.Views
                         MultipleSolvePage nextPage = new MultipleSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
                     }
-                    else if(currentAssignment.Type == AssignmentType.Text)
+                    else if (currentAssignment.Type == AssignmentType.Text)
                     {
                         TextualSolvePage nextPage = new TextualSolvePage(currentAssignment);
                         await Navigation.PushAsync(nextPage);
@@ -66,15 +71,19 @@ namespace ADLApp.Views
                 }
                 else
                 {
-                    await DisplayAlert("Kode er ikke koblet på opgave", "Koden har ikke en opgave", "Prøv igen");
+                    await
+                        DisplayAlert("Kode er ikke koblet på opgave", "Koden har ikke en opgave", "Prøv igen");
                 }
             }
             else
             {
-                await DisplayAlert("Fejl ved scanning af opgaver", "Det er ikke en adl qr kode", "Prøv med en anden");
+                await
+                    DisplayAlert("Fejl ved scanning af opgaver", "Det er ikke en adl qr kode",
+                        "Prøv med en anden");
             }
             ScanButton.IsEnabled = true;
         }
+
         private async void OnFindButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new FindQrPage(_locations));

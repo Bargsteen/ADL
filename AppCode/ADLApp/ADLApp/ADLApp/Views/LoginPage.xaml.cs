@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ADLApp.Views;
-using ADLApp.Models;
+﻿#region Libraries
+
+using System;
+using System.Net;
 using ADLApp.ViewModel;
 using Xamarin.Forms;
-using System.Net;
+
+#endregion
 
 namespace ADLApp.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class LoginPage
     {
         public LoginPage()
         {
             InitializeComponent();
-			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),
-						   new Thickness(20, 00, 20, 00),
-						   new Thickness(0));
+            Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),
+                new Thickness(20, 00, 20, 00),
+                new Thickness(0));
         }
+
         public static event EventHandler OnLogin;
 
         private async void OnLoginButtonClicked(object sender, EventArgs e)
@@ -31,14 +30,13 @@ namespace ADLApp.Views
                 PasswordEntry.Text = "Abekat123$";
             }
             ILogin loginService = new RequestManager();
-            var response = await loginService.Login(new UserLoginModel()
+            var response = await loginService.Login(new UserLoginModel
             {
                 Username = UsernameEntry.Text,
                 Password = PasswordEntry.Text
             });
             if (response.StatusCode == HttpStatusCode.OK)
-            {
-                if (response.Data != null && response.Data.IsAuthenticated)
+                if ((response.Data != null) && response.Data.IsAuthenticated)
                 {
                     App.LoginResult = response.Data;
                     OnLogin?.Invoke(this, e);
@@ -46,13 +44,12 @@ namespace ADLApp.Views
                 }
                 else
                 {
-                    await DisplayAlert("Fejl ved login", "Ingen brugere svarer til indtastede information", "Prøv igen");
+                    await
+                        DisplayAlert("Fejl ved login", "Ingen brugere svarer til indtastede information",
+                            "Prøv igen");
                 }
-            }
             else
-            {
                 await DisplayAlert("Fejl ved login", "Der er ikke forbindelse, har du internet?", "Prøv igen");
-            }
             LoginButton.IsEnabled = true;
         }
     }

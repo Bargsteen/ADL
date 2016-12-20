@@ -6,15 +6,14 @@
              BackgroundColor="White">
   
   <StackLayout>
-    <Label x:Name="Question" Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599"></Label>
-  <StackLayout Spacing="30" x:Name="SolveSL" VerticalOptions="StartAndExpand"  >
+    <Label x:Name="Question" Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599" />
+      <StackLayout Spacing="30" x:Name="SolveSL" VerticalOptions="StartAndExpand"  >
     
-    <Label Text="  Skriv tekst her" TextColor="Black" FontSize="18" ></Label>
-      <Editor x:Name="AnswerEditor" HeightRequest="200" BackgroundColor="#F7F7F7" >
-      </Editor>
-  </StackLayout>
+    <Label Text="  Skriv tekst her" TextColor="Black" FontSize="18" />
+          <Editor x:Name="AnswerEditor" HeightRequest="200" BackgroundColor="#F7F7F7" />
+      </StackLayout>
   <StackLayout VerticalOptions="End">
-    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+    <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked" BackgroundColor="#66bb6a" TextColor="White" />
   </StackLayout>
   </StackLayout>
 </ContentPage>

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Libraries
 
+using System;
 using Xamarin.Forms;
+
+#endregion
 
 namespace ADLApp.Views
 {
-    public partial class CheckBox : ContentView
+    public partial class CheckBox
     {
         public static readonly BindableProperty TextProperty =
             BindableProperty.Create(
@@ -16,9 +15,10 @@ namespace ADLApp.Views
                 typeof(string),
                 typeof(CheckBox),
                 null,
-                propertyChanged: (bindable, oldValue, newValue) =>
+                propertyChanged:
+                (bindable, oldValue, newValue) =>
                 {
-                    ((CheckBox)bindable).textLabel.Text = (string)newValue;
+                    ((CheckBox) bindable).textLabel.Text = (string) newValue;
                 });
 
         public static readonly BindableProperty IsCheckedProperty =
@@ -30,14 +30,13 @@ namespace ADLApp.Views
                 propertyChanged: (bindable, oldValue, newValue) =>
                 {
                     // Set the graphic.
-                    CheckBox checkbox = (CheckBox)bindable;
-                    checkbox.boxLabel.Text = (bool)newValue ? "\u2611" : "\u2610";
+                    CheckBox checkbox = (CheckBox) bindable;
+                    checkbox.boxLabel.Text = (bool) newValue ? "\u2611" : "\u2610";
 
                     // Fire the event.
-                    checkbox.CheckedChanged?.Invoke(checkbox, (bool)newValue);
+                    checkbox.CheckedChanged?.Invoke(checkbox, (bool) newValue);
                 });
 
-        public event EventHandler<bool> CheckedChanged;
         public CheckBox()
         {
             InitializeComponent();
@@ -46,17 +45,19 @@ namespace ADLApp.Views
         public string Text
         {
             set { SetValue(TextProperty, value); }
-            get { return (string)GetValue(TextProperty); }
+            get { return (string) GetValue(TextProperty); }
         }
 
         public bool IsChecked
         {
             set { SetValue(IsCheckedProperty, value); }
-            get { return (bool)GetValue(IsCheckedProperty); }
+            get { return (bool) GetValue(IsCheckedProperty); }
         }
 
+        public event EventHandler<bool> CheckedChanged;
+
         // TapGestureRecognizer handler.
-        void OnCheckBoxTapped(object sender, EventArgs args)
+        private void OnCheckBoxTapped(object sender, EventArgs args)
         {
             IsChecked = !IsChecked;
         }

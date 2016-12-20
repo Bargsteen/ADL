@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Libraries
+
 using System.Threading.Tasks;
+
+#endregion
 
 namespace ADLApp.ViewModel
 {
-    interface IScanner
+    internal interface IScanner
     {
         Task<string> ScanAndGetString();
     }

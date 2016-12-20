@@ -1,14 +1,14 @@
-﻿using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Libraries
+
 using System.Threading.Tasks;
+using RestSharp;
+
+#endregion
 
 namespace ADLApp.ViewModel
 {
     public interface ILogin
     {
-        Task<IRestResponse<LoginResult>> Login(UserLoginModel userinfo);       
+        Task<IRestResponse<LoginResult>> Login(UserLoginModel userinfo);
     }
 }

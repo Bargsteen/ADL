@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ADLApp.Models;
 using ADLApp.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

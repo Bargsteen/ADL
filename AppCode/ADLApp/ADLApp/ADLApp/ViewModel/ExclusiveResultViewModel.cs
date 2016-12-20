@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Libraries
+
+using System;
 using ADLApp.Models;
 using Xamarin.Forms;
 
+#endregion
+
 namespace ADLApp.ViewModel
 {
-    public class ExclusiveResultViewModel : INotifyPropertyChanged
+    public class ExclusiveResultViewModel
     {
         public ExclusiveResultViewModel(Assignment assignment, int answer)
         {
@@ -17,18 +16,15 @@ namespace ADLApp.ViewModel
             CorrectAnswer = Assignment.AnswerOptions[Assignment.CorrectAnswer].Text;
             AnswerChosen = Assignment.AnswerOptions[answer].Text;
             if (CorrectAnswer == AnswerChosen)
-            {
                 Feedback = new Tuple<string, Color>("Godt gået, det er korrekt!", Color.Green);
-            }
             else
-            {
-                Feedback = new Tuple<string, Color>($"Desværre, det rigtige svar var \"{CorrectAnswer}\"", Color.Red);
-            }
+                Feedback = new Tuple<string, Color>($"Desværre, det rigtige svar var \"{CorrectAnswer}\"",
+                    Color.Red);
         }
-        public Assignment Assignment { get; set; }
-        public string AnswerChosen { get; set; }
-        public Tuple<string, Color> Feedback { get; set; }
-        public string CorrectAnswer { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Assignment Assignment { get; }
+        public string AnswerChosen { get; }
+        public Tuple<string, Color> Feedback { get; }
+        public string CorrectAnswer { get; }
     }
 }

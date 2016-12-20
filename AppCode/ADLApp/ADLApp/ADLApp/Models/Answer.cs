@@ -1,8 +1,9 @@
-﻿using System;
+﻿#region Libraries
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#endregion
 
 namespace ADLApp.Models
 {
@@ -13,6 +14,7 @@ namespace ADLApp.Models
             TimeAnswered = DateTime.Now;
             AnsweredAssignmentId = assignmentId;
         }
+
         public int AnswerId { get; set; }
         public AssignmentType Type { get; set; }
         public DateTime TimeAnswered { get; set; }

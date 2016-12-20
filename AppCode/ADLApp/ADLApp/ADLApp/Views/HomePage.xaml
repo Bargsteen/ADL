@@ -7,8 +7,8 @@
              Title="ADL">
   <ScrollView>
     <StackLayout>
-      <Button x:Name="ScanButton" Button.Image="scan.png" BorderColor="White" Text="" Clicked="OnScanButtonClicked" BackgroundColor="White"></Button>
-      <Button Button.Image="find.png" x:Name="FindButton" Clicked="OnFindButtonClicked" BorderColor="White" BackgroundColor="White" ></Button>
+      <Button x:Name="ScanButton" Button.Image="scan.png" BorderColor="White" Text="" Clicked="OnScanButtonClicked" BackgroundColor="White" />
+        <Button Button.Image="find.png" x:Name="FindButton" Clicked="OnFindButtonClicked" BorderColor="White" BackgroundColor="White" />
     </StackLayout>
   </ScrollView>
 </ContentPage>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using ADLApp.ViewModel;
+﻿using ADLApp.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 

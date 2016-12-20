@@ -12,8 +12,8 @@
         <ColumnDefinition Width="1*"/>
         <ColumnDefinition Width="1*"/>
       </Grid.ColumnDefinitions>
-      <Label Grid.Column="0" Text="Navn:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black"></Label>
-      <Label Grid.Column="1" Text="Sted:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black"></Label>
+      <Label Grid.Column="0" Text="Navn:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black" />
+        <Label Grid.Column="1" Text="Sted:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black" />
     </Grid>
 
     <ListView ItemsSource="{Binding}" HasUnevenRows="True">
@@ -26,8 +26,8 @@
                   <ColumnDefinition Width="1*"/>
                   <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="{Binding Title}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20"   ></Label>
-                <Label Grid.Column="1" Text="{Binding Description}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20" ></Label>
+                <Label Grid.Column="0" Text="{Binding Title}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20" />
+                  <Label Grid.Column="1" Text="{Binding Description}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20" />
               </Grid>
             </ViewCell.View>
           </ViewCell>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ADLApp.Views"
@@ -16,21 +16,21 @@
 		
 		</StackLayout.BackgroundColor>
 		-->
-    <Label x:Name="Question" Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599"></Label>
-    <StackLayout VerticalOptions="CenterAndExpand" x:Name="TextSL">
-      <Label Text="Svarmuligheder(vælg ét svar):" TextColor="Black" FontSize="25"></Label>
-      <ListView x:Name="answerOptionView" SeparatorColor="Black" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}"  >
+    <Label x:Name="Question" Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599" />
+      <StackLayout VerticalOptions="CenterAndExpand" x:Name="TextSL">
+      <Label Text="Svarmuligheder(vælg ét svar):" TextColor="Black" FontSize="25" />
+          <ListView x:Name="answerOptionView" SeparatorColor="Black" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}"  >
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-              <Label FontSize="20" Text= "{Binding Text}" TextColor="Black" Margin="10"></Label>
+              <Label FontSize="20" Text= "{Binding Text}" TextColor="Black" Margin="10" />
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
     <!--</StackLayout>-->
     <!--<StackLayout VerticalOptions="End">-->
-      <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked"  BackgroundColor="#66bb6a" TextColor="White"></Button>
-    </StackLayout>
+      <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked"  BackgroundColor="#66bb6a" TextColor="White" />
+      </StackLayout>
   </StackLayout>
 </ContentPage>

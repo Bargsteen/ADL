@@ -5,14 +5,14 @@
              x:Class="ADLApp.Views.MultipleResultPage">
   <StackLayout>
     <StackLayout VerticalOptions="CenterAndExpand">
-      <Label Text="{Binding ResultText}" FontSize="30" TextColor="Black" ></Label>
-      <ListView x:Name="answerOptionView" HasUnevenRows="True" ItemsSource="{Binding Path=FeedBackList}" ItemSelected="OnItemSelected" >
+      <Label Text="{Binding ResultText}" FontSize="30" TextColor="Black" />
+        <ListView x:Name="answerOptionView" HasUnevenRows="True" ItemsSource="{Binding Path=FeedBackList}" ItemSelected="OnItemSelected" >
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
               <StackLayout Orientation="Horizontal" >
-                <Label FontSize="25" Text="{Binding Item3}" TextColor="{Binding Item2}"></Label>
-                <Label FontSize="25" Text="{Binding Item1}" TextColor="{Binding Item2}"></Label>
+                <Label FontSize="25" Text="{Binding Item3}" TextColor="{Binding Item2}" />
+                  <Label FontSize="25" Text="{Binding Item1}" TextColor="{Binding Item2}" />
               </StackLayout>
             </ViewCell>
           </DataTemplate>
@@ -20,7 +20,7 @@
       </ListView>
     </StackLayout>
     <StackLayout VerticalOptions="End">
-      <Button Text="Fortsæt" Clicked="OnContinueButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+      <Button Text="Fortsæt" Clicked="OnContinueButtonClicked" BackgroundColor="#66bb6a" TextColor="White" />
     </StackLayout>
   </StackLayout>
 </ContentPage>

@@ -8,15 +8,15 @@
   <MasterDetailPage.Master>
     <ContentPage Title="Menu" BackgroundColor="#ffffff" >
       <StackLayout Margin="50" Orientation="Vertical">
-        <Button Text="Hjælp" BackgroundColor="#66bb6a" TextColor="White" Clicked="OnHelpButtonClicked"></Button>
-        <Button Text="Log ud" BackgroundColor="#66bb6a" TextColor="White" Clicked="OnLogoutButtonClicked"></Button>
+        <Button Text="Hjælp" BackgroundColor="#66bb6a" TextColor="White" Clicked="OnHelpButtonClicked" />
+          <Button Text="Log ud" BackgroundColor="#66bb6a" TextColor="White" Clicked="OnLogoutButtonClicked" />
       </StackLayout>
     </ContentPage>
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
     <NavigationPage NavigationPage.HasBackButton="False" BarBackgroundColor="#66bb6a">
       <x:Arguments>
-        <local:HomePage></local:HomePage>
+        <local:HomePage />
       </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>

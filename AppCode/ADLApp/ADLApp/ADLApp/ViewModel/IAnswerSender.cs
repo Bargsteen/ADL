@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Libraries
+
 using System.Threading.Tasks;
 using ADLApp.Models;
-using System.Net;
+
+#endregion
 
 namespace ADLApp.ViewModel
 {
-    interface IAnswerSender
+    internal interface IAnswerSender
     {
         Task<string> SendAnswer(Answer answer);
     }

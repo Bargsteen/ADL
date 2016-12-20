@@ -1,23 +1,22 @@
-﻿using System;
+﻿#region Libraries
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ADLApp.Models;
 using Xamarin.Forms;
 
+#endregion
+
 namespace ADLApp.Views
 {
-    public partial class FindQrPage : ContentPage
+    public partial class FindQrPage
     {
-        public FindQrPage(List<Location> locations )
+        public FindQrPage(List<Location> locations)
         {
-            
             InitializeComponent();
-			Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),
-						   new Thickness(10, 00, 10, 10),
-						   new Thickness(0));
-            this.BindingContext = locations;
+            Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),
+                new Thickness(10, 00, 10, 10),
+                new Thickness(0));
+            BindingContext = locations;
         }
     }
 }

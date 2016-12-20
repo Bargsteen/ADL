@@ -12,7 +12,7 @@
              />
     </StackLayout>
     <StackLayout VerticalOptions="End">
-      <Button Text="Fortsæt" Clicked="OnContinueButtonClicked" BackgroundColor="#66bb6a" TextColor="White"></Button>
+      <Button Text="Fortsæt" Clicked="OnContinueButtonClicked" BackgroundColor="#66bb6a" TextColor="White" />
     </StackLayout>
   </StackLayout>
 </ContentPage>
