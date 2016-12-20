@@ -21,7 +21,7 @@ namespace ADLApp.Views
 
         private void OnItemSelected(object sender, EventArgs e)
         {
-            answerOptionView.SelectedItem = null;
+            AnswerOptionView.SelectedItem = null;
         }
 
         private async void OnContinueButtonClicked(object sender, EventArgs e)

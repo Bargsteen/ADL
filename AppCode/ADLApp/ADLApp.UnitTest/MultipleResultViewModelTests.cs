@@ -11,7 +11,7 @@ namespace ADLApp.UnitTest
     [TestClass]
     public class MultipleResultViewModelTests
     {
-        private static Assignment mulAssignment = new Assignment()
+        private static Assignment _mulAssignment = new Assignment()
         {
             AnswerCorrectness = new List<AnswerBool>()
             { new AnswerBool()
@@ -37,44 +37,44 @@ namespace ADLApp.UnitTest
             }
         };
 
-        private MultipleResultViewModel mul = new MultipleResultViewModel(new List<AnswerBool>()
+        private MultipleResultViewModel _mul = new MultipleResultViewModel(new List<AnswerBool>()
         {
             new AnswerBool() {Value = true},
             new AnswerBool() {Value = true},
             new AnswerBool() {Value = true}
-        }, mulAssignment);
+        }, _mulAssignment);
 
         [TestMethod]
         [TestCategory("Multiple choice")]
         public void TestFeedBackForMultipleIsInCorrect()
         {
-            Assert.AreEqual($"Desværre, det er forkert. Du svarede 0 ud af 3 korrekte", mul.ResultText);
+            Assert.AreEqual($"Desværre, det er forkert. Du svarede 0 ud af 3 korrekte", _mul.ResultText);
         }
 
         [TestMethod]
         [TestCategory("Multiple choice")]
         public void TestFeedBackForMultipleIsPartialCorrect()
         {
-            mul = new MultipleResultViewModel(new List<AnswerBool>()
+            _mul = new MultipleResultViewModel(new List<AnswerBool>()
             {
                 new AnswerBool() {Value = false},
                 new AnswerBool() {Value = false},
                 new AnswerBool() {Value = true}
-            }, mulAssignment);
-            Assert.AreEqual($"Det er næsten korrekt! Du svarede 2 ud af 3 korrekte", mul.ResultText);
+            }, _mulAssignment);
+            Assert.AreEqual($"Det er næsten korrekt! Du svarede 2 ud af 3 korrekte", _mul.ResultText);
         }
 
         [TestMethod]
         [TestCategory("Multiple choice")]
         public void TestFeedbackForMultipleIsCorrect()
         {
-            mul = new MultipleResultViewModel(new List<AnswerBool>()
+            _mul = new MultipleResultViewModel(new List<AnswerBool>()
             {
                 new AnswerBool() {Value = false},
                 new AnswerBool() {Value = false},
                 new AnswerBool() {Value = false}
-            }, mulAssignment);
-            Assert.AreEqual("Det er korrekt, godt gået!", mul.ResultText);
+            }, _mulAssignment);
+            Assert.AreEqual("Det er korrekt, godt gået!", _mul.ResultText);
         }
 
     }

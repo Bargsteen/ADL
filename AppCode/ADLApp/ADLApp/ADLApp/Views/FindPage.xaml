@@ -1,21 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ADLApp.Views.FindQrPage"
+             x:Class="ADLApp.Views.FindPage"
              Title="Placering af QR-koder"
              BackgroundColor="White">
-
   <StackLayout >
-    
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="1*"/>
         <ColumnDefinition Width="1*"/>
       </Grid.ColumnDefinitions>
       <Label Grid.Column="0" Text="Navn:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black" />
-        <Label Grid.Column="1" Text="Sted:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black" />
+      <Label Grid.Column="1" Text="Sted:" VerticalTextAlignment="Center" FontSize="25" TextColor="Black" />
     </Grid>
-
     <ListView ItemsSource="{Binding}" HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>
@@ -27,14 +24,12 @@
                   <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Text="{Binding Title}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20" />
-                  <Label Grid.Column="1" Text="{Binding Description}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20" />
+                <Label Grid.Column="1" Text="{Binding Description}" BackgroundColor="#66bb6a"  TextColor="White" FontSize="20" />
               </Grid>
             </ViewCell.View>
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
-
   </StackLayout>
-
 </ContentPage>

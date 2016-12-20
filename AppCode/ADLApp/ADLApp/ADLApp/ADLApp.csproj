@@ -68,8 +68,8 @@
     <Compile Include="ViewModel\IAnswerSender.cs" />
     <Compile Include="ViewModel\ILocationLoader.cs" />
     <Compile Include="ViewModel\ExclusiveResultViewModel.cs" />
-    <Compile Include="Views\FindQrPage.xaml.cs">
-      <DependentUpon>FindQrPage.xaml</DependentUpon>
+    <Compile Include="Views\FindPage.xaml.cs">
+      <DependentUpon>FindPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -192,7 +192,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\FindQrPage.xaml">
+    <EmbeddedResource Include="Views\FindPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

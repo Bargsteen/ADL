@@ -16,7 +16,6 @@ namespace ADLApp.Views
                 new Thickness(20, 00, 20, 10),
                 new Thickness(0));
         }
-
         private async void OnGoHomeButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();

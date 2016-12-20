@@ -4,8 +4,8 @@
              x:Class="ADLApp.Views.TextualResultPage">
   <StackLayout>
     <StackLayout VerticalOptions="CenterAndExpand">
-      <Label x:Name="FeedBackLabel"
-             Text="Tak for svaret. Det er nu sendt ind til din lærer"
+      <Label
+          Text="Tak for svaret. Det er nu sendt ind til din lærer"
              TextColor="Green"
              VerticalOptions="Center" 
              HorizontalOptions="Center" FontSize="25"

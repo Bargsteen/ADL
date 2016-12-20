@@ -13,13 +13,11 @@ namespace ADLApp.Views
         {
             InitializeComponent();
         }
-
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
             IsPresented = false;
             await Navigation.PushModalAsync(new LoginPage());
         }
-
         private async void OnHelpButtonClicked(object sender, EventArgs e)
         {
             IsPresented = false;

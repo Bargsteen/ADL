@@ -1,14 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:ADLApp"
-             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ADLApp.Views.HomePage"
              Title="ADL">
   <ScrollView>
     <StackLayout>
-      <Button x:Name="ScanButton" Button.Image="scan.png" BorderColor="White" Text="" Clicked="OnScanButtonClicked" BackgroundColor="White" />
-        <Button Button.Image="find.png" x:Name="FindButton" Clicked="OnFindButtonClicked" BorderColor="White" BackgroundColor="White" />
+      <Button x:Name="ScanButton" Image="scan.png" BorderColor="White" Text="" Clicked="OnScanButtonClicked" BackgroundColor="White" />
+      <Button Image="find.png" Clicked="OnFindButtonClicked" BorderColor="White" BackgroundColor="White" />
     </StackLayout>
   </ScrollView>
 </ContentPage>

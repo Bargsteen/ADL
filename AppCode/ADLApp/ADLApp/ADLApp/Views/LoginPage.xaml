@@ -2,19 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ADLApp.Views.LoginPage">
-  
+
   <StackLayout >
-    
     <StackLayout VerticalOptions="Start">
       <Label Text="Login" FontSize="50" HorizontalTextAlignment="Center" TextColor="Black" Margin="20" />
     </StackLayout>
-  
     <StackLayout VerticalOptions="CenterAndExpand">
       <Entry x:Name="UsernameEntry"   Placeholder="Brugernavn" />
-        <Entry x:Name="PasswordEntry" Placeholder="Adgangskode" IsPassword="True" />
-        <Button x:Name="LoginButton" Text="Login" Clicked="OnLoginButtonClicked" BackgroundColor="#66bb6a" TextColor="White" />
+      <Entry x:Name="PasswordEntry" Placeholder="Adgangskode" IsPassword="True" />
+      <Button x:Name="LoginButton" Text="Login" Clicked="OnLoginButtonClicked" BackgroundColor="#66bb6a" TextColor="White" />
     </StackLayout>
-
   </StackLayout>
-
 </ContentPage>

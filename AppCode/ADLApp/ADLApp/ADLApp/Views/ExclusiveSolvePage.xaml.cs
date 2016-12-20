@@ -20,7 +20,7 @@ namespace ADLApp.Views
             AssignmentToSolve = currentAssignment;
         }
 
-        public Assignment AssignmentToSolve { get; }
+        private Assignment AssignmentToSolve { get; }
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
@@ -32,7 +32,7 @@ namespace ADLApp.Views
             SendAnswerButton.IsEnabled = false;
             int selectedAnswerIndex =
                 AssignmentToSolve.AnswerOptions.IndexOf(AnswerOptionView.SelectedItem as AnswerOption);
-            string status = await
+            await
                 _answerSender.SendAnswer(new Answer(AssignmentToSolve.AssignmentId)
                 {
                     ChosenAnswer = selectedAnswerIndex

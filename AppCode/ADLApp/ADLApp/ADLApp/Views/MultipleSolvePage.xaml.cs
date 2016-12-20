@@ -13,54 +13,53 @@ namespace ADLApp.Views
 {
     public partial class MultipleSolvePage
     {
-        private List<bool> answers = new List<bool>();
-        private readonly IAnswerSender answerSender = new RequestManager();
-        private readonly Assignment assignmentToSolve;
-        private readonly List<AnswerOption> ChosenAnswers = new List<AnswerOption>();
+        private readonly IAnswerSender _answerSender = new RequestManager();
+        private readonly Assignment _assignmentToSolve;
+        private readonly List<AnswerOption> _chosenAnswers = new List<AnswerOption>();
 
         public MultipleSolvePage(Assignment mca)
         {
             InitializeComponent();
-            TextSL.Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),
+            TextSl.Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),
                 new Thickness(20, 00, 20, 10),
                 new Thickness(0));
             BindingContext = mca;
-            assignmentToSolve = mca;
+            _assignmentToSolve = mca;
         }
 
         private void OnChecked(object sender, bool isChecked)
         {
             if (isChecked)
-                ChosenAnswers.Add(
-                    assignmentToSolve.AnswerOptions.First(ao => ao.Text == (sender as CheckBox).Text));
+                _chosenAnswers.Add(
+                    _assignmentToSolve.AnswerOptions.First(ao => ao.Text == (sender as CheckBox).Text));
             else
-                ChosenAnswers.Remove(
-                    assignmentToSolve.AnswerOptions.First(ao => ao.Text == (sender as CheckBox).Text));
+                _chosenAnswers.Remove(
+                    _assignmentToSolve.AnswerOptions.First(ao => ao.Text == (sender as CheckBox).Text));
         }
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
             SendAnswerButton.IsEnabled = false;
             List<AnswerBool> chosenAnswers = new List<AnswerBool>();
-            for (int i = 0; i < assignmentToSolve.AnswerOptions.Count; i++)
+            for (int i = 0; i < _assignmentToSolve.AnswerOptions.Count; i++)
                 chosenAnswers.Add(new AnswerBool {Value = false});
-            foreach (var ca in ChosenAnswers)
-                chosenAnswers[assignmentToSolve.AnswerOptions.IndexOf(ca)].Value = true;
+            foreach (var ca in _chosenAnswers)
+                chosenAnswers[_assignmentToSolve.AnswerOptions.IndexOf(ca)].Value = true;
             await
-                answerSender.SendAnswer(new Answer(assignmentToSolve.AssignmentId)
+                _answerSender.SendAnswer(new Answer(_assignmentToSolve.AssignmentId)
                 {
                     ChosenAnswers = chosenAnswers
                 });
             await
                 Navigation.PushModalAsync(
-                    new MultipleResultPage(new MultipleResultViewModel(chosenAnswers, assignmentToSolve)));
+                    new MultipleResultPage(new MultipleResultViewModel(chosenAnswers, _assignmentToSolve)));
             await Navigation.PopAsync();
             SendAnswerButton.IsEnabled = true;
         }
 
         private void OnItemSelected(object sender, EventArgs e)
         {
-            answerOptionView.SelectedItem = null;
+            AnswerOptionView.SelectedItem = null;
         }
     }
 }

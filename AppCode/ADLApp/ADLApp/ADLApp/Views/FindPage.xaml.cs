@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace ADLApp.Views
 {
-    public partial class FindQrPage
+    public partial class FindPage
     {
-        public FindQrPage(List<Location> locations)
+        public FindPage(List<Location> locations)
         {
             InitializeComponent();
             Padding = Device.OnPlatform(new Thickness(20, 20, 20, 10),

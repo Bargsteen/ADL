@@ -12,9 +12,9 @@ namespace ADLApp.UnitTest
     [TestClass]
     public class ExclusiveResultViewModelTests
     {
-        private ExclusiveResultViewModel rvm = new ExclusiveResultViewModel(exAssignment, 1);
+        private ExclusiveResultViewModel _rvm = new ExclusiveResultViewModel(_exAssignment, 1);
 
-        private static Assignment exAssignment = new Assignment()
+        private static Assignment _exAssignment = new Assignment()
         {
             CorrectAnswer = 0,
             Text = "Test question",
@@ -27,17 +27,17 @@ namespace ADLApp.UnitTest
 
         [TestMethod]
         [TestCategory("Exclusive choice")]
-        public void TestIfRVMCorrectAnswerIsCorrect()
+        public void TestIfRvmCorrectAnswerIsCorrect()
         {
-            Assert.AreEqual(rvm.CorrectAnswer, exAssignment.AnswerOptions[exAssignment.CorrectAnswer].Text);
+            Assert.AreEqual(_rvm.CorrectAnswer, _exAssignment.AnswerOptions[_exAssignment.CorrectAnswer].Text);
         }
 
         [TestMethod]
         [TestCategory("Exclusive choice")]
         public void TestFeedbackIsIncorrect()
         {
-            Assert.AreEqual($"Desværre, det rigtige svar var \"{rvm.CorrectAnswer}\"", rvm.Feedback.Item1);
-            Assert.AreEqual(Color.Red, rvm.Feedback.Item2);
+            Assert.AreEqual($"Desværre, det rigtige svar var \"{_rvm.CorrectAnswer}\"", _rvm.Feedback.Item1);
+            Assert.AreEqual(Color.Red, _rvm.Feedback.Item2);
 
         }
 
@@ -45,7 +45,7 @@ namespace ADLApp.UnitTest
         [TestCategory("Exclusive choice")]
         public void TestFeedbackIsCorrect()
         {
-            ExclusiveResultViewModel rvm = new ExclusiveResultViewModel(exAssignment, 0);
+            ExclusiveResultViewModel rvm = new ExclusiveResultViewModel(_exAssignment, 0);
             Assert.AreEqual("Godt gået, det er korrekt!", rvm.Feedback.Item1);
             Assert.AreEqual(Color.Green, rvm.Feedback.Item2);
         }

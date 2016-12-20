@@ -3,13 +3,12 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  x:Class="ADLApp.Views.MenuPage"
                  xmlns:local="clr-namespace:ADLApp.Views;assembly=ADLApp"
-                  x:Name="MDP">
-
+                  x:Name="Mdp">
   <MasterDetailPage.Master>
     <ContentPage Title="Menu" BackgroundColor="#ffffff" >
       <StackLayout Margin="50" Orientation="Vertical">
         <Button Text="Hjælp" BackgroundColor="#66bb6a" TextColor="White" Clicked="OnHelpButtonClicked" />
-          <Button Text="Log ud" BackgroundColor="#66bb6a" TextColor="White" Clicked="OnLogoutButtonClicked" />
+        <Button Text="Log ud" BackgroundColor="#66bb6a" TextColor="White" Clicked="OnLogoutButtonClicked" />
       </StackLayout>
     </ContentPage>
   </MasterDetailPage.Master>

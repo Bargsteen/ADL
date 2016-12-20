@@ -6,8 +6,8 @@
              BackgroundColor="White">
   
   <StackLayout>
-    <Label x:Name="Question" Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599" />
-      <StackLayout Spacing="30" x:Name="SolveSL" VerticalOptions="StartAndExpand"  >
+    <Label Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599" />
+      <StackLayout Spacing="30" x:Name="SolveSl" VerticalOptions="StartAndExpand"  >
     
     <Label Text="  Skriv tekst her" TextColor="Black" FontSize="18" />
           <Editor x:Name="AnswerEditor" HeightRequest="200" BackgroundColor="#F7F7F7" />

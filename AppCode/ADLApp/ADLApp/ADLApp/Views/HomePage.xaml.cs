@@ -15,7 +15,6 @@ namespace ADLApp.Views
         private readonly IAssignmentLoader _assignmentLoader = new RequestManager();
         private readonly ILocationLoader _locationLoader = new RequestManager();
         private readonly IScanner _qrScanner = new QrScanner();
-
         private List<Location> _locations;
 
         public HomePage()
@@ -83,10 +82,9 @@ namespace ADLApp.Views
             }
             ScanButton.IsEnabled = true;
         }
-
         private async void OnFindButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new FindQrPage(_locations));
+            await Navigation.PushAsync(new FindPage(_locations));
         }
     }
 }
