@@ -47,6 +47,12 @@ a.glyph-green-link {
     color: white;
 }
 
+.navbar-inverse a.navbar-brand{
+    color: white;
+}
+
+
+
 .logout-button {
     background-color: #c9302c;
     text-align: center;
