@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ADL.Models.Answers;
-using ADL.Models.Assignments;
 
 namespace ADL.Models
 {

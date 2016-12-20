@@ -20,7 +20,7 @@ namespace ADL.Controllers
         private readonly IAssignmentSetRepository _assignmentSetRepository;
         private readonly UserManager<Person> _userManager;
         private readonly IClassRepository _classRepository;
-        private readonly Person _currentUser;
+        private Person currentUser;
 
         public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo, UserManager<Person> userManager, IClassRepository classRepository)
         {
@@ -30,26 +30,27 @@ namespace ADL.Controllers
             _assignmentSetRepository = assignmentSetRepo;
         }
 
+        // Necessary for testing, unfortunately
         //public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo, UserManager<Person> userManager, IClassRepository classRepository, Person currentUser)
         //: this(assignmentSetRepo, answerRepo, userManager, classRepository)
         //{
-        //    this._currentUser = currentUser;
+        //    this.currentUser = currentUser;
         //}
 
         public async Task<IActionResult> Index()
         {
-            await _userManager.GetUserAsync(HttpContext.User);
-            if (_currentUser != null && _currentUser?.SchoolId != 0)
+            currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            if (currentUser != null && currentUser?.SchoolId != 0)
             {
                 StatisticsViewModel statisticsViewModel = new StatisticsViewModel(_answerRepository.Answers,
                 _assignmentSetRepository.AssignmentSets,
                 _userManager.Users.Where(
-                    p => p.PersonType == EnumCollection.PersonTypes.Student && p.SchoolId == _currentUser.SchoolId), _currentUser, _classRepository.Classes.Where(c => c.SchoolId == _currentUser.SchoolId));
+                    p => p.PersonType == EnumCollection.PersonTypes.Student && p.SchoolId == currentUser.SchoolId), currentUser, _classRepository.Classes.Where(c => c.SchoolId == currentUser.SchoolId));
                 return View(statisticsViewModel);
             }
             else
             {
-                TempData["errorMessage"] = "Du kan ikke se statistik som admin på nuværende tidspunkt.";
+                TempData["errorMessage"] = "Du kan ikke se statistik med denne bruger på nuværende tidspunkt.";
                 return RedirectToAction("Index", "Home");
             }
 
