@@ -53,8 +53,10 @@ namespace ADLApp.ViewModel
 
         public async Task<IRestResponse<LoginResult>> Login(UserLoginModel userinfo)
         {
-            RestRequest request = new RestRequest("GetIdentity", Method.POST);
-            request.RequestFormat = DataFormat.Json;
+            RestRequest request = new RestRequest("GetIdentity", Method.POST)
+            {
+                RequestFormat = DataFormat.Json
+            };
             request.AddBody(userinfo);
             IRestResponse<LoginResult> resp = await _rClient.ExecutePostTaskAsync<LoginResult>(request);
             return resp;

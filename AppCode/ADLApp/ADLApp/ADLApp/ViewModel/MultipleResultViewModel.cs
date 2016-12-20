@@ -21,42 +21,43 @@ namespace ADLApp.ViewModel
             {
                 if (ca.Value)
                 {
-                    string chosen = "\u2611";
+                    string checkedCheckBox = "\u2611";
                     FeedBackList.Add(Assignment.AnswerCorrectness[counter].Value
                         ? new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Green,
-                            chosen)
+                            checkedCheckBox)
                         : new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Red,
-                            chosen));
+                            checkedCheckBox));
                 }
                 else
                 {
-                    string notChosen = "\u2610";
+                    string uncheckedCheckBox = "\u2610";
                     FeedBackList.Add(!Assignment.AnswerCorrectness[counter].Value
                         ? new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Green,
-                            notChosen)
+                            uncheckedCheckBox)
                         : new Tuple<string, Color, string>(Assignment.AnswerOptions[counter].Text, Color.Red,
-                            notChosen));
+                            uncheckedCheckBox));
                 }
                 counter++;
             }
 
 
             bool isCorrect = FeedBackList.All(fb => fb.Item2 == Color.Green);
-            if (isCorrect) ResultText = "Det er korrekt, godt gået!";
+            if (isCorrect)
+                ResultText = "Det er korrekt, godt gået!";
             else
             {
                 int correctAnswerCount = FeedBackList.Count(fb => fb.Item2 == Color.Green);
-                if ((double) correctAnswerCount/FeedBackList.Count() > 0.5)
+                if ((double)correctAnswerCount / FeedBackList.Count > 0.5)
                     ResultText =
-                        $"Det er næsten korrekt! Du svarede {correctAnswerCount} ud af {FeedBackList.Count()} korrekte";
+                        $"Det er næsten korrekt! Du svarede {correctAnswerCount} ud af {FeedBackList.Count} korrekte";
                 else
                     ResultText =
-                        $"Desværre, det er forkert. Du svarede {correctAnswerCount} ud af {FeedBackList.Count()} korrekte";
+                        $"Desværre, det er forkert. Du svarede {correctAnswerCount} ud af {FeedBackList.Count} korrekte";
             }
         }
 
-        public Assignment Assignment { get; set; }
-        public string ResultText { get; set; }
-        public List<Tuple<string, Color, string>> FeedBackList { get; set; }
+        public Assignment Assignment { get; }
+        public string ResultText { get; }
+        public List<Tuple<string, Color, string>> FeedBackList { get; }
     }
 }

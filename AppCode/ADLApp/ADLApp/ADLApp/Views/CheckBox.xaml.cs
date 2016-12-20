@@ -18,7 +18,7 @@ namespace ADLApp.Views
                 propertyChanged:
                 (bindable, oldValue, newValue) =>
                 {
-                    ((CheckBox) bindable).textLabel.Text = (string) newValue;
+                    ((CheckBox) bindable).TextLabel.Text = (string) newValue;
                 });
 
         public static readonly BindableProperty IsCheckedProperty =
@@ -31,9 +31,8 @@ namespace ADLApp.Views
                 {
                     // Set the graphic.
                     CheckBox checkbox = (CheckBox) bindable;
-                    checkbox.boxLabel.Text = (bool) newValue ? "\u2611" : "\u2610";
-
-                    // Fire the event.
+                    checkbox.BoxLabel.Text = (bool) newValue ? "\u2611" : "\u2610";
+                    // Invokes the event.
                     checkbox.CheckedChanged?.Invoke(checkbox, (bool) newValue);
                 });
 

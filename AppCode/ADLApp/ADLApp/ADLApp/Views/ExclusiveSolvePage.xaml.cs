@@ -11,7 +11,7 @@ namespace ADLApp.Views
 {
     public partial class ExclusiveSolvePage
     {
-        private readonly IAnswerSender answerSender = new RequestManager();
+        private readonly IAnswerSender _answerSender = new RequestManager();
 
         public ExclusiveSolvePage(Assignment currentAssignment)
         {
@@ -20,20 +20,20 @@ namespace ADLApp.Views
             AssignmentToSolve = currentAssignment;
         }
 
-        public Assignment AssignmentToSolve { get; set; }
+        public Assignment AssignmentToSolve { get; }
 
         private async void OnSendAnswerButtonClicked(object sender, EventArgs e)
         {
-            if (answerOptionView?.SelectedItem == null)
+            if (AnswerOptionView?.SelectedItem == null)
             {
                 await DisplayAlert("Fejl i besvaring", "Vælg venligst et svar", "OK");
                 return;
             }
             SendAnswerButton.IsEnabled = false;
             int selectedAnswerIndex =
-                AssignmentToSolve.AnswerOptions.IndexOf(answerOptionView.SelectedItem as AnswerOption);
+                AssignmentToSolve.AnswerOptions.IndexOf(AnswerOptionView.SelectedItem as AnswerOption);
             string status = await
-                answerSender.SendAnswer(new Answer(AssignmentToSolve.AssignmentId)
+                _answerSender.SendAnswer(new Answer(AssignmentToSolve.AssignmentId)
                 {
                     ChosenAnswer = selectedAnswerIndex
                 });

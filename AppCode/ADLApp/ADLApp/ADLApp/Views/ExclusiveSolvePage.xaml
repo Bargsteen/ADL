@@ -1,25 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:ADLApp.Views"
-             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ADLApp.Views.ExclusiveSolvePage"
 			       BackgroundColor="White"
              Title="{Binding Headline}">
 
-  <StackLayout Spacing="10" x:Name="SolveSL" >
-    <!--
-		<StackLayout.BackgroundColor>
-      <Color>
-        <OnPlatform x:TypeArguments="Color" iOS="White"></OnPlatform>
-      </Color>
-		
-		</StackLayout.BackgroundColor>
-		-->
-    <Label x:Name="Question" Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599" />
-      <StackLayout VerticalOptions="CenterAndExpand" x:Name="TextSL">
+  <StackLayout Spacing="10">
+    <Label Text ="{Binding Text}" FontSize="20" HorizontalTextAlignment="Center" TextColor="White" BackgroundColor="#94d599" />
+    <StackLayout VerticalOptions="CenterAndExpand">
       <Label Text="Svarmuligheder(vælg ét svar):" TextColor="Black" FontSize="25" />
-          <ListView x:Name="answerOptionView" SeparatorColor="Black" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}"  >
+      <ListView x:Name="AnswerOptionView" SeparatorColor="Black" HasUnevenRows="True" ItemsSource="{Binding AnswerOptions}"  >
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
@@ -28,9 +18,7 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-    <!--</StackLayout>-->
-    <!--<StackLayout VerticalOptions="End">-->
       <Button x:Name="SendAnswerButton" Text="Send svar" Clicked="OnSendAnswerButtonClicked"  BackgroundColor="#66bb6a" TextColor="White" />
-      </StackLayout>
+    </StackLayout>
   </StackLayout>
 </ContentPage>
