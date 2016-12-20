@@ -143,7 +143,7 @@ namespace ADL.Controllers
                 }
 
                 TempData["message"] = "Koblingen blev gemt.";
-                return RedirectToAction("List", "Assignment");
+                return RedirectToAction("AssignmentSetList", "Assignment");
             }
             TempData["errorMessage"] = "Der skete en fejl.";
             return View(nameof(ChooseLocations), model);
