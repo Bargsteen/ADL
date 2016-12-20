@@ -12,9 +12,9 @@ namespace ADLApp.UnitTest
     [TestClass]
     public class ExclusiveResultViewModelTests
     {
-        private ExclusiveResultViewModel _rvm = new ExclusiveResultViewModel(_exAssignment, 1);
+        private readonly ExclusiveResultViewModel _rvm = new ExclusiveResultViewModel(_exAssignment, 1);
 
-        private static Assignment _exAssignment = new Assignment()
+        private static readonly Assignment _exAssignment = new Assignment()
         {
             CorrectAnswer = 0,
             Text = "Test question",

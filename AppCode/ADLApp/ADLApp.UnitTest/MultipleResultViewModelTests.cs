@@ -11,7 +11,7 @@ namespace ADLApp.UnitTest
     [TestClass]
     public class MultipleResultViewModelTests
     {
-        private static Assignment _mulAssignment = new Assignment()
+        private static readonly Assignment MulAssignment = new Assignment()
         {
             AnswerCorrectness = new List<AnswerBool>()
             { new AnswerBool()
@@ -42,7 +42,7 @@ namespace ADLApp.UnitTest
             new AnswerBool() {Value = true},
             new AnswerBool() {Value = true},
             new AnswerBool() {Value = true}
-        }, _mulAssignment);
+        }, MulAssignment);
 
         [TestMethod]
         [TestCategory("Multiple choice")]
@@ -60,7 +60,7 @@ namespace ADLApp.UnitTest
                 new AnswerBool() {Value = false},
                 new AnswerBool() {Value = false},
                 new AnswerBool() {Value = true}
-            }, _mulAssignment);
+            }, MulAssignment);
             Assert.AreEqual($"Det er næsten korrekt! Du svarede 2 ud af 3 korrekte", _mul.ResultText);
         }
 
@@ -73,7 +73,7 @@ namespace ADLApp.UnitTest
                 new AnswerBool() {Value = false},
                 new AnswerBool() {Value = false},
                 new AnswerBool() {Value = false}
-            }, _mulAssignment);
+            }, MulAssignment);
             Assert.AreEqual("Det er korrekt, godt gået!", _mul.ResultText);
         }
 
