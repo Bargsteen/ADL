@@ -7,7 +7,5 @@ namespace ADL.Models.Repositories
     public interface IAnswerRepository {
         IEnumerable<Answer> Answers { get; }
         void SaveAnswer(Answer answer);
-        Answer DeleteAnswer(int answerId);
-
     }
 }

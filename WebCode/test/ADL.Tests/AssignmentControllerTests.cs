@@ -18,19 +18,19 @@ namespace ADL.Tests
 {
     public class AssignmentControllerTests
     {
-        private Mock<IAssignmentSetRepository> mockAssignmentSetRepository;
-        private Mock<ILocationRepository> MocklocationRepository;
-        private AssignmentController assignmentController;
-        UserManager<Person> userManager;
+        private readonly Mock<IAssignmentSetRepository> _mockAssignmentSetRepository;
+        private readonly Mock<ILocationRepository> _mocklocationRepository;
+        private readonly AssignmentController _assignmentController;
+        UserManager<Person> _userManager;
 
-        private static List<Person> users;
+        private static List<Person> _users;
 
 
         public AssignmentControllerTests()
         {
-            mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
+            _mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
 
-            mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
+            _mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
              {
                 new AssignmentSet {AssignmentSetId = 1, Title = "Set 1", Description = "d1",  CreatorId = "1", PublicityLevel = PublicityLevel.Private, SchoolId = 1, Assignments = new List<Assignment>(){new Assignment { AssignmentId = 1, Text = "Test1"}}  },
                 new AssignmentSet {AssignmentSetId = 2, Title = "Set 2", Description = "d2", CreatorId = "2", PublicityLevel = PublicityLevel.Internal, SchoolId = 1, Assignments = new List<Assignment>(){new Assignment { AssignmentId = 2, Text = "Test2"}}  },
@@ -38,17 +38,17 @@ namespace ADL.Tests
 
              });
             
-            MocklocationRepository
+            _mocklocationRepository
              = new Mock<ILocationRepository>();
 
-            MocklocationRepository
+            _mocklocationRepository
             .Setup(m => m.Locations).Returns(new List<Location>
             {
                 new Location {LocationId = 1},
                 new Location {LocationId = 2}
             });
 
-             users = new List<Person>
+             _users = new List<Person>
              {
                  new Person() {Firstname = "Eigil", Lastname = "maaalt", SchoolId = 1, PersonType = PersonTypes.Teacher, Id = "1"},
                  new Person() {Firstname = "Jonas", Lastname = "Saxegaard", SchoolId = 1, PersonType = PersonTypes.Teacher, Id = "2"},
@@ -58,10 +58,10 @@ namespace ADL.Tests
 
             var userStore = new Mock<IUserStore<Person>>();
             UserManager<Person> um = new UserManager<Person>(userStore.Object, null, null, null, null, null, null, null, null);
-            userStore.Setup(u => u.FindByIdAsync(users.First().Id, default(CancellationToken))).Returns(new Task<Person>(() => users.First()));
+            userStore.Setup(u => u.FindByIdAsync(_users.First().Id, default(CancellationToken))).Returns(new Task<Person>(() => _users.First()));
 
 
-            assignmentController = new AssignmentController(mockAssignmentSetRepository.Object, MocklocationRepository
+            _assignmentController = new AssignmentController(_mockAssignmentSetRepository.Object, _mocklocationRepository
             .Object, um);   
         }
         
@@ -76,10 +76,10 @@ namespace ADL.Tests
 
                 AssignmentSetListViewModel model = new AssignmentSetListViewModel()
                 {
-                    PublicAssignmentSets = mockAssignmentSetRepository.Object.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public),
-                    InternalAssignmentSets = mockAssignmentSetRepository.Object.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Internal && a.SchoolId == users.ElementAt(i).SchoolId),
-                    PrivateAssignmentSets = mockAssignmentSetRepository.Object.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Private && a.CreatorId == users.ElementAt(i).Id),
-                    CurrentSchoolId = users.ElementAt(i).SchoolId
+                    PublicAssignmentSets = _mockAssignmentSetRepository.Object.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public),
+                    InternalAssignmentSets = _mockAssignmentSetRepository.Object.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Internal && a.SchoolId == _users.ElementAt(i).SchoolId),
+                    PrivateAssignmentSets = _mockAssignmentSetRepository.Object.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Private && a.CreatorId == _users.ElementAt(i).Id),
+                    CurrentSchoolId = _users.ElementAt(i).SchoolId
                 };
 
                 // Assert
@@ -88,16 +88,16 @@ namespace ADL.Tests
                 if(i == 0)
                 {
                     // Test for at bruger 1 kan se interne AssignmentSets
-                    Assert.Equal(mockAssignmentSetRepository.Object.AssignmentSets.ElementAt(1), model.InternalAssignmentSets.FirstOrDefault());
+                    Assert.Equal(_mockAssignmentSetRepository.Object.AssignmentSets.ElementAt(1), model.InternalAssignmentSets.FirstOrDefault());
                     // Test for at bruger 1 kan se sin private AssignmentSet
-                    Assert.Equal(mockAssignmentSetRepository.Object.AssignmentSets.ElementAt(0), model.PrivateAssignmentSets.FirstOrDefault());
+                    Assert.Equal(_mockAssignmentSetRepository.Object.AssignmentSets.ElementAt(0), model.PrivateAssignmentSets.FirstOrDefault());
                 }
                 // User 2
                 else if (i == 1)
                 {
                     // Tester for om bruger 2 kan se bruger 1's private AssignmentSet
                     Assert.Equal(null, model.PrivateAssignmentSets.FirstOrDefault());
-                    Assert.Equal(mockAssignmentSetRepository.Object.AssignmentSets.ElementAt(i), model.InternalAssignmentSets.FirstOrDefault());
+                    Assert.Equal(_mockAssignmentSetRepository.Object.AssignmentSets.ElementAt(i), model.InternalAssignmentSets.FirstOrDefault());
                 }
                 // User 3
                 else
@@ -108,7 +108,7 @@ namespace ADL.Tests
                     Assert.Equal(null, model.InternalAssignmentSets.FirstOrDefault());
                 }
                      // Test for at bruger 1,2 & 3 kan se offentlige AssignmentSet
-                    Assert.Equal(mockAssignmentSetRepository.Object.AssignmentSets.ElementAt(2), model.PublicAssignmentSets.FirstOrDefault());
+                    Assert.Equal(_mockAssignmentSetRepository.Object.AssignmentSets.ElementAt(2), model.PublicAssignmentSets.FirstOrDefault());
             }
                 
 
@@ -121,7 +121,7 @@ namespace ADL.Tests
         {
          
             // Act
-            AssignmentSet requestedAssignmentSet = (assignmentController.Edit(id).ViewData.Model as AssignmentSetViewModel).AssignmentSet;
+            AssignmentSet requestedAssignmentSet = (_assignmentController.Edit(id).ViewData.Model as AssignmentSetViewModel).AssignmentSet;
 
             // Assert
 
@@ -140,7 +140,7 @@ namespace ADL.Tests
         public void Can_Not_Edit_Non_Existing_Assignment_HttpGet(int id)
         {
             // Act
-            AssignmentSet requestedAssignmentSet = (assignmentController.Edit(id).ViewData.Model as AssignmentSetViewModel).AssignmentSet;
+            AssignmentSet requestedAssignmentSet = (_assignmentController.Edit(id).ViewData.Model as AssignmentSetViewModel).AssignmentSet;
 
             // Assert
             Assert.Equal(requestedAssignmentSet, null);
@@ -156,9 +156,9 @@ namespace ADL.Tests
         {
             // Arrange is done in ctor 
             // Act
-            assignmentController.DeleteAssignmentSet(id);
+            _assignmentController.DeleteAssignmentSet(id);
             // Assert
-            mockAssignmentSetRepository.Verify(m => m.DeleteAssignmentSet(id));
+            _mockAssignmentSetRepository.Verify(m => m.DeleteAssignmentSet(id));
         }
 
 

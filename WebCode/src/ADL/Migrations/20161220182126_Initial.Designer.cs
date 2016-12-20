@@ -8,7 +8,7 @@ using ADL.Models;
 namespace ADL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161208120440_Initial")]
+    [Migration("20161220182126_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace ADL.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("AnswerOption");
+                    b.ToTable("AnswerOptions");
                 });
 
             modelBuilder.Entity("ADL.Models.Answers.Answer", b =>
@@ -71,7 +71,7 @@ namespace ADL.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("AnswerBool");
+                    b.ToTable("AnswerBools");
                 });
 
             modelBuilder.Entity("ADL.Models.Assignments.Assignment", b =>

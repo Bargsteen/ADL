@@ -12,23 +12,23 @@ namespace ADL.Controllers
     [Authorize(Roles = "Lærer,Admin")]
     public class LocationController : Controller
     {
-        ILocationRepository locationRepository;
-        UserManager<Person> userManager;
+        readonly ILocationRepository _locationRepository;
+        readonly UserManager<Person> _userManager;
         public LocationController(ILocationRepository repo, UserManager<Person> usrMgr)
         {
-            locationRepository = repo;
-            userManager = usrMgr;
+            _locationRepository = repo;
+            _userManager = usrMgr;
         }
 
         public async Task<ViewResult> List()
         {
             Person currentUser = await GetCurrentUserAsync();
-            return View(locationRepository.Locations.Where(l => l.SchoolId == currentUser.SchoolId));
+            return View(_locationRepository.Locations.Where(l => l.SchoolId == currentUser?.SchoolId));
         }
 
 
         public ViewResult Edit(int locationId) =>
-            View(locationRepository.Locations
+            View(_locationRepository.Locations
                 .FirstOrDefault(l => l.LocationId == locationId));
 
         [HttpPost]
@@ -36,7 +36,7 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid)
             {
-                locationRepository.SaveLocation(location);
+                _locationRepository.SaveLocation(location);
                 TempData["message"] = $"Lokationen '{location.Title}' blev gemt.";
                 return RedirectToAction(nameof(List));
             }
@@ -61,7 +61,7 @@ namespace ADL.Controllers
         [HttpPost]
         public IActionResult Delete(int locationId)
         {
-            Location deletedLocation = locationRepository.DeleteLocation(locationId);
+            Location deletedLocation = _locationRepository.DeleteLocation(locationId);
             if (deletedLocation != null)
             {
                 TempData["message"] = $"Lokationen '{deletedLocation.Title}' blev slettet.";
@@ -69,12 +69,12 @@ namespace ADL.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        public ViewResult CreateQR(int locationId, string title)
+        public ViewResult CreateQr(int locationId, string title)
         {
-            QrGenerator.GenerateQR(locationId);
+            QrGenerator.GenerateQr(locationId);
             return View("ViewQR", title);
         }
-        public Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        public Task<Person> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
     }
 }

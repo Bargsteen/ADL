@@ -17,7 +17,7 @@ namespace ADL.Models.ViewModels
         public Dictionary<int, Tuple<int, int,int>> CorrectVsTotalForSet { get; set; } = new Dictionary<int, Tuple<int, int,int>>();
         public List<AnswerInformationPerSetViewModel> AnswerInformationViewModels { get; set; } = new List<AnswerInformationPerSetViewModel>();
 
-        private IEnumerable<Answer> getAnswersForAssignment(Assignment assignment, IEnumerable<Answer> answers)
+        private IEnumerable<Answer> GetAnswersForAssignment(Assignment assignment, IEnumerable<Answer> answers)
         {
             List<Answer> answersForThisAssignment = new List<Answer>();
             foreach (Answer answer in answers)
@@ -37,7 +37,7 @@ namespace ADL.Models.ViewModels
             int answersForReview = 0;
             foreach (Assignment assignment in assignmentSet.Assignments)
             {
-                List<Answer> answersForThisAssignment = getAnswersForAssignment(assignment,
+                List<Answer> answersForThisAssignment = GetAnswersForAssignment(assignment,
                     Answers) as List<Answer>;
                 if (assignment.Type == EnumCollection.AssignmentType.ExclusiveChoice)
                 {
@@ -91,7 +91,7 @@ namespace ADL.Models.ViewModels
     }
     public class AnswerInformationPerSetViewModel
     {
-        private static int IdCounter = 0;
+        private static int _idCounter = 0;
         public int CollapseId { get; set; }
         public Person User { get; set; }
         public AssignmentSet AssignmentSet { get; set; }
@@ -99,7 +99,7 @@ namespace ADL.Models.ViewModels
 
         public AnswerInformationPerSetViewModel(Person user, AssignmentSet set, IEnumerable<Answer> answers)
         {
-            CollapseId = IdCounter++;
+            CollapseId = _idCounter++;
             User = user;
             AssignmentSet = set;
             foreach (Answer answer in answers.Where(a => a.UserId == User.Id))

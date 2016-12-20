@@ -20,7 +20,7 @@ namespace ADL.Controllers
         private readonly IAssignmentSetRepository _assignmentSetRepository;
         private readonly UserManager<Person> _userManager;
         private readonly IClassRepository _classRepository;
-        private readonly Person currentUser;
+        private readonly Person _currentUser;
 
         public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo, UserManager<Person> userManager, IClassRepository classRepository)
         {
@@ -30,23 +30,29 @@ namespace ADL.Controllers
             _assignmentSetRepository = assignmentSetRepo;
         }
 
-        public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo, UserManager<Person> userManager, IClassRepository classRepository, Person currentUser)
-        : this(assignmentSetRepo, answerRepo, userManager, classRepository)
-        {
-            this.currentUser = currentUser;
-        }
+        //public StatisticsController(IAssignmentSetRepository assignmentSetRepo, IAnswerRepository answerRepo, UserManager<Person> userManager, IClassRepository classRepository, Person currentUser)
+        //: this(assignmentSetRepo, answerRepo, userManager, classRepository)
+        //{
+        //    this._currentUser = currentUser;
+        //}
 
-        public async Task<ViewResult> Index()
+        public async Task<IActionResult> Index()
         {
-            if(currentUser == null)
+            await _userManager.GetUserAsync(HttpContext.User);
+            if (_currentUser != null && _currentUser?.SchoolId != 0)
             {
-                await _userManager.GetUserAsync(HttpContext.User);
-            }
-            StatisticsViewModel statisticsViewModel = new StatisticsViewModel(_answerRepository.Answers,
+                StatisticsViewModel statisticsViewModel = new StatisticsViewModel(_answerRepository.Answers,
                 _assignmentSetRepository.AssignmentSets,
                 _userManager.Users.Where(
-                    p => p.PersonType == EnumCollection.PersonTypes.Student && p.SchoolId == currentUser.SchoolId), currentUser, _classRepository.Classes.Where(c => c.SchoolId == currentUser.SchoolId));
-            return View(statisticsViewModel);
+                    p => p.PersonType == EnumCollection.PersonTypes.Student && p.SchoolId == _currentUser.SchoolId), _currentUser, _classRepository.Classes.Where(c => c.SchoolId == _currentUser.SchoolId));
+                return View(statisticsViewModel);
+            }
+            else
+            {
+                TempData["errorMessage"] = "Du kan ikke se statistik som admin på nuværende tidspunkt.";
+                return RedirectToAction("Index", "Home");
+            }
+
         }
     }
 }

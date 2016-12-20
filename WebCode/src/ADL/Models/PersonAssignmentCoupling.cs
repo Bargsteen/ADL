@@ -9,6 +9,7 @@ namespace ADL.Models
         public int PersonAssignmentCouplingId { get; set; }
         [Required]
         public string PersonId { get; set; }
+
         [Required]
         public int AssignmentId { get; set; }
 

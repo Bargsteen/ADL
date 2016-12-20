@@ -10,7 +10,7 @@
 <div asp-validation-summary=" All" class="text-danger"></div>
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for"Id" value="@Model.Id" />
-    <input type="hidden" asp-for="PersonType" value="@Model.PersonType"/>
+    <input type="hidden" asp-for="PersonType" value="@Model.PersonType" />
     <input type="hidden" asp-for="SchoolId" value="@Model.SchoolId" />
     <div class="form-group">
         <label asp-for="Firstname"></label>

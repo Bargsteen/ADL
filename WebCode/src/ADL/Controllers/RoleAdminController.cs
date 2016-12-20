@@ -12,14 +12,14 @@ namespace ADL.Controllers
     [Authorize(Roles = "Admin")]
     public class RoleAdminController : Controller
     {
-        private RoleManager<IdentityRole> roleManager;
-        private UserManager<Person> userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<Person> _userManager;
         public RoleAdminController(RoleManager<IdentityRole> roleMgr, UserManager<Person> userMrg)
         {
-            roleManager = roleMgr;
-            userManager = userMrg;
+            _roleManager = roleMgr;
+            _userManager = userMrg;
         }
-        public ViewResult Index() => View(roleManager.Roles);
+        public ViewResult Index() => View(_roleManager.Roles);
         public IActionResult Create() => View();
         [HttpPost]
         public async Task<IActionResult> Create([Required]string name)
@@ -27,7 +27,7 @@ namespace ADL.Controllers
             if (ModelState.IsValid)
             {
                 IdentityResult result
-                    = await roleManager.CreateAsync(new IdentityRole(name));
+                    = await _roleManager.CreateAsync(new IdentityRole(name));
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -42,10 +42,10 @@ namespace ADL.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            IdentityRole role = await roleManager.FindByIdAsync(id);
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
             if (role != null)
             {
-                IdentityResult result = await roleManager.DeleteAsync(role);
+                IdentityResult result = await _roleManager.DeleteAsync(role);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -59,17 +59,17 @@ namespace ADL.Controllers
             {
                 ModelState.AddModelError("", "No role found");
             }
-            return View("Index", roleManager.Roles);
+            return View("Index", _roleManager.Roles);
         }
 
         public async Task<IActionResult> Edit(string id)
         {
-            IdentityRole role = await roleManager.FindByIdAsync(id);
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
             List<Person> members = new List<Person>();
             List<Person> nonMembers = new List<Person>();
-            foreach (Person user in userManager.Users)
+            foreach (Person user in _userManager.Users)
             {
-                var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+                var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
                 list.Add(user);
             }
             return View(new RoleEditModel
@@ -88,10 +88,10 @@ namespace ADL.Controllers
             {
                 foreach (string userId in model.IdsToAdd ?? new string[] { })
                 {
-                    Person user = await userManager.FindByIdAsync(userId);
+                    Person user = await _userManager.FindByIdAsync(userId);
                     if (user != null)
                     {
-                        result = await userManager.AddToRoleAsync(user,
+                        result = await _userManager.AddToRoleAsync(user,
                             model.RoleName);
                         if (!result.Succeeded)
                         {
@@ -101,10 +101,10 @@ namespace ADL.Controllers
                 }
                 foreach (string userId in model.IdsToDelete ?? new string[] { })
                 {
-                    Person user = await userManager.FindByIdAsync(userId);
+                    Person user = await _userManager.FindByIdAsync(userId);
                     if (user != null)
                     {
-                        result = await userManager.RemoveFromRoleAsync(user,
+                        result = await _userManager.RemoveFromRoleAsync(user,
                             model.RoleName);
                         if (!result.Succeeded)
                         {

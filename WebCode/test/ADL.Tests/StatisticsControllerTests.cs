@@ -20,15 +20,15 @@ namespace ADL.Tests
     public class StatisticsControllerTests
     {
 
-        private Mock<IAnswerRepository> mockAnswerRepository = new Mock<IAnswerRepository>();
-        private Mock<IAssignmentSetRepository> mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
-        private Mock<UserManager<Person>> mockUserManager = new Mock<UserManager<Person>>();
-        private Mock<IClassRepository> mockClassRepository = new Mock<IClassRepository>();
+        private readonly Mock<IAnswerRepository> _mockAnswerRepository = new Mock<IAnswerRepository>();
+        private readonly Mock<IAssignmentSetRepository> _mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
+        private readonly Mock<UserManager<Person>> _mockUserManager = new Mock<UserManager<Person>>();
+        private readonly Mock<IClassRepository> _mockClassRepository = new Mock<IClassRepository>();
         private readonly StatisticsController _statisticsController;
         public StatisticsControllerTests()
         {
-            mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
-            mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
+            _mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
+            _mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
              {
                 new AssignmentSet {AssignmentSetId = 1,
                                    Title = "TestTitle",
@@ -38,8 +38,8 @@ namespace ADL.Tests
 
              });
 
-            mockAnswerRepository = new Mock<IAnswerRepository>();
-            mockAnswerRepository.Setup(m => m.Answers).Returns(new[]
+            _mockAnswerRepository = new Mock<IAnswerRepository>();
+            _mockAnswerRepository.Setup(m => m.Answers).Returns(new[]
             {
                 new Answer {AnswerId = 1,
                             AnsweredAssignmentId = 1,
@@ -78,8 +78,8 @@ namespace ADL.Tests
                             Type = EnumCollection.AssignmentType.ExclusiveChoice, }
             });
 
-            mockClassRepository = new Mock<IClassRepository>();
-            mockClassRepository.Setup(m => m.Classes).Returns(new[]
+            _mockClassRepository = new Mock<IClassRepository>();
+            _mockClassRepository.Setup(m => m.Classes).Returns(new[]
             {
                 new Class {ClassId = 1,
                            Name = "testClass",
@@ -91,8 +91,8 @@ namespace ADL.Tests
 
             var userStore = new Mock<IUserStore<Person>>();
 
-            mockUserManager = new Mock<UserManager<Person>>(userStore.Object, null, null, null, null, null, null, null, null);
-            mockUserManager.Setup(m => m.Users).Returns(new EnumerableQuery<Person>(new List<Person>()
+            _mockUserManager = new Mock<UserManager<Person>>(userStore.Object, null, null, null, null, null, null, null, null);
+            _mockUserManager.Setup(m => m.Users).Returns(new EnumerableQuery<Person>(new List<Person>()
             {
              new Person {Firstname = "test Firestname1", Lastname = "test Lastname1",SchoolId = 1, Id = "asd1"},
              new Person {Firstname = "test Firestname2", Lastname = "test Lastname2",SchoolId = 1, Id = "asd2"},
@@ -101,8 +101,8 @@ namespace ADL.Tests
             }));
             UserManager<Person> um = new UserManager<Person>(userStore.Object, null, null, null, null, null, null, null, null);
 
-            _statisticsController = new StatisticsController(mockAssignmentSetRepository.Object
-                , mockAnswerRepository.Object, mockUserManager.Object, mockClassRepository.Object, new Person { Firstname = "test Firestname", Lastname = "test Lastname", SchoolId = 1, Id = "asd1" });
+            _statisticsController = new StatisticsController(_mockAssignmentSetRepository.Object
+                , _mockAnswerRepository.Object, _mockUserManager.Object, _mockClassRepository.Object, new Person { Firstname = "test Firestname", Lastname = "test Lastname", SchoolId = 1, Id = "asd1" });
 
 
 
@@ -115,7 +115,7 @@ namespace ADL.Tests
             // Act
             var result = await _statisticsController.Index();
             // Assert
-            Assert.Equal(mockAnswerRepository.Object.Answers, (result.Model as StatisticsViewModel).Answers);
+            Assert.Equal(_mockAnswerRepository.Object.Answers, (result.Model as StatisticsViewModel).Answers);
             Assert.True((result.Model as StatisticsViewModel).People.All(p => p.SchoolId == 1));
             Assert.True((result.Model as StatisticsViewModel)
                   .AnswerInformationViewModels

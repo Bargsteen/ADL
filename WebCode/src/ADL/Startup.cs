@@ -12,15 +12,15 @@ namespace ADL
 {
     public class Startup
     {
-        IConfigurationRoot configuration;
+        readonly IConfigurationRoot _configuration;
         //environment is used for choosing db based on the environment (development/production)
-        IHostingEnvironment environment;
+        IHostingEnvironment _environment;
 
         public Startup(IHostingEnvironment env)
         {
-            environment = env;
+            _environment = env;
 
-            configuration = new ConfigurationBuilder()
+            _configuration = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
@@ -34,7 +34,7 @@ namespace ADL
 
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlite(
-                    configuration["Data:ADL:ConnectionString"]));       
+                    _configuration["Data:ADL:ConnectionString"]));       
 
             services.AddIdentity<Person, IdentityRole>(opts =>
             {
@@ -47,11 +47,11 @@ namespace ADL
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddTransient<ISchoolRepository, EFSchoolRepository>();
-            services.AddTransient<IAssignmentSetRepository, EFAssignmentSetRepository>();
-            services.AddTransient<ILocationRepository, EFLocationRepository>();
-            services.AddTransient<IAnswerRepository, EFAnswerRepository>();
-            services.AddTransient<IClassRepository, EFClassRepository>();
+            services.AddTransient<ISchoolRepository, EfSchoolRepository>();
+            services.AddTransient<IAssignmentSetRepository, EfAssignmentSetRepository>();
+            services.AddTransient<ILocationRepository, EfLocationRepository>();
+            services.AddTransient<IAnswerRepository, EfAnswerRepository>();
+            services.AddTransient<IClassRepository, EfClassRepository>();
             services.AddMemoryCache();
             services.AddSession();
         }
@@ -61,7 +61,7 @@ namespace ADL
         {
             // Logging
         
-            loggerFactory.AddConsole(configuration.GetSection("Logging"));
+            loggerFactory.AddConsole(_configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             //MigrateDatabase(app);
@@ -73,8 +73,8 @@ namespace ADL
             app.UseMvcWithDefaultRoute();
             app.UseDeveloperExceptionPage();    
 
-            AdminAndRolesSeedData.CreateTeacherStudentAndAdminRoles(app.ApplicationServices, configuration).Wait();
-            AdminAndRolesSeedData.CreateAdminAccount(app.ApplicationServices, configuration).Wait();
+            AdminAndRolesSeedData.CreateTeacherStudentAndAdminRoles(app.ApplicationServices, _configuration).Wait();
+            AdminAndRolesSeedData.CreateAdminAccount(app.ApplicationServices, _configuration).Wait();
         }
     }
 }

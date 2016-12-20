@@ -15,36 +15,36 @@ namespace ADL.Controllers
     [Authorize(Roles = "Lærer,Admin")]
     public class AssignmentController : Controller
     {
-        IAssignmentSetRepository assignmentSetRepository;
-        ILocationRepository locationRepository;
-        UserManager<Person> userManager;
-        Person currentUser;
+        readonly IAssignmentSetRepository _assignmentSetRepository;
+        ILocationRepository _locationRepository;
+        readonly UserManager<Person> _userManager;
+        Person _currentUser;
         public AssignmentController(IAssignmentSetRepository assignmentSetRepo, ILocationRepository locationRepo, UserManager<Person> usrMgr)
         {
-            assignmentSetRepository = assignmentSetRepo;
-            locationRepository = locationRepo;
-            userManager = usrMgr;
+            _assignmentSetRepository = assignmentSetRepo;
+            _locationRepository = locationRepo;
+            _userManager = usrMgr;
         }
 
         public async Task<ViewResult> AssignmentSetList()
         {
-            if (currentUser == null)
+            if (_currentUser == null)
             {
-                currentUser = await GetCurrentUserAsync();
+                _currentUser = await GetCurrentUserAsync();
             }
             AssignmentSetListViewModel model = new AssignmentSetListViewModel()
             {
-                PublicAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public),
-                InternalAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Internal && a.SchoolId == currentUser.SchoolId),
-                PrivateAssignmentSets = assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Private && a.CreatorId == currentUser.Id),
-                CurrentSchoolId = currentUser.SchoolId
+                PublicAssignmentSets = _assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Public),
+                InternalAssignmentSets = _assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Internal && a.SchoolId == _currentUser.SchoolId),
+                PrivateAssignmentSets = _assignmentSetRepository.AssignmentSets.Where(a => a.PublicityLevel == PublicityLevel.Private && a.CreatorId == _currentUser.Id),
+                CurrentSchoolId = _currentUser.SchoolId
             };
             return View(model);
         }
 
         public ViewResult Edit(int assignmentSetId)
         {
-            AssignmentSet assignmentSet = assignmentSetRepository.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSetId);
+            AssignmentSet assignmentSet = _assignmentSetRepository.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSetId);
             AssignmentSetViewModel model = new AssignmentSetViewModel { AssignmentSet = assignmentSet };
             return View(model);
         }
@@ -80,7 +80,7 @@ namespace ADL.Controllers
                 }
                 if (model.AssignmentSet.Assignments.Count > 0)
                 {
-                    assignmentSetRepository.SaveAssignmentSet(model.AssignmentSet);
+                    _assignmentSetRepository.SaveAssignmentSet(model.AssignmentSet);
                     TempData["message"] = $"Opgaven '{model.AssignmentSet.Title}' blev gemt.";
                     return RedirectToAction(nameof(AssignmentSetList));
                 }
@@ -96,15 +96,15 @@ namespace ADL.Controllers
         // Uses the edit view, but gives it a new assignment.
         public async Task<ViewResult> Create()
         {
-            if (currentUser == null)
+            if (_currentUser == null)
             {
-                currentUser = await GetCurrentUserAsync();
+                _currentUser = await GetCurrentUserAsync();
             }
 
             AssignmentSet assignmentSet = new AssignmentSet()
             {
-                CreatorId = currentUser.Id,
-                SchoolId = currentUser.SchoolId
+                CreatorId = _currentUser.Id,
+                SchoolId = _currentUser.SchoolId
             };
             AssignmentSetViewModel model = new AssignmentSetViewModel()
             {
@@ -114,12 +114,12 @@ namespace ADL.Controllers
         }
 
 
-        private Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        private Task<Person> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         [HttpPost]
         public IActionResult DeleteAssignmentSet(int assignmentSetId)
         {
-            AssignmentSet deletedAssignmentSet = assignmentSetRepository.DeleteAssignmentSet(assignmentSetId);
+            AssignmentSet deletedAssignmentSet = _assignmentSetRepository.DeleteAssignmentSet(assignmentSetId);
             if (deletedAssignmentSet != null)
             {
                 TempData["message"] = $"Opgavesættet '{deletedAssignmentSet.Title}' blev slettet.";

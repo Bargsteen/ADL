@@ -22,9 +22,9 @@
 
 <body>
 
-    
-    
-    
+
+
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -40,7 +40,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Assignment" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Opret opgavesæt</a></li>
                     <li><a asp-controller="Assignment" asp-action="AssignmentSetList"><span class="glyphicon glyphicon-paperclip"></span> Opgavebibliotek</a></li>
-                    <li><a  asp-controller="Location" asp-action="List"><span class="glyphicon glyphicon-map-marker"></span> Lokationer</a></li>
+                    <li><a asp-controller="Location" asp-action="List"><span class="glyphicon glyphicon-map-marker"></span> Lokationer</a></li>
                     <li><a asp-controller="Statistics" asp-action="Index"><span class="glyphicon glyphicon-stats"></span> Statistik</a></li>
 
                     @if (this.User.IsInRole("Admin"))
@@ -72,24 +72,24 @@
         </div>
     </nav>
 
-    
 
-<div class="container body-content" style="padding-top: 70px">
-    @if (TempData["message"] != null)
-    {
-        <div class="alert alert-success">@TempData["message"]</div>
-    }
-    @if (TempData["errorMessage"] != null)
-    {
-        <div class="alert alert-danger">@TempData["errorMessage"]</div>
-    }
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p class="text-center">&copy; 2016 - e309, Aalborg Universitet</p>
-    </footer>
-</div>
-<script src="/js/AssignmentSetCreation.js"></script>
+
+    <div class="container body-content" style="padding-top: 70px">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        @if (TempData["errorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["errorMessage"]</div>
+        }
+        @RenderBody()
+        <hr />
+        <footer>
+            <p class="text-center">&copy; 2016 - e309, Aalborg Universitet</p>
+        </footer>
+    </div>
+    <script src="/js/AssignmentSetCreation.js"></script>
 
 </body>
 </html>

@@ -7,33 +7,34 @@
 <h4>Vælg en klasse</h4>
 
 <div class="panel-group">
-@if(Model.AvailableClasses.Count() != 0){
-    @foreach(Class cls in Model.AvailableClasses)
+    @if (Model.AvailableClasses.Count() != 0)
     {
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#@cls.ClassId">@cls.StartYear @cls.Name</a>
-                    <a class="btn btn-xs btn-primary pull-right" asp-action="Differentiate" asp-route-chosenAssignmentSetId="@Model.ChosenAssignmentSetId" asp-route-chosenClassId="@cls.ClassId"><span style="color:white;">Vælg</span></a>
-                </h4>
+        @foreach (Class cls in Model.AvailableClasses)
+        {
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#@cls.ClassId">@cls.StartYear @cls.Name</a>
+                        <a class="btn btn-xs btn-primary pull-right" asp-action="Differentiate" asp-route-chosenAssignmentSetId="@Model.ChosenAssignmentSetId" asp-route-chosenClassId="@cls.ClassId"><span style="color:white;">Vælg</span></a>
+                    </h4>
+                </div>
+
+                <div id="@cls.ClassId" class="panel-collapse collapse">
+                    @if (cls.People.Count() != 0)
+                    {
+                        <ul class="list-group">
+                            @foreach (Person p in cls.People)
+                            {
+                                <li class="list-group-item">@p.Firstname @p.Lastname</li>
+                            }
+                        </ul>
+
+                    }
+
+                </div>
             </div>
 
-            <div id="@cls.ClassId" class="panel-collapse collapse">
-                @if(cls.People.Count() != 0)
-                {
-                    <ul class="list-group">
-                        @foreach(Person p in cls.People)
-                        {
-                            <li class="list-group-item">@p.Firstname @p.Lastname</li>
-                        }
-                    </ul>
-
-                }
-             
-            </div>
-        </div>
+        }
 
     }
-  
-}
 </div>

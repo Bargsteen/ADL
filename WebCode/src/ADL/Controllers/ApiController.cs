@@ -13,24 +13,24 @@ namespace ADL.Controllers
 {
     public class ApiController : Controller
     {
-        private IAssignmentSetRepository assignmentSetRepository;
-        private ILocationRepository locationRepository;
-        private IAnswerRepository answerRepository;
-        private UserManager<Person> userManager;
-        private SignInManager<Person> signInManager;
+        private readonly IAssignmentSetRepository _assignmentSetRepository;
+        private readonly ILocationRepository _locationRepository;
+        private readonly IAnswerRepository _answerRepository;
+        private readonly UserManager<Person> _userManager;
+        private readonly SignInManager<Person> _signInManager;
         public ApiController(IAssignmentSetRepository assignmentRepo, ILocationRepository locationRepo, IAnswerRepository answerRepo, UserManager<Person> userMgr,
                 SignInManager<Person> signinMgr)
         {
-            assignmentSetRepository = assignmentRepo;
-            locationRepository = locationRepo;
-            answerRepository = answerRepo;
-            userManager = userMgr;
-            signInManager = signinMgr;
+            _assignmentSetRepository = assignmentRepo;
+            _locationRepository = locationRepo;
+            _answerRepository = answerRepo;
+            _userManager = userMgr;
+            _signInManager = signinMgr;
         }
         /*tager en location og personId som input, skider en assignment ud der er serializaed*/
         public string Location(int? id, string personId)
         {
-            Location location = locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
+            Location location = _locationRepository.Locations.FirstOrDefault(l => l.LocationId == id);
 
             if (location != null) // this is a valid location
             {
@@ -38,11 +38,11 @@ namespace ADL.Controllers
                 var firstCouplingWithThisPerson = location.PersonAssignmentCouplings.FirstOrDefault(pac => pac.PersonId == personId);
                 if(firstCouplingWithThisPerson != null) // there is a coupling with this person
                 {
-                    var allAssignments = assignmentSetRepository.AssignmentSets.SelectMany(a => a.Assignments);
+                    var allAssignments = _assignmentSetRepository.AssignmentSets.SelectMany(a => a.Assignments);
                     Assignment assignmentToGiveToUser = allAssignments.FirstOrDefault(a => a.AssignmentId == firstCouplingWithThisPerson.AssignmentId);
                     if(assignmentToGiveToUser != null) // assignment was found
                     {
-                        locationRepository.RemoveSpecificCouplingOnLocation(location.LocationId, firstCouplingWithThisPerson);
+                        _locationRepository.RemoveSpecificCouplingOnLocation(location.LocationId, firstCouplingWithThisPerson);
                         return JsonConvert.SerializeObject(assignmentToGiveToUser);
                     }
                     return "Opgaven blev ikke fundet";
@@ -56,7 +56,7 @@ namespace ADL.Controllers
         {
             if (await IsValidUser(personId))
             {
-                List<Location> allLocationsWithAssignments = locationRepository.Locations.Where(l => l.PersonAssignmentCouplings.Exists(pa => pa.PersonId == personId)).ToList();
+                List<Location> allLocationsWithAssignments = _locationRepository.Locations.Where(l => l.PersonAssignmentCouplings.Exists(pa => pa.PersonId == personId)).ToList();
                 return JsonConvert.SerializeObject(allLocationsWithAssignments);
             }
             else
@@ -76,12 +76,12 @@ namespace ADL.Controllers
                 if (await IsValidUser(answer.UserId))
                 {
                     Assignment answeredAssignment =
-                        assignmentSetRepository.AssignmentSets.SelectMany(set => set.Assignments)
+                        _assignmentSetRepository.AssignmentSets.SelectMany(set => set.Assignments)
                             .First(a => a.AssignmentId == answer.AnsweredAssignmentId);
 
                     if (answeredAssignment != null)
                     {
-                        answerRepository.SaveAnswer(answer);
+                        _answerRepository.SaveAnswer(answer);
                         reply = JsonConvert.SerializeObject(answer);
                     }
                     else
@@ -104,13 +104,13 @@ namespace ADL.Controllers
         [HttpPost]
         public async Task<string> GetIdentity([FromBody]LoginModel model)
         {
-            Person user = await userManager.FindByNameAsync(model.Username);
+            Person user = await _userManager.FindByNameAsync(model.Username);
             IdentificationResult identificationResult = new IdentificationResult();
             if (user != null)
             {
-                await signInManager.SignOutAsync();
+                await _signInManager.SignOutAsync();
                 Microsoft.AspNetCore.Identity.SignInResult result =
-                    await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                    await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
                 if (result.Succeeded)
                 {
                     identificationResult.IsAuthenticated = true;
@@ -125,7 +125,7 @@ namespace ADL.Controllers
         }
         public async Task<bool> IsValidUser(string userId)
         {
-            return await userManager.FindByIdAsync(userId) != null;
+            return await _userManager.FindByIdAsync(userId) != null;
         }
 
     }

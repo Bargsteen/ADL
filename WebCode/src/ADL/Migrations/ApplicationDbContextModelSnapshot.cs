@@ -28,7 +28,7 @@ namespace ADL.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("AnswerOption");
+                    b.ToTable("AnswerOptions");
                 });
 
             modelBuilder.Entity("ADL.Models.Answers.Answer", b =>
@@ -70,7 +70,7 @@ namespace ADL.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("AnswerBool");
+                    b.ToTable("AnswerBools");
                 });
 
             modelBuilder.Entity("ADL.Models.Assignments.Assignment", b =>

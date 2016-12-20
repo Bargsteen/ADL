@@ -5,23 +5,23 @@ using Microsoft.EntityFrameworkCore;
 namespace ADL.Models.Repositories
 {
 
-    public class EFLocationRepository : ILocationRepository
+    public class EfLocationRepository : ILocationRepository
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
-        public EFLocationRepository(ApplicationDbContext ctx)
+        public EfLocationRepository(ApplicationDbContext ctx)
         {
-            context = ctx;
+            _context = ctx;
         }
 
-        public IEnumerable<Location> Locations => context.Locations.Include(l => l.PersonAssignmentCouplings);
+        public IEnumerable<Location> Locations => _context.Locations.Include(l => l.PersonAssignmentCouplings);
 
         public void SaveLocation(Location location)
         {
             if (location.LocationId == 0)
             {
                 // This is a new location
-                context.Locations.Add(location);
+                _context.Locations.Add(location);
             }
             else
             {
@@ -33,7 +33,7 @@ namespace ADL.Models.Repositories
                     dbEntry.Description = location.Description;
                 }
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public Location DeleteLocation(int locationId)
@@ -41,8 +41,8 @@ namespace ADL.Models.Repositories
             Location dbEntry = Locations.FirstOrDefault(l => l.LocationId == locationId);
             if (dbEntry != null)
             {
-                context.Locations.Remove(dbEntry);
-                context.SaveChanges();
+                _context.Locations.Remove(dbEntry);
+                _context.SaveChanges();
             }
             return dbEntry;
         }
@@ -57,7 +57,7 @@ namespace ADL.Models.Repositories
                     dbEntry.PersonAssignmentCouplings = new List<PersonAssignmentCoupling>();
                 }
                 dbEntry.PersonAssignmentCouplings.AddRange(personAssignmentCouplings);
-                context.SaveChanges();
+                _context.SaveChanges();
                 return true;
             }
             return false;
@@ -84,9 +84,9 @@ namespace ADL.Models.Repositories
                         foreach (var coupling in couplingsToBeDeleted)
                         {
                             dbEntry.PersonAssignmentCouplings.Remove(coupling);
-                            context.Remove(coupling);
+                            _context.Remove(coupling);
                         }
-                        context.SaveChanges();
+                        _context.SaveChanges();
                     }
 
                 }
@@ -96,24 +96,16 @@ namespace ADL.Models.Repositories
             return false;
         }
 
-        public bool RemoveSpecificCouplingOnLocation(int locationId, PersonAssignmentCoupling coupling)
+        public void RemoveSpecificCouplingOnLocation(int locationId, PersonAssignmentCoupling coupling)
         {
             var dbEntry = Locations.FirstOrDefault(l => l.LocationId == locationId);
-            if (dbEntry != null)
+            var couplingToBeDeleted = dbEntry?.PersonAssignmentCouplings?.FirstOrDefault(pac => pac.PersonAssignmentCouplingId == coupling.PersonAssignmentCouplingId);
+            if (couplingToBeDeleted != null)
             {
-                if (dbEntry.PersonAssignmentCouplings != null)
-                {
-                    var couplingToBeDeleted = dbEntry.PersonAssignmentCouplings.FirstOrDefault(pac => pac.PersonAssignmentCouplingId == coupling.PersonAssignmentCouplingId);
-                    if (couplingToBeDeleted != null)
-                    {
-                        dbEntry.PersonAssignmentCouplings.Remove(couplingToBeDeleted);
-                        context.Remove(couplingToBeDeleted);
-                        context.SaveChanges();
-                        return true;
-                    }
-                }
+                dbEntry.PersonAssignmentCouplings.Remove(couplingToBeDeleted);
+                _context.Remove(couplingToBeDeleted);
+                _context.SaveChanges();
             }
-            return false;
         }
     }
 }

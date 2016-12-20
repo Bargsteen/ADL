@@ -23,17 +23,17 @@ namespace ADL.Tests
 {
     public class CouplingControllerTests
     {
-        private Mock<IAssignmentSetRepository> mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
-        private Mock<ILocationRepository> mockLocationRepository = new Mock<ILocationRepository>();
-        private Mock<IClassRepository> mockClassRepository = new Mock<IClassRepository>();
-        private Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+        private readonly Mock<IAssignmentSetRepository> _mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
+        private readonly Mock<ILocationRepository> _mockLocationRepository = new Mock<ILocationRepository>();
+        private readonly Mock<IClassRepository> _mockClassRepository = new Mock<IClassRepository>();
+        private readonly Mock<ITempDataDictionary> _tempData = new Mock<ITempDataDictionary>();
         private readonly CouplingController _couplingController;
         public CouplingControllerTests()
         {
-            mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
+            _mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
 
             #region Setups assignmentsetrepository's assignmentsSets property
-            mockAssignmentSetRepository.Setup(ma => ma.AssignmentSets).Returns(new[]
+            _mockAssignmentSetRepository.Setup(ma => ma.AssignmentSets).Returns(new[]
             {
                 new AssignmentSet {
                     AssignmentSetId = 1, Title = "TestTitle", Description = "TestDescription", Assignments = new List<Assignment>()
@@ -64,10 +64,10 @@ namespace ADL.Tests
              });
             #endregion
 
-            mockLocationRepository = new Mock<ILocationRepository>();
+            _mockLocationRepository = new Mock<ILocationRepository>();
 
             #region Setups locationrepository locations property and used methods
-            mockLocationRepository.SetupGet(ml => ml.Locations).Returns(new List<Location>()
+            _mockLocationRepository.SetupGet(ml => ml.Locations).Returns(new List<Location>()
             {
                     new Location()
                     {
@@ -102,15 +102,15 @@ namespace ADL.Tests
 
             });
 
-            mockLocationRepository.Setup(
+            _mockLocationRepository.Setup(
                         l => l.RemoveAllCouplingsForSpecificPersonOnLocation(It.IsAny<int>(), It.IsAny<string>()));
-            mockLocationRepository.Setup(l => l.AddCouplingsToLocation(It.IsAny<int>(), It.IsAny<List<PersonAssignmentCoupling>>()));
+            _mockLocationRepository.Setup(l => l.AddCouplingsToLocation(It.IsAny<int>(), It.IsAny<List<PersonAssignmentCoupling>>()));
             #endregion
 
-            mockClassRepository = new Mock<IClassRepository>();
+            _mockClassRepository = new Mock<IClassRepository>();
 
             #region Setups ClassRepository classes property
-            mockClassRepository.Setup(mc => mc.Classes).Returns(new[]
+            _mockClassRepository.Setup(mc => mc.Classes).Returns(new[]
             {
                 new Class()
                 {
@@ -226,7 +226,7 @@ namespace ADL.Tests
             #endregion
 
 
-            _couplingController = new CouplingController(mockLocationRepository.Object, mockClassRepository.Object, mockAssignmentSetRepository.Object) { TempData = tempData.Object };
+            _couplingController = new CouplingController(_mockLocationRepository.Object, _mockClassRepository.Object, _mockAssignmentSetRepository.Object) { TempData = _tempData.Object };
         }
         [Fact]
         public void TestChooseClassForAvailableClassesIsCorrect()
@@ -274,8 +274,8 @@ namespace ADL.Tests
             #region Initialises fields in viewmodel
 
             dvm.ChosenAssignmentSet =
-                mockAssignmentSetRepository.Object.AssignmentSets.First(a => a.AssignmentSetId == 1);
-            dvm.ChosenClass = mockClassRepository.Object.Classes.First(c => c.ClassId == 1);
+                _mockAssignmentSetRepository.Object.AssignmentSets.First(a => a.AssignmentSetId == 1);
+            dvm.ChosenClass = _mockClassRepository.Object.Classes.First(c => c.ClassId == 1);
             dvm.CurrentSchoolId = 1;
             dvm.PersonAssignmentCouplings = new List<PersonIdAssignmentIdCoupling>()
             {
@@ -366,12 +366,12 @@ namespace ADL.Tests
             Assert.Equal(1, clvm.PersonAssignmentCouplings.Count(pac => pac.PersonId == "TestId3"));
             Assert.Equal(0, clvm.PersonAssignmentCouplings.Count(pac => pac.PersonId == "TestId4"));
 
-            Assert.True(testIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId1"));
-            Assert.True(testIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId2"));
-            Assert.True(testIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId3"));
+            Assert.True(TestIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId1"));
+            Assert.True(TestIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId2"));
+            Assert.True(TestIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(clvm, "TestId3"));
         }
 
-        private bool testIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(ChooseLocationsViewModel clvm, string personId)
+        private bool TestIfPersonAssignmentCouplingsContainDuplicateAssignmentsAux(ChooseLocationsViewModel clvm, string personId)
         {
             bool containsDuplicates = false;
             //Test if correct assignments are sent with and no duplicates assignments
@@ -400,8 +400,8 @@ namespace ADL.Tests
             #region Initialises fields in ViewModel
 
             dvm.ChosenAssignmentSet =
-                mockAssignmentSetRepository.Object.AssignmentSets.First(a => a.AssignmentSetId == 1);
-            dvm.ChosenClass = mockClassRepository.Object.Classes.First(c => c.ClassId == 1);
+                _mockAssignmentSetRepository.Object.AssignmentSets.First(a => a.AssignmentSetId == 1);
+            dvm.ChosenClass = _mockClassRepository.Object.Classes.First(c => c.ClassId == 1);
             dvm.CurrentSchoolId = 1;
             dvm.PersonAssignmentCouplings = new List<PersonIdAssignmentIdCoupling>()
             {
@@ -480,7 +480,7 @@ namespace ADL.Tests
 
             var result = _couplingController.Differentiate(dvm) as ViewResult;
             clvm = result.Model as ChooseLocationsViewModel;
-            clvm.AvailableLocations = mockLocationRepository.Object.Locations.ToList();
+            clvm.AvailableLocations = _mockLocationRepository.Object.Locations.ToList();
             clvm.ChosenLocations = new List<ChosenLocation>()
             {
                 new ChosenLocation() {IsChosen = true, LocationId = 1 },
@@ -492,7 +492,7 @@ namespace ADL.Tests
             {
                 foreach (ChosenLocation location in clvm.ChosenLocations)
                 {
-                    mockLocationRepository.Verify(
+                    _mockLocationRepository.Verify(
                         l => l.RemoveAllCouplingsForSpecificPersonOnLocation(location.LocationId, s),
                         Times.Once);
                 }
@@ -502,16 +502,16 @@ namespace ADL.Tests
             firstCallList.AddRange(clvm.PersonAssignmentCouplings.Where(pac => pac.PersonId == "TestId1" && (pac.AssignmentId == 1 || pac.AssignmentId == 4)));
             firstCallList.AddRange(clvm.PersonAssignmentCouplings.Where(pac => pac.PersonId == "TestId2" && (pac.AssignmentId == 1 || pac.AssignmentId == 5)));
             firstCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId3"));
-            mockLocationRepository.Verify(l => l.AddCouplingsToLocation(1, firstCallList), Times.Once);
+            _mockLocationRepository.Verify(l => l.AddCouplingsToLocation(1, firstCallList), Times.Once);
             var secondCallList = new List<PersonAssignmentCoupling>();
             secondCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId1" && pac.AssignmentId == 2));
             secondCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId1" && pac.AssignmentId == 5));
             secondCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId2" && pac.AssignmentId == 2));
-            mockLocationRepository.Verify(l => l.AddCouplingsToLocation(2, secondCallList), Times.Once);
+            _mockLocationRepository.Verify(l => l.AddCouplingsToLocation(2, secondCallList), Times.Once);
             var thirdCallList = new List<PersonAssignmentCoupling>();
             thirdCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId1" && pac.AssignmentId == 3));
             thirdCallList.Add(clvm.PersonAssignmentCouplings.First(pac => pac.PersonId == "TestId2" && pac.AssignmentId == 3));
-            mockLocationRepository.Verify(l => l.AddCouplingsToLocation(3, thirdCallList), Times.Once);
+            _mockLocationRepository.Verify(l => l.AddCouplingsToLocation(3, thirdCallList), Times.Once);
 
         }
     }

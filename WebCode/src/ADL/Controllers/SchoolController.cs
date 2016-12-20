@@ -12,24 +12,24 @@ namespace ADL.Controllers
     [Authorize(Roles = "Admin")]
     public class SchoolController : Controller
     {
-        ISchoolRepository schoolRepository;
+        readonly ISchoolRepository _schoolRepository;
         public SchoolController(ISchoolRepository repo)
         {
-            schoolRepository = repo;
+            _schoolRepository = repo;
         }
 
-        public ViewResult List() => View(schoolRepository.Schools);
+        public ViewResult List() => View(_schoolRepository.Schools);
 
-        public ViewResult Edit(int SchoolId) =>
-            View(schoolRepository.Schools
-                .FirstOrDefault(l => l.SchoolId == SchoolId));
+        public ViewResult Edit(int schoolId) =>
+            View(_schoolRepository.Schools
+                .FirstOrDefault(l => l.SchoolId == schoolId));
 
         [HttpPost]
         public IActionResult Edit(School school)
         {
             if (ModelState.IsValid)
             {
-                schoolRepository.SaveSchool(school);
+                _schoolRepository.SaveSchool(school);
                 TempData["message"] = $"Skolen ved navn '{school.SchoolName}' blev gemt.";
                 return RedirectToAction(nameof(List));
             }
@@ -46,7 +46,7 @@ namespace ADL.Controllers
         [HttpPost]
         public IActionResult Delete(int schoolId)
         {
-            School deletedSchool = schoolRepository.DeleteSchool(schoolId);
+            School deletedSchool = _schoolRepository.DeleteSchool(schoolId);
             if (deletedSchool != null)
             {
                 TempData["message"] = $"Skole '{deletedSchool.SchoolName}' blev slettet.";

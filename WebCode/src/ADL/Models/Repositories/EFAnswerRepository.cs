@@ -7,32 +7,21 @@ using Microsoft.EntityFrameworkCore;
 namespace ADL.Models.Repositories
 {
 
-    public class EFAnswerRepository : IAnswerRepository
+    public class EfAnswerRepository : IAnswerRepository
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
-        public EFAnswerRepository(ApplicationDbContext ctx)
+        public EfAnswerRepository(ApplicationDbContext ctx)
         {
-            context = ctx;
+            _context = ctx;
         }
 
-        public IEnumerable<Answer> Answers => context.Answers.Include(a => a.ChosenAnswers);
+        public IEnumerable<Answer> Answers => _context.Answers.Include(a => a.ChosenAnswers);
 
         public void SaveAnswer(Answer answer)
         {
-            context.Answers.Add(answer);
-            context.SaveChanges();
-        }
-
-        public Answer DeleteAnswer(int answerId)
-        {
-            Answer dbEntry = Answers.FirstOrDefault(l => l.AnswerId == answerId);
-            if (dbEntry != null)
-            {
-                context.Answers.Remove(dbEntry);
-                context.SaveChanges();
-            }
-            return dbEntry;
+            _context.Answers.Add(answer);
+            _context.SaveChanges();
         }
     }
 }

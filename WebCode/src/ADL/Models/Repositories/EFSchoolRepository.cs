@@ -3,45 +3,45 @@ using System.Linq;
 
 namespace ADL.Models.Repositories
 {
-    public class EFSchoolRepository : ISchoolRepository
+    public class EfSchoolRepository : ISchoolRepository
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
-        public EFSchoolRepository(ApplicationDbContext ctx)
+        public EfSchoolRepository(ApplicationDbContext ctx)
         {
-            context = ctx;
+            _context = ctx;
         }
 
-        public IEnumerable<School> Schools => context.Schools;
+        public IEnumerable<School> Schools => _context.Schools;
 
         public void SaveSchool(School school)
         {
             if(school.SchoolId == 0)
             {
                 // New School
-                context.Schools.Add(school);
+                _context.Schools.Add(school);
             }
             else
             {
                 // Update School
-                School DbEntry = Schools.FirstOrDefault(s => s.SchoolId == school.SchoolId);
-                if(DbEntry != null)
+                School dbEntry = Schools.FirstOrDefault(s => s.SchoolId == school.SchoolId);
+                if(dbEntry != null)
                 {
-                    DbEntry.SchoolName = school.SchoolName;
-                    DbEntry.InstitutionNumber = school.InstitutionNumber;
+                    dbEntry.SchoolName = school.SchoolName;
+                    dbEntry.InstitutionNumber = school.InstitutionNumber;
                 }
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
         public School DeleteSchool(int schoolId)
         {
-            School DbEntry = Schools.FirstOrDefault(s => s.SchoolId == schoolId);
-            if(DbEntry != null)
+            School dbEntry = Schools.FirstOrDefault(s => s.SchoolId == schoolId);
+            if(dbEntry != null)
             {
-                context.Schools.Remove(DbEntry);
-                context.SaveChanges();
+                _context.Schools.Remove(dbEntry);
+                _context.SaveChanges();
             }
-            return DbEntry;
+            return dbEntry;
         }
 
         

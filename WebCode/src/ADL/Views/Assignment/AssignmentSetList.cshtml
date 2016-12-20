@@ -6,85 +6,91 @@
 <br />
 <hr />
 <div class="panel-group">
-@if(Model.PrivateAssignmentSets.Count() != 0){
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" href="#PrivateAssignmentSets">Dine egne opgavesæt</a>
-      </h4>
-    </div>
-    <div id="PrivateAssignmentSets" class="panel-collapse collapse">
-      <ul class="list-group">
-          @foreach(AssignmentSet assignmentSet in Model.PrivateAssignmentSets)
-          {
-            <form asp-action="DeleteAssignmentSet" method="POST">
-              <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
-              <li class="list-group-item">@assignmentSet.Title 
-              
-                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
-                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
-              
-              </li>
-              </form>
-          }
+    @if (Model.PrivateAssignmentSets.Count() != 0)
+    {
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#PrivateAssignmentSets">Dine egne opgavesæt</a>
+                </h4>
+            </div>
+            <div id="PrivateAssignmentSets" class="panel-collapse collapse">
+                <ul class="list-group">
+                    @foreach (AssignmentSet assignmentSet in Model.PrivateAssignmentSets)
+                    {
+                        <form asp-action="DeleteAssignmentSet" method="POST">
+                            <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
+                            <li class="list-group-item">
+                                @assignmentSet.Title
 
-      </ul>
-    </div>
-  </div>
-}
-@if(Model.InternalAssignmentSets.Count() != 0){
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" href="#InternalAssignmentSets">Skolens opgavesæt</a>
-      </h4>
-    </div>
-    <div id="InternalAssignmentSets" class="panel-collapse collapse">
-      <ul class="list-group">
-          @foreach(AssignmentSet assignmentSet in Model.InternalAssignmentSets)
-          {
-             <form asp-action="DeleteAssignmentSet" method="POST">
-              <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
-              <li class="list-group-item">@assignmentSet.Title 
-              
-                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
-                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
-              
-              </li>
-              </form>
-               }
+                                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
+                                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
 
-      </ul>
-    </div>
-  </div>
-}
+                            </li>
+                        </form>
+                    }
 
-@if(Model.PublicAssignmentSets.Count() != 0){
-  <div class="panel panel-warning">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" href="#PublicAssignmentSets">Offentlige opgavesæt</a>
-      </h4>
-    </div>
-    <div id="PublicAssignmentSets" class="panel-collapse collapse">
-      <ul class="list-group">
-          @foreach(AssignmentSet assignmentSet in Model.PublicAssignmentSets)
-          {
-              <form asp-action="DeleteAssignmentSet" method="POST">
-              <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
-              <li class="list-group-item">@assignmentSet.Title 
-              
-                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
-                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
-              
-              </li>
-              </form>
-          }
+                </ul>
+            </div>
+        </div>
+    }
+    @if (Model.InternalAssignmentSets.Count() != 0)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#InternalAssignmentSets">Skolens opgavesæt</a>
+                </h4>
+            </div>
+            <div id="InternalAssignmentSets" class="panel-collapse collapse">
+                <ul class="list-group">
+                    @foreach (AssignmentSet assignmentSet in Model.InternalAssignmentSets)
+                    {
+                        <form asp-action="DeleteAssignmentSet" method="POST">
+                            <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
+                            <li class="list-group-item">
+                                @assignmentSet.Title
 
-      </ul>
-    </div>
-  </div>
-}
+                                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
+                                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
+
+                            </li>
+                        </form>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    }
+
+    @if (Model.PublicAssignmentSets.Count() != 0)
+    {
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#PublicAssignmentSets">Offentlige opgavesæt</a>
+                </h4>
+            </div>
+            <div id="PublicAssignmentSets" class="panel-collapse collapse">
+                <ul class="list-group">
+                    @foreach (AssignmentSet assignmentSet in Model.PublicAssignmentSets)
+                    {
+                        <form asp-action="DeleteAssignmentSet" method="POST">
+                            <input type="hidden" name="assignmentSetId" value="@assignmentSet.AssignmentSetId" />
+                            <li class="list-group-item">
+                                @assignmentSet.Title
+
+                                <button type="submit" class="btn btn-xs btn-danger pull-right">Slet opgavesæt</button>
+                                <a asp-controller="Coupling" asp-action="ChooseClass" asp-route-currentSchoolId="@Model.CurrentSchoolId" asp-route-chosenAssignmentSetId="@assignmentSet.AssignmentSetId" class="btn btn-xs btn-success pull-right">Tildel</a>
+
+                            </li>
+                        </form>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    }
 
 
 </div>

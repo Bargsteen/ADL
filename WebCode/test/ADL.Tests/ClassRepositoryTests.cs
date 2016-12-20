@@ -16,7 +16,7 @@ namespace ADL.Tests
 {
     public class ClassRepositoryTests
     {
-        SqliteConnection connection = new SqliteConnection("DataSource=:memory:");
+        readonly SqliteConnection _connection = new SqliteConnection("DataSource=:memory:");
         [Fact]
         public void Can_Save_OneNewClass()
         {
@@ -24,12 +24,12 @@ namespace ADL.Tests
             // Arrange 
 
             // In-memory database only exists while the connection is open 
-            connection.Open();
+            _connection.Open();
 
             try
             {
                 var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseSqlite(connection)
+                    .UseSqlite(_connection)
                     .Options;
 
                 // Create the schema in the database
@@ -41,7 +41,7 @@ namespace ADL.Tests
                 // Act
                 using (var context = new ApplicationDbContext(options))
                 {
-                    var repository = new EFClassRepository(context);
+                    var repository = new EfClassRepository(context);
                     Class newClass = new Class()
                     {
                         ClassId = 0,
@@ -62,7 +62,7 @@ namespace ADL.Tests
             }
             finally
             {
-                connection.Close();
+                _connection.Close();
             }
         }
 
@@ -125,12 +125,12 @@ namespace ADL.Tests
             // Arrange 
 
             // In-memory database only exists while the connection is open 
-            connection.Open();
+            _connection.Open();
 
             try
             {
                 var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseSqlite(connection)
+                    .UseSqlite(_connection)
                     .Options;
 
                 // Create the schema in the database
@@ -142,7 +142,7 @@ namespace ADL.Tests
                 // Act
                 using (var context = new ApplicationDbContext(options))
                 {
-                    var repository = new EFClassRepository(context);
+                    var repository = new EfClassRepository(context);
                     Class classOne = new Class()
                     {
                         ClassId = 0,
@@ -172,7 +172,7 @@ namespace ADL.Tests
             }
             finally
             {
-                connection.Close();
+                _connection.Close();
             }
         }
 
@@ -183,12 +183,12 @@ namespace ADL.Tests
             // Arrange 
 
             // In-memory database only exists while the connection is open 
-            connection.Open();
+            _connection.Open();
 
             try
             {
                 var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseSqlite(connection)
+                    .UseSqlite(_connection)
                     .Options;
 
                 // Create the schema in the database
@@ -200,7 +200,7 @@ namespace ADL.Tests
                 // Act
                 using (var context = new ApplicationDbContext(options))
                 {
-                    var repository = new EFClassRepository(context);
+                    var repository = new EfClassRepository(context);
                     Class classOne = new Class()
                     {
                         ClassId = 0,
@@ -232,7 +232,7 @@ namespace ADL.Tests
             }
             finally
             {
-                connection.Close();
+                _connection.Close();
             }
         }
 
@@ -244,12 +244,12 @@ namespace ADL.Tests
             // Arrange 
 
             // In-memory database only exists while the connection is open 
-            connection.Open();
+            _connection.Open();
 
             try
             {
                 var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseSqlite(connection)
+                    .UseSqlite(_connection)
                     .Options;
 
                 // Create the schema in the database
@@ -261,7 +261,7 @@ namespace ADL.Tests
                 // Save new class
                 using (var context = new ApplicationDbContext(options))
                 {
-                    var repository = new EFClassRepository(context);
+                    var repository = new EfClassRepository(context);
                     Class classToBeDeleted = new Class()
                     {
                         ClassId = 0,
@@ -293,7 +293,7 @@ namespace ADL.Tests
             }
             finally
             {
-                connection.Close();
+                _connection.Close();
             }
         }
 

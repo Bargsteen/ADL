@@ -5,33 +5,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ADL.Models.Repositories
 {
-    public class EFClassRepository : IClassRepository
+    public class EfClassRepository : IClassRepository
     {
-        private readonly ApplicationDbContext context;
-        public EFClassRepository(ApplicationDbContext ctx)
+        private readonly ApplicationDbContext _context;
+        public EfClassRepository(ApplicationDbContext ctx)
         {
-            context = ctx;
+            _context = ctx;
         }
 
 
-        public IEnumerable<Class> Classes => context.Classes.Include(c => c.People);
+        public IEnumerable<Class> Classes => _context.Classes.Include(c => c.People);
 
         public void SaveClass(Class theClass)
         {
             if(theClass.ClassId == 0) // new
             {
-                context.Classes.Add(theClass);
+                _context.Classes.Add(theClass);
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
         public Class DeleteClass(int classId)
         {
             Class classToBeDeleted = Classes.FirstOrDefault(c => c.ClassId == classId);
             if(classToBeDeleted != null)
             {
-                context.Classes.Remove(classToBeDeleted);
+                _context.Classes.Remove(classToBeDeleted);
             }
-            context.SaveChanges();
+            _context.SaveChanges();
             return classToBeDeleted;
         }
 
@@ -45,7 +45,7 @@ namespace ADL.Models.Repositories
                     dbEntry.People = new List<Person>();
                 }
                 dbEntry.People.Add(newPerson);
-                context.SaveChanges();
+                _context.SaveChanges();
             }
         }
     }

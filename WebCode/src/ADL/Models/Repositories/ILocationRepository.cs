@@ -9,6 +9,6 @@ namespace ADL.Models.Repositories
         Location DeleteLocation(int locationId);
         bool AddCouplingsToLocation(int locationId, List<PersonAssignmentCoupling> personAssignmentCouplings);
         bool RemoveAllCouplingsForSpecificPersonOnLocation(int locationId, string personId);
-        bool RemoveSpecificCouplingOnLocation(int locationId, PersonAssignmentCoupling coupling);
+        void RemoveSpecificCouplingOnLocation(int locationId, PersonAssignmentCoupling coupling);
     }
 }

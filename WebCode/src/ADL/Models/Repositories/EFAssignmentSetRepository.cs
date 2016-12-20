@@ -5,17 +5,17 @@ using Microsoft.EntityFrameworkCore;
 namespace ADL.Models.Repositories
 {
 
-    public class EFAssignmentSetRepository : IAssignmentSetRepository
+    public class EfAssignmentSetRepository : IAssignmentSetRepository
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
-        public EFAssignmentSetRepository(ApplicationDbContext ctx)
+        public EfAssignmentSetRepository(ApplicationDbContext ctx)
 
         {
-            context = ctx;
+            _context = ctx;
         }
 
-        public IEnumerable<AssignmentSet> AssignmentSets => context.AssignmentSets
+        public IEnumerable<AssignmentSet> AssignmentSets => _context.AssignmentSets
             .Include(aS => aS.Assignments)
                 .ThenInclude(a => a.AnswerOptions)
             .Include(aS => aS.Assignments)
@@ -25,10 +25,10 @@ namespace ADL.Models.Repositories
         {
             if (assignmentSet.AssignmentSetId == 0) // new AssignmentSet
             {
-                context.AssignmentSets.Add(assignmentSet);
+                _context.AssignmentSets.Add(assignmentSet);
 
             }
-            else // Updating
+            else // Ís currently not in use, because there are missing elements in JS
             {
                 AssignmentSet dbEntrySet = AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSet.AssignmentSetId);
                 dbEntrySet.Title = assignmentSet.Title;
@@ -36,12 +36,12 @@ namespace ADL.Models.Repositories
                 dbEntrySet.PublicityLevel = assignmentSet.PublicityLevel;
                 dbEntrySet.LastUpdateDate = assignmentSet.LastUpdateDate;
 
-                context.RemoveRange(dbEntrySet.Assignments);
+                _context.RemoveRange(dbEntrySet.Assignments);
                 // probably doesn't handle answerOptions 
-                context.AddRange(assignmentSet.Assignments);
+                _context.AddRange(assignmentSet.Assignments);
             }
 
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public AssignmentSet DeleteAssignmentSet(int assignmentSetId)
@@ -49,19 +49,19 @@ namespace ADL.Models.Repositories
             AssignmentSet dbEntry = AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == assignmentSetId);
             if (dbEntry != null)
             {
-                context.RemoveRange(dbEntry.Assignments);
+                _context.RemoveRange(dbEntry.Assignments);
                 var allAnswerOptionsInSet = dbEntry.Assignments.SelectMany(a => a.AnswerOptions);
                 var allAnswerBoolsInSet = dbEntry.Assignments.SelectMany(a => a.AnswerCorrectness);
                 foreach(var answerOption in allAnswerOptionsInSet)
                 {
-                    context.AnswerOptions.Remove(answerOption);
+                    _context.AnswerOptions.Remove(answerOption);
                 }
                 foreach(var answerBool in allAnswerBoolsInSet)
                 {
-                    context.AnswerBools.Remove(answerBool);
+                    _context.AnswerBools.Remove(answerBool);
                 }
-                context.AssignmentSets.Remove(dbEntry);
-                context.SaveChanges();
+                _context.AssignmentSets.Remove(dbEntry);
+                _context.SaveChanges();
             }
             return dbEntry;
         }

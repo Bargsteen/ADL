@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ADL.Models
 {
-    public class AdminAndRolesSeedData
+    public static class AdminAndRolesSeedData
     {
         public static async Task CreateTeacherStudentAndAdminRoles(IServiceProvider serviceProvider, IConfiguration configuration)
         {

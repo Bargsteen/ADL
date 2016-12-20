@@ -10,9 +10,11 @@
     input[type='checkbox']:disabled {
         cursor: default;
     }
+
     .cursor:hover {
         cursor: default;
     }
+
     .btn:disabled, .btn-success:disabled, .btn-danger:disabled {
         opacity: 100;
         border: solid 1px;
@@ -46,136 +48,136 @@
                             <!-- innerCollapse -->
                             @foreach (var set in Model.AnswerInformationViewModels.Where(aivm => aivm.User.Id == person.Id))
                             {
-                                if(set.AssignmentAnswers != null)
+                                if (set.AssignmentAnswers != null)
                                 {
-                                <div class="panel panel-success">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion2" href="#@set.CollapseId">
-                                                Opgavesæt @set.AssignmentSet.AssignmentSetId: @set.AssignmentSet.Title
-                                            </a>
-                                        </h4>
-                                    </div>
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion2" href="#@set.CollapseId">
+                                                    Opgavesæt @set.AssignmentSet.AssignmentSetId: @set.AssignmentSet.Title
+                                                </a>
+                                            </h4>
+                                        </div>
 
 
-                                    <div id="@set.CollapseId" class="panel-collapse collapse">
-                                        <div class="panel-body">
+                                        <div id="@set.CollapseId" class="panel-collapse collapse">
+                                            <div class="panel-body">
 
-                                            @foreach (var assignmentAnswer in set.AssignmentAnswers)
-                                            {
-                                                <div class="col-md-12">
-                                                    <div class="col-md-6">
-                                                        <p>@assignmentAnswer.Item1.Text</p>
-                                                    </div>
+                                                @foreach (var assignmentAnswer in set.AssignmentAnswers)
+                                                {
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-6">
+                                                            <p>@assignmentAnswer.Item1.Text</p>
+                                                        </div>
 
-                                                    <div class="col-md-6" style="border-left: solid 3px; margin-bottom: 20px">
-                                                        <p>Besvarelse:</p>
-                                                        @if (assignmentAnswer.Item1.Type == EnumCollection.AssignmentType.ExclusiveChoice)
-                                                        {
-                                                            foreach (var exAnswersOpp in assignmentAnswer.Item1.AnswerOptions)
+                                                        <div class="col-md-6" style="border-left: solid 3px; margin-bottom: 20px">
+                                                            <p>Besvarelse:</p>
+                                                            @if (assignmentAnswer.Item1.Type == EnumCollection.AssignmentType.ExclusiveChoice)
                                                             {
-                                                                if (exAnswersOpp.AnswerOptionId == assignmentAnswer
-                                                                    .Item1.AnswerOptions[assignmentAnswer.Item1.CorrectAnswer].AnswerOptionId
-                                                                    && assignmentAnswer.Item2.ChosenAnswer == assignmentAnswer.Item1.CorrectAnswer)
+                                                                foreach (var exAnswersOpp in assignmentAnswer.Item1.AnswerOptions)
                                                                 {
-                                                                    <div class="input-group" style="margin-bottom: 5px">
-                                                                        <span class="input-group-addon rdonly">
-                                                                            <input type="radio" aria-label="..." checked="" disabled="">
-                                                                        </span>
-                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightgreen" placeholder="@exAnswersOpp.Text" disabled="">
-                                                                    </div>
-                                                                }
-                                                                else if (exAnswersOpp.AnswerOptionId == assignmentAnswer
-                                                                    .Item1.AnswerOptions[assignmentAnswer.Item1.CorrectAnswer].AnswerOptionId
-                                                                         && assignmentAnswer.Item2.ChosenAnswer != assignmentAnswer.Item1.CorrectAnswer)
-                                                                {
-                                                                    <div class="input-group" style="margin-bottom: 5px">
-                                                                        <span class="input-group-addon">
-                                                                            <input type="radio" aria-label="..." disabled="">
-                                                                        </span>
-                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lemonchiffon" placeholder="@exAnswersOpp.Text" disabled="">
-                                                                    </div>
-                                                                }
+                                                                    if (exAnswersOpp.AnswerOptionId == assignmentAnswer
+                                                                        .Item1.AnswerOptions[assignmentAnswer.Item1.CorrectAnswer].AnswerOptionId
+                                                                        && assignmentAnswer.Item2.ChosenAnswer == assignmentAnswer.Item1.CorrectAnswer)
+                                                                    {
+                                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                                            <span class="input-group-addon rdonly">
+                                                                                <input type="radio" aria-label="..." checked="" disabled="">
+                                                                            </span>
+                                                                            <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightgreen" placeholder="@exAnswersOpp.Text" disabled="">
+                                                                        </div>
+                                                                    }
+                                                                    else if (exAnswersOpp.AnswerOptionId == assignmentAnswer
+                                                                        .Item1.AnswerOptions[assignmentAnswer.Item1.CorrectAnswer].AnswerOptionId
+                                                                             && assignmentAnswer.Item2.ChosenAnswer != assignmentAnswer.Item1.CorrectAnswer)
+                                                                    {
+                                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                                            <span class="input-group-addon">
+                                                                                <input type="radio" aria-label="..." disabled="">
+                                                                            </span>
+                                                                            <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lemonchiffon" placeholder="@exAnswersOpp.Text" disabled="">
+                                                                        </div>
+                                                                    }
 
-                                                                else if (assignmentAnswer.Item1.AnswerOptions.IndexOf(exAnswersOpp) == assignmentAnswer.Item2.ChosenAnswer
-                                                                         && assignmentAnswer.Item2.ChosenAnswer != assignmentAnswer.Item1.CorrectAnswer)
-                                                                {
-                                                                    <div class="input-group" style="margin-bottom: 5px">
-                                                                        <span class="input-group-addon">
-                                                                            <input type="radio" aria-label="..." checked="" disabled="">
-                                                                        </span>
-                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightpink" placeholder="@exAnswersOpp.Text" disabled="">
-                                                                    </div>
+                                                                    else if (assignmentAnswer.Item1.AnswerOptions.IndexOf(exAnswersOpp) == assignmentAnswer.Item2.ChosenAnswer
+                                                                             && assignmentAnswer.Item2.ChosenAnswer != assignmentAnswer.Item1.CorrectAnswer)
+                                                                    {
+                                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                                            <span class="input-group-addon">
+                                                                                <input type="radio" aria-label="..." checked="" disabled="">
+                                                                            </span>
+                                                                            <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightpink" placeholder="@exAnswersOpp.Text" disabled="">
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                                            <span class="input-group-addon">
+                                                                                <input type="radio" aria-label="..." disabled="">
+                                                                            </span>
+                                                                            <input type="text" class="form-control rdonly" aria-label="..." placeholder="@exAnswersOpp.Text" disabled="">
+                                                                        </div>
+                                                                    }
+
                                                                 }
-                                                                else
+                                                            }
+                                                            else if (assignmentAnswer.Item1.Type == EnumCollection.AssignmentType.MultipleChoice)
+                                                            {
+                                                                int counter = 0;
+                                                                foreach (var muAnswerOpp in assignmentAnswer.Item1.AnswerOptions)
                                                                 {
-                                                                    <div class="input-group" style="margin-bottom: 5px">
-                                                                        <span class="input-group-addon">
-                                                                            <input type="radio" aria-label="..." disabled="">
-                                                                        </span>
-                                                                        <input type="text" class="form-control rdonly" aria-label="..." placeholder="@exAnswersOpp.Text" disabled="">
-                                                                    </div>
+
+                                                                    if (assignmentAnswer.Item2.ChosenAnswers[counter].Value == assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
+                                                                    {
+                                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                                            <span class="input-group-addon">
+                                                                                <input type="checkbox" aria-label="..." checked="" disabled="">
+                                                                            </span>
+                                                                            <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightgreen" placeholder="@muAnswerOpp.Text" disabled="">
+                                                                        </div>
+                                                                    }
+                                                                    else if (assignmentAnswer.Item2.ChosenAnswers[counter].Value == false && assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
+                                                                    {
+                                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                                            <span class="input-group-addon">
+                                                                                <input type="checkbox" aria-label="..." disabled="">
+                                                                            </span>
+                                                                            <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lemonchiffon" placeholder="@muAnswerOpp.Text" disabled="">
+                                                                        </div>
+                                                                    }
+                                                                    else if (assignmentAnswer.Item2.ChosenAnswers[counter].Value != assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
+                                                                    {
+                                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                                            <span class="input-group-addon">
+                                                                                <input type="checkbox" aria-label="..." checked="" disabled="">
+                                                                            </span>
+                                                                            <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightpink" placeholder="@muAnswerOpp.Text" disabled="">
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="input-group" style="margin-bottom: 5px">
+                                                                            <span class="input-group-addon">
+                                                                                <input type="radio" aria-label="..." disabled="">
+                                                                            </span>
+                                                                            <input type="text" class="form-control rdonly" aria-label="..." placeholder="@muAnswerOpp.Text" disabled="">
+                                                                        </div>
+                                                                    }
+                                                                    counter++;
                                                                 }
+                                                            }
+                                                            else if (assignmentAnswer.Item1.Type == EnumCollection.AssignmentType.Text)
+                                                            {
+                                                                <i>@assignmentAnswer.Item2.AnswerText</i>
 
                                                             }
-                                                        }
-                                                        else if (assignmentAnswer.Item1.Type == EnumCollection.AssignmentType.MultipleChoice)
-                                                        {
-                                                            int counter = 0;
-                                                            foreach (var muAnswerOpp in assignmentAnswer.Item1.AnswerOptions)
-                                                            {
-
-                                                                if (assignmentAnswer.Item2.ChosenAnswers[counter].Value == assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
-                                                                {
-                                                                    <div class="input-group" style="margin-bottom: 5px">
-                                                                        <span class="input-group-addon">
-                                                                            <input type="checkbox" aria-label="..." checked="" disabled="">
-                                                                        </span>
-                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightgreen" placeholder="@muAnswerOpp.Text" disabled="">
-                                                                    </div>
-                                                                }
-                                                                else if (assignmentAnswer.Item2.ChosenAnswers[counter].Value == false && assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
-                                                                {
-                                                                    <div class="input-group" style="margin-bottom: 5px">
-                                                                        <span class="input-group-addon">
-                                                                            <input type="checkbox" aria-label="..." disabled="">
-                                                                        </span>
-                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lemonchiffon" placeholder="@muAnswerOpp.Text" disabled="">
-                                                                    </div>
-                                                                }
-                                                                else if (assignmentAnswer.Item2.ChosenAnswers[counter].Value != assignmentAnswer.Item1.AnswerCorrectness[counter].Value)
-                                                                {
-                                                                    <div class="input-group" style="margin-bottom: 5px">
-                                                                        <span class="input-group-addon">
-                                                                            <input type="checkbox" aria-label="..." checked="" disabled="">
-                                                                        </span>
-                                                                        <input type="text" class="form-control rdonly" aria-label="..." style="background-color: lightpink" placeholder="@muAnswerOpp.Text" disabled="">
-                                                                    </div>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <div class="input-group" style="margin-bottom: 5px">
-                                                                        <span class="input-group-addon">
-                                                                            <input type="radio" aria-label="..." disabled="">
-                                                                        </span>
-                                                                        <input type="text" class="form-control rdonly" aria-label="..." placeholder="@muAnswerOpp.Text" disabled="">
-                                                                    </div>
-                                                                }
-                                                                counter++;
-                                                            }
-                                                        }
-                                                        else if (assignmentAnswer.Item1.Type == EnumCollection.AssignmentType.Text)
-                                                        {
-                                                            <i>@assignmentAnswer.Item2.AnswerText</i>
-
-                                                        }
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <hr/>
-                                            }
+                                                    <hr />
+                                                }
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 }
                             }<!-- innerCollapse end -->
                         </div>
@@ -185,8 +187,3 @@
         </div>
     }
 </div>
-
-
-
-
-

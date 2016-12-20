@@ -16,25 +16,25 @@ namespace ADL.Tests
 {
     public class LocationControllerTests
     {
-        private Mock<ILocationRepository> locationRepositoryMock;
-        private LocationController LocationController;
+        private readonly Mock<ILocationRepository> _locationRepositoryMock;
+        private readonly LocationController _locationController;
 
-        UserManager<Person> userManager;
-        private static List<Person> users;
+        UserManager<Person> _userManager;
+        private static List<Person> _users;
 
         public LocationControllerTests()
         {
 
-            locationRepositoryMock = new Mock<ILocationRepository>();
+            _locationRepositoryMock = new Mock<ILocationRepository>();
 
-            locationRepositoryMock.Setup(m => m.Locations).Returns(new Location[]
+            _locationRepositoryMock.Setup(m => m.Locations).Returns(new Location[]
             {
                 new Location {LocationId = 1, Title = "t1", Description = "d1", SchoolId = 1},
                 new Location {LocationId = 2, Title = "t2", Description = "d2", SchoolId = 1},
                 new Location {LocationId = 3, Title = "t3", Description = "d3", SchoolId = 2}
             });
 
-            users = new List<Person>
+            _users = new List<Person>
              {
                  new Person() {Firstname = "Eigil", Lastname = "maaalt", SchoolId = 1, PersonType = PersonTypes.Teacher, Id = "1"},
                  new Person() {Firstname = "Jonas", Lastname = "Saxegaard", SchoolId = 1, PersonType = PersonTypes.Teacher, Id = "2"},
@@ -43,10 +43,10 @@ namespace ADL.Tests
 
             var userStore = new Mock<IUserStore<Person>>();
             UserManager<Person> um = new UserManager<Person>(userStore.Object, null, null, null, null, null, null, null, null);
-            userStore.Setup(u => u.FindByIdAsync(users.First().Id, default(CancellationToken))).Returns(new Task<Person>(() => users.First()));
+            userStore.Setup(u => u.FindByIdAsync(_users.First().Id, default(CancellationToken))).Returns(new Task<Person>(() => _users.First()));
 
 
-            LocationController = new LocationController(locationRepositoryMock.Object, userManager);   
+            _locationController = new LocationController(_locationRepositoryMock.Object, _userManager);   
         }
 
        [Theory]
@@ -58,7 +58,7 @@ namespace ADL.Tests
            // Arrange is done in ctor 
 
            // Act
-           Location requestedLocation = LocationController.Edit(id).ViewData.Model as Location;
+           Location requestedLocation = _locationController.Edit(id).ViewData.Model as Location;
            // Assert
            Assert.Equal(requestedLocation.LocationId, id);
            Assert.Equal(requestedLocation.Title, "t" + id);
@@ -73,7 +73,7 @@ namespace ADL.Tests
            // Arrange is done in ctor 
 
            // Act
-           Location requestedLocation = LocationController.Edit(id).ViewData.Model as Location;
+           Location requestedLocation = _locationController.Edit(id).ViewData.Model as Location;
            // Assert
            Assert.Equal(requestedLocation, null);
        }
@@ -81,7 +81,7 @@ namespace ADL.Tests
        public void Can_Save_Valid_Changes() {
             var userStore = new Mock<IUserStore<Person>>();
             UserManager<Person> um = new UserManager<Person>(userStore.Object, null, null, null, null, null, null, null, null);
-            userStore.Setup(u => u.FindByIdAsync(users.First().Id, default(CancellationToken))).Returns(new Task<Person>(() => users.First()));
+            userStore.Setup(u => u.FindByIdAsync(_users.First().Id, default(CancellationToken))).Returns(new Task<Person>(() => _users.First()));
 
            // Arrange - create mock repository
            Mock<ILocationRepository> mock = new Mock<ILocationRepository>();
@@ -111,9 +111,9 @@ namespace ADL.Tests
        {
            // Arrange is done in ctor 
            // Act
-           LocationController.Delete(id);
+           _locationController.Delete(id);
            // Assert
-           locationRepositoryMock.Verify(m => m.DeleteLocation(id));
+           _locationRepositoryMock.Verify(m => m.DeleteLocation(id));
        }
 
        [Theory]
@@ -124,9 +124,9 @@ namespace ADL.Tests
        {
            // Arrange is done in ctor
            // Act
-           LocationController.Delete(id);
+           _locationController.Delete(id);
            // Assert
-           locationRepositoryMock.Verify(m => m.DeleteLocation(id));
+           _locationRepositoryMock.Verify(m => m.DeleteLocation(id));
        }
 
     }

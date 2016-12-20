@@ -12,14 +12,14 @@ namespace ADL.Controllers
     [Authorize(Roles="Admin, Lærer")]
     public class CouplingController : Controller
     {
-        private readonly ILocationRepository locationRepository;
-        private readonly IClassRepository classRepository;
-        private readonly IAssignmentSetRepository assignmentSetRepository;
+        private readonly ILocationRepository _locationRepository;
+        private readonly IClassRepository _classRepository;
+        private readonly IAssignmentSetRepository _assignmentSetRepository;
         public CouplingController(ILocationRepository locationRepo, IClassRepository classRepo, IAssignmentSetRepository assignmentSetRepo)
         {
-            locationRepository = locationRepo;
-            classRepository = classRepo;
-            assignmentSetRepository = assignmentSetRepo;
+            _locationRepository = locationRepo;
+            _classRepository = classRepo;
+            _assignmentSetRepository = assignmentSetRepo;
         }
 
         public ViewResult ChooseClass(int currentSchoolId, int chosenAssignmentSetId)
@@ -28,16 +28,16 @@ namespace ADL.Controllers
             ChooseClassViewModel model = new ChooseClassViewModel()
             {
                 ChosenAssignmentSetId = chosenAssignmentSetId,
-                AvailableClasses = classRepository.Classes.Where(c => c.SchoolId == currentSchoolId)
+                AvailableClasses = _classRepository.Classes.Where(c => c.SchoolId == currentSchoolId)
             };
             return View(model);
         }
 
         public ViewResult Differentiate(int chosenAssignmentSetId, int chosenClassId)
         {
-            var chosenClass = classRepository.Classes.FirstOrDefault(c => c.ClassId == chosenClassId);
+            var chosenClass = _classRepository.Classes.FirstOrDefault(c => c.ClassId == chosenClassId);
             chosenClass.People = chosenClass.People.Where(p => p.PersonType == PersonTypes.Student).ToList(); // Only take students connected to class
-            var chosenAssignmentSet = assignmentSetRepository.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == chosenAssignmentSetId);
+            var chosenAssignmentSet = _assignmentSetRepository.AssignmentSets.FirstOrDefault(a => a.AssignmentSetId == chosenAssignmentSetId);
             if (chosenClass != null && chosenAssignmentSet != null)
             {
                 DifferentiateViewModel model = new DifferentiateViewModel()
@@ -62,7 +62,7 @@ namespace ADL.Controllers
                 {
                     PersonAssignmentCouplings = new List<PersonAssignmentCoupling>(),
                     ChosenLocations = new List<ChosenLocation>(),
-                    AvailableLocations = locationRepository.Locations.Where(l => l.SchoolId == model.CurrentSchoolId).ToList()
+                    AvailableLocations = _locationRepository.Locations.Where(l => l.SchoolId == model.CurrentSchoolId).ToList()
 
                 };
                 foreach (var possibleCoupling in model.PersonAssignmentCouplings)
@@ -104,7 +104,7 @@ namespace ADL.Controllers
                     foreach (var locationId in chosenLocations.Keys)
                     {
                         // Clear old couplings for this person on the chosen locations
-                        locationRepository.RemoveAllCouplingsForSpecificPersonOnLocation(locationId, personId);
+                        _locationRepository.RemoveAllCouplingsForSpecificPersonOnLocation(locationId, personId);
                     }
                     List<int> assignmentsForPerson = model.PersonAssignmentCouplings.Where(pac => pac.PersonId == personId).Select(pac => pac.AssignmentId).ToList();
                     List<int> locationsForPerson = chosenLocations.Keys.ToList();
@@ -139,11 +139,11 @@ namespace ADL.Controllers
                 }
                 foreach(var kvp in chosenLocations)
                 { // Save the changes to db
-                    locationRepository.AddCouplingsToLocation(kvp.Key, kvp.Value);
+                    _locationRepository.AddCouplingsToLocation(kvp.Key, kvp.Value);
                 }
 
                 TempData["message"] = "Koblingen blev gemt.";
-                return View();
+                return RedirectToAction("List", "Assignment");
             }
             TempData["errorMessage"] = "Der skete en fejl.";
             return View(nameof(ChooseLocations), model);

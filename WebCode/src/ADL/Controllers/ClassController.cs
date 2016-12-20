@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using ADL.Models;
 using ADL.Models.Repositories;
@@ -11,15 +11,15 @@ namespace ADL.Controllers
     [Authorize(Roles = "Lærer,Admin")]
     public class ClassController : Controller
     {
-        private readonly IClassRepository classRepository;
-        private readonly UserManager<Person> userManager;
+        private readonly IClassRepository _classRepository;
+        private readonly UserManager<Person> _userManager;
         public ClassController(IClassRepository classRepo, UserManager<Person> usrMgr)
         {
-            classRepository = classRepo;
-            userManager = usrMgr;
+            _classRepository = classRepo;
+            _userManager = usrMgr;
         }
 
-        public Task<Person> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        public Task<Person> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         public async Task<ViewResult> Create()
         {
             int currentSchoolId = (await GetCurrentUserAsync()).SchoolId;
@@ -32,17 +32,17 @@ namespace ADL.Controllers
         {
             if (ModelState.IsValid)
             {
-                classRepository.SaveClass(newClass);
+                _classRepository.SaveClass(newClass);
                 TempData["message"] = $"Klassen '{newClass.StartYear} {newClass.Name}' blev oprettet.";
                 int currentUserSchoolId = (await GetCurrentUserAsync()).SchoolId;
-                return View("List", classRepository.Classes.Where(c => c.SchoolId == currentUserSchoolId));
+                return View("List", _classRepository.Classes.Where(c => c.SchoolId == currentUserSchoolId));
             }
             return View(newClass);
         }
         public async Task<ViewResult> List()
         {
             int currentSchoolId = (await GetCurrentUserAsync()).SchoolId;
-            return View(classRepository.Classes.Where(c => c.SchoolId == currentSchoolId));
+            return View(_classRepository.Classes.Where(c => c.SchoolId == currentSchoolId));
         }
     }
 }

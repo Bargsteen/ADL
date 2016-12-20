@@ -20,12 +20,13 @@ namespace ADL.Tests
 {
     public class ApiControllerTests
     {
-        private Mock<IAssignmentSetRepository> mockAssignmentSetRepository;
-        private Mock<ILocationRepository> mockLocationRepository;
-        private Mock<IAnswerRepository> mockAnswerRepository;
-        private Mock<SignInManager<Person>> mockSignInManager;
+        private readonly Mock<IAssignmentSetRepository> _mockAssignmentSetRepository;
+        private readonly Mock<ILocationRepository> _mockLocationRepository;
+        private readonly Mock<IAnswerRepository> _mockAnswerRepository;
+        private readonly Mock<SignInManager<Person>> _mockSignInManager;
         private readonly ApiController _apiController;
-        Person testPerson = new Person()
+
+        readonly Person _testPerson = new Person()
         {
             Id = "TestPerId",
             UserName = "TestUserName",
@@ -34,14 +35,14 @@ namespace ADL.Tests
         };
         public ApiControllerTests()
         {
-            mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
-            mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
+            _mockAssignmentSetRepository = new Mock<IAssignmentSetRepository>();
+            _mockAssignmentSetRepository.Setup(m => m.AssignmentSets).Returns(new[]
              {
                 new AssignmentSet {AssignmentSetId = 1, Title = "TestTitle", Description = "TestDescription", Assignments = new List<Assignment>(){new Assignment { AssignmentId = 7, Text = "TestText"}}  }
 
              });
-            mockLocationRepository = new Mock<ILocationRepository>();
-            mockLocationRepository.SetupGet(l => l.Locations).Returns(new List<Location>()
+            _mockLocationRepository = new Mock<ILocationRepository>();
+            _mockLocationRepository.SetupGet(l => l.Locations).Returns(new List<Location>()
             {
                     new Location()
                     {
@@ -86,17 +87,17 @@ namespace ADL.Tests
                     }
 
             });
-            mockAnswerRepository = new Mock<IAnswerRepository>();
+            _mockAnswerRepository = new Mock<IAnswerRepository>();
             var userStore = new Mock<IUserStore<Person>>();
-            userStore.Setup(u => u.FindByIdAsync(testPerson.Id, default(CancellationToken))).Returns(new Task<Person>(() => testPerson));
+            userStore.Setup(u => u.FindByIdAsync(_testPerson.Id, default(CancellationToken))).Returns(new Task<Person>(() => _testPerson));
             UserManager<Person> um = new UserManager<Person>(userStore.Object, null, null, null, null, null, null, null, null);
-            mockSignInManager = new Mock<SignInManager<Person>>();
-            mockSignInManager.Setup(s => s.PasswordSignInAsync(testPerson, "TestPassword", false, false))
+            _mockSignInManager = new Mock<SignInManager<Person>>();
+            _mockSignInManager.Setup(s => s.PasswordSignInAsync(_testPerson, "TestPassword", false, false))
                 .Returns(new Task<SignInResult>(() => new SignInResult()
                 {
 
                 }));
-            _apiController = new ApiController(mockAssignmentSetRepository.Object, mockLocationRepository.Object, mockAnswerRepository.Object, um, null);
+            _apiController = new ApiController(_mockAssignmentSetRepository.Object, _mockLocationRepository.Object, _mockAnswerRepository.Object, um, null);
         }
         [Fact]
         public void TestGetAssignmentFromLocationIdAndUserId()
