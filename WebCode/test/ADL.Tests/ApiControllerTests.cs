@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using ADL.Controllers;
 using ADL.Models;
-using ADL.Models.ViewModels;
 using Moq;
 using ADL.Models.Assignments;
 using ADL.Models.Repositories;
 using Xunit;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Xunit.Sdk;
 
 namespace ADL.Tests
 {

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
 using ADL.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using static ADL.Models.EnumCollection;

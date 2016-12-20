@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using ADL.Models;
 using ADL.Models.Repositories;
-using ADL.Models.Assignments;
-using ADL.Models.Answers;
 using System.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ADL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using ADL.Models.Answers;
 using ADL.Models.Assignments;
-using ADL.Models.Repositories;
 
 namespace ADL.Models.ViewModels
 {

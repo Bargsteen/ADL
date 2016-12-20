@@ -1,5 +1,4 @@
-﻿using System;
-using ZXing.QrCode;
+﻿using ZXing.QrCode;
 using System.Drawing;
 
 namespace ADL.Models

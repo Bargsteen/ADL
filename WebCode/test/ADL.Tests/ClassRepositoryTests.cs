@@ -1,16 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using ADL.Models;
 using ADL.Models.Repositories;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using Xunit;
-using static ADL.Models.EnumCollection;
 
 namespace ADL.Tests
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using ADL.Controllers;
 using ADL.Models;
@@ -9,9 +8,7 @@ using ADL.Models.Answers;
 using ADL.Models.Assignments;
 using ADL.Models.Repositories;
 using ADL.Models.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Moq;
 using Xunit;
 

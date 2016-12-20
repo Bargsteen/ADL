@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace ADL.Models.ViewModels

@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using ADL.Models;
 using ADL.Models.Repositories;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
-using static ADL.Models.EnumCollection;
 
 namespace ADL.Controllers
 {
