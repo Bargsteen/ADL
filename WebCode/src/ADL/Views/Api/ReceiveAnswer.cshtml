@@ -1,8 +1,0 @@
-@model Answer
-
-<p>@Model.AnsweredAssignment.Headline</p>
-
-<form asp-action="ReceiveAnswer" method="POST">
-    <input type="hidden" value="@Model.AnsweredAssignment" asp-for="AnsweredAssignment" />
-    <button class="btn btn-primary" type="submit">Besvar</button>
-</form>
